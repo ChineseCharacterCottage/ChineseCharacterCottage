@@ -1,0 +1,29 @@
+﻿[
+  {
+    "pinyin": "hua",
+    "notes": "Flower,spend",
+    "date": 0,
+    "radical": "艹",
+    "theId": "花",
+    "struct": "UP_DOWN",
+    "sourceAddress": "flower.jpg"
+  },
+  {
+    "pinyin": "cǎo",
+    "notes": "grass",
+    "date": 0,
+    "radical": "艹",
+    "theId": "草",
+    "struct": "UP_DOWN",
+    "sourceAddress": "grass.jpg"
+  },
+  {
+    "pinyin": "lóng",
+    "notes": "dragon",
+    "date": 0,
+    "radical": "龙",
+    "theId": "龙",
+    "struct": "ALONE",
+    "sourceAddress": "dragon.jpg"
+  }
+]

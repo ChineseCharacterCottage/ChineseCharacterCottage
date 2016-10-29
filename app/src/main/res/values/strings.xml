@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">ChineseCharacterCottage</string>
+    <string name="button_next_character">Next Character</string>
+    <string name="button_HSK_learning">Learn HSK</string>
+    <string name="button_radical_learning">Learn Radical</string>
+    <string name="button_pictogram_learning">Learn Pictogram</string>
+    <string name="button_test">Test</string>
+    <string name="button_char_bookmark">Review Bookmark</string>
 </resources>

@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="16dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="16dp"
+    tools:context="ecnu.chinesecharactercottage.CCCMainActivity">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="?android:attr/progressBarStyleHorizontal"/>
+
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:layout_width="100dp"
+                android:layout_height="130dp">
+
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="130dp"
+                    android:src="@drawable/matt"/>
+
+                <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="100dp"
+                    android:layout_height="130dp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/pinyin"
+                        android:layout_width="100dp"
+                        android:layout_height="30dp"
+                        android:textSize="23sp"
+                        android:gravity="center" />
+
+                    <ImageView
+                        android:id="@+id/figure"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:gravity="center" />
+                </LinearLayout>
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="130dp"
+                android:layout_weight="1">
+                <Button
+                    android:id="@+id/media_pronunciation"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/horn"/>
+            </FrameLayout>
+
+            <Button
+                android:id="@+id/mark"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="end"
+                android:background="@drawable/star"/>
+
+        </LinearLayout>
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TableRow>
+                <TextView
+                    android:text="Radical:"
+                    android:layout_height="wrap_content"
+                    style="@style/TestText" />
+
+                <TextView
+                    android:text="测试，这是部首"
+                    android:id="@+id/radical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/TestText" />
+            </TableRow>
+
+            <TableRow>
+                <TextView
+                    android:text="Parts:"
+                    android:layout_height="wrap_content"
+                    style="@style/TestText" />
+
+                <TextView
+                    android:text="测试，这是部件"
+                    android:id="@+id/part"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/TestText" />
+            </TableRow>
+
+            <TableRow>
+                <TextView
+                    android:text="Stroke count:"
+                    android:layout_height="wrap_content"
+                    style="@style/TestText" />
+
+                <TextView
+                    android:text="测试，这是笔画数目"
+                    android:id="@+id/stroke_count"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/TestText" />
+            </TableRow>
+
+            <TableRow>
+                <TextView
+                    android:text="Meaning:"
+                    android:layout_height="wrap_content"
+                    style="@style/TestText" />
+
+                <TextView
+                    android:text="测试，这是英文解释"
+                    android:id="@+id/meaning"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/TestText" />
+            </TableRow>
+
+            <TableRow>
+                <TextView
+                    android:text="Words:"
+                    android:layout_height="wrap_content"
+                    style="@style/TestText" />
+
+                <TextView
+                    android:text="测试，这是组词"
+                    android:id="@+id/words"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/TestText" />
+            </TableRow>
+
+        </TableLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/button_link_learning"
+                android:text="链接到学习板块"
+                style="@style/TestButton"/>
+
+            <Button
+                android:id="@+id/button_link_radical"
+                android:text="链接到部首板块"
+                style="@style/TestButton"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/button_link_media"
+                android:text="链接到其他媒体"
+                style="@style/TestButton"/>
+
+            <Button
+                android:id="@+id/button_link_dictionary"
+                android:text="链接到其他字典"
+                style="@style/TestButton"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/button_next"
+        android:text="@string/button_next_character"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_centerInParent="true"
+        android:layout_alignParentBottom="true"
+        android:textSize="20sp"
+        android:textAllCaps="false"/>
+
+</RelativeLayout>
