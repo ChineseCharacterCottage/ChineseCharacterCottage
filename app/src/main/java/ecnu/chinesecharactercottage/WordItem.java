@@ -10,8 +10,11 @@ import android.media.MediaPlayer;
 public class WordItem implements Readable{
 
     private String mWord;
+    private String mChinese;
     private String mSource;
-    public WordItem(String word,String source){
+
+    public WordItem(String word,String chinese,String source){
+        mChinese=chinese;
         mWord=word;
         mSource=source;
     }
@@ -19,8 +22,11 @@ public class WordItem implements Readable{
     public String getWord(){
         return mWord;
     }
+    public String getChinese(){
+        return mChinese;
+    }
     @Override
-    public MediaPlayer getMediaPlayer(Context c){
+    public MediaPlayer getMediaPlayer(Context c) {
         return null;
     }
 }
