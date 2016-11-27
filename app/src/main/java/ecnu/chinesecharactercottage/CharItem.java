@@ -7,6 +7,7 @@ import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
+import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -23,164 +24,74 @@ import java.util.GregorianCalendar;
  * A class to describe a character item.
  * It can only created by JSONObject.
  */
-public class CharItem implements Readable{
 
+public class CharItem implements Readable {
+    private static final String ID="ID";
+    public static final String CHARACTER="character";
+    public static final String PINYIN="pinyin";
+    private static final String WORDS="words";
+    public static final String SENTENCE="sentence";
+    public static final String EXPLANATION="explanation";
 
-    private static final String JSON_PY="拼音";
-    private static final String JSON_SHAPE="汉字字形";
-    private static final String JSON_NOTE="英文字意";
-    private static final String JSON_ADDRESS="图片";
-    private static final String JSON_DATE="date";
-    private static final String JSON_BS="部首";
-    private static final String JSON_ID="ID";
-    private static final String JSON_STR="平面结构";
-    private static final String JSON_MEDIA_ADDRESS="音频";
-    private static final String JSON_WORDS="例词";
-    private static final String JSON_SEN="例句";
-
-    private String mShape;
-    //Pinyin of this character.
-    private String mPinyin;
-    //Anything else about this character.
-    private String mNotes;
-    //The local address of the picture of the word.
-    private String mSourceAddress;
-    //To search the character.
+    private JSONObject mJSON;
     private String mId;
-    //Last appear time of this character.
-    private String mRadical;
-    private String mMediaAddress;
-    private WordItem[] mWords;
-    private String mSens;
-    private GregorianCalendar mLastAppearDate=new GregorianCalendar();
-
-    private Bitmap mImage;
-
-    private String mStruct;
-
-    public String getSentence(){
-        return mSens;
-    }
-    public String getShape(){
-        return mShape;
+    public CharItem(JSONObject json) {
+        mJSON=json;
+        mId=get(ID);
     }
 
-    public String getStruct(){
-        return mStruct;
+    public String getId(){
+        return mId;
     }
-
-    public WordItem[] getWords(){
-        return mWords;
-    }
-
-    public Bitmap getImage(Context context) {
-        Context appContext=context.getApplicationContext();
-        if (mImage == null) {
-            AssetManager manager=appContext.getAssets();
-            try {
-                InputStream stream = manager.open(mSourceAddress);
-                mImage = BitmapFactory.decodeStream(stream);
-            } catch (IOException e) {
-                mImage = BitmapFactory.decodeResource(appContext.getResources(), R.drawable.imagenotfound);
-            }
+    public String get(String property) {
+        String r=null;
+        try {
+            r=mJSON.getString(property);
         }
-        return mImage;
-    }
-
-    public Bitmap getImage(){
-        return mImage;
-    }
-
-    //Create an CharItem object by JSON.
-    public CharItem(JSONObject json) throws JSONException {
-        mSens=json.getString(JSON_SEN);
-        mShape=json.getString(JSON_SHAPE);
-        mPinyin=json.getString(JSON_PY);
-        mNotes=json.getString(JSON_NOTE);
-        mLastAppearDate=new GregorianCalendar();
-        mLastAppearDate.setTime(new Date(Long.valueOf(json.getString(JSON_DATE))));
-        mSourceAddress=json.getString(JSON_ADDRESS);
-        mRadical=json.getString(JSON_BS);
-        mId=json.getString(JSON_ID);
-        mStruct=json.getString(JSON_STR);
-        mMediaAddress=json.getString(JSON_MEDIA_ADDRESS);
-        ArrayList<WordItem> temList=new ArrayList<>();
-        String[] words=json.getString(JSON_WORDS).split(",");
-        for(int i=0;i<words.length;i+=2) {
-            temList.add(new WordItem(words[i+1],words[i],null));
+        catch (JSONException e){
+            Log.d("CharItem",e.toString());
         }
-        mWords=temList.toArray(new WordItem[temList.size()]);
-        mImage=null;
-    }
-
-    public String getRadical() {
-        return mRadical;
-    }
-
-
-    //Translate the object to JSON.
-    public JSONObject toJSON()throws JSONException {
-        JSONObject json=new JSONObject();
-        json.put(JSON_SEN,mSens);
-        json.put(JSON_SHAPE,mShape);
-        json.put(JSON_ID,mId);
-        json.put(JSON_ADDRESS,mSourceAddress);
-        json.put(JSON_DATE,String.valueOf(mLastAppearDate.getTime().getTime()));
-        json.put(JSON_PY,mPinyin);
-        json.put(JSON_NOTE,mNotes);
-        json.put(JSON_BS,mRadical);
-        json.put(JSON_STR,mStruct);
-        json.put(JSON_MEDIA_ADDRESS,mMediaAddress);
-        StringBuffer buffer=new StringBuffer();
-        for(int i=0;i<mWords.length;i++) {
-            buffer.append(mWords[i].getChinese());
-            buffer.append(",");
-            buffer.append(mWords[i].getWord());
-            if(i!=mWords.length-1){
-                buffer.append(",");
-            }
+        if(property.equals(PINYIN)){
+            return pinyinTranslate(r);
         }
-        json.put(JSON_WORDS,buffer.toString());
-        return json;
-    }
-
-    //Change last appear date to now.
-    //调用这个函数用来更新日期到当前时间
-    public void newAppear(){
-        mLastAppearDate=new GregorianCalendar();
-    }
-
-    //Get a copy of the date.
-    public Calendar getLastAppearDate(){
-        if(mLastAppearDate==null)return null;
-        GregorianCalendar r=new GregorianCalendar();
-        r.setTime(mLastAppearDate.getTime());
         return r;
     }
 
-    public String getId() {
-        return mId;
+    public WordItem[] getWords(){
+        String[] words=get(WORDS).split(",");
+        ArrayList<WordItem> list=new ArrayList<>();
+        for(int i=0;i<words.length;i+=2) {
+            list.add(new WordItem(words[1],words[0],"w_"+get("ID")+i/2+1+".wav"));
+        }
+        return list.toArray(new WordItem[list.size()]);
     }
-
-
-    public String getSourceAddress() {
-        return mSourceAddress;
+    public JSONObject toJSON(){
+        try {
+            return new JSONObject(mJSON.toString());
+        }catch (Exception e) {
+            Log.d("CharItem",e.toString());
+        }
+        return null;
     }
-
-    public String getNotes() {
-        return mNotes;
-    }
-
-
-    public String getPinyin() {
-        return pinyinTranslate(mPinyin);
-    }
-
     @Override
     public MediaPlayer getMediaPlayer(Context c){
         return null;
     }
-
+    public MediaPlayer getSentenceMediaPlayer(Context c){
+        return null;
+    }
+    public Bitmap getImage(Context context){
+        Context appContext=context.getApplicationContext();
+        AssetManager manager=appContext.getAssets();
+        Bitmap image;
+        try {
+            InputStream stream = manager.open(get("ID")+".jpg");
+            image = BitmapFactory.decodeStream(stream);
+        } catch (IOException e) {
+            image = BitmapFactory.decodeResource(appContext.getResources(), R.drawable.imagenotfound);
+        }
+        return image;
+    }
     private static String pinyinTranslate(String s){
         int d;
         char[] array;
