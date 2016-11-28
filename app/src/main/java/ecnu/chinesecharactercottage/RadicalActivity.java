@@ -1,11 +1,7 @@
 package ecnu.chinesecharactercottage;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -36,32 +32,15 @@ public class RadicalActivity extends Activity {
     private TextView mSimilarity;
     //部首例字
     private ExampleCharacter mExampleCharacter;
-    //下一个
-    private Button mButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_radical);
+        setContentView(R.layout.activity_radical_item);
 
         init();//初始化
 
         setRadical();
-        
-        mButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mRadicalNow++;
-                if(mRadicalNow<=mRadicalNumber){
-                    if(mRadicalNow==mRadicalNumber)
-                        mButton.setText("finish");
-                    setRadical();
-                }
-                else {
-                    saveDate();
-                }
-            }
-        });
 
     }
 
@@ -73,7 +52,6 @@ public class RadicalActivity extends Activity {
         mMeaning=(TextView)findViewById(R.id.radical_meaning);
         mSimilarity=(TextView)findViewById(R.id.radical_similarity);
         mExampleCharacter=(ExampleCharacter)findViewById(R.id.radical_example);
-        mButton=(Button)findViewById(R.id.next_radical);
 
         mRadicalArray=getmRadicalArray();
         mRadicalNumber=mRadicalArray.length;

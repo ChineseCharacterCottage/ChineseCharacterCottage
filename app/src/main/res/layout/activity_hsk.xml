@@ -49,7 +49,7 @@
                         android:gravity="center"
                         android:textSize="23sp"/>
 
-                    <ImageView
+                    <TextView
                         android:id="@+id/figure"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
@@ -77,6 +77,11 @@
                 android:background="@drawable/star"/>
 
         </LinearLayout>
+
+        <ImageView
+            android:id="@+id/char_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
         <TableLayout
             android:layout_width="match_parent"
@@ -117,21 +122,6 @@
                 <TextView
                     style="@style/TestText"
                     android:layout_height="wrap_content"
-                    android:text="Stroke count:"/>
-
-                <TextView
-                    android:id="@+id/stroke_count"
-                    style="@style/TestText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="测试，这是笔画数目"/>
-            </TableRow>
-
-            <TableRow>
-
-                <TextView
-                    style="@style/TestText"
-                    android:layout_height="wrap_content"
                     android:text="Meaning:"/>
 
                 <TextView
@@ -157,39 +147,22 @@
                     android:text="测试，这是组词"/>
             </TableRow>
 
+            <TableRow>
+
+                <TextView
+                    style="@style/TestText"
+                    android:layout_height="wrap_content"
+                    android:text="Stroke count:"/>
+
+                <TextView
+                    android:id="@+id/char_sentence"
+                    style="@style/TestText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="测试，这是例句"/>
+            </TableRow>
+
         </TableLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/button_link_learning"
-                style="@style/TestButton"
-                android:text="链接到学习板块"/>
-
-            <Button
-                android:id="@+id/button_link_radical"
-                style="@style/TestButton"
-                android:text="链接到部首板块"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/button_link_media"
-                style="@style/TestButton"
-                android:text="链接到其他媒体"/>
-
-            <Button
-                android:id="@+id/button_link_dictionary"
-                style="@style/TestButton"
-                android:text="链接到其他字典"/>
-        </LinearLayout>
 
     </LinearLayout>
 
