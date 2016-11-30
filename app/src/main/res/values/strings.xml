@@ -2,6 +2,7 @@
     <string name="app_name">ChineseCharacterCottage</string>
     <string name="button_next_character">Next Character</string>
     <string name="button_next_radical">Next Radical</string>
+    <string name="button_finish">Finish</string>
     <string name="button_HSK_learning">Learn HSK</string>
     <string name="button_radical_learning">Learn Radical</string>
     <string name="button_pictogram_learning">Learn Pictogram</string>

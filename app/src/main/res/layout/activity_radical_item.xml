@@ -31,11 +31,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
-    <ecnu.chinesecharactercottage.ExampleCharacter
+    <LinearLayout
         android:id="@+id/radical_example"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </ecnu.chinesecharactercottage.ExampleCharacter>
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+    </LinearLayout>
 
     <TextView
         android:id="@+id/radical_similarity"
