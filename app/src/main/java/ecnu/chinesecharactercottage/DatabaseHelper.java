@@ -14,10 +14,17 @@ import java.io.InputStreamReader;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
+    private static DatabaseHelper sHelper;
+    public static DatabaseHelper getDateBaseInstance(Context context, String name , SQLiteDatabase.CursorFactory factory ,int version){
+        if(sHelper==null){
+            sHelper=new DatabaseHelper(context,name,factory,version);
+        }
+        return sHelper;
+    }
     private Context mContext;
-    public DatabaseHelper(Context context, String name , SQLiteDatabase.CursorFactory factory ,int version){
-        super(context,name,factory,version);
-        mContext=context;
+    private DatabaseHelper(Context context, String name , SQLiteDatabase.CursorFactory factory ,int version){
+        super(context.getApplicationContext(),name,factory,version);
+        mContext=context.getApplicationContext();
     }
     @Override
     public void onCreate(SQLiteDatabase db) {

@@ -67,12 +67,7 @@ public class CharItem implements Readable {
         return list.toArray(new WordItem[list.size()]);
     }
     public JSONObject toJSON(){
-        try {
-            return new JSONObject(mJSON.toString());
-        }catch (Exception e) {
-            Log.d("CharItem",e.toString());
-        }
-        return null;
+        return mJSON;
     }
     @Override
     public MediaPlayer getMediaPlayer(Context c){
