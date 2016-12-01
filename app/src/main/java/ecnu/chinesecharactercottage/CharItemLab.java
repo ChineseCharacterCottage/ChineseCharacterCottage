@@ -77,7 +77,7 @@ public class CharItemLab {
         if(mCharCache[intIdMod]==null || !(mCharCache[intIdMod].getId().equals(id))) {
             SQLiteDatabase cdb = mDatabaseHelper.getReadableDatabase();
             SQLiteDatabase udb_r = mUserCharDataHelper.getReadableDatabase();
-            Cursor cursor1 = cdb.query("char_data", null, "id=" + id, null, null, null, null);
+            Cursor cursor1 = cdb.query("char_item", null, "id=" + id, null, null, null, null);
             Cursor cursor2 = udb_r.query("user_char_data", null, "id=" + id, null, null, null, null);
             JSONObject json = null;
             if (cursor1.moveToFirst()) {

@@ -32,6 +32,7 @@ public class CharItem implements Readable {
     private static final String WORDS="words";
     public static final String SENTENCE="sentence";
     public static final String EXPLANATION="explanation";
+    private static final String RADICAL="radical_id";
 
     private JSONObject mJSON;
     private String mId;
