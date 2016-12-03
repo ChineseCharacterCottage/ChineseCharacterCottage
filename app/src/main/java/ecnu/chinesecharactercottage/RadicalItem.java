@@ -14,7 +14,7 @@ public class RadicalItem {
         mShape=shape;
     }
     public String getName(){
-        return null;
+        return "undefined";
     }
     public String getRadical(){
         return mShape;

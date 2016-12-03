@@ -21,12 +21,18 @@ public class RadicalLab {
         }
         return sLab;
     }
+    public static RadicalLab getLabWithoutContext()throws Exception{
+        if(sLab==null){
+            throw new Exception("Have no RadicalLab Instance!");
+        }
+        return sLab;
+    }
     private RadicalLab(Context context){
         mContext=context;
         mDatabaseHelper=DatabaseHelper.getDateBaseInstance(mContext,"char_date.db",null,0);
     }
 
-    private RadicalItem getRadical(String id){
+    public RadicalItem getRadical(String id){
         SQLiteDatabase db=mDatabaseHelper.getReadableDatabase();
         Cursor cursor=db.query("radical_learning", null, "ID=" + id, null, null, null, null);
         String shape=cursor.getString(cursor.getColumnIndex("radical_shape"));

@@ -1,7 +1,12 @@
 package ecnu.chinesecharactercottage;
 
 import android.content.Context;
+import android.content.res.AssetFileDescriptor;
 import android.media.MediaPlayer;
+import android.os.Build;
+import android.util.Log;
+
+import java.io.IOException;
 
 /**
  * Created by Shensheng on 2016/9/30.
@@ -27,6 +32,18 @@ public class WordItem implements Readable{
     }
     @Override
     public MediaPlayer getMediaPlayer(Context c) {
-        return null;
+        MediaPlayer mp=new MediaPlayer();
+        try {
+            AssetFileDescriptor fd=c.getAssets().openFd(mSource);
+            if(Build.VERSION.SDK_INT<24) {
+                mp.setDataSource(fd.getFileDescriptor(), fd.getStartOffset(), fd.getLength());
+            }else {
+                mp.setDataSource(c.getAssets().openFd(mSource));
+            }
+        }catch (IOException e){
+            Log.d("WordItem","Media file not found :"+e.toString());
+            return null;
+        }
+        return mp;
     }
 }

@@ -3,10 +3,12 @@ package ecnu.chinesecharactercottage;
 
 
 import android.content.Context;
+import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.util.Log;
 
 import org.json.JSONException;
@@ -15,9 +17,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
+
 
 /**
  * Created by Shensheng on 2016/9/11.
@@ -36,11 +36,21 @@ public class CharItem implements Readable {
 
     private JSONObject mJSON;
     private String mId;
+    private WordItem[] mWords;
     public CharItem(JSONObject json) {
+        mWords=null;
         mJSON=json;
         mId=get(ID);
     }
-
+    //调用getRadical之前，一定要先调用RadicalLab.getLab(Context)来生成静态实例！切记。
+    public RadicalItem getRadical(){
+        try {
+            return RadicalLab.getLabWithoutContext().getRadical(get(RADICAL));
+        }catch (Exception e){
+            Log.d("CharItem",e.toString());
+        }
+        return null;
+    }
     public String getId(){
         return mId;
     }
@@ -59,22 +69,56 @@ public class CharItem implements Readable {
     }
 
     public WordItem[] getWords(){
-        String[] words=get(WORDS).split(",");
-        ArrayList<WordItem> list=new ArrayList<>();
-        for(int i=0;i<words.length;i+=2) {
-            list.add(new WordItem(words[1],words[0],"w_"+get("ID")+i/2+1+".wav"));
+        if(mWords==null) {
+            String[] words = get(WORDS).split(",");
+            ArrayList<WordItem> list = new ArrayList<>();
+            for (int i = 0; i < words.length; i += 2) {
+                list.add(new WordItem(words[1], words[0], "w_" + get("ID") + i / 2 + 1 + ".wav"));
+            }
+            mWords=list.toArray(new WordItem[list.size()]);
         }
-        return list.toArray(new WordItem[list.size()]);
+        return mWords;
     }
+
     public JSONObject toJSON(){
         return mJSON;
     }
     @Override
-    public MediaPlayer getMediaPlayer(Context c){
-        return null;
+    public MediaPlayer getMediaPlayer(Context c) {
+        MediaPlayer mp=new MediaPlayer();
+        try {
+            AssetFileDescriptor fd=c.getAssets().openFd(get(PINYIN));
+            if(Build.VERSION.SDK_INT<24) {
+                mp.setDataSource(fd.getFileDescriptor(), fd.getStartOffset(), fd.getLength());
+            }else {
+                mp.setDataSource(c.getAssets().openFd(get(PINYIN)));
+            }
+        }catch (IOException e){
+            Log.d("CharItem","Media file not found :"+e.toString());
+            return null;
+        }
+        return mp;
     }
-    public MediaPlayer getSentenceMediaPlayer(Context c){
-        return null;
+    public Readable getSentenceReadable(Context c){
+        Readable readable=new Readable() {
+            @Override
+            public MediaPlayer getMediaPlayer(Context c) {
+                MediaPlayer mp=new MediaPlayer();
+                try {
+                    AssetFileDescriptor fd=c.getAssets().openFd("s_"+get("ID")+".wav");
+                    if(Build.VERSION.SDK_INT<24) {
+                        mp.setDataSource(fd.getFileDescriptor(), fd.getStartOffset(), fd.getLength());
+                    }else {
+                        mp.setDataSource(c.getAssets().openFd("s_"+get("ID")+".wav"));
+                    }
+                }catch (IOException e){
+                    Log.d("WordItem","Media file not found :"+e.toString());
+                    return null;
+                }
+                return mp;
+            }
+        };
+        return readable;
     }
     public Bitmap getImage(Context context){
         Context appContext=context.getApplicationContext();
