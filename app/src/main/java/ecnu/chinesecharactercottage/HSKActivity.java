@@ -118,6 +118,7 @@ public class HSKActivity extends Activity {
 
         mShowCharacter=(LinearLayout) findViewById(R.id.show_character);
         mShowCharacterLayout=new ShowCharacterLayout(this);
+        mShowCharacter.addView(mShowCharacterLayout);
 
         mButtonNext=(Button)findViewById(R.id.button_next);
     }

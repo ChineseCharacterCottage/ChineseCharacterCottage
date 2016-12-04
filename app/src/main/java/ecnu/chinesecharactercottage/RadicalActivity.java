@@ -1,8 +1,11 @@
 package ecnu.chinesecharactercottage;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 /**
@@ -11,12 +14,8 @@ import android.widget.TextView;
 
 public class RadicalActivity extends Activity {
 
-    //部首列表
-    Object[] mRadicalArray;
-    //部首个数
-    int mRadicalNumber;
-    //当前部首序号
-    int mRadicalNow;
+    //部首
+    private static RadicalItem sRadical;
 
     //部首字形
     private TextView mFigure;
@@ -31,7 +30,13 @@ public class RadicalActivity extends Activity {
     //形近部首
     private TextView mSimilarity;
     //部首例字
-    private ExampleCharacter mExampleCharacter;
+    private LinearLayout mExampleCharacter;
+
+    public static void startActivity(Context context,RadicalItem radicalItem){
+        sRadical=radicalItem;
+        Intent intent=new Intent(context,RadicalActivity.class);
+        context.startActivity(intent);
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -51,16 +56,16 @@ public class RadicalActivity extends Activity {
         mEnglishName=(TextView)findViewById(R.id.radical_english_name);
         mMeaning=(TextView)findViewById(R.id.radical_meaning);
         mSimilarity=(TextView)findViewById(R.id.radical_similarity);
-        mExampleCharacter=(ExampleCharacter)findViewById(R.id.radical_example);
+        mExampleCharacter=(LinearLayout) findViewById(R.id.radical_example);
 
-        mRadicalArray=getmRadicalArray();
-        mRadicalNumber=mRadicalArray.length;
-        mRadicalNow=0;
     }
     
     private void setRadical(){
-        //Character = mRadicalArray(mRadicalNow);
-        //mFigure.setText(Character.figure);
+        mFigure.setText(sRadical.getRadical());
+        //mImage.setImageBitmap(sRadical.getImage());
+        mEnglishName.setText(sRadical.getName());
+        //mMeaning.setText(sRadical.getMeaning));
+        mExampleCharacter=new ExampleCharacter(sRadical.getExamples());
     }
 
     private void saveDate(){
@@ -69,10 +74,5 @@ public class RadicalActivity extends Activity {
         //return to mainActivity
         finish();
 
-    }
-
-    //临时方法
-    private Object[] getmRadicalArray(){
-        return new Object[4];
     }
 }

@@ -15,4 +15,11 @@ public class ExampleCharacter extends LinearLayout{
         super(context,attrs);
         LayoutInflater.from(context).inflate(R.layout.example_character,this);
     }
+
+    public ExampleCharacter(Context context){
+        super(context);
+        LayoutInflater.from(context).inflate(R.layout.example_character,this);
+    }
+
+    public void setExample()
 }
