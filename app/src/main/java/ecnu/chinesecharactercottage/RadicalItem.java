@@ -1,10 +1,12 @@
 package ecnu.chinesecharactercottage;
 
+import java.io.Serializable;
+
 /**
  * Created by Shensheng on 2016/12/1.
  */
 
-public class RadicalItem {
+public class RadicalItem implements Serializable {
     private String[] mExamples;
     private String mShape;
     private String mId;

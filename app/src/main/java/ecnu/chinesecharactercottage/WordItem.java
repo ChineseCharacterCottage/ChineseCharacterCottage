@@ -7,12 +7,13 @@ import android.os.Build;
 import android.util.Log;
 
 import java.io.IOException;
+import java.io.Serializable;
 
 /**
  * Created by Shensheng on 2016/9/30.
  */
 
-public class WordItem implements Readable{
+public class WordItem implements Readable,Serializable {
 
     private String mWord;
     private String mChinese;

@@ -16,6 +16,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
@@ -25,7 +26,7 @@ import java.util.ArrayList;
  * It can only created by JSONObject.
  */
 
-public class CharItem implements Readable {
+public class CharItem implements Readable,Serializable {
     private static final String ID="ID";
     public static final String CHARACTER="character";
     public static final String PINYIN="pinyin";
