@@ -1,12 +1,18 @@
 package ecnu.chinesecharactercottage;
 
 import android.app.Activity;
+import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import org.json.JSONException;
+
+import java.io.IOException;
 
 /**
  * Created by 10040 on 2016/11/19.
@@ -65,7 +71,47 @@ public class RadicalActivity extends Activity {
         //mImage.setImageBitmap(sRadical.getImage());
         mEnglishName.setText(sRadical.getName());
         //mMeaning.setText(sRadical.getMeaning));
-        mExampleCharacter=new ExampleCharacter(sRadical.getExamples());
+
+        String[] examples=sRadical.getExamples();
+        int exampleNumber=examples.length;
+
+        LinearLayout linearLayout;
+        linearLayout=new LinearLayout(this);//为了解决报错
+
+        TextView aExample;
+        for(int i=0;i<exampleNumber;i++){
+            if(i%5==0){
+                linearLayout=new LinearLayout(this);
+                linearLayout.setOrientation(LinearLayout.HORIZONTAL);
+                mExampleCharacter.addView(linearLayout);
+            }
+            aExample=new TextView(this);
+            aExample.setText(examples[i]);
+            aExample.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    CharItem exampleItem;
+                    CharItemLab charItemLab;
+                    //获取对应例字
+                    try{
+                        charItemLab=CharItemLab.getLab(RadicalActivity.this);
+                    }
+                    catch (IOException exp){
+                        finish();
+                        return;
+                    }
+                    catch(JSONException exp){
+                        finish();
+                        return;
+                    }
+                    if(charItemLab==null){
+                    }
+                    exampleItem=charItemLab.findCharItemsByShape(((TextView)view).getText().toString())[0];
+                    ExampleCharDialog.startDialog(exampleItem);
+                }
+            });
+            linearLayout.addView(aExample);
+        }
     }
 
     private void saveDate(){

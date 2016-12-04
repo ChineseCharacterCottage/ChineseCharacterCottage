@@ -1,6 +1,7 @@
 package ecnu.chinesecharactercottage;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -29,8 +30,7 @@ public class HSKActivity extends Activity {
     int mTotalNumber=0;
 
     //汉字详情
-    private LinearLayout mShowCharacter;
-    private ShowCharacterLayout mShowCharacterLayout;
+    private CharacterFragment mCharacterFragment;
 
     //确认按键
     private Button mButtonNext;
@@ -116,9 +116,7 @@ public class HSKActivity extends Activity {
         mProgressBar=(ProgressBar)findViewById(R.id.progress_bar);
         mProgressBar.setMax(mTotalNumber+1);
 
-        mShowCharacter=(LinearLayout) findViewById(R.id.show_character);
-        mShowCharacterLayout=new ShowCharacterLayout(this);
-        mShowCharacter.addView(mShowCharacterLayout);
+        mCharacterFragment=(CharacterFragment)getFragmentManager().findFragmentById(R.id.character_fragment);
 
         mButtonNext=(Button)findViewById(R.id.button_next);
     }
@@ -131,7 +129,7 @@ public class HSKActivity extends Activity {
         if(mLearnedNumber>mTotalNumber)
             return;
         mThisCharItem=mThisCharList[mLearnedNumber];
-        mShowCharacterLayout.setCharacter(mThisCharItem);
+        mCharacterFragment.setCharacter(mThisCharItem);
 
     }
 

@@ -1,24 +1,24 @@
 package ecnu.chinesecharactercottage;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
+import android.app.Fragment;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 /**
- * Created by 10040 on 2016/11/29.
+ * Created by 10040 on 2016/12/4.
  */
 
-public class ShowCharacterLayout extends LinearLayout {
+public class CharacterFragment extends Fragment {
+
+    private CharItem mCharItem;
+
     //字形
     private TextView mFigure;
     //拼音
@@ -44,17 +44,22 @@ public class ShowCharacterLayout extends LinearLayout {
     //发音按键
     private Button mPronunciation;
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+        View view=inflater.inflate(R.layout.character_fragment,container,false);
+        
+        mFigure=(TextView) view.findViewById(R.id.figure);
+        mPinyin=(TextView)view.findViewById(R.id.pinyin);
+        mCharImg=(ImageView)view.findViewById(R.id.char_image);
+        mRadical=(TextView)view.findViewById(R.id.radical);
+        mMeaning=(TextView)view.findViewById(R.id.meaning);
+        mPart=(TextView)view.findViewById(R.id.part);
+        mWords=(TextView)view.findViewById(R.id.words);
+        mSentence=(TextView)view.findViewById(R.id.char_sentence);
 
-    public ShowCharacterLayout(Context context, AttributeSet attrs){
-        super(context,attrs);
-        LayoutInflater.from(context).inflate(R.layout.show_character,this);
-        init();
-    }
-
-    public ShowCharacterLayout(Context context){
-        super(context);
-        LayoutInflater.from(context).inflate(R.layout.show_character,this);
-        init();
+        mMark=(Button)view.findViewById(R.id.mark);
+        mPronunciation=(Button)view.findViewById(R.id.media_pronunciation);
+        return view;
     }
     
     public void setCharacter(CharItem thisChar){
@@ -86,7 +91,7 @@ public class ShowCharacterLayout extends LinearLayout {
                 }
                 catch (Exception e)
                 {
-                    Toast.makeText(getContext(),"Audio file error",Toast.LENGTH_SHORT).show();
+                    
                 }
             }
         });
@@ -102,20 +107,7 @@ public class ShowCharacterLayout extends LinearLayout {
                     mMark.setBackgroundResource(R.drawable.star);
             }
         });
-    }
-
-    private void init(){
-        mFigure=(TextView) findViewById(R.id.figure);
-        mPinyin=(TextView)findViewById(R.id.pinyin);
-        mCharImg=(ImageView)findViewById(R.id.char_image);
-        mRadical=(TextView)findViewById(R.id.radical);
-        mMeaning=(TextView)findViewById(R.id.meaning);
-        mPart=(TextView)findViewById(R.id.part);
-        mWords=(TextView)findViewById(R.id.words);
-        mSentence=(TextView)findViewById(R.id.char_sentence);
-
-        mMark=(Button)findViewById(R.id.mark);
-        mPronunciation=(Button)findViewById(R.id.media_pronunciation);
+        
     }
 
     //临时方法
