@@ -7,7 +7,7 @@ import java.io.Serializable;
  */
 
 public class RadicalItem implements Serializable {
-    private String[] mExamples;//
+    private String[] mExamples;
     private String mShape;
     private String mId;
     public RadicalItem(String[] examples,String shape,String id) {
