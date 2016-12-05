@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewStub;
 import android.widget.Button;
@@ -89,13 +90,16 @@ public class HSKActivity extends Activity {
         try{
             mCharItemLab=CharItemLab.getLab(HSKActivity.this);
         }
-        catch (IOException exp){
+        /*catch (IOException exp){
             finish();
             return;
         }
         catch(JSONException exp){
             finish();
             return;
+        }*/
+        catch(Exception e){
+            Log.d("Exception1:",e.toString());
         }
         if(mCharItemLab==null){
         }

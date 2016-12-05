@@ -1,6 +1,8 @@
 package ecnu.chinesecharactercottage;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -24,6 +26,11 @@ public class RadicalListActivity extends Activity {
     private List<RadicalItem> mRadicalList;
     //部首列表首个对象索引
     private int mListIndex;
+
+    public static void startActivity(Context context){
+        Intent intent=new Intent(context,RadicalActivity.class);
+        context.startActivity(intent);
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState){

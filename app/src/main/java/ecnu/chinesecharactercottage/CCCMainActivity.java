@@ -22,5 +22,13 @@ public class CCCMainActivity extends Activity {
                 //HSKActivity.startHSKLeaning(CCCMainActivity.this);
             }
         });
+
+        Button RadicalLeaning = (Button) findViewById(R.id.radical_leaning);
+        RadicalLeaning.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RadicalListActivity.startActivity(CCCMainActivity.this);
+            }
+        });
     }
 }

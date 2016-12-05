@@ -6,6 +6,7 @@
 
     <fragment
         android:id="@+id/example_fragment"
+        android:name="ecnu.chinesecharactercottage.CharacterFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     </fragment>
