@@ -135,7 +135,7 @@ public class CharItemLab {
         return list.toArray(new CharItem[list.size()]);
     }
     private void loadCharacters() {
-        mDatabaseHelper = DatabaseHelper.getDateBaseInstance(mContext,"char_date.db",null,0);
-        mUserCharDataHelper = new UserCharDataHelper(mContext,"user_data.db",null,0);
+        mDatabaseHelper = DatabaseHelper.getDateBaseInstance(mContext,"char_date.db",null,1);
+        mUserCharDataHelper = new UserCharDataHelper(mContext,"user_data.db",null,1);
     }
 }
