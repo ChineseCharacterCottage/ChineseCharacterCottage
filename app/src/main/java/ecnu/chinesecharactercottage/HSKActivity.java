@@ -90,16 +90,13 @@ public class HSKActivity extends Activity {
         try{
             mCharItemLab=CharItemLab.getLab(HSKActivity.this);
         }
-        /*catch (IOException exp){
+        catch (IOException exp){
             finish();
             return;
         }
         catch(JSONException exp){
             finish();
             return;
-        }*/
-        catch(Exception e){
-            Log.d("Exception1:",e.toString());
         }
         if(mCharItemLab==null){
         }
@@ -107,7 +104,6 @@ public class HSKActivity extends Activity {
         String charId[]=new String[]{"1","2","3"};//以后要从文件中读取
         mLearnedNumber=getIntent().getIntExtra("learned_number",0);
 
-        mTotalNumber=mThisCharList.length-1;
         try {
             mThisCharList = mCharItemLab.getCharItems(charId);
         }
@@ -116,6 +112,7 @@ public class HSKActivity extends Activity {
             finish();
             return;
         }
+        mTotalNumber=mThisCharList.length-1;
 
         mProgressBar=(ProgressBar)findViewById(R.id.progress_bar);
         mProgressBar.setMax(mTotalNumber+1);
