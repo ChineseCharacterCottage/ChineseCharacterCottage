@@ -29,21 +29,22 @@ public class RadicalLab {
     }
     private RadicalLab(Context context){
         mContext=context;
-        mDatabaseHelper=DatabaseHelper.getDateBaseInstance(mContext,"char_date.db",null,15);
+        mDatabaseHelper=DatabaseHelper.getDateBaseInstance(mContext,"char_date.db",null,1);
     }
 
     public RadicalItem getRadical(String id){
         SQLiteDatabase db=mDatabaseHelper.getReadableDatabase();
         Cursor cursor=db.query("radical_learning", null, "ID=" + id, null, null, null, null);
-        String shape=cursor.getString(cursor.getColumnIndex("radical_shape"));
+        String shape;
         String[] chars;
         if(cursor.moveToFirst()){
+            shape=cursor.getString(cursor.getColumnIndex("radical_shape"));
             chars=cursor.getString(cursor.getColumnIndex("characters")).split(",");
         }else {
-            db.close();
+            cursor.close();
             return null;
         }
-        db.close();
+        cursor.close();
         return new RadicalItem(chars,id,shape);
         /*
         ArrayList<CharItem> charItems=new ArrayList<>();
