@@ -101,7 +101,10 @@ public class HSKActivity extends Activity {
         if(mCharItemLab==null){
         }
 
-        String charId[]=new String[]{"1","2","3"};//以后要从文件中读取
+        //String charId[]=new String[]{"1","2","3"};//以后要从文件中读取
+        String[] charId=new String[20];
+        for(int i=0;i<20;i++)
+            charId[i]=String.valueOf(i+1);
         mLearnedNumber=getIntent().getIntExtra("learned_number",0);
 
         try {
@@ -109,9 +112,11 @@ public class HSKActivity extends Activity {
         }
         catch (Exception e)
         {
+            Log.d("mThisCharList:",e.toString());
             finish();
             return;
         }
+
         mTotalNumber=mThisCharList.length-1;
 
         mProgressBar=(ProgressBar)findViewById(R.id.progress_bar);

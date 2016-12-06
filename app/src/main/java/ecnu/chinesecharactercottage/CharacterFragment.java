@@ -3,6 +3,7 @@ package ecnu.chinesecharactercottage;
 import android.app.Fragment;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,7 +69,7 @@ public class CharacterFragment extends Fragment {
         mMeaning.setText(thisChar.get(CharItem.EXPLANATION));
         //mCharImg.setImageBitmap(thisChar.getImage(this));
         //mRadical.setText(thisChar.get());
-        //mMediaPronunciation=thisChar.getMediaPlayer(this);
+        mMediaPronunciation=thisChar.getMediaPlayer(this.getActivity());
         //mPart.setText(thisChar.get());
         //mWords.setText(thisChar.get(CharItem.WORDS));
         mSentence.setText(thisChar.get(CharItem.SENTENCE));
@@ -91,7 +92,8 @@ public class CharacterFragment extends Fragment {
                 }
                 catch (Exception e)
                 {
-                    
+                    Log.d("CharFragmentMedia:",e.toString());
+                    e.printStackTrace();
                 }
             }
         });
