@@ -88,15 +88,17 @@ public class CharItem implements Readable,Serializable {
     public MediaPlayer getMediaPlayer(Context c) {
         MediaPlayer mp=new MediaPlayer();
         try {
-            AssetFileDescriptor fd=c.getAssets().openFd(get(PINYIN));
+            AssetFileDescriptor fd=c.getAssets().openFd(mJSON.getString(PINYIN)+".wav");
             if(Build.VERSION.SDK_INT<24) {
                 mp.setDataSource(fd.getFileDescriptor(), fd.getStartOffset(), fd.getLength());
             }else {
-                mp.setDataSource(c.getAssets().openFd(get(PINYIN)));
+                mp.setDataSource(c.getAssets().openFd(mJSON.getString(PINYIN)+".wav"));
             }
         }catch (IOException e){
             Log.d("CharItem","Media file not found :"+e.toString());
             return null;
+        }catch (JSONException j){
+            Log.d("CharItem",j.toString());
         }
         return mp;
     }

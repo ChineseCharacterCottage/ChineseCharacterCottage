@@ -37,16 +37,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 +"sentence text, "
                 +"explanation text, "
                 +"radical_id text)";
+        final String CREATE_RADICAL="create table radical_learning ("
+                +"ID integer primary key autoincrement, "
+                +"radical_shape text, "
+                +"characters text, "
+                +"radical_name text)";
+        final String CREATE_RADIACL_RELATION ="create table radical_relationship ("
+                +"ID integer primary key autoincrement, "
+                +"radical_ID1 text, "
+                +"radical_ID2 text)";
         /*final String CREATE_COMPONENT="create table component ("
                 +"ID integer primary key autoincrement, "
                 +"";*/
         db.execSQL(CREATE_CHAR_ITEM);
-        ContentValues values=new ContentValues();
         try {
             InputStreamReader in=new InputStreamReader(mContext.getAssets().open("char_item.txt"));
             BufferedReader reader=new BufferedReader(in);
             String line;
             while((line=reader.readLine())!=null){
+                ContentValues values=new ContentValues();
                 String[] datas=line.split(";");
                 values.put("character",datas[1]);
                 values.put("pinyin",datas[2]);
@@ -55,6 +64,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 values.put("explanation",datas[5]);
                 values.put("radical_id",datas[6]);
                 db.insert("char_item",null,values);
+                Log.d("DateBaseHelper",values.toString());
+            }
+            reader.close();
+        }catch (Exception e){
+            Log.d("DateBaseHelper",e.toString());
+        }
+        db.execSQL(CREATE_RADICAL);
+        try {
+            InputStreamReader in=new InputStreamReader(mContext.getAssets().open("radical_learning.txt"));
+            BufferedReader reader=new BufferedReader(in);
+            String line;
+            while((line=reader.readLine())!=null){
+                ContentValues values=new ContentValues();
+                String[] datas=line.split(";");
+                values.put("radical_shape",datas[1]);
+                values.put("characters",datas[2]);
+                values.put("radical_name",datas[3]);
+                db.insert("radical_learning",null,values);
                 Log.d("DateBaseHelper",values.toString());
             }
             reader.close();
@@ -87,6 +114,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
     @Override
     public void onUpgrade(SQLiteDatabase db,int oldVersion,int newVersion){
+        db.execSQL("drop table if exists char_item");
+        db.execSQL("drop table if exists radical_learning");
         onCreate(db);
     }
 }
