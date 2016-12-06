@@ -29,7 +29,7 @@ public class RadicalLab {
     }
     private RadicalLab(Context context){
         mContext=context;
-        mDatabaseHelper=DatabaseHelper.getDateBaseInstance(mContext,"char_date.db",null,0);
+        mDatabaseHelper=DatabaseHelper.getDateBaseInstance(mContext,"char_date.db",null,15);
     }
 
     public RadicalItem getRadical(String id){

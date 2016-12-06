@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -28,7 +29,7 @@ public class RadicalListActivity extends Activity {
     private int mListIndex;
 
     public static void startActivity(Context context){
-        Intent intent=new Intent(context,RadicalActivity.class);
+        Intent intent=new Intent(context,RadicalListActivity.class);
         context.startActivity(intent);
     }
 
@@ -51,8 +52,16 @@ public class RadicalListActivity extends Activity {
     private void init(){
         mListView=(ListView)findViewById(R.id.rdical_list);
         mListIndex=1;
+
+
+        try{
+            mRadicalLab=RadicalLab.getLab(RadicalListActivity.this);
+        }
+        catch (Exception e){
+            Log.d("Radical.getLab:",e.toString());
+            e.printStackTrace();
+        }
         buildList();
-        mRadicalLab.getLab(RadicalListActivity.this);
     }
     
     private void buildList(){

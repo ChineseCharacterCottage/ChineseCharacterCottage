@@ -75,6 +75,15 @@ public class CharacterFragment extends Fragment {
         mSentence.setText(thisChar.get(CharItem.SENTENCE));
         //isMark=thisChar.get;
 
+
+        try{
+            mMediaPronunciation.prepare();
+        }
+        catch (Exception e){
+            Log.d("CharFragmentMedia:",e.toString());
+            e.printStackTrace();
+        }
+
         //设置收藏状态
         isMark=false;
         if(isMark)
@@ -87,7 +96,6 @@ public class CharacterFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 try{
-                    mMediaPronunciation.prepare();
                     mMediaPronunciation.start();
                 }
                 catch (Exception e)
