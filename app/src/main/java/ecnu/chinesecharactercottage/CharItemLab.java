@@ -1,4 +1,4 @@
-package ecnu.chinesecharactercottage;
+﻿package ecnu.chinesecharactercottage;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -124,13 +124,13 @@ public class CharItemLab {
         SQLiteDatabase db= mDatabaseHelper.getReadableDatabase();
         Cursor cursor = db.query("char_item", null, CharItem.CHARACTER+"='" + shape+"'", null, null, null, null);
         if(!cursor.moveToFirst())return null;
-        while (cursor.moveToNext()){
+        do{
             try {
                 list.add(new CharItem(cursorToJSON(cursor)));
             }catch (Exception e){
                 Log.d("CharItemLab",e.toString());
             }
-        }
+        }while(cursor.moveToNext());
         cursor.close();
         return list.toArray(new CharItem[list.size()]);
     }
