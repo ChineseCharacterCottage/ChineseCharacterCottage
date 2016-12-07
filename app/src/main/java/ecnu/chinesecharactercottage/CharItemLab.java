@@ -35,7 +35,7 @@ public class CharItemLab {
     private static final int CACHE_SIZE=30;
     private DatabaseHelper mDatabaseHelper;
     private UserCharDataHelper mUserCharDataHelper;
-
+    private int mDataSize;
    // private static final String RESOURCES_FILENAME="resources.json";
  //   private static final String fileName="userdata.json";
   //  private ArrayList<CharItem> mCharItems;
@@ -122,7 +122,7 @@ public class CharItemLab {
     public CharItem[] findCharItemsByShape(String shape){
         ArrayList<CharItem> list=new ArrayList<>();
         SQLiteDatabase db= mDatabaseHelper.getReadableDatabase();
-        Cursor cursor = db.query("char_item", null, CharItem.CHARACTER+"=" + shape, null, null, null, null);
+        Cursor cursor = db.query("char_item", null, CharItem.CHARACTER+"='" + shape+"'", null, null, null, null);
         if(!cursor.moveToFirst())return null;
         while (cursor.moveToNext()){
             try {
@@ -134,8 +134,17 @@ public class CharItemLab {
         cursor.close();
         return list.toArray(new CharItem[list.size()]);
     }
+    public int getSize(){
+        return mDataSize;
+    }
     private void loadCharacters() {
         mDatabaseHelper = DatabaseHelper.getDateBaseInstance(mContext,"char_date.db",null,1);
         mUserCharDataHelper = new UserCharDataHelper(mContext,"user_data.db",null,1);
+        SQLiteDatabase db=mDatabaseHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select count(*) from char_item ",null);
+        cursor.moveToNext();
+        mDataSize = cursor.getInt(0);
+        cursor.close();
+        db.close();
     }
 }

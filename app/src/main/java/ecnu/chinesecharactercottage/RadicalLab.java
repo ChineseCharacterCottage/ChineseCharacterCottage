@@ -15,6 +15,10 @@ public class RadicalLab {
     private static RadicalLab sLab;
     private DatabaseHelper mDatabaseHelper;
     private Context mContext;
+    private int mDataSize;
+    public int getSize(){
+        return mDataSize;
+    }
     public static RadicalLab getLab(Context context){
         if(sLab==null){
             sLab=new RadicalLab(context);
@@ -30,6 +34,10 @@ public class RadicalLab {
     private RadicalLab(Context context){
         mContext=context;
         mDatabaseHelper=DatabaseHelper.getDateBaseInstance(mContext,"char_date.db",null,1);
+        Cursor cursor=mDatabaseHelper.getReadableDatabase().rawQuery("select count(*) from radical_learning",null);
+        cursor.moveToNext();
+        mDataSize=cursor.getInt(0);
+        cursor.close();
     }
 
     public RadicalItem getRadical(String id){
@@ -37,15 +45,17 @@ public class RadicalLab {
         Cursor cursor=db.query("radical_learning", null, "ID=" + id, null, null, null, null);
         String shape;
         String[] chars;
+        String name;
         if(cursor.moveToFirst()){
             shape=cursor.getString(cursor.getColumnIndex("radical_shape"));
-            chars=cursor.getString(cursor.getColumnIndex("characters")).split(",");
+            chars=cursor.getString(cursor.getColumnIndex("characters")).split("/");
+            name=cursor.getString(cursor.getColumnIndex("radical_name"));
         }else {
             cursor.close();
             return null;
         }
         cursor.close();
-        return new RadicalItem(chars,id,shape);
+        return new RadicalItem(chars,shape,id,name);
         /*
         ArrayList<CharItem> charItems=new ArrayList<>();
         for(String c : chars){

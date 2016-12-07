@@ -10,13 +10,15 @@ public class RadicalItem implements Serializable {
     private String[] mExamples;
     private String mShape;
     private String mId;
-    public RadicalItem(String[] examples,String shape,String id) {
+    private String mName;
+    public RadicalItem(String[] examples,String shape,String id,String name) {
         mId=id;
         mExamples=examples;
         mShape=shape;
+        mName=name;
     }
     public String getName(){
-        return "undefined";
+        return mName;
     }
     public String getRadical(){
         return mShape;
