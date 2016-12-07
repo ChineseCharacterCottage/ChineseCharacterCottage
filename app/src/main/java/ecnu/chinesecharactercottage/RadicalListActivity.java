@@ -66,7 +66,7 @@ public class RadicalListActivity extends Activity {
     
     private void buildList(){
         mRadicalList=new ArrayList<RadicalItem>();
-        for(int i=0;i<20;i++){
+        for(int i=0;i<3;i++){
             mRadicalList.add(mRadicalLab.getRadical(String.valueOf(i+mListIndex)));
         }
     }

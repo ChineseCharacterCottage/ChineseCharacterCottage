@@ -5,6 +5,7 @@ import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -93,21 +94,22 @@ public class RadicalActivity extends Activity {
                     CharItem exampleItem;
                     CharItemLab charItemLab;
                     //获取对应例字
-                    try{
-                        charItemLab=CharItemLab.getLab(RadicalActivity.this);
-                    }
-                    catch (IOException exp){
+                    try {
+                        charItemLab = CharItemLab.getLab(RadicalActivity.this);
+                    } catch (IOException exp) {
+                        Log.d("getLab IOException", exp.toString());
+                        finish();
+                        return;
+                    } catch (JSONException exp) {
+                        Log.d("getLab JsonException", exp.toString());
                         finish();
                         return;
                     }
-                    catch(JSONException exp){
-                        finish();
-                        return;
+                    if (charItemLab == null) {
+                        Log.d("charItemLab", "is null");
                     }
-                    if(charItemLab==null){
-                    }
-                    exampleItem=charItemLab.findCharItemsByShape(((TextView)view).getText().toString())[0];
-                    ExampleCharDialog.startDialog(exampleItem);
+                    exampleItem = charItemLab.findCharItemsByShape(((TextView) view).getText().toString())[0];
+                    ExampleCharDialog.startDialog(exampleItem).show(getFragmentManager(), "example_detail");
                 }
             });
             linearLayout.addView(aExample);
