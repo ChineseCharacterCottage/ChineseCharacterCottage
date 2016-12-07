@@ -108,8 +108,17 @@ public class RadicalActivity extends Activity {
                     if (charItemLab == null) {
                         Log.d("charItemLab", "is null");
                     }
-                    exampleItem = charItemLab.findCharItemsByShape(((TextView) view).getText().toString())[0];
-                    ExampleCharDialog.startDialog(exampleItem).show(getFragmentManager(), "example_detail");
+                    try{
+                        exampleItem = charItemLab.findCharItemsByShape(((TextView) view).getText().toString())[0];
+                        ExampleCharDialog.startDialog(exampleItem).show(getFragmentManager(), "example_detail");
+                    }
+                    catch (Exception e){
+                        Log.d("findCharItemsByShape","lalalala");
+                        e.printStackTrace();
+                    }
+                    finally {
+                        Log.d("lll","lksjdflksdjf");
+                    }
                 }
             });
             linearLayout.addView(aExample);
