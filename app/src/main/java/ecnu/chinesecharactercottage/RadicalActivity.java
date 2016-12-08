@@ -67,61 +67,61 @@ public class RadicalActivity extends Activity {
 
     }
     
-    private void setRadical(){
-        mFigure.setText(sRadical.getRadical());
-        //mImage.setImageBitmap(sRadical.getImage());
-        mEnglishName.setText(sRadical.getName());
-        //mMeaning.setText(sRadical.getMeaning));
+    private void setRadical() {
+        try {
+            mFigure.setText(sRadical.getRadical());
+            //mImage.setImageBitmap(sRadical.getImage());
+            mEnglishName.setText(sRadical.getName());
+            //mMeaning.setText(sRadical.getMeaning));
 
-        String[] examples=sRadical.getExamples();
-        int exampleNumber=examples.length;
+            String[] examples = sRadical.getExamples();
+            int exampleNumber = examples.length;
 
-        LinearLayout linearLayout;
-        linearLayout=new LinearLayout(this);//为了解决报错
+            LinearLayout linearLayout;
+            linearLayout = new LinearLayout(this);//为了解决报错
 
-        TextView aExample;
-        for(int i=0;i<exampleNumber;i++){
-            if(i%5==0){
-                linearLayout=new LinearLayout(this);
-                linearLayout.setOrientation(LinearLayout.HORIZONTAL);
-                mExampleCharacter.addView(linearLayout);
-            }
-            aExample=new TextView(this);
-            aExample.setText(examples[i]);
-            aExample.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    CharItem exampleItem;
-                    CharItemLab charItemLab;
-                    //获取对应例字
-                    try {
-                        charItemLab = CharItemLab.getLab(RadicalActivity.this);
-                    } catch (IOException exp) {
-                        Log.d("getLab IOException", exp.toString());
-                        finish();
-                        return;
-                    } catch (JSONException exp) {
-                        Log.d("getLab JsonException", exp.toString());
-                        finish();
-                        return;
-                    }
-                    if (charItemLab == null) {
-                        Log.d("charItemLab", "is null");
-                    }
-                    try{
-                        exampleItem = charItemLab.findCharItemsByShape(((TextView) view).getText().toString())[0];
-                        ExampleCharDialog.startDialog(exampleItem).show(getFragmentManager(), "example_detail");
-                    }
-                    catch (Exception e){
-                        Log.d("findCharItemsByShape","lalalala");
-                        e.printStackTrace();
-                    }
-                    finally {
-                        Log.d("lll","lksjdflksdjf");
-                    }
+            TextView aExample;
+            for (int i = 0; i < exampleNumber; i++) {
+                if (i % 5 == 0) {
+                    linearLayout = new LinearLayout(this);
+                    linearLayout.setOrientation(LinearLayout.HORIZONTAL);
+                    mExampleCharacter.addView(linearLayout);
                 }
-            });
-            linearLayout.addView(aExample);
+                aExample = new TextView(this);
+                aExample.setText(examples[i]);
+                aExample.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        CharItem exampleItem;
+                        CharItemLab charItemLab;
+                        //获取对应例字
+                        try {
+                            charItemLab = CharItemLab.getLab(RadicalActivity.this);
+                        } catch (IOException exp) {
+                            Log.d("getLab IOException", exp.toString());
+                            finish();
+                            return;
+                        } catch (JSONException exp) {
+                            Log.d("getLab JsonException", exp.toString());
+                            finish();
+                            return;
+                        }
+                        if (charItemLab == null) {
+                            Log.d("charItemLab", "is null");
+                        }
+                        try {
+                            exampleItem = charItemLab.findCharItemsByShape(((TextView) view).getText().toString())[0];
+                            ExampleActivity.startActivity(RadicalActivity.this,exampleItem);
+                        } catch (Exception e) {
+                            Log.d("findCharItemsByShape", e.toString());
+                            e.printStackTrace();
+                        }
+                    }
+                });
+                linearLayout.addView(aExample);
+            }
+        } catch (Exception e) {
+            Log.d("example", e.toString());
         }
     }
 

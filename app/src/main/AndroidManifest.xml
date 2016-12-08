@@ -18,6 +18,7 @@
         <activity android:name=".HSKActivity"></activity>
         <activity android:name=".RadicalActivity"></activity>
         <activity android:name=".RadicalListActivity"></activity>
+        <activity android:name=".ExampleActivity"></activity>
 
     </application>
 

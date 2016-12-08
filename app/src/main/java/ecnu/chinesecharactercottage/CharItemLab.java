@@ -1,4 +1,4 @@
-﻿package ecnu.chinesecharactercottage;
+package ecnu.chinesecharactercottage;
 
 import android.content.ContentValues;
 import android.content.Context;
