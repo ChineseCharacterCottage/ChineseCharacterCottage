@@ -67,11 +67,11 @@ public class CharacterFragment extends Fragment {
         mFigure.setText(thisChar.get(CharItem.CHARACTER));
         mPinyin.setText(thisChar.get(CharItem.PINYIN));
         mMeaning.setText(thisChar.get(CharItem.EXPLANATION));
-        //mCharImg.setImageBitmap(thisChar.getImage(this));
-        //mRadical.setText(thisChar.get());
-        mMediaPronunciation=thisChar.getMediaPlayer(this.getActivity());
+        mCharImg.setImageBitmap(thisChar.getImage(getActivity()));
+        //mRadical.setText(thisChar.getRadical().getRadical());
+        mMediaPronunciation=thisChar.getMediaPlayer(getActivity());
         //mPart.setText(thisChar.get());
-        //mWords.setText(thisChar.get(CharItem.WORDS));
+        //mWords.setText(thisChar.getWords());
         mSentence.setText(thisChar.get(CharItem.SENTENCE));
         //isMark=thisChar.get;
 

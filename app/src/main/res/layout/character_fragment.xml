@@ -31,6 +31,7 @@
 
                 <TextView
                     android:id="@+id/figure"
+                    android:textSize="60sp"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:gravity="center"/>
@@ -60,10 +61,13 @@
 
     <ImageView
         android:id="@+id/char_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_width="150dp"
+        android:layout_height="200dp"
+        android:layout_gravity="center"/>
 
     <TableLayout
+        android:stretchColumns="1"
+        android:shrinkColumns="1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -107,7 +111,7 @@
             <TextView
                 android:id="@+id/meaning"
                 style="@style/TestText"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="测试，这是英文解释"/>
         </TableRow>
@@ -132,7 +136,7 @@
             <TextView
                 style="@style/TestText"
                 android:layout_height="wrap_content"
-                android:text="Stroke count:"/>
+                android:text="Sentence:"/>
 
             <TextView
                 android:id="@+id/char_sentence"
