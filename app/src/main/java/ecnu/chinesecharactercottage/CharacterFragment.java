@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,7 +36,7 @@ public class CharacterFragment extends Fragment {
     //部件
     private TextView mPart;
     //组词
-    private TextView mWords;
+    private LinearLayout mWords;
     //例句
     private TextView mSentence;
 
@@ -55,7 +56,7 @@ public class CharacterFragment extends Fragment {
         mRadical=(TextView)view.findViewById(R.id.radical);
         mMeaning=(TextView)view.findViewById(R.id.meaning);
         mPart=(TextView)view.findViewById(R.id.part);
-        mWords=(TextView)view.findViewById(R.id.words);
+        //mWords=(TextView)view.findViewById(R.id.words);
         mSentence=(TextView)view.findViewById(R.id.char_sentence);
 
         mMark=(Button)view.findViewById(R.id.mark);

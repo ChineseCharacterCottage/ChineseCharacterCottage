@@ -9,6 +9,7 @@
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
     android:paddingTop="16dp"
+    android:background="@color/colorCharBG"
     tools:context="ecnu.chinesecharactercottage.CCCMainActivity">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -22,11 +23,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="35dp"></View>
+
         <fragment
             android:id="@+id/character_fragment"
             android:name="ecnu.chinesecharactercottage.CharacterFragment"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            tools:layout="@layout/character_fragment">
         </fragment>
 
     </LinearLayout>
@@ -34,12 +40,10 @@
     <Button
         android:id="@+id/button_next"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerInParent="true"
-        android:gravity="center"
-        android:text="@string/button_next_character"
+        android:layout_height="30dp"
         android:textAllCaps="false"
-        android:textSize="20sp"/>
+        android:text="@string/button_next_character"
+        android:textSize="20sp"
+        android:layout_alignParentBottom="true"/>
 
 </RelativeLayout>
