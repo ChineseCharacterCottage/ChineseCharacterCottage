@@ -82,16 +82,5 @@ public class RadicalLab {
         }
         cursor.close();
         return new RadicalItem(chars,shape,id,name);
-        /*
-        ArrayList<CharItem> charItems=new ArrayList<>();
-        for(String c : chars){
-            try {
-                CharItem[] cs=CharItemLab.getLab(mContext).findCharItemsByShape(c);
-                charItems.add(cs[0]);
-            }catch (Exception e){
-                Log.d("RadicalLab",e.toString());
-            }
-        }
-        return new RadicalItem(charItems.toArray(new CharItem[charItems.size()]),id,shape);*/
     }
 }

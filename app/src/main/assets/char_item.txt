@@ -1,5 +1,5 @@
-1;庄;zhuang1;村庄,village/庄严的,dignified/庄重的,solemn;仪式在庄严的气氛中进行。/The ceremony proceeded in a solemn atmosphere;village/serious/dignified;1
-2;庭;ting2;家庭,family/法庭,law court;她与家庭断绝了关系。/She broke with her family.;hall/courtyard;front yard;1
+﻿1;庄;zhuang1;村庄,village/庄严的,dignified/庄重的,solemn;仪式在庄严的气氛中进行。/The ceremony proceeded in a solemn atmosphere;village/serious/dignified;1
+2;庭;ting2;家庭,family/法庭,law court;她与家庭断绝了关系。/She broke with her family.;hall/courtyard,front yard;1
 3;库;ku4;仓库,warehouse/数据库,database;这些蔬菜贮藏在20摄氏度以下的仓库里。/These vegetables store in a wharehouse at temperatures below 20℃.;warehouse/coulomb;1
 4;店;dian4;书店,bookstore/饭店,restaurant/店员,shop assitant;那是城里最有名的饭店。/That's the restaurant in town.;store/shop;1
 5;庙;miao4;庙会,temple fair;北京最近有好多庙会。/Beijing has several temple fairs recently.;temple;1

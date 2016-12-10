@@ -44,16 +44,11 @@ public class CharItemLab {
     private Context mContext;
 
     private CharItem[] mCharCache;
-    public static CharItemLab getLab(Context c){
-        try {
-            if(sCharItemLab==null) {
-                sCharItemLab = new CharItemLab(c.getApplicationContext());
-            }
-            return sCharItemLab;
-        }catch (Exception e){
-            Log.d("CharItemLab",e.toString());
+    public static CharItemLab getLab(Context c)throws IOException,JSONException{
+        if(sCharItemLab==null) {
+            sCharItemLab = new CharItemLab(c.getApplicationContext());
         }
-        return null;
+        return sCharItemLab;
     }
 
     public static CharItemLab getLabWithoutContext() throws Exception{
@@ -112,9 +107,6 @@ public class CharItemLab {
 
 
 
-   /* public ArrayList<CharItem> getCharItems(){
-        return mCharItems;
-    }*/
 
     private JSONObject cursorToJSON(Cursor c) throws JSONException{
             JSONObject json = new JSONObject();
