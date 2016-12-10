@@ -31,15 +31,41 @@ public class RadicalLab {
         }
         return sLab;
     }
+    public RadicalItem[] findRelationship(RadicalItem radicalItem){
+        ArrayList<RadicalItem> arrayList=new ArrayList<>();
+        ArrayList<String> stringArrayList=new ArrayList<>();
+        String id=radicalItem.getId();
+        SQLiteDatabase db=mDatabaseHelper.getReadableDatabase();
+        Cursor cursor=db.query("radical_relationship",null,"radical_ID1="+id,null,null,null,null);
+        if(cursor.moveToFirst()){
+            do{
+                stringArrayList.add(cursor.getString(cursor.getColumnIndex("radical_ID2")));
+            }while (cursor.moveToNext());
+        }
+        cursor=db.query("radical_relationship",null,"radical_ID2="+id,null,null,null,null);
+        if(cursor.moveToFirst()){
+            do{
+                stringArrayList.add(cursor.getString(cursor.getColumnIndex("radical_ID1")));
+            }while (cursor.moveToNext());
+        }
+        cursor.close();
+        if(stringArrayList.size()==0){
+            return null;
+        }
+        for (String idi:stringArrayList){
+            arrayList.add(getRadical(idi));
+        }
+        return arrayList.toArray(new RadicalItem[arrayList.size()]);
+    }
+
     private RadicalLab(Context context){
         mContext=context;
-        mDatabaseHelper=DatabaseHelper.getDateBaseInstance(mContext,"char_date.db",null,1);
+        mDatabaseHelper=DatabaseHelper.getDateBaseInstance(mContext,DatabaseHelper.DATABASE_LOCATION,null,DatabaseHelper.VERSION);
         Cursor cursor=mDatabaseHelper.getReadableDatabase().rawQuery("select count(*) from radical_learning",null);
         cursor.moveToNext();
         mDataSize=cursor.getInt(0);
         cursor.close();
     }
-
     public RadicalItem getRadical(String id){
         SQLiteDatabase db=mDatabaseHelper.getReadableDatabase();
         Cursor cursor=db.query("radical_learning", null, "ID=" + id, null, null, null, null);

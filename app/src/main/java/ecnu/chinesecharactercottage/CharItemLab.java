@@ -138,7 +138,7 @@ public class CharItemLab {
         return mDataSize;
     }
     private void loadCharacters() {
-        mDatabaseHelper = DatabaseHelper.getDateBaseInstance(mContext,"char_date.db",null,1);
+        mDatabaseHelper = DatabaseHelper.getDateBaseInstance(mContext,DatabaseHelper.DATABASE_LOCATION,null,DatabaseHelper.VERSION);
         mUserCharDataHelper = new UserCharDataHelper(mContext,"user_data.db",null,1);
         SQLiteDatabase db=mDatabaseHelper.getReadableDatabase();
         Cursor cursor = db.rawQuery("select count(*) from char_item ",null);

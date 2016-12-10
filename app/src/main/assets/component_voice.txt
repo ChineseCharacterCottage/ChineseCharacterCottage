@@ -1,0 +1,3 @@
+1;广;广/矿/庄/旷/床;v;a sound elelment relating to the pronounciation of "uang"
+4;目;目/督/睹/睦/瞩;v;a sound elelment relating to the pronounciation of  "u"
+8;口;扣/叩/右/后/售;v;a sound elelment relating to the pronounciation of "ou"

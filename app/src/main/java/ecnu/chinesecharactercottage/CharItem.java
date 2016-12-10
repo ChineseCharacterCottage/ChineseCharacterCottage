@@ -74,7 +74,7 @@ public class CharItem implements Readable,Serializable {
             String[] words = get(WORDS).split("/|,");
             ArrayList<WordItem> list = new ArrayList<>();
             for (int i = 0; i < words.length; i += 2) {
-                list.add(new WordItem(words[1], words[0], "w_" + get("ID") + i / 2 + 1 + ".wav"));
+                list.add(new WordItem(words[1], words[0], "w_" + get("ID") + i / 2 + 1 + ".mp3"));
             }
             mWords=list.toArray(new WordItem[list.size()]);
         }
@@ -88,11 +88,11 @@ public class CharItem implements Readable,Serializable {
     public MediaPlayer getMediaPlayer(Context c) {
         MediaPlayer mp=new MediaPlayer();
         try {
-            AssetFileDescriptor fd=c.getAssets().openFd(mJSON.getString(PINYIN)+".wav");
+            AssetFileDescriptor fd=c.getAssets().openFd(mJSON.getString(PINYIN)+".mp3");
             if(Build.VERSION.SDK_INT<24) {
                 mp.setDataSource(fd.getFileDescriptor(), fd.getStartOffset(), fd.getLength());
             }else {
-                mp.setDataSource(c.getAssets().openFd(mJSON.getString(PINYIN)+".wav"));
+                mp.setDataSource(c.getAssets().openFd(mJSON.getString(PINYIN)+".mp3"));
             }
         }catch (IOException e){
             Log.d("CharItem","Media file not found :"+e.toString());
@@ -108,11 +108,11 @@ public class CharItem implements Readable,Serializable {
             public MediaPlayer getMediaPlayer(Context c) {
                 MediaPlayer mp=new MediaPlayer();
                 try {
-                    AssetFileDescriptor fd=c.getAssets().openFd("s_"+get("ID")+".wav");
+                    AssetFileDescriptor fd=c.getAssets().openFd("s_"+get("ID")+".mp3");
                     if(Build.VERSION.SDK_INT<24) {
                         mp.setDataSource(fd.getFileDescriptor(), fd.getStartOffset(), fd.getLength());
                     }else {
-                        mp.setDataSource(c.getAssets().openFd("s_"+get("ID")+".wav"));
+                        mp.setDataSource(c.getAssets().openFd("s_"+get("ID")+".mp3"));
                     }
                 }catch (IOException e){
                     Log.d("WordItem","Media file not found :"+e.toString());
