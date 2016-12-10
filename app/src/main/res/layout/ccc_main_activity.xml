@@ -16,11 +16,6 @@
         android:text="@string/button_radical_learning"/>
 
     <Button
-        android:id="@+id/pictogram_leaning"
-        style="@style/TestButton2"
-        android:text="@string/button_pictogram_learning"/>
-
-    <Button
         android:id="@+id/test"
         style="@style/TestButton2"
         android:text="@string/button_test"/>

@@ -5,9 +5,8 @@
     <string name="button_return">Return</string>
     <string name="button_finish">Finish</string>
     <string name="button_next_page">Next page</string>
-    <string name="button_HSK_learning">Learn HSK</string>
-    <string name="button_radical_learning">Learn Radical</string>
-    <string name="button_pictogram_learning">Learn Pictogram</string>
+    <string name="button_HSK_learning">HSK</string>
+    <string name="button_radical_learning">Component</string>
     <string name="button_test">Test</string>
-    <string name="button_char_bookmark">Review Bookmark</string>
+    <string name="button_char_bookmark">Review</string>
 </resources>
