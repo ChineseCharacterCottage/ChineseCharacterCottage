@@ -1,27 +1,139 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+<ecnu.chinesecharactercottage.SlidingLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/slidingLayout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="horizontal" >
+
+    <LinearLayout
+        android:background="#000"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_gravity="end"
+                android:src="@drawable/avator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </FrameLayout>
+
+        <View
+            android:background="#9dcc9c"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"/>
+
+        <LinearLayout
+            android:layout_gravity="end"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <ImageView
+                android:src="@drawable/star"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/home"
+                android:gravity="center"
+                android:textColor="#fff"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:text="Home"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/mainLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg"
+        android:orientation="vertical">
+        <LinearLayout
+            android:background="@drawable/bg2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/homepageButtons"
+                android:layout_marginTop="105dp"
+                android:layout_marginStart="75dp"
+                android:padding="0dp"
+                android:layout_width="235dp"
+                android:layout_height="245dp"
+                android:weightSum="14"
+                android:orientation="vertical">
+
+                <TextView
+                    android:text="@string/slogan1"
+                    android:background="@color/colorBlueGrey"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="2"/>
+
+                <TextView
+                    android:text="@string/slogan2"
+                    android:background="@color/colorBlueGrey"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="2"/>
+
+                <LinearLayout
+                    android:weightSum="2"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:orientation="horizontal"
+                    android:layout_weight="5">
+
+                    <Button
+                        android:id="@+id/HSKLeaning"
+                        android:background="@drawable/selector_homepage_button_deep"
+                        android:textColor="@color/colorYellowGrey"
+                        style="@style/homepageButton"
+                        android:text="@string/button_HSK_learning"/>
+
+                    <Button
+                        android:id="@+id/component_leaning"
+                        android:textColor="@color/colorDeepGrey"
+                        android:background="@drawable/selector_homepage_button_yellow"
+                        style="@style/homepageButton"
+                        android:text="@string/button_radical_learning"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:weightSum="2"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:orientation="horizontal"
+                    android:layout_weight="5">
+
+                    <Button
+                        android:id="@+id/test"
+                        android:background="@drawable/selector_homepage_button_yellow"
+                        android:textColor="@color/colorDeepGrey"
+                        style="@style/homepageButton"
+                        android:text="@string/button_test"/>
+
+                    <Button
+                        android:id="@+id/char_bookmark"
+                        android:textColor="@color/colorYellowGrey"
+                        android:background="@drawable/selector_homepage_button_deep"
+                        style="@style/homepageButton"
+                        android:text="@string/button_char_bookmark"/>
+                </LinearLayout>
+
+            </LinearLayout>
 
 
-    <Button
-        android:id="@+id/HSKLeaning"
-        style="@style/TestButton2"
-        android:text="@string/button_HSK_learning"/>
+        </LinearLayout>
+    </LinearLayout>
 
-    <Button
-        android:id="@+id/component_leaning"
-        style="@style/TestButton2"
-        android:text="@string/button_radical_learning"/>
-
-    <Button
-        android:id="@+id/test"
-        style="@style/TestButton2"
-        android:text="@string/button_test"/>
-
-    <Button
-        android:id="@+id/char_bookmark"
-        style="@style/TestButton2"
-        android:text="@string/button_char_bookmark"/>
-</LinearLayout>
+</ecnu.chinesecharactercottage.SlidingLayout>

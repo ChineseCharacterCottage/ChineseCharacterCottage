@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              android:layout_width="100dp"
+              android:layout_height="100dp">
+
+    <Button
+        android:id="@+id/button_shape_component"
+        android:background="@drawable/selector_homepage_button_deep"
+        android:textColor="@color/colorYellowGrey"
+        android:text="@string/button_shape_component"
+        android:layout_width="100dp"
+        android:layout_height="100dp"/>
+
+    <Button
+        android:id="@+id/button_voice_component"
+        android:background="@drawable/selector_homepage_button_yellow"
+        android:textColor="@color/colorDeepGrey"
+        android:text="@string/button_voice_component"
+        android:layout_width="100dp"
+        android:layout_height="100dp"/>
+
+</LinearLayout>

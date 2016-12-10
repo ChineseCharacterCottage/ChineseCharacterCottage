@@ -38,11 +38,13 @@ public class CharacterFragment extends Fragment {
     //发音
     private MediaPlayer mMediaPronunciation;
     //部件
-    private TextView mPart;
+    private TextView mComponent;
     //组词
     private LinearLayout mWords;
     //例句
     private TextView mSentence;
+    //例句发音
+    private MediaPlayer mSentenceMP;
 
 
     //收藏按键
@@ -61,8 +63,9 @@ public class CharacterFragment extends Fragment {
         mCharImg=(ImageView)view.findViewById(R.id.char_image);
         mRadical=(TextView)view.findViewById(R.id.radical);
         mMeaning=(TextView)view.findViewById(R.id.meaning);
-        mPart=(TextView)view.findViewById(R.id.component);
+        mComponent=(TextView)view.findViewById(R.id.component);
         mSentence=(TextView)view.findViewById(R.id.char_sentence);
+        mWords=(LinearLayout)view.findViewById(R.id.words);
 
         mMark=(Button)view.findViewById(R.id.mark);
         mPronunciation=(Button)view.findViewById(R.id.media_pronunciation);
@@ -74,10 +77,68 @@ public class CharacterFragment extends Fragment {
         mPinyin.setText(thisChar.get(CharItem.PINYIN));
         mMeaning.setText(thisChar.get(CharItem.EXPLANATION));
         mCharImg.setImageBitmap(thisChar.getImage(getActivity()));
-        mMediaPronunciation=thisChar.getMediaPlayer(getActivity());
         mSentence.setText(thisChar.get(CharItem.SENTENCE));
+        setWords(thisChar.getWords());
+        setRadical(thisChar.getRadical());
+        setPronunciation(thisChar.getMediaPlayer(getActivity()));
+        setSentenceMP(thisChar.getSentenceReadable(getActivity()).getMediaPlayer(getActivity()));
 
-        RadicalItem radical=thisChar.getRadical();
+        setMark();
+        
+        
+    }
+
+    private void setSentenceMP(MediaPlayer mediaPlayer){
+        mSentenceMP=mediaPlayer;
+        try{
+            mSentenceMP.prepare();
+        }
+        catch (Exception e){
+            Log.d("SentenceMedia:",e.toString());
+            e.printStackTrace();
+        }
+        //发音按键
+        mPronunciation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try{
+                    mSentenceMP.start();
+                }
+                catch (Exception e)
+                {
+                    Log.d("SentenceMedia:",e.toString());
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+    
+    private void setPronunciation(MediaPlayer mediaPlayer){
+        mMediaPronunciation=mediaPlayer;
+        try{
+            mMediaPronunciation.prepare();
+        }
+        catch (Exception e){
+            Log.d("PronunciationMedia:",e.toString());
+            e.printStackTrace();
+        }
+        //发音按键
+        mPronunciation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try{
+                    mMediaPronunciation.start();
+                }
+                catch (Exception e)
+                {
+                    Log.d("PronunciationMedia:",e.toString());
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    private void setRadical(RadicalItem radical){
         mRadicalId=radical.getId();
         mRadical.setText(radical.getRadical());
         mRadical.setOnClickListener(new View.OnClickListener() {
@@ -107,15 +168,44 @@ public class CharacterFragment extends Fragment {
             }
         });
 
+    }
 
-        try{
-            mMediaPronunciation.prepare();
-        }
-        catch (Exception e){
-            Log.d("CharFragmentMedia:",e.toString());
-            e.printStackTrace();
-        }
+    private void setWords(WordItem[] words){
+        mWords.removeAllViews();
+        int wordNumber = words.length;
 
+        LinearLayout linearLayout;
+        linearLayout = new LinearLayout(getActivity());//为了解决报错
+
+        TextView aWord;
+        for (int i = 0; i < wordNumber; i++) {
+            if (i % 5 == 0) {
+                linearLayout = new LinearLayout(getActivity());
+                linearLayout.setOrientation(LinearLayout.HORIZONTAL);
+                mWords.addView(linearLayout);
+            }
+            aWord = new TextView(getActivity());
+            aWord.setPadding(10,0,10,0);
+            aWord.setText(words[i].getChinese());
+            final MediaPlayer wordMP=words[i].getMediaPlayer(getActivity());
+            try{
+                wordMP.prepare();
+            }
+            catch (Exception e){
+                Log.d("CharFragmentMedia:",e.toString());
+                e.printStackTrace();
+            }
+            aWord.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    wordMP.start();
+                }
+            });
+            linearLayout.addView(aWord);
+        }
+    }
+
+    private void setMark(){
         //设置收藏状态
         isMark=false;
         if(isMark)
@@ -123,20 +213,6 @@ public class CharacterFragment extends Fragment {
         else
             mMark.setBackgroundResource(R.drawable.star);
 
-        //发音按键
-        mPronunciation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try{
-                    mMediaPronunciation.start();
-                }
-                catch (Exception e)
-                {
-                    Log.d("CharFragmentMedia:",e.toString());
-                    e.printStackTrace();
-                }
-            }
-        });
 
         //收藏按键
         mMark.setOnClickListener(new View.OnClickListener() {
@@ -149,9 +225,7 @@ public class CharacterFragment extends Fragment {
                     mMark.setBackgroundResource(R.drawable.star);
             }
         });
-        
     }
-
     //临时方法
     boolean isMark;
     private void change_mark_status(){

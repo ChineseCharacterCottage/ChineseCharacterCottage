@@ -21,6 +21,10 @@ import java.util.List;
 
 public class ComponentListActivity extends Activity {
 
+    //模式
+    int mModel;
+
+    //每页数量
     final int ITEM_NUMBER=20;
 
     //部首列表布局
@@ -36,8 +40,9 @@ public class ComponentListActivity extends Activity {
     //部首列表首个对象索引
     private int mListIndex;
 
-    public static void startActivity(Context context){
+    public static void startActivity(Context context,int model){
         Intent intent=new Intent(context,ComponentListActivity.class);
+        intent.putExtra("model",model);
         context.startActivity(intent);
     }
 
@@ -45,6 +50,7 @@ public class ComponentListActivity extends Activity {
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.acitivity_component_list);
+        mModel=getIntent().getIntExtra("model",0);
 
         init();
         reflesh();
@@ -62,7 +68,11 @@ public class ComponentListActivity extends Activity {
             Log.d("Component.getLab:",e.toString());
             e.printStackTrace();
         }
-        mMaxNumber=mComponentLab.getNumOfShapeComponents();
+        if(mModel==0){
+            mMaxNumber=mComponentLab.getNumOfShapeComponents();
+        }else{
+            mMaxNumber=mComponentLab.getNumOfVoiceComponents();
+        }
         mButton=(Button)findViewById(R.id.button_next);
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,7 +94,14 @@ public class ComponentListActivity extends Activity {
         for(int i=0;i<ITEM_NUMBER;i++){
             thisIndex=i+mListIndex;
             if(thisIndex<=mMaxNumber)
-                mComponentList.add(mComponentLab.getShapeComponent(String.valueOf(thisIndex)));
+            {
+                if(mModel==0){
+                    mComponentList.add(mComponentLab.getShapeComponent(String.valueOf(thisIndex)));
+                }else {
+                    mComponentList.add(mComponentLab.getVoiceComponent(String.valueOf(thisIndex)));
+                }
+
+            }
             else
                 return;
         }
@@ -108,7 +125,7 @@ public class ComponentListActivity extends Activity {
                 }
                 ft.addToBackStack(null);
 
-                ComponentDialog myComponentDialog= ComponentDialog.getDialogInstance(mComponentList.get(position));
+                ComponentDialog myComponentDialog= ComponentDialog.getDialogInstance(mComponentList.get(position),mModel);
                 myComponentDialog.show(ft,"component_dialog");
             }
         });

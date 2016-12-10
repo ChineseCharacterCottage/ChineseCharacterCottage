@@ -1,6 +1,7 @@
 package ecnu.chinesecharactercottage;
 
 import android.app.DialogFragment;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +16,8 @@ import android.widget.TextView;
 
 public class ComponentDialog extends DialogFragment {
 
+    //模式
+    private static int sModel;
     //部首
     private static ComponentItem sComponent;
 
@@ -25,8 +28,9 @@ public class ComponentDialog extends DialogFragment {
     //部首例字
     private LinearLayout mExampleCharacter;
 
-    static public ComponentDialog getDialogInstance(ComponentItem componentItem){
+    static public ComponentDialog getDialogInstance(ComponentItem componentItem,int model){
         sComponent=componentItem;
+        sModel=model;
         ComponentDialog myComponentDialog=new ComponentDialog();
         return myComponentDialog;
     }
@@ -35,7 +39,7 @@ public class ComponentDialog extends DialogFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        setStyle(DialogFragment.STYLE_NO_FRAME,android.R.style.Theme_Holo_Light_Dialog);
+        setStyle(DialogFragment.STYLE_NO_FRAME,R.style.myDialog);
     }
 
     @Override
@@ -71,31 +75,52 @@ public class ComponentDialog extends DialogFragment {
             aExample = new TextView(getActivity());
             aExample.setPadding(10,0,10,0);
             aExample.setText(examples[i]);
-            aExample.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    CharItem exampleItem;
-                    CharItemLab charItemLab;
-                    //获取对应例字
-                    try {
-                        charItemLab = CharItemLab.getLabWithoutContext();
-                    } catch (Exception e) {
-                        Log.d("getLab IOException", e.toString());
-                        getActivity().finish();
-                        return;
-                    }
-                    if (charItemLab == null) {
-                        Log.d("charItemLab", "is null");
-                    }
-                    try {
-                        exampleItem = charItemLab.findCharItemsByShape(((TextView) view).getText().toString())[0];
+            aExample.setTextColor(getResources().getColor(R.color.colorBlack));
+
+            final CharItem exampleItem;
+            CharItemLab charItemLab;
+            //获取对应例字
+            try {
+                charItemLab = CharItemLab.getLabWithoutContext();
+            } catch (Exception e) {
+                Log.d("getLab IOException", e.toString());
+                getActivity().finish();
+                return;
+            }
+            if (charItemLab == null) {
+                Log.d("charItemLab", "is null");
+            }
+            exampleItem = charItemLab.findCharItemsByShape(examples[i])[0];
+            if(sModel==0)
+                aExample.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
                         ExampleActivity.startActivity(getActivity(), exampleItem);
-                    } catch (Exception e) {
-                        Log.d("findCharItemsByShape", e.toString());
-                        e.printStackTrace();
                     }
+                });
+            else{
+                final MediaPlayer mediaPlayer=exampleItem.getMediaPlayer(getActivity());
+                try{
+                    mediaPlayer.prepare();
                 }
-            });
+                catch (Exception e){
+                    Log.d("PronunciationMedia:",e.toString());
+                    e.printStackTrace();
+                }
+                aExample.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        try{
+                            mediaPlayer.start();
+                        }
+                        catch (Exception e)
+                        {
+                            Log.d("PronunciationMedia:",e.toString());
+                            e.printStackTrace();
+                        }
+                    }
+                });
+            }
             linearLayout.addView(aExample);
         }
     }

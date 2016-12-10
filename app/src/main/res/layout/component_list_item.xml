@@ -5,7 +5,9 @@
               android:layout_height="match_parent">
 
     <TextView
+        android:background="@drawable/selector_item"
         android:layout_gravity="center"
+        android:gravity="center"
         android:id="@+id/component_figure"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>

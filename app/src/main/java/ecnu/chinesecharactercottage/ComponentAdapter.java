@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.List;
@@ -27,7 +28,7 @@ public class ComponentAdapter extends ArrayAdapter<ComponentItem> {
     public View getView(int position, View converView, ViewGroup parent){
         ComponentItem thisComponent=getItem(position);
         View view= LayoutInflater.from(getContext()).inflate(resourceId,null);
-        TextView figure=(TextView)view.findViewById(R.id.component_figure);
+        TextView figure=(TextView) view.findViewById(R.id.component_figure);
         figure.setText(thisComponent.getShape());
 
         return view;

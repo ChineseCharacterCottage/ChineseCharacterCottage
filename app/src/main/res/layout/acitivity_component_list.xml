@@ -12,6 +12,7 @@
     tools:context="ecnu.chinesecharactercottage.CCCMainActivity">
 
     <ListView
+        android:layout_marginBottom="40dp"
         android:id="@+id/component_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -21,8 +22,9 @@
     <Button
         style="@style/TestButton"
         android:id="@+id/button_next"
+        android:background="@drawable/selector_item"
         android:text="@string/button_next_page"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="40dp"/>
 
 </RelativeLayout>

@@ -2,22 +2,22 @@
 
 <TableLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@drawable/block"
+    android:background="@drawable/dialog"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:dividerPadding="15dp"
     android:stretchColumns="1"
     android:shrinkColumns="1">
-    <TableRow
-        android:dividerPadding="15dp">
+    <TableRow>
         <TextView
             android:text="Figure"
+            android:textColor="@color/colorBlack"
             android:gravity="center"/>
 
         <TextView
             android:id="@+id/component_figure"
             android:layout_gravity="center"
+            android:textColor="@color/colorBlack"
             android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
@@ -27,9 +27,11 @@
     <TableRow>
         <TextView
             android:text="Meaning"
+            android:textColor="@color/colorBlack"
             android:gravity="center"/>
         <TextView
             android:id="@+id/component_meaning"
+            android:textColor="@color/colorBlack"
             android:layout_gravity="center"
             android:gravity="center"
             android:layout_width="wrap_content"
@@ -39,6 +41,7 @@
     <TableRow>
         <TextView
             android:text="Example"
+            android:textColor="@color/colorBlack"
             android:gravity="center"/>
         <LinearLayout
             android:id="@+id/component_example"
@@ -52,6 +55,7 @@
 
     <TextView
         android:id="@+id/component_similarity"
+        android:textColor="@color/colorBlack"
         android:layout_gravity="center"
         android:gravity="center"
         android:layout_width="wrap_content"

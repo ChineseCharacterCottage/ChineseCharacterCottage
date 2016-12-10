@@ -9,4 +9,8 @@
     <string name="button_radical_learning">Component</string>
     <string name="button_test">Test</string>
     <string name="button_char_bookmark">Review</string>
+    <string name="slogan1">No Chinese Character</string>
+    <string name="slogan2">No Chinese Culture</string>
+    <string name="button_shape_component">Shape</string>
+    <string name="button_voice_component">Voice</string>
 </resources>
