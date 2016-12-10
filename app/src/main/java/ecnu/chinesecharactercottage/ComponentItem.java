@@ -20,6 +20,10 @@ public class ComponentItem implements Serializable {
         if(voiceOrShape.equals("shape") || voiceOrShape.equals("voice")) mVoS=voiceOrShape;
         else throw new RuntimeException("ComponentItem voiceOrShape must be \"voice\" or \"shape\".");
     }
+    @Override
+    public String toString(){
+        return mShape+" "+mExp+" "+mVoS;
+    }
     public String getShape(){
         return mShape;
     }

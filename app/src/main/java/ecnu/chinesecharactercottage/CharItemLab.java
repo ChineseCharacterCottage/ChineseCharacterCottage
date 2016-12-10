@@ -44,11 +44,16 @@ public class CharItemLab {
     private Context mContext;
 
     private CharItem[] mCharCache;
-    public static CharItemLab getLab(Context c)throws IOException,JSONException{
-        if(sCharItemLab==null) {
-            sCharItemLab = new CharItemLab(c.getApplicationContext());
+    public static CharItemLab getLab(Context c){
+        try {
+            if(sCharItemLab==null) {
+                sCharItemLab = new CharItemLab(c.getApplicationContext());
+            }
+            return sCharItemLab;
+        }catch (Exception e){
+            Log.d("CharItemLab",e.toString());
         }
-        return sCharItemLab;
+        return null;
     }
 
     public static CharItemLab getLabWithoutContext() throws Exception{
@@ -111,12 +116,12 @@ public class CharItemLab {
         return mCharItems;
     }*/
 
-    private JSONObject cursorToJSON(Cursor c)throws JSONException {
-        JSONObject json=new JSONObject();
-        for(int i=0;i<c.getColumnCount();i++) {
-            json.put(c.getColumnName(i),c.getString(i));
-        }
-        return json;
+    private JSONObject cursorToJSON(Cursor c) throws JSONException{
+            JSONObject json = new JSONObject();
+            for (int i = 0; i < c.getColumnCount(); i++) {
+                json.put(c.getColumnName(i), c.getString(i));
+            }
+            return json;
     }
     //根据汉字字形来找CharItem
     public CharItem[] findCharItemsByShape(String shape){
@@ -139,7 +144,7 @@ public class CharItemLab {
     }
     private void loadCharacters() {
         mDatabaseHelper = DatabaseHelper.getDateBaseInstance(mContext,DatabaseHelper.DATABASE_LOCATION,null,DatabaseHelper.VERSION);
-        mUserCharDataHelper = new UserCharDataHelper(mContext,"user_data.db",null,1);
+        mUserCharDataHelper=UserCharDataHelper.getDatabaseInstance(mContext,UserCharDataHelper.DATABASE_LOCATION,null,UserCharDataHelper.VERSION);
         SQLiteDatabase db=mDatabaseHelper.getReadableDatabase();
         Cursor cursor = db.rawQuery("select count(*) from char_item ",null);
         cursor.moveToNext();

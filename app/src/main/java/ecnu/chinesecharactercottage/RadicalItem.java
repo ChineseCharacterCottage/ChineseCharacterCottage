@@ -29,4 +29,8 @@ public class RadicalItem implements Serializable {
     public String[] getExamples(){
         return mExamples;
     }
+    @Override
+    public String toString(){
+        return mShape+" "+mName;
+    }
 }

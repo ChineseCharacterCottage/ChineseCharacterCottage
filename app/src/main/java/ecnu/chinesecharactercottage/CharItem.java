@@ -135,6 +135,10 @@ public class CharItem implements Readable,Serializable {
         }
         return image;
     }
+    @Override
+    public String toString(){
+        return get(ID)+" "+get(PINYIN);
+    }
     private static String pinyinTranslate(String s){
         int d;
         char[] array;
