@@ -56,13 +56,13 @@ public class ComponentActivity extends Activity {
     }
 
     private void init(){
-        mFigure=(TextView)findViewById(R.id.radical_figure);
-        mImage=(ImageView)findViewById(R.id.radical_image);
-        mChineseName=(TextView)findViewById(R.id.radical_chinese_name);
-        mEnglishName=(TextView)findViewById(R.id.radical_english_name);
-        mMeaning=(TextView)findViewById(R.id.radical_meaning);
-        mSimilarity=(TextView)findViewById(R.id.radical_similarity);
-        mExampleCharacter=(LinearLayout) findViewById(R.id.radical_example);
+        mFigure=(TextView)findViewById(R.id.component_figure);
+        mImage=(ImageView)findViewById(R.id.component_image);
+        mChineseName=(TextView)findViewById(R.id.component_chinese_name);
+        mEnglishName=(TextView)findViewById(R.id.component_english_name);
+        mMeaning=(TextView)findViewById(R.id.component_meaning);
+        mSimilarity=(TextView)findViewById(R.id.component_similarity);
+        mExampleCharacter=(LinearLayout) findViewById(R.id.component_example);
 
     }
     

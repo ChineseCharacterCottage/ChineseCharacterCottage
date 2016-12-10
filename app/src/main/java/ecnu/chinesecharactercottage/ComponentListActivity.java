@@ -1,6 +1,8 @@
 package ecnu.chinesecharactercottage;
 
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -99,7 +101,16 @@ public class ComponentListActivity extends Activity {
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                ComponentActivity.startActivity(ComponentListActivity.this,mRadicalList.get(position));
+                //ComponentActivity.startActivity(ComponentListActivity.this,mRadicalList.get(position));
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                Fragment prev = getFragmentManager().findFragmentByTag("component_dialog");
+                if (prev != null) {
+                    ft.remove(prev);
+                }
+                ft.addToBackStack(null);
+
+                ComponentDialog myComponentDialog= ComponentDialog.getDialogInstance(mRadicalList.get(position));
+                myComponentDialog.show(ft,"component_dialog");
             }
         });
     }
