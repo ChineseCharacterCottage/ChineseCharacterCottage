@@ -17,7 +17,7 @@ import java.util.List;
  * Created by 10040 on 2016/11/28.
  */
 
-public class RadicalListActivity extends Activity {
+public class ComponentListActivity extends Activity {
 
     final int ITEM_NUMBER=20;
 
@@ -35,14 +35,14 @@ public class RadicalListActivity extends Activity {
     private int mListIndex;
 
     public static void startActivity(Context context){
-        Intent intent=new Intent(context,RadicalListActivity.class);
+        Intent intent=new Intent(context,ComponentListActivity.class);
         context.startActivity(intent);
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.acitivity_radical_list);
+        setContentView(R.layout.acitivity_component_list);
 
         init();
         reflesh();
@@ -54,7 +54,7 @@ public class RadicalListActivity extends Activity {
         mListIndex=1;
 
         try{
-            mRadicalLab=RadicalLab.getLab(RadicalListActivity.this);
+            mRadicalLab=RadicalLab.getLab(ComponentListActivity.this);
         }
         catch (Exception e){
             Log.d("Radical.getLab:",e.toString());
@@ -95,11 +95,11 @@ public class RadicalListActivity extends Activity {
         }
 
         buildList();
-        mListView.setAdapter(new RadicalAdapter(RadicalListActivity.this,R.layout.radical_list_item,mRadicalList));
+        mListView.setAdapter(new RadicalAdapter(ComponentListActivity.this,R.layout.component_list_item,mRadicalList));
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                RadicalActivity.startActivity(RadicalListActivity.this,mRadicalList.get(position));
+                ComponentActivity.startActivity(ComponentListActivity.this,mRadicalList.get(position));
             }
         });
     }

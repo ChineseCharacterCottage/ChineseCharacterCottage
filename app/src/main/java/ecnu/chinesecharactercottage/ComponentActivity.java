@@ -1,7 +1,6 @@
 package ecnu.chinesecharactercottage;
 
 import android.app.Activity;
-import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,7 +18,7 @@ import java.io.IOException;
  * Created by 10040 on 2016/11/19.
  */
 
-public class RadicalActivity extends Activity {
+public class ComponentActivity extends Activity {
 
     //部首
     private static RadicalItem sRadical;
@@ -41,14 +40,14 @@ public class RadicalActivity extends Activity {
 
     public static void startActivity(Context context,RadicalItem radicalItem){
         sRadical=radicalItem;
-        Intent intent=new Intent(context,RadicalActivity.class);
+        Intent intent=new Intent(context,ComponentActivity.class);
         context.startActivity(intent);
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_radical_item);
+        setContentView(R.layout.activity_component_item);
 
         init();//初始化
 
@@ -96,7 +95,7 @@ public class RadicalActivity extends Activity {
                         CharItemLab charItemLab;
                         //获取对应例字
                         try {
-                            charItemLab = CharItemLab.getLab(RadicalActivity.this);
+                            charItemLab = CharItemLab.getLab(ComponentActivity.this);
                         } catch (IOException exp) {
                             Log.d("getLab IOException", exp.toString());
                             finish();
@@ -111,7 +110,7 @@ public class RadicalActivity extends Activity {
                         }
                         try {
                             exampleItem = charItemLab.findCharItemsByShape(((TextView) view).getText().toString())[0];
-                            ExampleActivity.startActivity(RadicalActivity.this,exampleItem);
+                            ExampleActivity.startActivity(ComponentActivity.this,exampleItem);
                         } catch (Exception e) {
                             Log.d("findCharItemsByShape", e.toString());
                             e.printStackTrace();

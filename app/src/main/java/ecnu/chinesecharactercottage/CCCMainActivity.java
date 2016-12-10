@@ -33,7 +33,7 @@ public class CCCMainActivity extends Activity {
         RadicalLeaning.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                RadicalListActivity.startActivity(CCCMainActivity.this);
+                ComponentListActivity.startActivity(CCCMainActivity.this);
             }
         });
     }

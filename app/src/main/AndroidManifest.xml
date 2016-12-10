@@ -16,8 +16,8 @@
         </activity>
 
         <activity android:name=".HSKActivity"></activity>
-        <activity android:name=".RadicalActivity"></activity>
-        <activity android:name=".RadicalListActivity"></activity>
+        <activity android:name=".ComponentActivity"></activity>
+        <activity android:name=".ComponentListActivity"></activity>
         <activity android:name=".ExampleActivity"></activity>
 
     </application>
