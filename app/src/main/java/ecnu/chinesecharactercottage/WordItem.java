@@ -38,7 +38,7 @@ public class WordItem implements Readable,Serializable {
             AssetFileDescriptor fd=c.getAssets().openFd(mSource);
             if(Build.VERSION.SDK_INT<24) {
                 mp.setDataSource(fd.getFileDescriptor(), fd.getStartOffset(), fd.getLength());
-            }else {
+            } else {
                 mp.setDataSource(c.getAssets().openFd(mSource));
             }
         }catch (IOException e){

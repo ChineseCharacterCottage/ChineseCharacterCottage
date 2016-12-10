@@ -74,7 +74,7 @@ public class CharItem implements Readable,Serializable {
             String[] words = get(WORDS).split("/|,");
             ArrayList<WordItem> list = new ArrayList<>();
             for (int i = 0; i < words.length; i += 2) {
-                list.add(new WordItem(words[1], words[0], "w_" + get("ID") + i / 2 + 1 + ".mp3"));
+                list.add(new WordItem(words[i+1], words[i], "w_" + get("ID") +"_"+ i / 2  + ".mp3"));
             }
             mWords=list.toArray(new WordItem[list.size()]);
         }
