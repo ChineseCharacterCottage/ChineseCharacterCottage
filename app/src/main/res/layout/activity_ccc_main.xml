@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <Button
+        android:id="@+id/HSKLeaning"
+        style="@style/TestButton2"
+        android:text="@string/button_HSK_learning"/>
+
+    <Button
+        android:id="@+id/component_leaning"
+        style="@style/TestButton2"
+        android:text="@string/button_radical_learning"/>
+
+    <Button
+        android:id="@+id/test"
+        style="@style/TestButton2"
+        android:text="@string/button_test"/>
+
+    <Button
+        android:id="@+id/char_bookmark"
+        style="@style/TestButton2"
+        android:text="@string/button_char_bookmark"/>
+</LinearLayout>

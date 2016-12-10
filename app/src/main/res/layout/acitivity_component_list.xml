@@ -12,7 +12,7 @@
     tools:context="ecnu.chinesecharactercottage.CCCMainActivity">
 
     <ListView
-        android:id="@+id/rdical_list"
+        android:id="@+id/component_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 

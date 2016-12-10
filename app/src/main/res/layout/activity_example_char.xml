@@ -1,20 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_hsk"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="16dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="16dp"
+    android:background="@color/colorCharBG">
 
     <fragment
         android:id="@+id/example_fragment"
         android:name="ecnu.chinesecharactercottage.CharacterFragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        tools:layout="@layout/character_fragment">
     </fragment>
 
     <Button
-        android:text="@string/button_return"
         android:id="@+id/button_return"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="40dp"
+        android:textAllCaps="false"
+        android:text="@string/button_return"
+        android:textSize="20sp"
+        android:layout_alignParentBottom="true"/>
 
-</LinearLayout>
+</RelativeLayout>

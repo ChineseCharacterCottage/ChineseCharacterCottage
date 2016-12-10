@@ -30,9 +30,9 @@ public class ComponentListActivity extends Activity {
     //部首总个数
     private int mMaxNumber;
     //部首库
-    private RadicalLab mRadicalLab;
+    private ComponentLab mComponentLab;
     //部首列表
-    private List<RadicalItem> mRadicalList;
+    private List<ComponentItem> mComponentList;
     //部首列表首个对象索引
     private int mListIndex;
 
@@ -52,17 +52,17 @@ public class ComponentListActivity extends Activity {
     }
 
     private void init(){
-        mListView=(ListView)findViewById(R.id.rdical_list);
+        mListView=(ListView)findViewById(R.id.component_list);
         mListIndex=1;
 
         try{
-            mRadicalLab=RadicalLab.getLab(ComponentListActivity.this);
+            mComponentLab=ComponentLab.getLab(ComponentListActivity.this);
         }
         catch (Exception e){
-            Log.d("Radical.getLab:",e.toString());
+            Log.d("Component.getLab:",e.toString());
             e.printStackTrace();
         }
-        mMaxNumber=mRadicalLab.getSize();
+        mMaxNumber=mComponentLab.getNumOfShapeComponents();
         mButton=(Button)findViewById(R.id.button_next);
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,12 +79,12 @@ public class ComponentListActivity extends Activity {
     }
     
     private void buildList(){
-        mRadicalList=new ArrayList<RadicalItem>();
+        mComponentList=new ArrayList<ComponentItem>();
         int thisIndex;
         for(int i=0;i<ITEM_NUMBER;i++){
             thisIndex=i+mListIndex;
             if(thisIndex<=mMaxNumber)
-                mRadicalList.add(mRadicalLab.getRadical(String.valueOf(thisIndex)));
+                mComponentList.add(mComponentLab.getShapeComponent(String.valueOf(thisIndex)));
             else
                 return;
         }
@@ -97,11 +97,10 @@ public class ComponentListActivity extends Activity {
         }
 
         buildList();
-        mListView.setAdapter(new RadicalAdapter(ComponentListActivity.this,R.layout.component_list_item,mRadicalList));
+        mListView.setAdapter(new ComponentAdapter(ComponentListActivity.this,R.layout.component_list_item,mComponentList));
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                //ComponentActivity.startActivity(ComponentListActivity.this,mRadicalList.get(position));
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 Fragment prev = getFragmentManager().findFragmentByTag("component_dialog");
                 if (prev != null) {
@@ -109,7 +108,7 @@ public class ComponentListActivity extends Activity {
                 }
                 ft.addToBackStack(null);
 
-                ComponentDialog myComponentDialog= ComponentDialog.getDialogInstance(mRadicalList.get(position));
+                ComponentDialog myComponentDialog= ComponentDialog.getDialogInstance(mComponentList.get(position));
                 myComponentDialog.show(ft,"component_dialog");
             }
         });

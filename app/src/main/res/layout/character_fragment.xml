@@ -21,6 +21,7 @@
             <TextView
                 android:id="@+id/figure"
                 android:textSize="100sp"
+                android:textColor="#000"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:gravity="center"/>
@@ -94,7 +95,7 @@
                 android:id="@+id/radical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="测试，这是部首"/>
+                android:layout_gravity="center"/>
         </TableRow>
 
         <View android:layout_height="2dp" android:background="@color/colorCharDiv"></View>
@@ -104,14 +105,14 @@
             <TextView
                 style="@style/TestText"
                 android:layout_height="wrap_content"
-                android:text="Parts:"/>
+                android:text="Component:"/>
 
             <TextView
-                android:id="@+id/part"
+                android:id="@+id/component"
                 style="@style/TestText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="测试，这是部件"/>
+                android:layout_gravity="center"/>
         </TableRow>
 
         <View android:layout_height="2dp" android:background="@color/colorCharDiv"></View>
@@ -145,6 +146,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
             </LinearLayout>
+
         </TableRow>
 
         <View android:layout_height="2dp" android:background="@color/colorCharDiv"></View>

@@ -6,13 +6,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import org.json.JSONException;
-
-import java.io.IOException;
 
 /**
  * Created by 10040 on 2016/12/10.
@@ -21,24 +16,16 @@ import java.io.IOException;
 public class ComponentDialog extends DialogFragment {
 
     //部首
-    private static RadicalItem sComponent;
+    private static ComponentItem sComponent;
 
     //部首字形
     private TextView mFigure;
-    //部首图片
-    private ImageView mImage;
-    //部首中文名
-    private TextView mChineseName;
-    //部首英文名
-    private TextView mEnglishName;
     //部首中文意思
     private TextView mMeaning;
-    //形近部首
-    private TextView mSimilarity;
     //部首例字
     private LinearLayout mExampleCharacter;
 
-    static public ComponentDialog getDialogInstance(RadicalItem componentItem){
+    static public ComponentDialog getDialogInstance(ComponentItem componentItem){
         sComponent=componentItem;
         ComponentDialog myComponentDialog=new ComponentDialog();
         return myComponentDialog;
@@ -47,19 +34,16 @@ public class ComponentDialog extends DialogFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setStyle(DialogFragment.STYLE_NO_TITLE,android.R.style.Theme_Holo_Light_Dialog);
+        //getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        setStyle(DialogFragment.STYLE_NO_FRAME,android.R.style.Theme_Holo_Light_Dialog);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v=inflater.inflate(R.layout.activity_component_item,container,false);
+        View v=inflater.inflate(R.layout.dialog_component,container,false);
         mFigure=(TextView)v.findViewById(R.id.component_figure);
-        mImage=(ImageView)v.findViewById(R.id.component_image);
-        mChineseName=(TextView)v.findViewById(R.id.component_chinese_name);
-        mEnglishName=(TextView)v.findViewById(R.id.component_english_name);
         mMeaning=(TextView)v.findViewById(R.id.component_meaning);
-        mSimilarity=(TextView)v.findViewById(R.id.component_similarity);
         mExampleCharacter=(LinearLayout) v.findViewById(R.id.component_example);
 
         setRadical();
@@ -68,12 +52,10 @@ public class ComponentDialog extends DialogFragment {
     }
 
     private void setRadical() {
-        mFigure.setText(sComponent.getRadical());
-        //mImage.setImageBitmap(sRadical.getImage());
-        mEnglishName.setText(sComponent.getName());
-        //mMeaning.setText(sRadical.getMeaning));
+        mFigure.setText(sComponent.getShape());
+        mMeaning.setText(sComponent.getExplanation());
 
-        String[] examples = sComponent.getExamples();
+        String[] examples = sComponent.getCharacters();
         int exampleNumber = examples.length;
 
         LinearLayout linearLayout;
@@ -87,7 +69,8 @@ public class ComponentDialog extends DialogFragment {
                 mExampleCharacter.addView(linearLayout);
             }
             aExample = new TextView(getActivity());
-            aExample.setText(examples[i]+"   ");
+            aExample.setPadding(10,0,10,0);
+            aExample.setText(examples[i]);
             aExample.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

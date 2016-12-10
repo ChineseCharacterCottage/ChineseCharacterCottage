@@ -14,7 +14,7 @@ public class CCCMainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.ccc_main_activity);
+        setContentView(R.layout.activity_ccc_main);
 
         init();
 
@@ -29,7 +29,7 @@ public class CCCMainActivity extends Activity {
             }
         });
 
-        Button RadicalLeaning = (Button) findViewById(R.id.radical_leaning);
+        Button RadicalLeaning = (Button) findViewById(R.id.component_leaning);
         RadicalLeaning.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

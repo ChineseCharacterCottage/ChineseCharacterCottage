@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<TableLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/block"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:dividerPadding="15dp"
+    android:stretchColumns="1"
+    android:shrinkColumns="1">
+    <TableRow
+        android:dividerPadding="15dp">
+        <TextView
+            android:text="Figure"
+            android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/component_figure"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </TableRow>
+
+    <TableRow>
+        <TextView
+            android:text="Meaning"
+            android:gravity="center"/>
+        <TextView
+            android:id="@+id/component_meaning"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </TableRow>
+
+    <TableRow>
+        <TextView
+            android:text="Example"
+            android:gravity="center"/>
+        <LinearLayout
+            android:id="@+id/component_example"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+        </LinearLayout>
+    </TableRow>
+
+
+    <TextView
+        android:id="@+id/component_similarity"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</TableLayout>

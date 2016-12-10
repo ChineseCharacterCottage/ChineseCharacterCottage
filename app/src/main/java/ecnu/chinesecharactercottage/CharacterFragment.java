@@ -1,6 +1,9 @@
 package ecnu.chinesecharactercottage;
 
 import android.app.Fragment;
+import android.app.FragmentTransaction;
+import android.content.res.AssetManager;
+import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,7 +22,8 @@ import android.widget.Toast;
 
 public class CharacterFragment extends Fragment {
 
-    private CharItem mCharItem;
+    //部首id
+    private String mRadicalId;
 
     //字形
     private TextView mFigure;
@@ -51,12 +55,13 @@ public class CharacterFragment extends Fragment {
         View view=inflater.inflate(R.layout.character_fragment,container,false);
         
         mFigure=(TextView) view.findViewById(R.id.figure);
+        Typeface face = Typeface.createFromAsset(getActivity().getAssets(),"font/1.ttf");
+        mFigure.setTypeface(face);
         mPinyin=(TextView)view.findViewById(R.id.pinyin);
         mCharImg=(ImageView)view.findViewById(R.id.char_image);
         mRadical=(TextView)view.findViewById(R.id.radical);
         mMeaning=(TextView)view.findViewById(R.id.meaning);
-        mPart=(TextView)view.findViewById(R.id.part);
-        //mWords=(TextView)view.findViewById(R.id.words);
+        mPart=(TextView)view.findViewById(R.id.component);
         mSentence=(TextView)view.findViewById(R.id.char_sentence);
 
         mMark=(Button)view.findViewById(R.id.mark);
@@ -69,12 +74,38 @@ public class CharacterFragment extends Fragment {
         mPinyin.setText(thisChar.get(CharItem.PINYIN));
         mMeaning.setText(thisChar.get(CharItem.EXPLANATION));
         mCharImg.setImageBitmap(thisChar.getImage(getActivity()));
-        //mRadical.setText(thisChar.getRadical().getRadical());
         mMediaPronunciation=thisChar.getMediaPlayer(getActivity());
-        //mPart.setText(thisChar.get());
-        //mWords.setText(thisChar.getWords());
         mSentence.setText(thisChar.get(CharItem.SENTENCE));
-        //isMark=thisChar.get;
+
+        RadicalItem radical=thisChar.getRadical();
+        mRadicalId=radical.getId();
+        mRadical.setText(radical.getRadical());
+        mRadical.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RadicalLab radicalLab;
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                Fragment prev = getFragmentManager().findFragmentByTag("component_dialog");
+                if (prev != null) {
+                    ft.remove(prev);
+                }
+                ft.addToBackStack(null);
+
+                try {
+                    radicalLab = RadicalLab.getLabWithoutContext();
+                } catch (Exception e) {
+                    Log.d("getLab IOException", e.toString());
+                    getActivity().finish();
+                    return;
+                }
+                if (radicalLab == null) {
+                    Log.d("charItemLab", "is null");
+                }
+
+                RadicalDialog myRadicalDialog= RadicalDialog.getDialogInstance(radicalLab.getRadical(mRadicalId));
+                myRadicalDialog.show(ft,"component_dialog");
+            }
+        });
 
 
         try{
