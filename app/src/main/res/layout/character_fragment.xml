@@ -37,6 +37,7 @@
                 android:layout_height="110dp">
 
                 <ImageView
+                    android:paddingLeft="10dp"
                     android:id="@+id/char_image"
                     android:layout_width="wrap_content"
                     android:layout_height="110dp"
@@ -86,6 +87,7 @@
         <TableRow>
             <TextView
                 style="@style/TestText"
+                android:gravity="center"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:text="Radical:"/>
@@ -100,6 +102,7 @@
 
         <View android:layout_height="2dp" android:background="@color/colorCharDiv"></View>
 
+        <!--
         <TableRow>
 
             <TextView
@@ -116,7 +119,7 @@
         </TableRow>
 
         <View android:layout_height="2dp" android:background="@color/colorCharDiv"></View>
-
+        -->
         <TableRow>
 
             <TextView
@@ -138,6 +141,7 @@
 
             <TextView
                 style="@style/TestText"
+                android:gravity="center"
                 android:layout_height="wrap_content"
                 android:text="Words:"/>
 

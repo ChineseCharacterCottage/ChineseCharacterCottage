@@ -74,6 +74,7 @@ public class ComponentDialog extends DialogFragment {
             }
             aExample = new TextView(getActivity());
             aExample.setPadding(10,0,10,0);
+            aExample.setTextSize(20);
             aExample.setText(examples[i]);
             aExample.setTextColor(getResources().getColor(R.color.colorBlack));
 

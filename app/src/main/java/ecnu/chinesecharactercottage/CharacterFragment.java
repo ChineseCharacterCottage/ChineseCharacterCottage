@@ -38,7 +38,7 @@ public class CharacterFragment extends Fragment {
     //发音
     private MediaPlayer mMediaPronunciation;
     //部件
-    private TextView mComponent;
+    //private TextView mComponent;
     //组词
     private LinearLayout mWords;
     //例句
@@ -63,7 +63,7 @@ public class CharacterFragment extends Fragment {
         mCharImg=(ImageView)view.findViewById(R.id.char_image);
         mRadical=(TextView)view.findViewById(R.id.radical);
         mMeaning=(TextView)view.findViewById(R.id.meaning);
-        mComponent=(TextView)view.findViewById(R.id.component);
+        //mComponent=(TextView)view.findViewById(R.id.component);
         mSentence=(TextView)view.findViewById(R.id.char_sentence);
         mWords=(LinearLayout)view.findViewById(R.id.words);
 
@@ -98,7 +98,7 @@ public class CharacterFragment extends Fragment {
             e.printStackTrace();
         }
         //发音按键
-        mPronunciation.setOnClickListener(new View.OnClickListener() {
+        mSentence.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try{

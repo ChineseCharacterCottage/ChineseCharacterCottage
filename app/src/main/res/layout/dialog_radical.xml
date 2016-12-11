@@ -2,14 +2,14 @@
 
 <TableLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@drawable/block"
+    android:background="@drawable/dialog"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:dividerPadding="15dp"
     android:stretchColumns="1"
     android:shrinkColumns="1">
     <TableRow
+        android:background="@drawable/item"
         android:dividerPadding="15dp">
         <TextView
             android:text="Figure"
@@ -24,7 +24,10 @@
 
     </TableRow>
 
-    <TableRow>
+    <View android:layout_height="15dp"/>
+
+    <TableRow
+        android:background="@drawable/item">
         <TextView
             android:text="Name"
             android:gravity="center"/>
@@ -36,7 +39,10 @@
             android:layout_height="wrap_content"/>
     </TableRow>
 
-    <TableRow>
+    <View android:layout_height="15dp"/>
+
+    <TableRow
+        android:background="@drawable/item">
         <TextView
             android:text="Example"
             android:gravity="center"/>

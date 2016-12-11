@@ -3,9 +3,11 @@ package ecnu.chinesecharactercottage;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
@@ -17,6 +19,7 @@ public class CCCMainActivity extends Activity {
 
     private SlidingLayout slidingLayout;
     private LinearLayout mainLayout;
+    private LinearLayout mButtons;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +28,19 @@ public class CCCMainActivity extends Activity {
 
         init();
 
+        WindowManager wm = (WindowManager) this.getSystemService(Context.WINDOW_SERVICE);
+        int screenWidth=wm.getDefaultDisplay().getWidth();
+        int screenHeight=wm.getDefaultDisplay().getHeight();
         mainLayout=(LinearLayout)findViewById(R.id.mainLayout);
+        mButtons=(LinearLayout)findViewById(R.id.homepageButtons);
+        LinearLayout.LayoutParams linearParams =(LinearLayout.LayoutParams) mButtons.getLayoutParams();
+        int left=(int)(screenWidth/4.9);
+        int top=(int)(screenHeight/5.2);
+        linearParams.setMargins(left,top,0,0);
+        linearParams.height=(int)(screenHeight/2.15);
+        linearParams.width=(int)(screenWidth/1.648);
+        mButtons.setLayoutParams(linearParams);
+
         slidingLayout=(SlidingLayout)findViewById(R.id.slidingLayout);
         slidingLayout.setScrollEvent(mainLayout);
 

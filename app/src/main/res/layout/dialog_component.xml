@@ -8,7 +8,9 @@
     android:orientation="vertical"
     android:stretchColumns="1"
     android:shrinkColumns="1">
-    <TableRow>
+    <TableRow
+        android:background="@drawable/item"
+        android:dividerPadding="15dp">
         <TextView
             android:text="Figure"
             android:textColor="@color/colorBlack"
@@ -24,7 +26,10 @@
 
     </TableRow>
 
-    <TableRow>
+    <View android:layout_height="15dp"/>
+
+    <TableRow
+        android:background="@drawable/item">
         <TextView
             android:text="Meaning"
             android:textColor="@color/colorBlack"
@@ -38,7 +43,10 @@
             android:layout_height="wrap_content"/>
     </TableRow>
 
-    <TableRow>
+    <View android:layout_height="15dp"/>
+
+    <TableRow
+        android:background="@drawable/item">
         <TextView
             android:text="Example"
             android:textColor="@color/colorBlack"
@@ -51,7 +59,6 @@
             android:orientation="vertical">
         </LinearLayout>
     </TableRow>
-
 
     <TextView
         android:id="@+id/component_similarity"

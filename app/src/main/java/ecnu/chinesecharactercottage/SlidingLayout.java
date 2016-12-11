@@ -41,7 +41,7 @@ public class SlidingLayout extends LinearLayout implements View.OnTouchListener 
     /**
      * 左侧布局完全显示时，留给右侧布局的宽度值。
      */
-    private int leftLayoutPadding = 360;
+    private int leftLayoutPadding = 450;
 
     /**
      * 记录手指按下时的横坐标。
@@ -103,6 +103,7 @@ public class SlidingLayout extends LinearLayout implements View.OnTouchListener 
         super(context, attrs);
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         screenWidth = wm.getDefaultDisplay().getWidth();
+        leftLayoutPadding=screenWidth/12*7;
     }
 
     /**
