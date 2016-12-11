@@ -195,7 +195,7 @@
                         android:text="@string/button_test"/>
 
                     <Button
-                        android:id="@+id/char_bookmark"
+                        android:id="@+id/review"
                         android:textColor="@color/colorYellowGrey"
                         android:background="@drawable/selector_homepage_button_deep"
                         style="@style/homepageButton"

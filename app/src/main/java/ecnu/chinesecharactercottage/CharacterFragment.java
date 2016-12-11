@@ -2,7 +2,6 @@ package ecnu.chinesecharactercottage;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
-import android.content.res.AssetManager;
 import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -14,7 +13,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 /**
  * Created by 10040 on 2016/12/4.
@@ -24,6 +22,8 @@ public class CharacterFragment extends Fragment {
 
     //部首id
     private String mRadicalId;
+    //收藏lab
+    private CollectionLab mCollectionLab;
 
     //字形
     private TextView mFigure;
@@ -43,14 +43,18 @@ public class CharacterFragment extends Fragment {
     private LinearLayout mWords;
     //例句
     private TextView mSentence;
+    //例句喇叭
+    private Button mSentenceHorn;
     //例句发音
     private MediaPlayer mSentenceMP;
+    //收藏情况
+    private Boolean mIsMark;
 
 
     //收藏按键
     private Button mMark;
     //发音按键
-    private Button mPronunciation;
+    //private Button mPronunciation;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -66,9 +70,11 @@ public class CharacterFragment extends Fragment {
         //mComponent=(TextView)view.findViewById(R.id.component);
         mSentence=(TextView)view.findViewById(R.id.char_sentence);
         mWords=(LinearLayout)view.findViewById(R.id.words);
+        mSentenceHorn =(Button)view.findViewById(R.id.sentence_pronunciation);
 
         mMark=(Button)view.findViewById(R.id.mark);
-        mPronunciation=(Button)view.findViewById(R.id.media_pronunciation);
+        mCollectionLab=CollectionLab.getLab(getActivity());
+        //mPronunciation=(Button)view.findViewById(R.id.media_pronunciation);
         return view;
     }
     
@@ -83,7 +89,7 @@ public class CharacterFragment extends Fragment {
         setPronunciation(thisChar.getMediaPlayer(getActivity()));
         setSentenceMP(thisChar.getSentenceReadable(getActivity()).getMediaPlayer(getActivity()));
 
-        setMark();
+        setMark(thisChar);
         
         
     }
@@ -98,7 +104,7 @@ public class CharacterFragment extends Fragment {
             e.printStackTrace();
         }
         //发音按键
-        mSentence.setOnClickListener(new View.OnClickListener() {
+        View.OnClickListener pronunciationListener=new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try{
@@ -110,7 +116,10 @@ public class CharacterFragment extends Fragment {
                     e.printStackTrace();
                 }
             }
-        });
+        };
+
+        mSentence.setOnClickListener(pronunciationListener);
+        mSentenceHorn.setOnClickListener(pronunciationListener);
     }
     
     private void setPronunciation(MediaPlayer mediaPlayer){
@@ -123,7 +132,7 @@ public class CharacterFragment extends Fragment {
             e.printStackTrace();
         }
         //发音按键
-        mPronunciation.setOnClickListener(new View.OnClickListener() {
+        mFigure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try{
@@ -174,19 +183,17 @@ public class CharacterFragment extends Fragment {
         mWords.removeAllViews();
         int wordNumber = words.length;
 
-        LinearLayout linearLayout;
-        linearLayout = new LinearLayout(getActivity());//为了解决报错
+        /*LinearLayout linearLayout;
+        linearLayout = new LinearLayout(getActivity());
+        linearLayout.setOrientation(LinearLayout.HORIZONTAL);
+        mWords.addView(linearLayout);*/
 
         TextView aWord;
         for (int i = 0; i < wordNumber; i++) {
-            if (i % 5 == 0) {
-                linearLayout = new LinearLayout(getActivity());
-                linearLayout.setOrientation(LinearLayout.HORIZONTAL);
-                mWords.addView(linearLayout);
-            }
             aWord = new TextView(getActivity());
             aWord.setPadding(10,0,10,0);
-            aWord.setText(words[i].getChinese());
+            aWord.setTextSize(17);
+            aWord.setText(words[i].getChinese()+'/'+words[i].getWord());
             final MediaPlayer wordMP=words[i].getMediaPlayer(getActivity());
             try{
                 wordMP.prepare();
@@ -201,14 +208,13 @@ public class CharacterFragment extends Fragment {
                     wordMP.start();
                 }
             });
-            linearLayout.addView(aWord);
+            mWords.addView(aWord);
         }
     }
 
-    private void setMark(){
-        //设置收藏状态
-        isMark=false;
-        if(isMark)
+    private void setMark(final CharItem charItem){
+        mIsMark =mCollectionLab.isAdded(charItem);
+        if(mIsMark)
             mMark.setBackgroundResource(R.drawable.star_marked);
         else
             mMark.setBackgroundResource(R.drawable.star);
@@ -218,17 +224,15 @@ public class CharacterFragment extends Fragment {
         mMark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                change_mark_status();
-                if(isMark)
+                if(mIsMark) {/*
+                    mCollectionLab.
+                    mMark.setBackgroundResource(R.drawable.star);*/
+                }
+                else {
+                    mCollectionLab.addCollection(charItem);
                     mMark.setBackgroundResource(R.drawable.star_marked);
-                else
-                    mMark.setBackgroundResource(R.drawable.star);
+                }
             }
         });
-    }
-    //临时方法
-    boolean isMark;
-    private void change_mark_status(){
-        isMark=!isMark;
     }
 }

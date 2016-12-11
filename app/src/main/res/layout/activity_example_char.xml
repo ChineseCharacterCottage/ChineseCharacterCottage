@@ -21,6 +21,7 @@
 
     <Button
         android:id="@+id/button_return"
+        android:background="@drawable/selector_button"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:textAllCaps="false"

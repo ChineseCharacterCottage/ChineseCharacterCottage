@@ -20,6 +20,11 @@ public class CCCMainActivity extends Activity {
     private SlidingLayout slidingLayout;
     private LinearLayout mainLayout;
     private LinearLayout mButtons;
+    private Button mHskLeaning;
+    private Button mRadicalLeaning;
+    private Button mTest;
+    private Button mReview;
+    private CollectionLab mCollectionLab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,12 +32,44 @@ public class CCCMainActivity extends Activity {
         setContentView(R.layout.activity_ccc_main);
 
         init();
+        setButtons();
+        slidingLayout.setScrollEvent(mainLayout);
+        setHSKLeaning();
+        setRadicalLeaning();
+        //setReview();
 
+
+
+    }
+
+    private void init(){
+        try{
+            CharItemLab.getLab(CCCMainActivity.this);
+            RadicalLab.getLab(CCCMainActivity.this);
+            mCollectionLab=CollectionLab.getLab(CCCMainActivity.this);
+
+        }
+        catch (IOException exp){
+            finish();
+            return;
+        }
+        catch(JSONException exp){
+            finish();
+            return;
+        }
+
+        mainLayout=(LinearLayout)findViewById(R.id.mainLayout);
+        mButtons=(LinearLayout)findViewById(R.id.homepageButtons);
+        slidingLayout=(SlidingLayout)findViewById(R.id.slidingLayout);
+        mHskLeaning = (Button) findViewById(R.id.HSKLeaning);
+        mRadicalLeaning = (Button) findViewById(R.id.component_leaning);
+        mReview=(Button)findViewById(R.id.review);
+    }
+
+    private void setButtons(){
         WindowManager wm = (WindowManager) this.getSystemService(Context.WINDOW_SERVICE);
         int screenWidth=wm.getDefaultDisplay().getWidth();
         int screenHeight=wm.getDefaultDisplay().getHeight();
-        mainLayout=(LinearLayout)findViewById(R.id.mainLayout);
-        mButtons=(LinearLayout)findViewById(R.id.homepageButtons);
         LinearLayout.LayoutParams linearParams =(LinearLayout.LayoutParams) mButtons.getLayoutParams();
         int left=(int)(screenWidth/4.9);
         int top=(int)(screenHeight/5.2);
@@ -40,23 +77,27 @@ public class CCCMainActivity extends Activity {
         linearParams.height=(int)(screenHeight/2.15);
         linearParams.width=(int)(screenWidth/1.648);
         mButtons.setLayoutParams(linearParams);
+    }
 
-        slidingLayout=(SlidingLayout)findViewById(R.id.slidingLayout);
-        slidingLayout.setScrollEvent(mainLayout);
+    private void setHSKLeaning(){
+        final String[] charId=new String[20];
+        for(int i=0;i<20;i++)
+            charId[i]=String.valueOf(i+1);
 
-        Button HSKLeaning = (Button) findViewById(R.id.HSKLeaning);
-        HSKLeaning.setOnClickListener(new View.OnClickListener() {
+        mHskLeaning.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(CCCMainActivity.this, HSKActivity.class);
                 intent.putExtra("learned_number",0);
+                intent.putExtra("char_id",charId);
                 startActivityForResult(intent,1);
                 //HSKActivity.startHSKLeaning(CCCMainActivity.this);
             }
         });
+    }
 
-        Button RadicalLeaning = (Button) findViewById(R.id.component_leaning);
-        RadicalLeaning.setOnClickListener(new View.OnClickListener() {
+    private void setRadicalLeaning(){
+        mRadicalLeaning.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
@@ -72,19 +113,19 @@ public class CCCMainActivity extends Activity {
         });
     }
 
-    private void init(){
-        try{
-            CharItemLab.getLab(CCCMainActivity.this);
-            RadicalLab.getLab(CCCMainActivity.this);
+    /*private void setReview(){
 
-        }
-        catch (IOException exp){
-            finish();
-            return;
-        }
-        catch(JSONException exp){
-            finish();
-            return;
-        }
-    }
+        String[] charId=mCollectionLab.getCharId();
+
+        mHskLeaning.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(CCCMainActivity.this, HSKActivity.class);
+                intent.putExtra("learned_number",0);
+                intent.putExtra("char_id",charId);
+                startActivityForResult(intent,1);
+                //HSKActivity.startHSKLeaning(CCCMainActivity.this);
+            }
+        });
+    }*/
 }

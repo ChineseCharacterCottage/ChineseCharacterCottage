@@ -101,9 +101,7 @@ public class HSKActivity extends Activity {
         if(mCharItemLab==null){
         }
 
-        String[] charId=new String[20];
-        for(int i=0;i<20;i++)
-            charId[i]=String.valueOf(i+1);
+        String[] charId=getIntent().getStringArrayExtra("char_id");
         mLearnedNumber=getIntent().getIntExtra("learned_number",0);
 
         try {

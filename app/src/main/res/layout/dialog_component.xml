@@ -9,10 +9,11 @@
     android:stretchColumns="1"
     android:shrinkColumns="1">
     <TableRow
-        android:background="@drawable/item"
-        android:dividerPadding="15dp">
+        android:background="@drawable/item">
         <TextView
             android:text="Figure"
+            android:layout_gravity="center"
+            android:layout_width="100dp"
             android:textColor="@color/colorBlack"
             android:gravity="center"/>
 
@@ -32,6 +33,7 @@
         android:background="@drawable/item">
         <TextView
             android:text="Meaning"
+            android:layout_gravity="center"
             android:textColor="@color/colorBlack"
             android:gravity="center"/>
         <TextView
@@ -49,6 +51,7 @@
         android:background="@drawable/item">
         <TextView
             android:text="Example"
+            android:layout_gravity="center"
             android:textColor="@color/colorBlack"
             android:gravity="center"/>
         <LinearLayout

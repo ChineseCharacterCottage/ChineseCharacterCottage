@@ -27,48 +27,47 @@
                 android:gravity="center"/>
         </FrameLayout>
 
-        <LinearLayout
-            android:layout_height="150dp"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:orientation="vertical">
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="110dp">
-
-                <ImageView
-                    android:paddingLeft="10dp"
-                    android:id="@+id/char_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="110dp"
-                    android:layout_gravity="center"/>
-            </FrameLayout>
-
+        <!--
+    <LinearLayout
+        android:layout_height="150dp"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
             <LinearLayout
-                android:layout_width="match_parent"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/media_pronunciation"
+                android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:orientation="horizontal">
-                <Button
-                    android:id="@+id/media_pronunciation"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:background="@drawable/horn"/>
-
-                <TextView
-                    android:id="@+id/pinyin"
-                    android:layout_width="0dp"
-                    android:layout_height="40dp"
-                    android:layout_weight="1"
-                    android:textSize="25sp"/>
-
-                <Button
-                    android:id="@+id/mark"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_gravity="end"
-                    android:background="@drawable/star"/>
+                android:background="@drawable/horn"/>
             </LinearLayout>
+
+
+
         </LinearLayout>
+         -->
+
+    <FrameLayout
+        android:layout_height="150dp"
+        android:layout_width="0dp"
+        android:layout_weight="1">
+
+        <ImageView
+            android:paddingLeft="10dp"
+            android:id="@+id/char_image"
+            android:layout_width="wrap_content"
+            android:layout_height="110dp"
+            android:layout_gravity="center"/>
+        <Button
+            android:id="@+id/mark"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="end"
+            android:background="@drawable/star"/>
+    </FrameLayout>
     </LinearLayout>
 
     <View
@@ -83,6 +82,24 @@
         android:shrinkColumns="1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
+        <TableRow>
+            <TextView
+                style="@style/TestText"
+                android:gravity="center"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="Pinyin:"/>
+
+            <TextView
+                style="@style/TestText"
+                android:id="@+id/pinyin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"/>
+        </TableRow>
+
+        <View android:layout_height="2dp" android:background="@color/colorCharDiv"></View>
 
         <TableRow>
             <TextView
@@ -130,6 +147,7 @@
             <TextView
                 android:id="@+id/meaning"
                 style="@style/TestText"
+                android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="测试，这是英文解释"/>
@@ -157,15 +175,26 @@
         <View android:layout_height="2dp" android:background="@color/colorCharDiv"></View>
 
         <TableRow>
-
+            <!--
             <TextView
                 style="@style/TestText"
                 android:layout_height="wrap_content"
                 android:text="Sentence:"/>
+            -->
+            <FrameLayout>
+                <Button
+                    android:id="@+id/sentence_pronunciation"
+                    android:layout_gravity="center"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/horn"/>
+            </FrameLayout>
+
 
             <TextView
                 android:id="@+id/char_sentence"
                 style="@style/TestText"
+                android:textSize="16sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="测试，这是例句"/>
