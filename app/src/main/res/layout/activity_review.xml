@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingBottom="16dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingTop="16dp"
+                android:background="@color/colorCharBG"
+                xmlns:tools="http://schemas.android.com/tools">
+
+    <fragment
+        android:id="@+id/character_fragment"
+        android:name="ecnu.chinesecharactercottage.CharacterFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout="@layout/character_fragment">
+    </fragment>
+
+    <Button
+        android:background="@drawable/selector_button"
+        android:id="@+id/button_next"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:textAllCaps="false"
+        android:text="@string/button_next_character"
+        android:textSize="15sp"
+        android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>

@@ -36,7 +36,7 @@ public class CCCMainActivity extends Activity {
         slidingLayout.setScrollEvent(mainLayout);
         setHSKLeaning();
         setRadicalLeaning();
-        //setReview();
+        setReview();
 
 
 
@@ -113,19 +113,15 @@ public class CCCMainActivity extends Activity {
         });
     }
 
-    /*private void setReview(){
+    private void setReview(){
 
-        String[] charId=mCollectionLab.getCharId();
+        final String[] charId=mCollectionLab.getCharItemIDs();
 
-        mHskLeaning.setOnClickListener(new View.OnClickListener() {
+        mReview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(CCCMainActivity.this, HSKActivity.class);
-                intent.putExtra("learned_number",0);
-                intent.putExtra("char_id",charId);
-                startActivityForResult(intent,1);
-                //HSKActivity.startHSKLeaning(CCCMainActivity.this);
+                ReviewActivity.starActivity(CCCMainActivity.this,charId);
             }
         });
-    }*/
+    }
 }

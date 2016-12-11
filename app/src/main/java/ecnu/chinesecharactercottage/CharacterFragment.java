@@ -224,14 +224,15 @@ public class CharacterFragment extends Fragment {
         mMark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(mIsMark) {/*
-                    mCollectionLab.
-                    mMark.setBackgroundResource(R.drawable.star);*/
+                if(mIsMark) {
+                    mCollectionLab.removeCollection(charItem);
+                    mMark.setBackgroundResource(R.drawable.star);
                 }
                 else {
                     mCollectionLab.addCollection(charItem);
                     mMark.setBackgroundResource(R.drawable.star_marked);
                 }
+                mIsMark=!mIsMark;
             }
         });
     }

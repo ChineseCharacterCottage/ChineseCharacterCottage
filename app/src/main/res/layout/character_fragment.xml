@@ -12,8 +12,9 @@
 
         <FrameLayout
             android:layout_width="150dp"
-            android:layout_height="150dp">
+            android:layout_height="175dp">
             <ImageView
+                android:layout_marginTop="25dp"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:src="@drawable/matt"/>
@@ -22,52 +23,51 @@
                 android:id="@+id/figure"
                 android:textSize="100sp"
                 android:textColor="#000"
+                android:layout_marginTop="25dp"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:gravity="center"/>
         </FrameLayout>
 
-        <!--
-    <LinearLayout
-        android:layout_height="150dp"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:orientation="vertical">
-            <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:orientation="horizontal">
 
+        <FrameLayout
+            android:layout_height="175dp"
+            android:layout_width="0dp"
+            android:layout_weight="1">
+
+            <ImageView
+                android:paddingStart="10dp"
+                android:layout_marginTop="25dp"
+                android:id="@+id/char_image"
+                android:layout_width="wrap_content"
+                android:layout_height="125dp"
+                android:layout_gravity="center"/>
             <Button
-                android:id="@+id/media_pronunciation"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="@drawable/horn"/>
-            </LinearLayout>
+                android:id="@+id/mark"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="end"
+                android:background="@drawable/star"/>
+        </FrameLayout>
 
-
-
+        <!--
+        <LinearLayout
+            android:layout_height="150dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:orientation="horizontal">
+                    <Button
+                        android:id="@+id/media_pronunciation"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/horn"/>
+                </LinearLayout>
         </LinearLayout>
          -->
-
-    <FrameLayout
-        android:layout_height="150dp"
-        android:layout_width="0dp"
-        android:layout_weight="1">
-
-        <ImageView
-            android:paddingLeft="10dp"
-            android:id="@+id/char_image"
-            android:layout_width="wrap_content"
-            android:layout_height="110dp"
-            android:layout_gravity="center"/>
-        <Button
-            android:id="@+id/mark"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_gravity="end"
-            android:background="@drawable/star"/>
-    </FrameLayout>
     </LinearLayout>
 
     <View
