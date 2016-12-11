@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 public class CollectionLab {
     private static CollectionLab sLab=null;
+
     private Context mContext;
     private UserCharDataHelper mUserCharDataHelper;
     public static CollectionLab getLab(Context c){
@@ -23,6 +24,9 @@ public class CollectionLab {
         return sLab;
     }
     public void addCollection(CharItem charItem){
+        if(isAdded(charItem)){
+            return;
+        }
         SQLiteDatabase db=mUserCharDataHelper.getWritableDatabase();
         ContentValues cv=new ContentValues();
         cv.put("id",charItem.getId());
@@ -31,7 +35,7 @@ public class CollectionLab {
     }
     public boolean isAdded(CharItem charItem){
         SQLiteDatabase db=mUserCharDataHelper.getReadableDatabase();
-        Cursor cursor=db.query("collection",null, null, null, null, null, null);
+        Cursor cursor=db.query("collection",null,"id="+charItem.getId(), null, null, null, null);
         if(cursor.moveToFirst()){
             cursor.close();
             return true;
@@ -40,11 +44,19 @@ public class CollectionLab {
             return false;
         }
     }
-    public CharItem[] getCharItems(){
+    public void removeCollection(CharItem charItem){
+        if(!isAdded(charItem)){
+            return;
+        }
+        SQLiteDatabase db=mUserCharDataHelper.getWritableDatabase();
+        db.delete("collection","id=?",new String[]{charItem.getId()});
+        db.close();
+    }
+    public String[] getCharItemIDs(){
         try {
             CharItemLab lab = CharItemLab.getLab(mContext);
             SQLiteDatabase db = mUserCharDataHelper.getReadableDatabase();
-            ArrayList<CharItem> arrayList = new ArrayList<>();
+            ArrayList<String> arrayList = new ArrayList<>();
             Cursor cursor = db.query("collection", null, null, null, null, null, null);
             if (!cursor.moveToFirst()){
                 cursor.close();
@@ -52,16 +64,10 @@ public class CollectionLab {
             }
             do {
                 String id=cursor.getString(cursor.getColumnIndex("id"));
-                CharItem charItem=lab.getCharItem(id);
-                if(charItem==null){
-                    Log.d("CollectionLab","Null");
-                    cursor.close();
-                    return null;
-                }
-                arrayList.add(charItem);
+                arrayList.add(id);
             } while (cursor.moveToNext());
             cursor.close();
-            return arrayList.toArray(new CharItem[arrayList.size()]);
+            return arrayList.toArray(new String[arrayList.size()]);
         }catch (Exception e){
             Log.d("CollectionLab",e.toString());
         }
