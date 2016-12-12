@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import org.json.JSONException;
 
@@ -25,6 +26,8 @@ public class CCCMainActivity extends Activity {
     private Button mTest;
     private Button mReview;
     private CollectionLab mCollectionLab;
+
+    private int HSKNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +67,8 @@ public class CCCMainActivity extends Activity {
         mHskLeaning = (Button) findViewById(R.id.HSKLeaning);
         mRadicalLeaning = (Button) findViewById(R.id.component_leaning);
         mReview=(Button)findViewById(R.id.review);
+
+        HSKNumber=0;
     }
 
     private void setButtons(){
@@ -114,13 +119,14 @@ public class CCCMainActivity extends Activity {
     }
 
     private void setReview(){
-
-        final String[] charId=mCollectionLab.getCharItemIDs();
-
         mReview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ReviewActivity.starActivity(CCCMainActivity.this,charId);
+                String[] charId=mCollectionLab.getCharItemIDs();
+                if(charId==null||charId.length==0)
+                    Toast.makeText(CCCMainActivity.this,"You have not mark any character",Toast.LENGTH_SHORT).show();
+                else
+                    ReviewActivity.starActivity(CCCMainActivity.this,charId);
             }
         });
     }
