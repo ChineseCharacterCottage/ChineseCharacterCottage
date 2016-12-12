@@ -89,14 +89,19 @@ public class CCCMainActivity extends Activity {
         for(int i=0;i<20;i++)
             charId[i]=String.valueOf(i+1);
 
+
         mHskLeaning.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(CCCMainActivity.this, HSKActivity.class);
-                intent.putExtra("learned_number",HSKNumber);
-                intent.putExtra("char_id",charId);
-                startActivityForResult(intent,1);
-                //HSKActivity.startHSKLeaning(CCCMainActivity.this);
+                if(HSKNumber==20){
+                    Toast.makeText(CCCMainActivity.this,"You have finish your goal today",Toast.LENGTH_SHORT).show();
+                }else {
+                    Intent intent = new Intent(CCCMainActivity.this, HSKActivity.class);
+                    intent.putExtra("learned_number", HSKNumber);
+                    intent.putExtra("char_id", charId);
+                    startActivityForResult(intent, 1);
+                    //HSKActivity.startHSKLeaning(CCCMainActivity.this);
+                }
             }
         });
     }
