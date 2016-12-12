@@ -93,7 +93,7 @@ public class CCCMainActivity extends Activity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(CCCMainActivity.this, HSKActivity.class);
-                intent.putExtra("learned_number",0);
+                intent.putExtra("learned_number",HSKNumber);
                 intent.putExtra("char_id",charId);
                 startActivityForResult(intent,1);
                 //HSKActivity.startHSKLeaning(CCCMainActivity.this);
@@ -129,5 +129,16 @@ public class CCCMainActivity extends Activity {
                     ReviewActivity.starActivity(CCCMainActivity.this,charId);
             }
         });
+    }
+    @Override
+    protected void onActivityResult(int requestCode,int resultCode,Intent data){
+        super.onActivityResult(requestCode,resultCode,data);
+
+        switch (requestCode){
+            case 1:
+                if(resultCode==RESULT_OK){
+                    HSKNumber=data.getIntExtra("learned_number",0);
+                }
+        }
     }
 }

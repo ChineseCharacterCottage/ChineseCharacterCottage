@@ -131,6 +131,15 @@ public class CharacterFragment extends Fragment {
             Log.d("PronunciationMedia:",e.toString());
             e.printStackTrace();
         }
+
+        try{
+            mMediaPronunciation.start();
+        }
+        catch (Exception e)
+        {
+            Log.d("PronunciationMedia:",e.toString());
+            e.printStackTrace();
+        }
         //发音按键
         mFigure.setOnClickListener(new View.OnClickListener() {
             @Override

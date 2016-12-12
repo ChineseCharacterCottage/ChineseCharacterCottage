@@ -145,4 +145,9 @@ public class HSKActivity extends Activity {
         finish();
     }
 
+    @Override
+    public void onBackPressed(){
+        saveDate();
+    }
+
 }
