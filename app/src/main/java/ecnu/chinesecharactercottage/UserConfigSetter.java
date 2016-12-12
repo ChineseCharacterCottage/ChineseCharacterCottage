@@ -41,6 +41,7 @@ public class UserConfigSetter {
             initJSON(context);
             ret=sJSON.getString(key);
         }catch (FileNotFoundException e){
+            sJSON=new JSONObject();
             return null;
         }catch (IOException e){
             Log.d("UserConfigSetter",e.toString());
