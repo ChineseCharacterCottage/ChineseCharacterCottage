@@ -37,7 +37,7 @@
 37;右;you4;右边,on the right;我站在她的右边。/I stood at her right.;right;8
 38;后;hou4;后门,back door/后天,the dar after tomorrow;我们快速走过后门。/We walked rapidly through the back door.;behind/after;8
 39;售;shou4;销售,to sell/零售,to sell by retail;零售物价上涨。/The rate of retail price rise.;;to sell;8
-40;明;ming2;明亮,bright/表明,to make clear/有话明说,to speak one;s mind plainly/明天,tomorrow;明天把她带到我家来。/Bring her to my house tomorrow.;light/clear/open/immediately following in time;4
+40;明;ming2;明亮,bright/表明,to make clear/有话明说,to speak one's mind plainly/明天,tomorrow;明天把她带到我家来。/Bring her to my house tomorrow.;light/clear/open/immediately following in time;4
 41;期;qi1;定期举行,to hold at regular intervals/期望,to expect;我期望见到我的舅舅。/I expect to see my uncle.;scheduled time/to expect;7
 42;回;hui2;回家,to go back home/回信,to write back;如果你回信的话，他就写信。/He would write if you would answer.;return/reply/to turn round;10
 43;国;guo2;国内,internals/国货,domestic goods;谁统治这个国家?/Who govern this country?;country/national;10
