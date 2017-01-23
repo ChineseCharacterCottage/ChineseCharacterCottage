@@ -317,7 +317,11 @@ public class SlidingLayout extends LinearLayout implements View.OnTouchListener 
                 }
                 publishProgress(leftMargin);
                 // 为了要有滚动效果产生，每次循环使线程睡眠20毫秒，这样肉眼才能够看到滚动动画。
-                sleep(20);
+                try{
+                    Thread.sleep(20);
+                }catch (InterruptedException e){
+                    e.printStackTrace();
+                }
             }
             if (speed[0] > 0) {
                 isLeftLayoutVisible = true;

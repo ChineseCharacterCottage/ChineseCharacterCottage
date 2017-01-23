@@ -6,7 +6,9 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.DragEvent;
 import android.view.View;
+import android.view.View.OnDragListener;
 import android.view.ViewStub;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -82,6 +84,7 @@ public class HSKActivity extends Activity {
             }
 
         });
+
 
 
     }
