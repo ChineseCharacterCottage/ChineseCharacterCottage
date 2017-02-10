@@ -18,7 +18,7 @@ import java.io.IOException;
 
 public class CCCMainActivity extends Activity {
 
-    private SlidingLayout slidingLayout;
+    private SlidingLayout mSlidingLayout;
     private LinearLayout mainLayout;
     private LinearLayout mButtons;
     private Button mHskLeaning;
@@ -36,7 +36,7 @@ public class CCCMainActivity extends Activity {
 
         init();
         setButtons();
-        slidingLayout.setScrollEvent(mainLayout);
+        mSlidingLayout.setScrollEvent(mainLayout);
         setHSKLeaning();
         setRadicalLeaning();
         setReview();
@@ -63,7 +63,7 @@ public class CCCMainActivity extends Activity {
 
         mainLayout=(LinearLayout)findViewById(R.id.mainLayout);
         mButtons=(LinearLayout)findViewById(R.id.homepageButtons);
-        slidingLayout=(SlidingLayout)findViewById(R.id.slidingLayout);
+        mSlidingLayout=(SlidingLayout)findViewById(R.id.slidingLayout);
         mHskLeaning = (Button) findViewById(R.id.HSKLeaning);
         mRadicalLeaning = (Button) findViewById(R.id.component_leaning);
         mReview=(Button)findViewById(R.id.review);
