@@ -1,4 +1,4 @@
-package ecnu.chinesecharactercottage;
+package ecnu.chinesecharactercottage.Activitys;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -12,20 +12,21 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import org.json.JSONException;
-
-import java.io.IOException;
+import ecnu.chinesecharactercottage.ModelsForeground.ChoseComponentDialog;
+import ecnu.chinesecharactercottage.ModelsBackground.DataManager;
+import ecnu.chinesecharactercottage.R;
+import ecnu.chinesecharactercottage.ModelsForeground.SlidingLayout;
 
 public class CCCMainActivity extends Activity {
 
     private SlidingLayout mSlidingLayout;
     private LinearLayout mainLayout;
     private LinearLayout mButtons;
-    private Button mHskLeaning;
+    private Button mCharacterLeaning;
     private Button mRadicalLeaning;
     private Button mTest;
     private Button mReview;
-    private CollectionLab mCollectionLab;
+    private Button mKnowledge;
 
     private int HSKNumber;
 
@@ -40,33 +41,18 @@ public class CCCMainActivity extends Activity {
         setHSKLeaning();
         setRadicalLeaning();
         setReview();
-
-
-
     }
 
     private void init(){
-        try{
-            CharItemLab.getLab(CCCMainActivity.this);
-            RadicalLab.getLab(CCCMainActivity.this);
-            mCollectionLab=CollectionLab.getLab(CCCMainActivity.this);
-
-        }
-        catch (IOException exp){
-            finish();
-            return;
-        }
-        catch(JSONException exp){
-            finish();
-            return;
-        }
+        DataManager.getInstance(CCCMainActivity.this);
 
         mainLayout=(LinearLayout)findViewById(R.id.mainLayout);
         mButtons=(LinearLayout)findViewById(R.id.homepageButtons);
         mSlidingLayout=(SlidingLayout)findViewById(R.id.slidingLayout);
-        mHskLeaning = (Button) findViewById(R.id.HSKLeaning);
-        mRadicalLeaning = (Button) findViewById(R.id.component_leaning);
+        mCharacterLeaning = (Button) findViewById(R.id.character_learning);
+        mTest = (Button) findViewById(R.id.test);
         mReview=(Button)findViewById(R.id.review);
+        mKnowledge=(Button)findViewById(R.id.knowledge);
 
         HSKNumber=0;
     }
@@ -82,6 +68,10 @@ public class CCCMainActivity extends Activity {
         linearParams.height=(int)(screenHeight/2.15);
         linearParams.width=(int)(screenWidth/1.648);
         mButtons.setLayoutParams(linearParams);
+    }
+
+    private void setCharacterLeaning(){
+
     }
 
     private void setHSKLeaning(){
@@ -111,7 +101,7 @@ public class CCCMainActivity extends Activity {
             @Override
             public void onClick(View view) {
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
-                Fragment prev = getFragmentManager().findFragmentByTag("component_dialog");
+                Fragment prev = getFragmentManager().findFragmentByTag("chose_dialog");
                 if (prev != null) {
                     ft.remove(prev);
                 }

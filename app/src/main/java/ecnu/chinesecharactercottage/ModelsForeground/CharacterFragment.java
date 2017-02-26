@@ -1,4 +1,4 @@
-package ecnu.chinesecharactercottage;
+package ecnu.chinesecharactercottage.ModelsForeground;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
@@ -13,6 +13,13 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import ecnu.chinesecharactercottage.ModelsBackground.CharItem;
+import ecnu.chinesecharactercottage.ModelsBackground.CollectionLab;
+import ecnu.chinesecharactercottage.R;
+import ecnu.chinesecharactercottage.ModelsBackground.RadicalItem;
+import ecnu.chinesecharactercottage.ModelsBackground.RadicalLab;
+import ecnu.chinesecharactercottage.ModelsBackground.WordItem;
 
 /**
  * Created by 10040 on 2016/12/4.

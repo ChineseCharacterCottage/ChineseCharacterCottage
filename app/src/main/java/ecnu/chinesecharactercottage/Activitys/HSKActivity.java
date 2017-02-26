@@ -1,25 +1,21 @@
-package ecnu.chinesecharactercottage;
+package ecnu.chinesecharactercottage.Activitys;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.DragEvent;
 import android.view.View;
-import android.view.View.OnDragListener;
-import android.view.ViewStub;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONException;
 
 import java.io.IOException;
+
+import ecnu.chinesecharactercottage.ModelsBackground.CharItem;
+import ecnu.chinesecharactercottage.ModelsBackground.CharItemLab;
+import ecnu.chinesecharactercottage.ModelsForeground.CharacterFragment;
+import ecnu.chinesecharactercottage.R;
 
 /**
  * Created by huge on 2016/9/17.

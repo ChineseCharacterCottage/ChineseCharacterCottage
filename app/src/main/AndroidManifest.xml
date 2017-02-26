@@ -8,18 +8,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".BeginActivity">
+        <activity android:name=".Activitys.BeginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"></action>
                 <category android:name="android.intent.category.LAUNCHER"></category>
             </intent-filter>
         </activity>
 
-        <activity android:name=".CCCMainActivity"></activity>
-        <activity android:name=".HSKActivity"></activity>
-        <activity android:name=".ComponentListActivity"></activity>
-        <activity android:name=".ExampleActivity"></activity>
-        <activity android:name=".ReviewActivity"></activity>
+        <activity android:name=".Activitys.CCCMainActivity"></activity>
+        <activity android:name=".Activitys.HSKActivity"></activity>
+        <activity android:name=".Activitys.ComponentListActivity"></activity>
+        <activity android:name=".Activitys.ExampleActivity"></activity>
+        <activity android:name=".Activitys.ReviewActivity"></activity>
 
     </application>
 

@@ -1,4 +1,4 @@
-package ecnu.chinesecharactercottage;
+package ecnu.chinesecharactercottage.ModelsForeground;
 
 import android.app.DialogFragment;
 import android.os.Bundle;
@@ -8,6 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import ecnu.chinesecharactercottage.Activitys.ExampleActivity;
+import ecnu.chinesecharactercottage.ModelsBackground.CharItem;
+import ecnu.chinesecharactercottage.ModelsBackground.CharItemLab;
+import ecnu.chinesecharactercottage.R;
+import ecnu.chinesecharactercottage.ModelsBackground.RadicalItem;
 
 /**
  * Created by 10040 on 2016/12/10.

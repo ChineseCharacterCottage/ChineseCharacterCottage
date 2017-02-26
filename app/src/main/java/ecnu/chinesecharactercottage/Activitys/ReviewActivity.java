@@ -1,4 +1,4 @@
-package ecnu.chinesecharactercottage;
+package ecnu.chinesecharactercottage.Activitys;
 
 import android.app.Activity;
 import android.content.Context;
@@ -7,11 +7,15 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ProgressBar;
 
 import org.json.JSONException;
 
 import java.io.IOException;
+
+import ecnu.chinesecharactercottage.ModelsBackground.CharItem;
+import ecnu.chinesecharactercottage.ModelsBackground.CharItemLab;
+import ecnu.chinesecharactercottage.ModelsForeground.CharacterFragment;
+import ecnu.chinesecharactercottage.R;
 
 /**
  * Created by 10040 on 2016/12/11.

@@ -1,10 +1,11 @@
-package ecnu.chinesecharactercottage;
+package ecnu.chinesecharactercottage.Activitys;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.widget.Toast;
+
+import ecnu.chinesecharactercottage.R;
 
 import static java.lang.Thread.sleep;
 

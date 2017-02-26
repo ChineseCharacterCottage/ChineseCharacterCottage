@@ -1,14 +1,16 @@
-package ecnu.chinesecharactercottage;
+package ecnu.chinesecharactercottage.ModelsForeground;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.List;
+
+import ecnu.chinesecharactercottage.ModelsBackground.ComponentItem;
+import ecnu.chinesecharactercottage.R;
 
 /**
  * Created by 10040 on 2016/11/30.

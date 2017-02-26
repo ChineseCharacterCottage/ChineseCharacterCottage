@@ -1,4 +1,4 @@
-package ecnu.chinesecharactercottage;
+package ecnu.chinesecharactercottage.ModelsBackground;
 
 import android.content.Context;
 import android.content.res.AssetFileDescriptor;
@@ -8,6 +8,8 @@ import android.util.Log;
 
 import java.io.IOException;
 import java.io.Serializable;
+
+import ecnu.chinesecharactercottage.ModelsBackground.Readable;
 
 /**
  * Created by Shensheng on 2016/9/30.

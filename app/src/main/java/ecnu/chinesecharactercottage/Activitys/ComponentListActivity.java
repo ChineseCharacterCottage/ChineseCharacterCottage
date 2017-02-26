@@ -1,4 +1,4 @@
-package ecnu.chinesecharactercottage;
+package ecnu.chinesecharactercottage.Activitys;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -14,6 +14,12 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import ecnu.chinesecharactercottage.ModelsForeground.ComponentAdapter;
+import ecnu.chinesecharactercottage.ModelsForeground.ComponentDialog;
+import ecnu.chinesecharactercottage.ModelsBackground.ComponentItem;
+import ecnu.chinesecharactercottage.ModelsBackground.ComponentLab;
+import ecnu.chinesecharactercottage.R;
 
 /**
  * Created by 10040 on 2016/11/28.

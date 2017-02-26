@@ -1,4 +1,4 @@
-package ecnu.chinesecharactercottage;
+package ecnu.chinesecharactercottage.ModelsForeground;
 
 import android.app.DialogFragment;
 import android.os.Bundle;
@@ -6,8 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+
+import ecnu.chinesecharactercottage.Activitys.ComponentListActivity;
+import ecnu.chinesecharactercottage.R;
 
 /**
  * Created by 10040 on 2016/12/11.
@@ -26,7 +27,7 @@ public class ChoseComponentDialog extends DialogFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setStyle(DialogFragment.STYLE_NO_FRAME,R.style.choseDialog);
+        setStyle(DialogFragment.STYLE_NO_FRAME, R.style.choseDialog);
     }
 
     @Override
