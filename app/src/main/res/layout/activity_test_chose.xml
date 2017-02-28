@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <TextView
+        android:text="@string/test_chose_listen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_listen"/>
+
+    <Button
+        android:text="@string/test_chose_match"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/bt_hear_match"/>
+
+    <Button
+        android:text="@string/test_chose_tof"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/bt_hear_tof"/>
+
+    <TextView
+        android:text="@string/test_chose_read"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_read"/>
+
+    <Button
+        android:text="@string/test_chose_complete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/bt_complete"/>
+
+    <Button
+        android:text="@string/test_chose_tof"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/bt_tof"/>
+</LinearLayout>
