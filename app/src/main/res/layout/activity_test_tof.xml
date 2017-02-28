@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:src="@drawable/imagenotfound"
-        android:id="@+id/imageView"/>
+        android:id="@+id/iv_picture"/>
 
     <RadioGroup
         android:id="@+id/answer_chose"
