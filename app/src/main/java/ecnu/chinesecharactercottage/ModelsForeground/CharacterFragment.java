@@ -65,7 +65,7 @@ public class CharacterFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-        View view=inflater.inflate(R.layout.character_fragment,container,false);
+        View view=inflater.inflate(R.layout.fragment_character,container,false);
         
         mFigure=(TextView) view.findViewById(R.id.figure);
         Typeface face = Typeface.createFromAsset(getActivity().getAssets(),"font/1.ttf");
