@@ -1,16 +1,28 @@
 <resources>
-    <string name="app_name">ChineseCharacterCottage</string>
+    <string name="app_name">HZW</string>
     <string name="button_next_character">Next Character</string>
     <string name="button_next_radical">Next Radical</string>
     <string name="button_return">Return</string>
     <string name="button_finish">Finish</string>
     <string name="button_next_page">Next page</string>
-    <string name="button_HSK_learning">HSK</string>
+    <string name="button_character_learning">HSK</string>
+    <string name="button_phonogram_learning">Phonogram</string>
+    <string name="button_pictogram_learning">Pictogram</string>
     <string name="button_radical_learning">Component</string>
+    <string name="button_knowledge">Knowledge</string>
     <string name="button_test">Test</string>
-    <string name="button_char_bookmark">Review</string>
+    <string name="button_review">Review</string>
     <string name="slogan1">No Chinese Character</string>
     <string name="slogan2">No Chinese Culture</string>
-    <string name="button_shape_component">Shape</string>
-    <string name="button_voice_component">Voice</string>
+    <string name="button_shape_component">semantic radical</string>
+    <string name="button_voice_component">phonetic radical</string>
+    <string name="test_chose_listen">Listen</string>
+    <string name="test_chose_read">Read</string>
+    <string name="test_chose_match">Match test</string>
+    <string name="test_chose_tof">True or False</string>
+    <string name="test_chose_complete">Complete Test</string>
+    <string name="test_pronounce">Pronounce Test Sentence</string>
+    <string name="button_test_submit">Submit</string>
+    <string name="test_true">True</string>
+    <string name="test_false">False</string>
 </resources>

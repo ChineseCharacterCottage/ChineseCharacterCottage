@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ecnu.chinesecharactercottage.SlidingLayout
+<ecnu.chinesecharactercottage.ModelsForeground.SlidingLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/slidingLayout"
     android:layout_width="fill_parent"
@@ -166,18 +166,18 @@
                     android:layout_weight="35">
 
                     <Button
-                        android:id="@+id/HSKLeaning"
+                        android:id="@+id/character_learning"
                         android:background="@drawable/selector_homepage_button_deep"
                         android:textColor="@color/colorYellowGrey"
                         style="@style/homepageButton"
-                        android:text="@string/button_HSK_learning"/>
+                        android:text="@string/button_character_learning"/>
 
                     <Button
-                        android:id="@+id/component_leaning"
+                        android:id="@+id/test"
                         android:textColor="@color/colorDeepGrey"
                         android:background="@drawable/selector_homepage_button_yellow"
                         style="@style/homepageButton"
-                        android:text="@string/button_radical_learning"/>
+                        android:text="@string/button_test"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -188,18 +188,18 @@
                     android:layout_weight="35">
 
                     <Button
-                        android:id="@+id/test"
+                        android:id="@+id/review"
                         android:background="@drawable/selector_homepage_button_yellow"
                         android:textColor="@color/colorDeepGrey"
                         style="@style/homepageButton"
-                        android:text="@string/button_test"/>
+                        android:text="@string/button_review"/>
 
                     <Button
-                        android:id="@+id/review"
+                        android:id="@+id/knowledge"
                         android:textColor="@color/colorYellowGrey"
                         android:background="@drawable/selector_homepage_button_deep"
                         style="@style/homepageButton"
-                        android:text="@string/button_char_bookmark"/>
+                        android:text="@string/button_knowledge"/>
                 </LinearLayout>
 
             </LinearLayout>
@@ -208,4 +208,4 @@
         </LinearLayout>
     </LinearLayout>
 
-</ecnu.chinesecharactercottage.SlidingLayout>
+</ecnu.chinesecharactercottage.ModelsForeground.SlidingLayout>

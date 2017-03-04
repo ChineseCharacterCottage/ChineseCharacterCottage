@@ -9,7 +9,7 @@
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
     android:paddingTop="16dp"
-    tools:context="ecnu.chinesecharactercottage.CCCMainActivity"
+    tools:context="ecnu.chinesecharactercottage.Activitys.CCCMainActivity"
     android:background="@color/colorCharBG">
 
     <ListView
