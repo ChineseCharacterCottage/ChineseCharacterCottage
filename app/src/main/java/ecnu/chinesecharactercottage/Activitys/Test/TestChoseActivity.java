@@ -1,4 +1,4 @@
-package ecnu.chinesecharactercottage.Activitys;
+package ecnu.chinesecharactercottage.Activitys.Test;
 
 import android.app.Activity;
 import android.os.Bundle;
