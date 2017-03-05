@@ -14,7 +14,7 @@
         android:name="ecnu.chinesecharactercottage.ModelsForeground.CharacterFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:layout="@layout/character_fragment">
+        tools:layout="@layout/fragment_character">
     </fragment>
 
     <Button
