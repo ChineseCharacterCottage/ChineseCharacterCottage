@@ -27,6 +27,7 @@ public final class DataManager extends SQLiteOpenHelper{
     private static final String HOST="http://115.159.147.198/hzw/PhalApi/public/hzw/";
     private static DataManager sManager=null;
 
+
     public static DataManager getInstance(Context context){
         if(sManager==null){
             sManager=new DataManager(context,LOCAL_DATABASE,null,VERSION);
@@ -44,6 +45,8 @@ public final class DataManager extends SQLiteOpenHelper{
         }
         return json;
     }
+
+
     public RadicalItem[] getRadicalByIds(int[] id){
         ArrayList<RadicalItem> array=new ArrayList<>();
         for(int i:id){
@@ -117,6 +120,8 @@ public final class DataManager extends SQLiteOpenHelper{
             db.close();
         }
     }
+
+
     private CharItem getCharItemFromLocal(int id){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor=db.query("char_item", null, "ID =" + id, null, null, null, null);
@@ -190,6 +195,81 @@ public final class DataManager extends SQLiteOpenHelper{
         }
         return getC;
     }
+    public static final String TOF="tof";
+    public static final String HEAR_TOF="hear_tof";
+    public static final String FILL="fill";
+    public static final String HEAR_CHOICE="hear_choice";
+    private TestItem getTestItemFromLocal(String id,String type){
+        SQLiteDatabase db=this.getReadableDatabase();
+        Cursor cursor=db.query("test_"+type,null,"ID = "+id,null,null,null,null);
+        TestItem testItem=null;
+        if(cursor.moveToFirst()){
+            switch (type){
+                case TOF:
+                    testItem=new TestTOFItem(cursor);
+                    break;
+                case HEAR_TOF:
+                    testItem=new TestHearTOFItem(cursor);
+                    break;
+                case FILL:
+                    testItem=new TestFillItem(cursor);
+                    break;
+                case HEAR_CHOICE:
+                    testItem=new TestHearChoiceItem(cursor);
+                    break;
+                default:
+                    testItem=null;
+            }
+        }
+        cursor.close();
+        return testItem;
+    }
+
+    private void putTestItemToLocal(TestItem testItem,String type){
+        ContentValues values=testItem.toContentValue();
+        values.put("date",System.currentTimeMillis());
+        SQLiteDatabase db=this.getWritableDatabase();
+        db.insert("test_"+type,null,values);
+        db.close();
+    }
+
+    public TestItem getTestItemById(String id,String type){
+        TestItem testItem=getTestItemFromLocal(id,type);
+        if(testItem!=null){
+            return testItem;
+        }
+        PhalApiClientResponse response=PhalApiClient.create()
+                .withHost(HOST)
+                .withService("TestItem.GetTestItem")
+                .withParams("testtype",type)
+                .withParams("id",id)
+                .withTimeout(300)
+                .request();
+        if(response.getRet()==200){
+            try{
+                JSONObject json=new JSONObject(response.getData());
+                switch (type){
+                    case TOF:
+                        testItem=new TestTOFItem(json);
+                        break;
+                    case HEAR_TOF:
+                        testItem=new TestHearTOFItem(json);
+                        break;
+                    case HEAR_CHOICE:
+                        testItem=new TestHearChoiceItem(json);
+                        break;
+                    case FILL:
+                        testItem=new TestFillItem(json);
+                        break;
+                    default:
+                        testItem=null;
+                }
+            }catch (JSONException e){
+                e.printStackTrace();
+            }
+        }
+        return testItem;
+    }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -203,14 +283,56 @@ public final class DataManager extends SQLiteOpenHelper{
                 +"radical_id text, "
                 +"date text "
                 + ")";
-        final String CREATE_RADICAL="create table radical("
+        final String CREATE_RADICAL="create table radical ("
                 +"ID integer primary key, "
                 +"radical_shape text, "
                 +"characters text, "
                 +"radical_name text "
                 + ")";
+        final String CREATE_TEST_FILL_ITEM="create table test_fill ("
+                +"ID integer primary key, "
+                +"correct_order text, "
+                +"choice_1 text, "
+                +"choice_2 text,"
+                +"choice_3 text,"
+                +"choice_4 text,"
+                +"choice_5 text,"
+                +"sentence1 text,"
+                +"sentence2 text,"
+                +"sentence3 text,"
+                +"sentence4 text,"
+                +"sentence5 text," +
+                "date text )";
+        final String CREATE_TEST_TOF="create table test_tof ("
+                +"ID integer primary key, "
+                +"tof text," +
+                "relation_character_id text," +
+                "picture text," +
+                "character_shape text," +
+                "date text)";
+        final String CREATE_TEST_HEAR_TOF="create table test_hear_tof (" +
+                "ID integer primary key, " +
+                "tof text," +
+                "relation_character_id text," +
+                "pronunciation text," +
+                "character_shape text," +
+                "date text)";
+        final String CREATE_TEST_HEAR_CHOICE="create table test_hear_choice (" +
+                "ID integer primary key, " +
+                "correct_choice text," +
+                "pronunciation text," +
+                "relation_character_id text," +
+                "picture_a text," +
+                "picture_b text," +
+                "picture_c text," +
+                "picture_d text," +
+                "date text)";
         db.execSQL(CREATE_CHAR_ITEM);
         db.execSQL(CREATE_RADICAL);
+        db.execSQL(CREATE_TEST_HEAR_TOF);
+        db.execSQL(CREATE_TEST_TOF);
+        db.execSQL(CREATE_TEST_FILL_ITEM);
+        db.execSQL(CREATE_TEST_HEAR_CHOICE);
     }
 
     @Override
