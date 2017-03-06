@@ -1,6 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ecnu.chinesecharactercottage">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -15,11 +17,14 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".Activitys.CCCMainActivity"></activity>
-        <activity android:name=".Activitys.HSKActivity"></activity>
-        <activity android:name=".Activitys.ComponentListActivity"></activity>
-        <activity android:name=".Activitys.ExampleActivity"></activity>
-        <activity android:name=".Activitys.ReviewActivity"></activity>
+        <activity android:name=".Activitys.CCCMainActivity"/>
+        <activity android:name=".Activitys.CharacterLearningActivity"/>
+        <activity android:name=".Activitys.HSKActivity"/>
+        <activity android:name=".Activitys.ComponentListActivity"/>
+        <activity android:name=".Activitys.ExampleActivity"/>
+        <activity android:name=".Activitys.ReviewActivity"/>
+        <activity android:name=".Activitys.Test.TestChoseActivity"/>
+        <activity android:name=".Activitys.Test.TestTOFActivity"/>
 
     </application>
 

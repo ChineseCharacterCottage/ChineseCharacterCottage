@@ -3,6 +3,7 @@ package ecnu.chinesecharactercottage.Activitys;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -21,10 +22,17 @@ public class CharacterLearningActivity extends Activity {
     //形声字学习按键
     private Button mPictogram;
 
+    public static void startActivity(Context context){
+        Intent intent=new Intent(context,CharacterLearningActivity.class);
+        context.startActivity(intent);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_character_learning);
         init();
+
         //进入象形字学习
         mPhonogram.setOnClickListener(new View.OnClickListener() {
             @Override

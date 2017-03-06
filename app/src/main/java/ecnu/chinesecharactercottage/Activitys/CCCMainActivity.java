@@ -8,10 +8,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
+import android.webkit.CookieManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import ecnu.chinesecharactercottage.Activitys.Test.TestChoseActivity;
+import ecnu.chinesecharactercottage.ModelsBackground.CollectionLab;
 import ecnu.chinesecharactercottage.ModelsForeground.ChoseComponentDialog;
 import ecnu.chinesecharactercottage.ModelsBackground.DataManager;
 import ecnu.chinesecharactercottage.R;
@@ -19,16 +22,17 @@ import ecnu.chinesecharactercottage.ModelsForeground.SlidingLayout;
 
 public class CCCMainActivity extends Activity {
 
+    //左滑界面
     private SlidingLayout mSlidingLayout;
+    //主界面，用于设定左滑的监听器
     private LinearLayout mainLayout;
+    //用于设置按键到屏幕中心
     private LinearLayout mButtons;
+    //四个核心功能
     private Button mCharacterLeaning;
-    private Button mRadicalLeaning;
     private Button mTest;
     private Button mReview;
     private Button mKnowledge;
-
-    private int HSKNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,11 +40,16 @@ public class CCCMainActivity extends Activity {
         setContentView(R.layout.activity_ccc_main);
 
         init();
+        //调整位置
         setButtons();
+        //设置主界面的左滑监听器
         mSlidingLayout.setScrollEvent(mainLayout);
-        setHSKLeaning();
-        setRadicalLeaning();
+
+        //设置四个功能按键
+        setCharacterLeaning();
+        setTest();
         setReview();
+        setKnowledge();
     }
 
     private void init(){
@@ -54,7 +63,6 @@ public class CCCMainActivity extends Activity {
         mReview=(Button)findViewById(R.id.review);
         mKnowledge=(Button)findViewById(R.id.knowledge);
 
-        HSKNumber=0;
     }
 
     private void setButtons(){
@@ -71,16 +79,65 @@ public class CCCMainActivity extends Activity {
     }
 
     private void setCharacterLeaning(){
-
+        mCharacterLeaning.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CharacterLearningActivity.startActivity(CCCMainActivity.this);
+            }
+        });
     }
 
-    private void setHSKLeaning(){
+    private  void setTest(){
+        mTest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TestChoseActivity.startActivity(CCCMainActivity.this);
+            }
+        });
+    }
+
+    private void setReview(){
+        mReview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CollectionLab collectionLab= CollectionLab.getLab(CCCMainActivity.this);
+                String[] charId=collectionLab.getCharItemIDs();
+                if(charId==null||charId.length==0)
+                    Toast.makeText(CCCMainActivity.this,"You have not mark any character",Toast.LENGTH_SHORT).show();
+                else
+                    ReviewActivity.starActivity(CCCMainActivity.this,charId);
+            }
+        });
+    }
+
+    private void setKnowledge(){
+        mKnowledge.setClickable(false);
+    }
+}
+
+    /*
+    @Override
+    protected void onActivityResult(int requestCode,int resultCode,Intent data){
+        super.onActivityResult(requestCode,resultCode,data);
+
+        switch (requestCode){
+            case 1:
+                if(resultCode==RESULT_OK){
+                    HSKNumber=data.getIntExtra("learned_number",0);
+                }
+        }
+    }
+}
+*/
+
+/*
+   private void setHSKLeaning(){
         final String[] charId=new String[20];
         for(int i=0;i<20;i++)
             charId[i]=String.valueOf(i+1);
 
 
-        mHskLeaning.setOnClickListener(new View.OnClickListener() {
+        mCharacterLeaning.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(HSKNumber==20){
@@ -96,44 +153,4 @@ public class CCCMainActivity extends Activity {
         });
     }
 
-    private void setRadicalLeaning(){
-        mRadicalLeaning.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                Fragment prev = getFragmentManager().findFragmentByTag("chose_dialog");
-                if (prev != null) {
-                    ft.remove(prev);
-                }
-                ft.addToBackStack(null);
-
-                ChoseComponentDialog myChoseComponentDialog= ChoseComponentDialog.getDialogInstance();
-                myChoseComponentDialog.show(ft,"chose_dialog");
-            }
-        });
-    }
-
-    private void setReview(){
-        mReview.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String[] charId=mCollectionLab.getCharItemIDs();
-                if(charId==null||charId.length==0)
-                    Toast.makeText(CCCMainActivity.this,"You have not mark any character",Toast.LENGTH_SHORT).show();
-                else
-                    ReviewActivity.starActivity(CCCMainActivity.this,charId);
-            }
-        });
-    }
-    @Override
-    protected void onActivityResult(int requestCode,int resultCode,Intent data){
-        super.onActivityResult(requestCode,resultCode,data);
-
-        switch (requestCode){
-            case 1:
-                if(resultCode==RESULT_OK){
-                    HSKNumber=data.getIntExtra("learned_number",0);
-                }
-        }
-    }
-}
+ */

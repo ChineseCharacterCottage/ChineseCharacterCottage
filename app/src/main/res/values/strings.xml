@@ -5,7 +5,7 @@
     <string name="button_return">Return</string>
     <string name="button_finish">Finish</string>
     <string name="button_next_page">Next page</string>
-    <string name="button_character_learning">HSK</string>
+    <string name="button_character_learning">Character</string>
     <string name="button_phonogram_learning">Phonogram</string>
     <string name="button_pictogram_learning">Pictogram</string>
     <string name="button_radical_learning">Component</string>

@@ -36,17 +36,21 @@
             android:id="@+id/radio_f"/>
     </RadioGroup>
 
-    <Button
-        android:text="@string/button_test_submit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/bt_submint"/>
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+        <Button
+            android:text="@string/button_test_submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/bt_submint"/>
 
-    <Button
-        android:text="@string/next_test"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/bt_next"/>
+        <Button
+            android:text="@string/next_test"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/bt_next"/>
+    </FrameLayout>
 
     <LinearLayout
         android:id="@+id/layout_error_msg"
