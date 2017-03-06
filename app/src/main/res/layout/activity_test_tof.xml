@@ -3,6 +3,10 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
-
+    <fragment
+        android:id="@+id/test_tof_fragment"
+        android:name="ecnu.chinesecharactercottage.ModelsForeground.TestTOFFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 </LinearLayout>

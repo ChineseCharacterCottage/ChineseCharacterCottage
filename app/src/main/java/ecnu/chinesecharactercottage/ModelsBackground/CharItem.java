@@ -35,8 +35,9 @@ public class CharItem implements Readable,Serializable {
     private static final String WORDS="words";
     public static final String SENTENCE="sentence";
     public static final String EXPLANATION="explanation";
-    private static final String RADICAL="radical_id";
+    public static final String RADICAL="radical_id";
 
+    private RadicalItem mRadical;
     private JSONObject mJSON;
     private String mId;
     private WordItem[] mWords;
@@ -45,14 +46,15 @@ public class CharItem implements Readable,Serializable {
         mJSON=json;
         mId=get(ID);
     }
-    //调用getRadical之前，一定要先调用RadicalLab.getLab(Context)来生成静态实例！切记。
+    String getRadicalId(){
+        return get(RADICAL);
+    }
+    void setRadical(RadicalItem radical){
+        mRadical=radical;
+    }
+
     public RadicalItem getRadical(){
-        try {
-            return RadicalLab.getLabWithoutContext().getRadical(get(RADICAL));
-        }catch (Exception e){
-            Log.d("CharItem",e.toString());
-        }
-        return null;
+        return mRadical;
     }
     public String getId(){
         return mId;

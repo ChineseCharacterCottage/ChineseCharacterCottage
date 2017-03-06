@@ -1,7 +1,10 @@
 package ecnu.chinesecharactercottage.Activitys.Test;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 
 import ecnu.chinesecharactercottage.R;
@@ -20,12 +23,22 @@ public class TestChoseActivity extends Activity {
     //判断
     private Button mTOF;
 
+    public static void startActivity(Context context){
+        Intent intent=new Intent(context,TestChoseActivity.class);
+        context.startActivity(intent);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_chose);
         init();
-
+        mTOF.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TestTOFActivity.startActivity(TestChoseActivity.this,1,10);
+            }
+        });
 
     }
 

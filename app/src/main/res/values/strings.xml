@@ -5,7 +5,7 @@
     <string name="button_return">Return</string>
     <string name="button_finish">Finish</string>
     <string name="button_next_page">Next page</string>
-    <string name="button_character_learning">HSK</string>
+    <string name="button_character_learning">Character</string>
     <string name="button_phonogram_learning">Phonogram</string>
     <string name="button_pictogram_learning">Pictogram</string>
     <string name="button_radical_learning">Component</string>
@@ -26,4 +26,6 @@
     <string name="test_true">True</string>
     <string name="test_false">False</string>
     <string name="next_test">Next Test</string>
+    <string name="test_err_msg">The correct answer is:</string>
+    <string name="test_show_char">To learn this character</string>
 </resources>
