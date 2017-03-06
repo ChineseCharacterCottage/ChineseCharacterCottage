@@ -7,9 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import ecnu.chinesecharactercottage.Activitys.ExampleActivity;
+import ecnu.chinesecharactercottage.ModelsBackground.*;
+import ecnu.chinesecharactercottage.ModelsBackground.DataManager;
 import ecnu.chinesecharactercottage.R;
 
 /**
@@ -29,6 +33,12 @@ public class TestTOFFragment extends Fragment {
     Button mBtNext;
     //下一个(函数方法)
     NextRunnable mNext;
+    //错误信息
+    LinearLayout mLayoutErrorMsg;
+    //错误内容
+    TextView mTvErrorMsg;
+    //查看字按键
+    Button mBtShowChar;
     //当前题目
     TestTOFItem mNowTest;
 
@@ -41,6 +51,10 @@ public class TestTOFFragment extends Fragment {
         mChosenAnswer=(RadioGroup) view.findViewById(R.id.answer_chose);
         mBtSubmit =(Button) view.findViewById(R.id.bt_submint);
         mBtNext=(Button)view.findViewById(R.id.bt_next);
+        mLayoutErrorMsg=(LinearLayout)view.findViewById(R.id.layout_error_msg);
+        mTvErrorMsg=(TextView)view.findViewById(R.id.tv_error_msg);
+        mBtShowChar=(Button)view.findViewById(R.id.bt_show_character);
+
         initSubmitButton();
         return view;
     }
@@ -62,16 +76,42 @@ public class TestTOFFragment extends Fragment {
 
                 if(chosenAnswer==correctAnswer){
                     //正确回答时
+                    //显示提交按钮
+                    mBtSubmit.setVisibility(View.VISIBLE);
+                    //隐藏错误信息
+                    mLayoutErrorMsg.setVisibility(View.GONE);
+                    //隐藏下一个按键
+                    mBtNext.setVisibility(View.GONE);
+                    //调用回答正确函数
+                    mNext.next();
 
                 }else{
                     //回答错误时
                     //隐藏提交按钮
                     mBtSubmit.setVisibility(View.GONE);
                     //显示错误信息
-
+                    mLayoutErrorMsg.setVisibility(View.VISIBLE);
                     //显示下一个按键
                     mBtNext.setVisibility(View.VISIBLE);
+                    //设置错误信息
+                    mTvErrorMsg.setText(correctAnswer==1?"true":"false");
                 }
+            }
+        });
+
+        mBtNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mNext.next();
+            }
+        });
+
+        mBtShowChar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //要在这里获取对应charItem
+                DataManager myDM=DataManager.getInstance(getActivity());
+                ExampleActivity.startActivity(getActivity(),myDM.getCharItemById(mNowTest.getCharId()));
             }
         });
     }
@@ -84,9 +124,5 @@ public class TestTOFFragment extends Fragment {
         mTestTOFItem=testTOFItem;
         //mCharacter.setText();
         //mPicture.setImageBitmap();
-    }
-
-    interface NextRunnable{
-        public void next();
     }
 }
