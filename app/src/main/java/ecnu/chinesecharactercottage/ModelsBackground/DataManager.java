@@ -193,6 +193,10 @@ public final class DataManager extends SQLiteOpenHelper{
                 Log.e("DataManager","ErrorCode: "+response.getRet());
             }
         }
+        if(getC!=null){
+            String rid=getC.getRadicalId();
+            getC.setRadical(getRadicalById(Integer.parseInt(rid)));
+        }
         return getC;
     }
     public static final String TOF="tof";
