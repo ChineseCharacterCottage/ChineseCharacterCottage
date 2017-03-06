@@ -1,6 +1,10 @@
 package ecnu.chinesecharactercottage.Activitys.Test;
 
 import android.app.Activity;
+import android.app.Fragment;
+import android.content.Context;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -8,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import ecnu.chinesecharactercottage.ModelsForeground.NextRunnable;
+import ecnu.chinesecharactercottage.ModelsForeground.TestTOFFragment;
 import ecnu.chinesecharactercottage.R;
 
 /**
@@ -16,16 +22,21 @@ import ecnu.chinesecharactercottage.R;
 
 public class TestTOFActivity extends Activity {
 
-    //字形
-    TextView mCharacter;
-    //图片
-    ImageView mPicture;
-    //选择的答案
-    RadioGroup mChosedAnswer;
-    //确定按键
-    Button mSubmit;
-    //题目
-    TestTOFItem mCorrectAnswer;
+    //题目页面
+    private TestTOFFragment mTestFragment;
+    //题目列表
+    private TestTOFItem[] mTestTOFItems;
+
+    static public void startActivity(Context context,int startId,int len){
+        if(len<=0)
+            return;
+        String[] mIds=new String[len];
+        for(int i=0;i<len;i++)
+            mIds[i]=String.valueOf(startId+i);
+
+        Intent intent=new Intent(context,TestTOFActivity.class);
+        intent.putExtra()
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,20 +44,30 @@ public class TestTOFActivity extends Activity {
         setContentView(R.layout.activity_test_tof);
         init();
 
-        mSubmit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
 
     }
 
     private void init(){
-        mCharacter=(TextView)findViewById(R.id.tv_character);
-        mPicture=(ImageView)findViewById(R.id.iv_picture);
-        mChosedAnswer=(RadioGroup)findViewById(R.id.answer_chose);
-        mSubmit=(Button)findViewById(R.id.bt_submint);
+        mTestFragment=(TestTOFFragment)getFragmentManager().findFragmentById(R.id.test_tof_fragment);
+        AsyncTask task=new AsyncTask() {
+            @Override
+            protected Object doInBackground(Object[] params) {
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Object o) {
+                super.onPostExecute(o);
+            }
+        };
+
+        NextRunnable nextRunnable=new NextRunnable() {
+
+            @Override
+            public void next() {
+
+            }
+        }
         //TestTOFItem初始化
 
     }
