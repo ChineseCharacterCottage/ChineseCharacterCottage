@@ -15,6 +15,8 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
+import ecnu.chinesecharactercottage.ModelsBackground.DataManager;
+import ecnu.chinesecharactercottage.ModelsBackground.RadicalItem;
 import ecnu.chinesecharactercottage.ModelsForeground.ComponentAdapter;
 import ecnu.chinesecharactercottage.ModelsForeground.ComponentDialog;
 import ecnu.chinesecharactercottage.ModelsBackground.ComponentItem;
@@ -27,20 +29,18 @@ import ecnu.chinesecharactercottage.R;
 
 public class ComponentListActivity extends Activity {
 
-    //模式
+    //模式,0:shape.1:voice
     int mModel;
 
     //每页数量
     final int ITEM_NUMBER=20;
 
+    //数据管理器
+    DataManager mDataManager;
     //部首列表布局
     private ListView mListView;
     //下一页
     private Button mButton;
-    //部首总个数
-    private int mMaxNumber;
-    //部首库
-    private ComponentLab mComponentLab;
     //部首列表
     private List<ComponentItem> mComponentList;
     //部首列表首个对象索引
@@ -67,18 +67,8 @@ public class ComponentListActivity extends Activity {
         mListView=(ListView)findViewById(R.id.component_list);
         mListIndex=1;
 
-        try{
-            mComponentLab=ComponentLab.getLab(ComponentListActivity.this);
-        }
-        catch (Exception e){
-            Log.d("Component.getLab:",e.toString());
-            e.printStackTrace();
-        }
-        if(mModel==0){
-            mMaxNumber=mComponentLab.getNumOfShapeComponents();
-        }else{
-            mMaxNumber=mComponentLab.getNumOfVoiceComponents();
-        }
+        mDataManager=DataManager.getInstance(ComponentListActivity.this);
+
         mButton=(Button)findViewById(R.id.button_next);
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,13 +89,16 @@ public class ComponentListActivity extends Activity {
         int thisIndex;
         for(int i=0;i<ITEM_NUMBER;i++){
             thisIndex=i+mListIndex;
+            RadicalItem radicalItem=null;
+            if(mModel==0){
+                radicalItem=mDataManager.getRadicalById(thisIndex);
+                mComponentList.add(mComponentLab.getShapeComponent(String.valueOf(thisIndex)));
+            }else {
+                mComponentList.add(mComponentLab.getVoiceComponent(String.valueOf(thisIndex)));
+            }
             if(thisIndex<=mMaxNumber)
             {
-                if(mModel==0){
-                    mComponentList.add(mComponentLab.getShapeComponent(String.valueOf(thisIndex)));
-                }else {
-                    mComponentList.add(mComponentLab.getVoiceComponent(String.valueOf(thisIndex)));
-                }
+
 
             }
             else
