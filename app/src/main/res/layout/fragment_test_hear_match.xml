@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <Button
+        android:text="@string/test_pronounce"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/pronounce"/>
+
+    <RadioGroup
+        android:id="@+id/answer_chose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/test_image_height"
+                    android:layout_weight="1"
+                    android:src="@drawable/imagenotfound"
+                    android:id="@+id/iv_picture_1"/>
+                <RadioButton
+                    android:text="A"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:id="@+id/radio_1"
+                    android:layout_weight="1"
+                    android:checked="false"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/test_image_height"
+                    android:layout_weight="1"
+                    android:src="@drawable/imagenotfound"
+                    android:id="@+id/iv_picture_2"/>
+                <RadioButton
+                    android:text="B"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:id="@+id/radio_2"
+                    android:layout_weight="1"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/test_image_height"
+                    android:layout_weight="1"
+                    android:src="@drawable/imagenotfound"
+                    android:id="@+id/iv_picture_3"/>
+                <RadioButton
+                    android:text="C"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:id="@+id/radio_3"
+                    android:layout_weight="1"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/test_image_height"
+                    android:layout_weight="1"
+                    android:src="@drawable/imagenotfound"
+                    android:id="@+id/iv_picture_4"/>
+                <RadioButton
+                    android:text="D"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:id="@+id/radio_4"
+                    android:layout_weight="1"/>
+            </LinearLayout>
+        </LinearLayout>
+    </RadioGroup>
+
+    <Button
+        android:text="@string/button_test_submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/submit"/>
+
+</LinearLayout>

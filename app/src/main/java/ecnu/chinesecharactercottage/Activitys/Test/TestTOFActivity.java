@@ -1,22 +1,15 @@
 package ecnu.chinesecharactercottage.Activitys.Test;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.ObbInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.RadioGroup;
-import android.widget.TextView;
 
 import ecnu.chinesecharactercottage.ModelsBackground.DataManager;
 import ecnu.chinesecharactercottage.ModelsBackground.TestTOFItem;
 import ecnu.chinesecharactercottage.ModelsForeground.NextRunnable;
-import ecnu.chinesecharactercottage.ModelsForeground.TestTOFFragment;
+import ecnu.chinesecharactercottage.ModelsForeground.TestFragments.TestTOFFragment;
 import ecnu.chinesecharactercottage.R;
 
 /**
