@@ -13,7 +13,6 @@ import org.json.JSONException;
 import java.io.IOException;
 
 import ecnu.chinesecharactercottage.ModelsBackground.CharItem;
-import ecnu.chinesecharactercottage.ModelsBackground.CharItemLab;
 import ecnu.chinesecharactercottage.ModelsForeground.CharacterFragment;
 import ecnu.chinesecharactercottage.R;
 
