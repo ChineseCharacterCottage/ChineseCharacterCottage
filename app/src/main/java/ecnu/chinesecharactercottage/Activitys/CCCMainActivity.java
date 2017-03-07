@@ -1,21 +1,15 @@
 package ecnu.chinesecharactercottage.Activitys;
 
 import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
-import android.webkit.CookieManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import ecnu.chinesecharactercottage.Activitys.Test.TestChoseActivity;
-import ecnu.chinesecharactercottage.ModelsBackground.CollectionLab;
-import ecnu.chinesecharactercottage.ModelsForeground.ChoseComponentDialog;
 import ecnu.chinesecharactercottage.ModelsBackground.DataManager;
 import ecnu.chinesecharactercottage.R;
 import ecnu.chinesecharactercottage.ModelsForeground.SlidingLayout;
