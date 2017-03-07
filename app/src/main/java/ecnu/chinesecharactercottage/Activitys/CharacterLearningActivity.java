@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import ecnu.chinesecharactercottage.ModelsForeground.ChoseComponentDialog;
 import ecnu.chinesecharactercottage.R;
@@ -38,8 +39,7 @@ public class CharacterLearningActivity extends Activity {
             @Override
             public void onClick(View v) {
                 //暂时用hsk学习界面充当.
-                Intent intent=new Intent(CharacterLearningActivity.this,HSKActivity.class);
-                startActivity(intent);
+                Toast.makeText(CharacterLearningActivity.this,"Phonogram Learning Model is being desiged",Toast.LENGTH_SHORT).show();
             }
         });
 
