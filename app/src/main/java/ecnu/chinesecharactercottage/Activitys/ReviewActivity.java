@@ -4,13 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-
-import org.json.JSONException;
-
-import java.io.IOException;
 
 import ecnu.chinesecharactercottage.ModelsBackground.CharItem;
 import ecnu.chinesecharactercottage.ModelsForeground.CharacterFragment;
@@ -40,8 +35,6 @@ public class ReviewActivity extends Activity {
     //确认按键
     private Button mButtonNext;
 
-    //汉字库
-    private CharItemLab mCharItemLab;
     //收藏夹字id
     private String[] mCharIDs;
     //当前学习字列表
@@ -92,17 +85,6 @@ public class ReviewActivity extends Activity {
     }
 
     private void init(){
-        try{
-            mCharItemLab=CharItemLab.getLab(ReviewActivity.this);
-        }
-        catch (IOException exp){
-            finish();
-            return;
-        }
-        catch(JSONException exp){
-            finish();
-            return;
-        }
 
         Intent intent=getIntent();
         mCharIDs=intent.getStringArrayExtra("charId");
@@ -135,15 +117,6 @@ public class ReviewActivity extends Activity {
 
         for(int i=0;i<mNumber;i++)
             char_id[i]=mCharIDs[i+mBaseNumber];
-        try {
-            mThisCharList = mCharItemLab.getCharItems(char_id);
-        }
-        catch (Exception e)
-        {
-            Log.d("mThisCharList:",e.toString());
-            finish();
-            return;
-        }
         mPosition=0;
     }
 

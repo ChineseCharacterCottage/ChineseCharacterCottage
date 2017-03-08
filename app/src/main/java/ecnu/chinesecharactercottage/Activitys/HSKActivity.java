@@ -1,18 +1,16 @@
 package ecnu.chinesecharactercottage.Activitys;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 
-import org.json.JSONException;
-
-import java.io.IOException;
-
 import ecnu.chinesecharactercottage.ModelsBackground.CharItem;
+import ecnu.chinesecharactercottage.ModelsBackground.DataManager;
 import ecnu.chinesecharactercottage.ModelsForeground.CharacterFragment;
 import ecnu.chinesecharactercottage.R;
 
@@ -36,17 +34,16 @@ public class HSKActivity extends Activity {
     //进度条
     private ProgressBar mProgressBar;
 
-    //汉字库
-    private CharItemLab mCharItemLab;
     //本次学习目标列表
     private CharItem[] mThisCharList;
     //当前汉字
     private CharItem mThisCharItem;
 
-    /*static public void startHSKLeaning(Context context){
+    static public void startHSKLeaning(Context context,int[] charIds){
         Intent intent=new Intent(context,HSKActivity.class);
+        intent.putExtra("charIds",charIds);
         context.startActivity(intent);
-    }*/
+    }
 
 
     @Override
@@ -85,32 +82,23 @@ public class HSKActivity extends Activity {
     }
 
     private void init(){
-        try{
-            mCharItemLab=CharItemLab.getLab(HSKActivity.this);
-        }
-        catch (IOException exp){
-            finish();
-            return;
-        }
-        catch(JSONException exp){
-            finish();
-            return;
-        }
-        if(mCharItemLab==null){
-        }
 
-        String[] charId=getIntent().getStringArrayExtra("char_id");
+        int[] charIds=getIntent().getIntArrayExtra("charids");
         mLearnedNumber=getIntent().getIntExtra("learned_number",0);
 
-        try {
-            mThisCharList = mCharItemLab.getCharItems(charId);
-        }
-        catch (Exception e)
-        {
-            Log.d("mThisCharList:",e.toString());
-            finish();
-            return;
-        }
+        AsyncTask task=new AsyncTask<int[],Object,CharItem[]>() {
+            @Override
+            protected CharItem[] doInBackground(int[][] params) {
+                DataManager dataManager=DataManager.getInstance(HSKActivity.this);
+                return dataManager.getCharItemByIds(params[0]);
+            }
+
+            @Override
+            protected void onPostExecute(CharItem[] charItems) {
+                mThisCharList=charItems;
+            }
+        };
+        task.execute(charIds);
 
         mTotalNumber=mThisCharList.length-1;
 

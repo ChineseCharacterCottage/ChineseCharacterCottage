@@ -88,27 +88,18 @@ public class ComponentListActivity extends Activity {
         for(int i=0;i<ITEM_NUMBER;i++){
             thisIndex=i+mListIndex;
             RadicalItem radicalItem=null;
+            /*
             if(mModel==0){
                 radicalItem=mDataManager.getRadicalById(thisIndex);
                 mComponentList.add(mComponentLab.getShapeComponent(String.valueOf(thisIndex)));
             }else {
                 mComponentList.add(mComponentLab.getVoiceComponent(String.valueOf(thisIndex)));
-            }
-            if(thisIndex<=mMaxNumber)
-            {
-
-
-            }
-            else
-                return;
+            }*/
         }
     }
 
     private void reflesh(){
 
-        if(mListIndex+ITEM_NUMBER>mMaxNumber){
-            mButton.setText(R.string.button_finish);
-        }
 
         buildList();
         mListView.setAdapter(new ComponentAdapter(ComponentListActivity.this,R.layout.component_list_item,mComponentList));

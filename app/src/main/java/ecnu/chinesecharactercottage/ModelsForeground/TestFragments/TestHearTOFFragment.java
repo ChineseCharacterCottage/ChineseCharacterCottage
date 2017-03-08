@@ -1,11 +1,14 @@
-package ecnu.chinesecharactercottage.ModelsForeground;
+package ecnu.chinesecharactercottage.ModelsForeground.TestFragments;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,50 +19,53 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import java.io.IOException;
-import java.io.InputStream;
 
 import ecnu.chinesecharactercottage.Activitys.ExampleActivity;
-import ecnu.chinesecharactercottage.ModelsBackground.*;
 import ecnu.chinesecharactercottage.ModelsBackground.DataManager;
+import ecnu.chinesecharactercottage.ModelsBackground.TestHearTOFItem;
+import ecnu.chinesecharactercottage.ModelsForeground.NextRunnable;
 import ecnu.chinesecharactercottage.R;
 
 /**
- * Created by 10040 on 2017/3/4.
+ * Created by 10040 on 2017/3/7.
  */
 
-public class TestTOFFragment extends Fragment {
-    //字形
-    TextView mCharacter;
+public class TestHearTOFFragment extends Fragment {
+    //发音按键
+    private Button mBtPronunciation;
+    //读音播放器
+    private MediaPlayer mMPPronunciation;
     //图片
-    ImageView mPicture;
+    private ImageView mPicture;
     //选择的答案
-    RadioGroup mChosenAnswer;
+    private RadioGroup mChosenAnswer;
     //确定按键
-    Button mBtSubmit;
+    private Button mBtSubmit;
     //下一个按键
-    Button mBtNext;
+    private  Button mBtNext;
     //下一个(函数方法)
-    NextRunnable mNext;
+    private NextRunnable mNext;
     //错误信息
-    LinearLayout mLayoutErrorMsg;
+    private  LinearLayout mLayoutErrorMsg;
     //错误内容
-    TextView mTvErrorMsg;
+    private   TextView mTvErrorMsg;
     //查看字按键
-    Button mBtShowChar;
+    private   Button mBtShowChar;
     //当前题目
-    TestTOFItem mNowTest;
+    private TestHearTOFItem mNowTest;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.fragment_test_tof,container,false);
+        View view=inflater.inflate(R.layout.fragment_test_hear_tof,container,false);
         init(view);
         //设置按钮的监听器
-        initSubmitButton();
+        initButtons();
         return view;
     }
 
     private void init(View view){
-        mCharacter=(TextView)view.findViewById(R.id.tv_character);
+        mBtPronunciation=(Button) view.findViewById(R.id.pronounce);
+        mBtPronunciation.setEnabled(false);
         mPicture=(ImageView) view.findViewById(R.id.iv_picture);
         mChosenAnswer=(RadioGroup) view.findViewById(R.id.answer_chose);
         mBtSubmit =(Button) view.findViewById(R.id.bt_submint);
@@ -70,7 +76,14 @@ public class TestTOFFragment extends Fragment {
         mBtShowChar=(Button)view.findViewById(R.id.bt_show_character);
     }
 
-    private void initSubmitButton() {
+    private void initButtons() {
+        mBtPronunciation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mMPPronunciation.start();
+            }
+        });
+
         mBtSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,7 +97,6 @@ public class TestTOFFragment extends Fragment {
                         chosenAnswer=0;
                         break;
                 }
-                mBtSubmit.setEnabled(false);
 
                 if(chosenAnswer==correctAnswer){
                     //正确回答时
@@ -134,23 +146,38 @@ public class TestTOFFragment extends Fragment {
         mNext=next;
     }
 
-    public void setTest(TestTOFItem testTOFItem){
-        if(testTOFItem==null) {
+    public void setTest(TestHearTOFItem testHearTOFItem){
+        if(testHearTOFItem==null) {
             mNext.next();
             return;
         }
         mBtSubmit.setEnabled(true);
-        mNowTest=testTOFItem;
-        mCharacter.setText(mNowTest.getCharacterShape());
+        mNowTest=testHearTOFItem;
 
+        //设置播放读音按键
+        Context c=getActivity();
+        try {
+            AssetFileDescriptor fd=c.getAssets().openFd(mNowTest.getPronunciation()+".mp3");
+            if(Build.VERSION.SDK_INT<24) {
+                mMPPronunciation.setDataSource(fd.getFileDescriptor(), fd.getStartOffset(), fd.getLength());
+            }else {
+                mMPPronunciation.setDataSource(c.getAssets().openFd(mNowTest.getPronunciation()+".mp3"));
+            }
+            mBtPronunciation.setEnabled(true);
+        }catch (IOException e){
+            Log.d("CharItem","Media file not found :"+e.toString());
+        }
+
+        //设置题目图片
         AssetManager manager=getActivity().getAssets();
-        Bitmap image;
+        Bitmap image=null;
+        /*
         try {
             InputStream stream = manager.open(mNowTest.getPicture());
             image = BitmapFactory.decodeStream(stream);
         } catch (IOException e) {
             image = BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.imagenotfound);
-        }
+        }*/
         mPicture.setImageBitmap(image);
     }
 }

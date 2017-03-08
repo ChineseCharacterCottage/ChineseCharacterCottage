@@ -2,15 +2,12 @@ package ecnu.chinesecharactercottage.ModelsForeground;
 
 import android.app.DialogFragment;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import ecnu.chinesecharactercottage.Activitys.ExampleActivity;
-import ecnu.chinesecharactercottage.ModelsBackground.CharItem;
 import ecnu.chinesecharactercottage.R;
 import ecnu.chinesecharactercottage.ModelsBackground.RadicalItem;
 
@@ -77,6 +74,7 @@ public class RadicalDialog extends DialogFragment {
             aExample.setPadding(10,0,10,0);
             aExample.setTextSize(20);
             aExample.setText(examples[i]);
+            /*防止无限点击，这里先设定为不可点击
             aExample.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -101,7 +99,7 @@ public class RadicalDialog extends DialogFragment {
                         e.printStackTrace();
                     }
                 }
-            });
+            });*/
             linearLayout.addView(aExample);
         }
     }

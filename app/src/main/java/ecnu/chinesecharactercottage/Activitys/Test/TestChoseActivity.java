@@ -40,6 +40,27 @@ public class TestChoseActivity extends Activity {
             }
         });
 
+        mComplete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TestCompleteActivity.startActivity(TestChoseActivity.this,1,10);
+            }
+        });
+
+        mListenTOF.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TestHearTOFActivity.startActivity(TestChoseActivity.this,1,10);
+            }
+        });
+
+        mListenMatch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TestHearMatchActivity.startActivity(TestChoseActivity.this,1,10);
+            }
+        });
+
     }
 
     private void init(){
