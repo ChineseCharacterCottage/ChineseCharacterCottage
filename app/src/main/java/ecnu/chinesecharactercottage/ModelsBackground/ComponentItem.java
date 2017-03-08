@@ -17,8 +17,8 @@ public class ComponentItem implements Serializable {
         mChars=chars;
         mExp=explanation;
         mGId=globalID;
-        if(voiceOrShape.equals("shape") || voiceOrShape.equals("voice")) mVoS=voiceOrShape;
-        else throw new RuntimeException("ComponentItem voiceOrShape must be \"voice\" or \"shape\".");
+        if(voiceOrShape.equals("s") || voiceOrShape.equals("v")) mVoS=voiceOrShape;
+        else throw new RuntimeException("ComponentItem voiceOrShape must be \"v\" or \"s\".");
     }
     @Override
     public String toString(){

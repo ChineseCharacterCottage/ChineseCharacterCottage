@@ -10,6 +10,7 @@ import android.util.Log;
 import net.phalapi.sdk.PhalApiClient;
 import net.phalapi.sdk.PhalApiClientResponse;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -229,7 +230,20 @@ public final class DataManager extends SQLiteOpenHelper{
         cursor.close();
         return testItem;
     }
-
+    public CharItem getCharItemByShape(String shape){
+        PhalApiClientResponse response=PhalApiClient.create()
+                .withHost(HOST)
+                .withService("Character.GetShapeId")
+                .withTimeout(500)
+                .withParams("shape",shape)
+                .request();
+        if(response.getRet()==200){
+            return getCharItemById(Integer.parseInt(response.getData()));
+        }else{
+            Log.d("DataManager","shape not found");
+            return null;
+        }
+    }
     private void putTestItemToLocal(TestItem testItem,String type){
         ContentValues values=testItem.toContentValue();
         values.put("date",System.currentTimeMillis());
@@ -237,7 +251,57 @@ public final class DataManager extends SQLiteOpenHelper{
         db.insert("test_"+type,null,values);
         db.close();
     }
-
+    public ComponentItem getComponentById(String id){
+        PhalApiClientResponse response = PhalApiClient.create()
+                .withHost(HOST)
+                .withService("Component.GetComponentInfo")
+                .withTimeout(500)
+                .withParams("id",id)
+                .request();
+        if(response.getRet()==200){
+            try{
+                JSONObject json=new JSONObject(response.getData());
+                ComponentItem item=new ComponentItem(json.getString("shape"),
+                        json.getString("characters").split("/"),
+                        json.getString("explanation"),
+                        json.getString("voice_or_shape"),
+                        json.getString("ID"));
+                return item;
+            }catch (JSONException e){
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+    public ComponentItem[] getAllComponents(boolean isVoice){
+        String t=isVoice?"v":"s";
+        ArrayList<ComponentItem> items=new ArrayList<>();
+        PhalApiClientResponse response = PhalApiClient.create()
+                .withHost(HOST)
+                .withService("Component.GetComponentInfo")
+                .withTimeout(500)
+                .withParams("valueName","voice_or_shape")
+                .withParams("valueIs",t)
+                .request();
+        if(response.getRet()==200){
+            try {
+                JSONArray ja = new JSONArray(response.getData());
+                for(int i=0;i<ja.length();i++){
+                    JSONObject json=ja.getJSONObject(i);
+                    ComponentItem item=new ComponentItem(json.getString("shape"),
+                            json.getString("characters").split("/"),
+                            json.getString("explanation"),
+                            json.getString("voice_or_shape"),
+                            json.getString("ID"));
+                    items.add(item);
+                }
+                return items.toArray(new ComponentItem[items.size()]);
+            }catch (JSONException e){
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
     public TestItem getTestItemById(String id,String type){
         TestItem testItem=getTestItemFromLocal(id,type);
         if(testItem!=null){
@@ -248,7 +312,7 @@ public final class DataManager extends SQLiteOpenHelper{
                 .withService("TestItem.GetTestItem")
                 .withParams("testtype",type)
                 .withParams("id",id)
-                .withTimeout(300)
+                .withTimeout(500)
                 .request();
         if(response.getRet()==200){
             try{
