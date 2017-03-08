@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import ecnu.chinesecharactercottage.Activitys.ExampleActivity;
 import ecnu.chinesecharactercottage.ModelsBackground.CharItem;
-import ecnu.chinesecharactercottage.ModelsBackground.CharItemLab;
 import ecnu.chinesecharactercottage.R;
 import ecnu.chinesecharactercottage.ModelsBackground.RadicalItem;
 

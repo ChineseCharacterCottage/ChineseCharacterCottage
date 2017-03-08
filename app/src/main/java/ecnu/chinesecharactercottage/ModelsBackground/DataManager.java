@@ -19,11 +19,12 @@ import java.util.Locale;
 
 /**
  * Created by Shensheng on 2017/2/13.
+ * 数据管理器
  */
 
 public final class DataManager extends SQLiteOpenHelper{
     private static final String LOCAL_DATABASE="local_character.db";
-    private static final int VERSION=1;
+    private static final int VERSION=1;//数据库的版本，如果数据要更新，改成更大的数字
     private static final String HOST="http://115.159.147.198/hzw/PhalApi/public/hzw/";
     private static DataManager sManager=null;
 
@@ -274,7 +275,7 @@ public final class DataManager extends SQLiteOpenHelper{
         }
         return testItem;
     }
-
+    //数据库建表操作
     @Override
     public void onCreate(SQLiteDatabase db) {
         final String CREATE_CHAR_ITEM="create table char_item ("
@@ -343,5 +344,10 @@ public final class DataManager extends SQLiteOpenHelper{
     public void onUpgrade(SQLiteDatabase db,int oldVersion,int newVersion) {
         db.execSQL("drop table if exists char_item");
         db.execSQL("drop table if exists radical");
+        db.execSQL("drop table if exists test_fill");
+        db.execSQL("drop table if exists test_tof");
+        db.execSQL("drop table if exists test_hear_tof");
+        db.execSQL("drop table if exists test_hear_choice");
+        onCreate(db);
     }
 }

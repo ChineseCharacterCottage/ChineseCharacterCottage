@@ -15,10 +15,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import ecnu.chinesecharactercottage.ModelsBackground.CharItem;
-import ecnu.chinesecharactercottage.ModelsBackground.CollectionLab;
 import ecnu.chinesecharactercottage.R;
 import ecnu.chinesecharactercottage.ModelsBackground.RadicalItem;
-import ecnu.chinesecharactercottage.ModelsBackground.RadicalLab;
 import ecnu.chinesecharactercottage.ModelsBackground.WordItem;
 
 /**
