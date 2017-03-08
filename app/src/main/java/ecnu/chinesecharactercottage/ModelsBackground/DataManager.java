@@ -384,7 +384,7 @@ public final class DataManager extends SQLiteOpenHelper{
                 "tof text," +
                 "relation_character_id text," +
                 "pronunciation text," +
-                "character_shape text," +
+                "picture text," +
                 "date text)";
         final String CREATE_TEST_HEAR_CHOICE="create table test_hear_choice (" +
                 "ID integer primary key, " +

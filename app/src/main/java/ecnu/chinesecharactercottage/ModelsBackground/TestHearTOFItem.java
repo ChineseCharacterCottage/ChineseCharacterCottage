@@ -14,7 +14,7 @@ public class TestHearTOFItem extends TestItem {
     private String mId;
     private boolean mTof;
     private String mRelationCharacterId;
-    private String mCharacterShape;
+    private String mPicture;
     private String mPronunciation;
 
     public TestHearTOFItem(JSONObject json)throws JSONException{
@@ -22,7 +22,7 @@ public class TestHearTOFItem extends TestItem {
         mTof=(json.getInt("tof")==1);
         mRelationCharacterId=json.getString("relation_character_id");
         mPronunciation=json.getString("pronunciation");
-        mCharacterShape=json.getString("character_shape");
+        mPicture=json.getString("picture");
     }
 
     public TestHearTOFItem(Cursor cursor){
@@ -30,7 +30,7 @@ public class TestHearTOFItem extends TestItem {
         mTof=(cursor.getInt(cursor.getColumnIndex("tof"))==1);
         mRelationCharacterId=cursor.getString(cursor.getColumnIndex("relation_character_id"));
         mPronunciation=cursor.getString(cursor.getColumnIndex("pronunciation"));
-        mCharacterShape=cursor.getString(cursor.getColumnIndex("character_shape"));
+        mPicture=cursor.getString(cursor.getColumnIndex("picture"));
     }
     @Override
     public ContentValues toContentValue(){
@@ -39,7 +39,7 @@ public class TestHearTOFItem extends TestItem {
         values.put("tof",mTof?"1":"0");
         values.put("relation_character_id",mRelationCharacterId);
         values.put("pronunciation",mPronunciation);
-        values.put("character_shape",mCharacterShape);
+        values.put("picture",mPicture);
         return values;
     }
     public String getTestId() {
@@ -54,8 +54,8 @@ public class TestHearTOFItem extends TestItem {
         return mRelationCharacterId;
     }
 
-    public String getCharacterShape() {
-        return mCharacterShape;
+    public String getPicture() {
+        return mPicture;
     }
 
     public String getPronunciation() {
