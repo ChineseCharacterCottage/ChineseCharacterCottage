@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
@@ -19,15 +18,11 @@ import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import org.json.JSONException;
-
 import java.io.IOException;
-import java.io.InputStream;
 
 import ecnu.chinesecharactercottage.Activitys.ExampleActivity;
 import ecnu.chinesecharactercottage.ModelsBackground.DataManager;
 import ecnu.chinesecharactercottage.ModelsBackground.TestHearTOFItem;
-import ecnu.chinesecharactercottage.ModelsBackground.TestTOFItem;
 import ecnu.chinesecharactercottage.ModelsForeground.NextRunnable;
 import ecnu.chinesecharactercottage.R;
 
@@ -175,13 +170,14 @@ public class TestHearTOFFragment extends Fragment {
 
         //设置题目图片
         AssetManager manager=getActivity().getAssets();
-        Bitmap image;
+        Bitmap image=null;
+        /*
         try {
             InputStream stream = manager.open(mNowTest.getPicture());
             image = BitmapFactory.decodeStream(stream);
         } catch (IOException e) {
             image = BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.imagenotfound);
-        }
+        }*/
         mPicture.setImageBitmap(image);
     }
 }

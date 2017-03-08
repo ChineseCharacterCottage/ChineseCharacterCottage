@@ -84,19 +84,10 @@ public class ComponentDialog extends DialogFragment {
             aExample.setTextColor(getResources().getColor(R.color.colorBlack));
 
             final CharItem exampleItem;
-            CharItemLab charItemLab;
             //获取对应例字
-            try {
-                charItemLab = CharItemLab.getLabWithoutContext();
-            } catch (Exception e) {
-                Log.d("getLab IOException", e.toString());
-                getActivity().finish();
-                return;
-            }
-            if (charItemLab == null) {
-                Log.d("charItemLab", "is null");
-            }
-            exampleItem = charItemLab.findCharItemsByShape(examples[i])[0];
+            //接口未完成，这里先这样
+            //exampleItem = charItemLab.findCharItemsByShape(examples[i])[0];
+            exampleItem=null;
             if(sModel==0)
                 aExample.setOnClickListener(new View.OnClickListener() {
                     @Override

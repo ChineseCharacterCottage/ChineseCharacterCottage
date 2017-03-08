@@ -1,7 +1,6 @@
 package ecnu.chinesecharactercottage.ModelsForeground.TestFragments;
 
 import android.app.Fragment;
-import android.content.Context;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

@@ -20,12 +20,10 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import java.io.IOException;
-import java.io.InputStream;
 
 import ecnu.chinesecharactercottage.Activitys.ExampleActivity;
 import ecnu.chinesecharactercottage.ModelsBackground.DataManager;
 import ecnu.chinesecharactercottage.ModelsBackground.TestHearChoiceItem;
-import ecnu.chinesecharactercottage.ModelsBackground.TestHearTOFItem;
 import ecnu.chinesecharactercottage.ModelsForeground.NextRunnable;
 import ecnu.chinesecharactercottage.R;
 

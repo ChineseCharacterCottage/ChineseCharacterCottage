@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import ecnu.chinesecharactercottage.Activitys.Test.TestChoseActivity;
 import ecnu.chinesecharactercottage.ModelsBackground.DataManager;
@@ -91,17 +90,6 @@ public class CCCMainActivity extends Activity {
     }
 
     private void setReview(){
-        mReview.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                CollectionLab collectionLab= CollectionLab.getLab(CCCMainActivity.this);
-                String[] charId=collectionLab.getCharItemIDs();
-                if(charId==null||charId.length==0)
-                    Toast.makeText(CCCMainActivity.this,"You have not mark any character",Toast.LENGTH_SHORT).show();
-                else
-                    ReviewActivity.starActivity(CCCMainActivity.this,charId);
-            }
-        });
     }
 
     private void setKnowledge(){

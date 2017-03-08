@@ -10,7 +10,6 @@ import ecnu.chinesecharactercottage.ModelsBackground.DataManager;
 import ecnu.chinesecharactercottage.ModelsBackground.TestHearChoiceItem;
 import ecnu.chinesecharactercottage.ModelsForeground.NextRunnable;
 import ecnu.chinesecharactercottage.ModelsForeground.TestFragments.TestHearMatchFragment;
-import ecnu.chinesecharactercottage.ModelsForeground.TestFragments.TestHearTOFFragment;
 import ecnu.chinesecharactercottage.R;
 
 /**
@@ -43,7 +42,7 @@ public class TestHearMatchActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_test_tof);
+        setContentView(R.layout.activity_test_hear_match);
         init();
 
         //后台读取testTOFItem列表，完成后设置next()函数

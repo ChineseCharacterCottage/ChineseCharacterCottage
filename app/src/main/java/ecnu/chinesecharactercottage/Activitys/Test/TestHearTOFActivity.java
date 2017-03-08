@@ -8,10 +8,8 @@ import android.os.Bundle;
 
 import ecnu.chinesecharactercottage.ModelsBackground.DataManager;
 import ecnu.chinesecharactercottage.ModelsBackground.TestHearTOFItem;
-import ecnu.chinesecharactercottage.ModelsBackground.TestTOFItem;
 import ecnu.chinesecharactercottage.ModelsForeground.NextRunnable;
 import ecnu.chinesecharactercottage.ModelsForeground.TestFragments.TestHearTOFFragment;
-import ecnu.chinesecharactercottage.ModelsForeground.TestFragments.TestTOFFragment;
 import ecnu.chinesecharactercottage.R;
 
 /**
@@ -44,7 +42,7 @@ public class TestHearTOFActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_test_tof);
+        setContentView(R.layout.activity_test_hear_tof);
         init();
 
         //后台读取testTOFItem列表，完成后设置next()函数

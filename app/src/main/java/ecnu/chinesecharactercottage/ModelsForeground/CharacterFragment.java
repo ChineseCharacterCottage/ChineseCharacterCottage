@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.graphics.Typeface;
 import android.media.MediaPlayer;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,10 +15,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import ecnu.chinesecharactercottage.ModelsBackground.CharItem;
+import ecnu.chinesecharactercottage.ModelsBackground.*;
 import ecnu.chinesecharactercottage.R;
-import ecnu.chinesecharactercottage.ModelsBackground.RadicalItem;
-import ecnu.chinesecharactercottage.ModelsBackground.WordItem;
 
 /**
  * Created by 10040 on 2016/12/4.
@@ -25,10 +24,8 @@ import ecnu.chinesecharactercottage.ModelsBackground.WordItem;
 
 public class CharacterFragment extends Fragment {
 
-    //部首id
-    private String mRadicalId;
-    //收藏lab
-    private CollectionLab mCollectionLab;
+    //当前字
+    CharItem mNowChar;
 
     //字形
     private TextView mFigure;
@@ -78,23 +75,23 @@ public class CharacterFragment extends Fragment {
         mSentenceHorn =(Button)view.findViewById(R.id.sentence_pronunciation);
 
         mMark=(Button)view.findViewById(R.id.mark);
-        mCollectionLab=CollectionLab.getLab(getActivity());
         //mPronunciation=(Button)view.findViewById(R.id.media_pronunciation);
         return view;
     }
     
     public void setCharacter(CharItem thisChar){
+        mNowChar=thisChar;
         mFigure.setText(thisChar.get(CharItem.CHARACTER));
         mPinyin.setText(thisChar.get(CharItem.PINYIN));
         mMeaning.setText(thisChar.get(CharItem.EXPLANATION));
         mCharImg.setImageBitmap(thisChar.getImage(getActivity()));
         mSentence.setText(thisChar.get(CharItem.SENTENCE));
-        setWords(thisChar.getWords());
-        setRadical(thisChar.getRadical());
+        setWords();
+        setRadical();
         setPronunciation(thisChar.getMediaPlayer(getActivity()));
         setSentenceMP(thisChar.getSentenceReadable(getActivity()).getMediaPlayer(getActivity()));
 
-        setMark(thisChar);
+        //setMark(thisChar);
         
         
     }
@@ -161,13 +158,12 @@ public class CharacterFragment extends Fragment {
         });
     }
 
-    private void setRadical(RadicalItem radical){
-        mRadicalId=radical.getId();
-        mRadical.setText(radical.getRadical());
+    private void setRadical(){
+
+        mRadical.setText(mNowChar.getRadical().getRadical());
         mRadical.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RadicalLab radicalLab;
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 Fragment prev = getFragmentManager().findFragmentByTag("component_dialog");
                 if (prev != null) {
@@ -175,25 +171,15 @@ public class CharacterFragment extends Fragment {
                 }
                 ft.addToBackStack(null);
 
-                try {
-                    radicalLab = RadicalLab.getLabWithoutContext();
-                } catch (Exception e) {
-                    Log.d("getLab IOException", e.toString());
-                    getActivity().finish();
-                    return;
-                }
-                if (radicalLab == null) {
-                    Log.d("charItemLab", "is null");
-                }
-
-                RadicalDialog myRadicalDialog= RadicalDialog.getDialogInstance(radicalLab.getRadical(mRadicalId));
+                RadicalDialog myRadicalDialog= RadicalDialog.getDialogInstance(mNowChar.getRadical());
                 myRadicalDialog.show(ft,"component_dialog");
             }
         });
 
     }
 
-    private void setWords(WordItem[] words){
+    private void setWords(){
+        WordItem[] words=mNowChar.getWords();
         mWords.removeAllViews();
         int wordNumber = words.length;
 
@@ -226,6 +212,7 @@ public class CharacterFragment extends Fragment {
         }
     }
 
+    /*暂时取消收藏模块
     private void setMark(final CharItem charItem){
         mIsMark =mCollectionLab.isAdded(charItem);
         if(mIsMark)
@@ -249,5 +236,5 @@ public class CharacterFragment extends Fragment {
                 mIsMark=!mIsMark;
             }
         });
-    }
+    }*/
 }
