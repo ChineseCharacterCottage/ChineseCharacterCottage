@@ -63,7 +63,7 @@ public final class DataManager extends SQLiteOpenHelper{
                     .withHost(HOST)
                     .withService("Radical.GetRadicalInfo")
                     .withTimeout(300)
-                    .withParams("ID",String.format(Locale.ENGLISH,"%d",id))
+                    .withParams("id",String.format(Locale.ENGLISH,"%d",id))
                     .request();
             if(response.getRet()==200){
                 try {
@@ -178,7 +178,7 @@ public final class DataManager extends SQLiteOpenHelper{
                     .withHost(HOST)
                     .withService("Character.GetCharInfo")
                     .withTimeout(300)
-                    .withParams("ID",String.format(Locale.ENGLISH,"%d",id))
+                    .withParams("id",String.format(Locale.ENGLISH,"%d",id))
                     .request();
             if(response.getRet()==200){
                 try {
