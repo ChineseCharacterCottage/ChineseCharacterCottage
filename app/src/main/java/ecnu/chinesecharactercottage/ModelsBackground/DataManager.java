@@ -129,8 +129,9 @@ public final class DataManager extends SQLiteOpenHelper{
         Cursor cursor=db.query("char_item", null, "ID =" + id, null, null, null, null);
         if(cursor.moveToFirst()){
             try {
+                CharItem charItem=new CharItem(cursorToJSON(cursor));
                 cursor.close();
-                return new CharItem(cursorToJSON(cursor));
+                return charItem;
             }catch (JSONException e){
                 e.printStackTrace();
                 cursor.close();
