@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -109,13 +110,32 @@ public class ComponentListActivity extends Activity {
         for(int i=0;i<ITEM_NUMBER;i++){
             thisIndex=i+mListIndex;
             RadicalItem radicalItem=null;
-            /*
+
+            AsyncTask task=new AsyncTask() {
+                @Override
+                protected Object doInBackground(Object[] params) {
+                    DataManager dataManager=DataManager.getInstance(ComponentListActivity.this);
+                    return dataManager.getAllComponents(mModel==1);
+                }
+
+                @Override
+                protected void onPostExecute(Object o) {
+                    ComponentItem[] componentItems=(ComponentItem[])o;
+                    mComponentList=new ArrayList<ComponentItem>();
+                    int thisIndex;
+                    for(int i=0;i<ITEM_NUMBER;i++){
+                        thisIndex=i+mListIndex;
+                        RadicalItem radicalItem;
+                }
+            }
+
+
             if(mModel==0){
                 radicalItem=mDataManager.getRadicalById(thisIndex);
                 mComponentList.add(mComponentLab.getShapeComponent(String.valueOf(thisIndex)));
             }else {
                 mComponentList.add(mComponentLab.getVoiceComponent(String.valueOf(thisIndex)));
-            }*/
+            }
         }
     }
 

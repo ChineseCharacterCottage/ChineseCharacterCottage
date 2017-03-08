@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -20,6 +21,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 import ecnu.chinesecharactercottage.Activitys.ExampleActivity;
 import ecnu.chinesecharactercottage.ModelsBackground.CharItem;
@@ -174,13 +176,15 @@ public class TestHearTOFFragment extends Fragment {
 
         //设置播放读音按键
         Context c=getActivity();
+        mMPPronunciation=new MediaPlayer();
         try {
-            AssetFileDescriptor fd=c.getAssets().openFd(mNowTest.getPronunciation()+".mp3");
+            AssetFileDescriptor fd=c.getAssets().openFd(mNowTest.getPronunciation());
             if(Build.VERSION.SDK_INT<24) {
                 mMPPronunciation.setDataSource(fd.getFileDescriptor(), fd.getStartOffset(), fd.getLength());
             }else {
                 mMPPronunciation.setDataSource(c.getAssets().openFd(mNowTest.getPronunciation()+".mp3"));
             }
+            mMPPronunciation.prepare();
             mBtPronunciation.setEnabled(true);
         }catch (IOException e){
             Log.d("CharItem","Media file not found :"+e.toString());
@@ -188,14 +192,13 @@ public class TestHearTOFFragment extends Fragment {
 
         //设置题目图片
         AssetManager manager=getActivity().getAssets();
-        Bitmap image=null;
-        /*
+        Bitmap image;
         try {
             InputStream stream = manager.open(mNowTest.getPicture());
             image = BitmapFactory.decodeStream(stream);
         } catch (IOException e) {
             image = BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.imagenotfound);
-        }*/
+        }
         mPicture.setImageBitmap(image);
     }
 }

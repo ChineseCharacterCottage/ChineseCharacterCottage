@@ -1,141 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
     <Button
-        android:text="@string/test_pronounce"
+        android:id="@+id/pronounce"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/pronounce"/>
+        android:text="@string/test_pronounce"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/iv_picture_1"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/test_image_height"
+            android:layout_weight="1"
+            android:src="@drawable/imagenotfound"/>
+
+        <ImageView
+            android:id="@+id/iv_picture_2"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/test_image_height"
+            android:layout_weight="1"
+            android:src="@drawable/imagenotfound"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/iv_picture_3"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/test_image_height"
+            android:layout_weight="1"
+            android:src="@drawable/imagenotfound"/>
+
+        <ImageView
+            android:id="@+id/iv_picture_4"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/test_image_height"
+            android:layout_weight="1"
+            android:src="@drawable/imagenotfound"/>
+    </LinearLayout>
 
     <RadioGroup
         android:id="@+id/answer_chose"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-        <LinearLayout
-            android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/radio_1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:checked="false"
+            android:text="A"/>
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/test_image_height"
-                    android:layout_weight="1"
-                    android:src="@drawable/imagenotfound"
-                    android:id="@+id/iv_picture_1"/>
-                <RadioButton
-                    android:text="A"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:id="@+id/radio_1"
-                    android:layout_weight="1"
-                    android:checked="false"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/test_image_height"
-                    android:layout_weight="1"
-                    android:src="@drawable/imagenotfound"
-                    android:id="@+id/iv_picture_2"/>
-                <RadioButton
-                    android:text="B"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:id="@+id/radio_2"
-                    android:layout_weight="1"/>
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
+        <RadioButton
+            android:id="@+id/radio_2"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="B"/>
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/test_image_height"
-                    android:layout_weight="1"
-                    android:src="@drawable/imagenotfound"
-                    android:id="@+id/iv_picture_3"/>
-                <RadioButton
-                    android:text="C"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:id="@+id/radio_3"
-                    android:layout_weight="1"/>
-            </LinearLayout>
+        <RadioButton
+            android:id="@+id/radio_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="C"/>
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/test_image_height"
-                    android:layout_weight="1"
-                    android:src="@drawable/imagenotfound"
-                    android:id="@+id/iv_picture_4"/>
-                <RadioButton
-                    android:text="D"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:id="@+id/radio_4"
-                    android:layout_weight="1"/>
-            </LinearLayout>
-        </LinearLayout>
+        <RadioButton
+            android:id="@+id/radio_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="D"/>
     </RadioGroup>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <Button
-            android:text="@string/button_test_submit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/bt_submit"/>
 
         <Button
-            android:text="@string/next_test"
+            android:id="@+id/bt_submit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/bt_next"/>
+            android:text="@string/button_test_submit"/>
+
+        <Button
+            android:id="@+id/bt_next"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/next_test"/>
     </FrameLayout>
 
     <LinearLayout
         android:id="@+id/layout_error_msg"
-        android:orientation="horizontal"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/test_err_msg"/>
+
         <TextView
             android:id="@+id/tv_error_msg"
             android:layout_width="wrap_content"
@@ -143,9 +126,9 @@
     </LinearLayout>
 
     <Button
-        android:text="@string/test_show_char"
+        android:id="@+id/bt_show_character"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/bt_show_character"/>
+        android:text="@string/test_show_char"/>
 
 </LinearLayout>

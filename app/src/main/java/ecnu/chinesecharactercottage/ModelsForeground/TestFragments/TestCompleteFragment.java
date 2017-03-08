@@ -22,6 +22,8 @@ import ecnu.chinesecharactercottage.R;
 public class TestCompleteFragment extends Fragment {
     //4个候选词
     private TextView[] mWords;
+    //当前候选词
+    private String[] mNowWords;
     //4个题目句子
     private TextView[] mSentences;
     //选择的答案
@@ -95,7 +97,6 @@ public class TestCompleteFragment extends Fragment {
                     mBtNext.setVisibility(View.GONE);
                     //调用回答正确函数
                     mNext.next();
-
                 }else{
                     //回答错误时
                     //隐藏提交按钮
@@ -124,7 +125,7 @@ public class TestCompleteFragment extends Fragment {
     private String getAnswerNumber(Spinner answer){
         String selectedAnswer=(String)answer.getSelectedItem();
         for(int i=0;i<5;i++){
-            if(mWords.equals(selectedAnswer))
+            if(mNowWords[i].equals(selectedAnswer))
                 return String.valueOf(i+1);
         }
         return "0";
@@ -142,12 +143,12 @@ public class TestCompleteFragment extends Fragment {
         }
         mBtSubmit.setEnabled(true);
         mNowTest=testFillItem;
-        String[] words=testFillItem.getChoices();
+        mNowWords=testFillItem.getChoices();
         String[] sentences=testFillItem.getSentences();
-        ArrayAdapter<String> adapter=new ArrayAdapter<>(getActivity(),R.layout.support_simple_spinner_dropdown_item,words);
+        ArrayAdapter<String> adapter=new ArrayAdapter<>(getActivity(),R.layout.support_simple_spinner_dropdown_item,mNowWords);
         adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         for(int i=0;i<5;i++){
-            mWords[i].setText(words[i]);
+            mWords[i].setText(mNowWords[i]);
             mChosenAnswers[i].setAdapter(adapter);
             mSentences[i].setText(sentences[i]);
         }

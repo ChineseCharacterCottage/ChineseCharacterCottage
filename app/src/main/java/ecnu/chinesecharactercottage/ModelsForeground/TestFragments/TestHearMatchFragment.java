@@ -162,7 +162,8 @@ public class TestHearMatchFragment extends Fragment {
                     @Override
                     protected CharItem doInBackground(Object[] params) {
                         DataManager myDM=DataManager.getInstance((Context) params[0]);
-                        return myDM.getCharItemById(Integer.valueOf((String)params[1]));
+                        CharItem charItem=myDM.getCharItemById(Integer.valueOf((String)params[1]));
+                        return charItem;
                     }
 
                     @Override
@@ -190,13 +191,15 @@ public class TestHearMatchFragment extends Fragment {
 
         //设置播放读音按键
         Context c=getActivity();
+        mMPPronunciation=new MediaPlayer();
         try {
-            AssetFileDescriptor fd=c.getAssets().openFd(mNowTest.getPronunciation()+".mp3");
+            AssetFileDescriptor fd=c.getAssets().openFd(mNowTest.getPronunciation());
             if(Build.VERSION.SDK_INT<24) {
                 mMPPronunciation.setDataSource(fd.getFileDescriptor(), fd.getStartOffset(), fd.getLength());
             }else {
                 mMPPronunciation.setDataSource(c.getAssets().openFd(mNowTest.getPronunciation()+".mp3"));
             }
+            mMPPronunciation.prepare();
             mBtPronunciation.setEnabled(true);
         }catch (IOException e){
             Log.d("CharItem","Media file not found :"+e.toString());
@@ -207,10 +210,27 @@ public class TestHearMatchFragment extends Fragment {
         Bitmap image2=null;
         Bitmap image3=null;
         Bitmap image4=null;
-        setImage(image1);
-        setImage(image2);
-        setImage(image3);
-        setImage(image4);
+        AssetManager manager=getActivity().getAssets();
+        try {
+            image1 = BitmapFactory.decodeStream(manager.open(mNowTest.getPictureA()));
+        } catch (IOException e) {
+            image1 = BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.imagenotfound);
+        }
+        try {
+            image2 = BitmapFactory.decodeStream(manager.open(mNowTest.getPictureB()));
+        } catch (IOException e) {
+            image2 = BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.imagenotfound);
+        }
+        try {
+            image3 = BitmapFactory.decodeStream(manager.open(mNowTest.getPictureC()));
+        } catch (IOException e) {
+            image3 = BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.imagenotfound);
+        }
+        try {
+            image4 = BitmapFactory.decodeStream(manager.open(mNowTest.getPictureD()));
+        } catch (IOException e) {
+            image4 = BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.imagenotfound);
+        }
         mPicture1.setImageBitmap(image1);
         mPicture2.setImageBitmap(image2);
         mPicture3.setImageBitmap(image3);
@@ -218,11 +238,6 @@ public class TestHearMatchFragment extends Fragment {
     }
 
     private void setImage(Bitmap image){
-        AssetManager manager=getActivity().getAssets();
-        try {
-            image = BitmapFactory.decodeStream(manager.open(mNowTest.getPictureA()));
-        } catch (IOException e) {
-            image = BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.imagenotfound);
-        }
+
     }
 }
