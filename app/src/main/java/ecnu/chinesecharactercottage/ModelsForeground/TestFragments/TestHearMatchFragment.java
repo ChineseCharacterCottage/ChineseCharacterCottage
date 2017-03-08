@@ -7,6 +7,7 @@ import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,6 +23,7 @@ import android.widget.TextView;
 import java.io.IOException;
 
 import ecnu.chinesecharactercottage.Activitys.ExampleActivity;
+import ecnu.chinesecharactercottage.ModelsBackground.CharItem;
 import ecnu.chinesecharactercottage.ModelsBackground.DataManager;
 import ecnu.chinesecharactercottage.ModelsBackground.TestHearChoiceItem;
 import ecnu.chinesecharactercottage.ModelsForeground.NextRunnable;
@@ -78,10 +80,11 @@ public class TestHearMatchFragment extends Fragment {
         mPicture3=(ImageView) view.findViewById(R.id.iv_picture_3);
         mPicture4=(ImageView) view.findViewById(R.id.iv_picture_4);
         mChosenAnswer=(RadioGroup) view.findViewById(R.id.answer_chose);
-        mBtSubmit =(Button) view.findViewById(R.id.bt_submint);
+        mBtSubmit =(Button) view.findViewById(R.id.bt_submit);
         mBtSubmit.setEnabled(false);
         mBtNext=(Button)view.findViewById(R.id.bt_next);
         mLayoutErrorMsg=(LinearLayout)view.findViewById(R.id.layout_error_msg);
+        mLayoutErrorMsg.setVisibility(View.GONE);
         mTvErrorMsg=(TextView)view.findViewById(R.id.tv_error_msg);
         mBtShowChar=(Button)view.findViewById(R.id.bt_show_character);
     }
@@ -122,6 +125,8 @@ public class TestHearMatchFragment extends Fragment {
                     mLayoutErrorMsg.setVisibility(View.GONE);
                     //隐藏下一个按键
                     mBtNext.setVisibility(View.GONE);
+                    //隐藏查看字按键
+                    mBtShowChar.setVisibility(View.GONE);
                     //调用回答正确函数
                     mNext.next();
 
@@ -133,6 +138,8 @@ public class TestHearMatchFragment extends Fragment {
                     mLayoutErrorMsg.setVisibility(View.VISIBLE);
                     //显示下一个按键
                     mBtNext.setVisibility(View.VISIBLE);
+                    //显示查看字按键
+                    mBtShowChar.setVisibility(View.VISIBLE);
                     //设置错误信息
                     mTvErrorMsg.setText(correctAnswer.toUpperCase());
                 }
@@ -151,8 +158,19 @@ public class TestHearMatchFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //要在这里获取对应charItem
-                DataManager myDM=DataManager.getInstance(getActivity());
-                ExampleActivity.startActivity(getActivity(),myDM.getCharItemById(Integer.valueOf(mNowTest.getRelationCharacterId())));
+                AsyncTask task=new AsyncTask<Object,Object,CharItem>() {
+                    @Override
+                    protected CharItem doInBackground(Object[] params) {
+                        DataManager myDM=DataManager.getInstance((Context) params[0]);
+                        return myDM.getCharItemById(Integer.valueOf((String)params[1]));
+                    }
+
+                    @Override
+                    protected void onPostExecute(CharItem charItem) {
+                        ExampleActivity.startActivity(getActivity(),charItem);
+                    }
+                };
+                task.execute(getActivity(),mNowTest.getRelationCharacterId());
             }
         });
         mBtShowChar.setVisibility(View.GONE);

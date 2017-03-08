@@ -45,7 +45,7 @@ public class TestCompleteActivity extends Activity {
         setContentView(R.layout.activity_test_complete);
         init();
 
-        //后台读取testTOFItem列表，完成后设置next()函数
+        //后台读取testFillItem列表，完成后设置next()函数
         AsyncTask task=new AsyncTask() {
             @Override
             protected Object doInBackground(Object... params){
@@ -62,13 +62,20 @@ public class TestCompleteActivity extends Activity {
                 mTestFragment.setNext(new NextRunnable() {
                     @Override
                     public void next() {
-                        if(mNowIndex<=mTestFillItems.length) {
-                            mTestFragment.setTest(mTestFillItems[mNowIndex]);
-                            mNowIndex++;
+                        if(mNowIndex<mTestFillItems.length) {
+                            if(mTestFillItems[mNowIndex]!=null) {
+                                mTestFragment.setTest(mTestFillItems[mNowIndex]);
+                                mNowIndex++;
+                            }else{
+                                mNowIndex++;
+                                next();
+                            }
                         }else
                             finishTest();
                     }
                 });
+                mTestFragment.setTest(mTestFillItems[mNowIndex]);
+                mNowIndex++;
             }
         };
         task.execute();

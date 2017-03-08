@@ -62,13 +62,20 @@ public class TestHearTOFActivity extends Activity {
                 mTestFragment.setNext(new NextRunnable() {
                     @Override
                     public void next() {
-                        if(mNowIndex<=mTestHearTOFItems.length) {
-                            mTestFragment.setTest(mTestHearTOFItems[mNowIndex]);
-                            mNowIndex++;
+                        if(mNowIndex<mTestHearTOFItems.length) {
+                            if(mTestHearTOFItems[mNowIndex]!=null) {
+                                mTestFragment.setTest(mTestHearTOFItems[mNowIndex]);
+                                mNowIndex++;
+                            }else{
+                                mNowIndex++;
+                                next();
+                            }
                         }else
                             finishTest();
                     }
                 });
+                mTestFragment.setTest(mTestHearTOFItems[mNowIndex]);
+                mNowIndex++;
             }
         };
         task.execute();

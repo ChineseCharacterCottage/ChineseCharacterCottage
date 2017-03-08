@@ -38,7 +38,7 @@ public class CharacterLearningActivity extends Activity {
         mPhonogram.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //暂时用hsk学习界面充当.
+                //暂时提示正在开发中
                 Toast.makeText(CharacterLearningActivity.this,"Phonogram Learning Model is being desiged",Toast.LENGTH_SHORT).show();
             }
         });

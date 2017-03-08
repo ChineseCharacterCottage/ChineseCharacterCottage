@@ -62,13 +62,20 @@ public class TestHearMatchActivity extends Activity {
                 mTestFragment.setNext(new NextRunnable() {
                     @Override
                     public void next() {
-                        if(mNowIndex<=mTestHearChoiceItems.length) {
-                            mTestFragment.setTest(mTestHearChoiceItems[mNowIndex]);
-                            mNowIndex++;
+                        if(mNowIndex<mTestHearChoiceItems.length) {
+                            if(mTestHearChoiceItems[mNowIndex]!=null) {
+                                mTestFragment.setTest(mTestHearChoiceItems[mNowIndex]);
+                                mNowIndex++;
+                            }else{
+                                mNowIndex++;
+                                next();
+                            }
                         }else
                             finishTest();
                     }
                 });
+                mTestFragment.setTest(mTestHearChoiceItems[mNowIndex]);
+                mNowIndex++;
             }
         };
         task.execute();

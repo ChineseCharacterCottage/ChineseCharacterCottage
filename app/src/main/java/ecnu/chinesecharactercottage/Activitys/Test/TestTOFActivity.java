@@ -62,13 +62,20 @@ public class TestTOFActivity extends Activity {
                 mTestFragment.setNext(new NextRunnable() {
                     @Override
                     public void next() {
-                        if(mNowIndex<=mTestTOFItems.length) {
-                            mTestFragment.setTest(mTestTOFItems[mNowIndex]);
-                            mNowIndex++;
+                        if(mNowIndex<mTestTOFItems.length) {
+                            if(mTestTOFItems[mNowIndex]!=null) {
+                                mTestFragment.setTest(mTestTOFItems[mNowIndex]);
+                                mNowIndex++;
+                            }else{
+                                mNowIndex++;
+                                next();
+                            }
                         }else
                             finishTest();
                     }
                 });
+                mTestFragment.setTest(mTestTOFItems[mNowIndex]);
+                mNowIndex++;
             }
         };
         task.execute();

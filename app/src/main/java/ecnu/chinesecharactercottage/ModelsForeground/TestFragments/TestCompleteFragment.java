@@ -36,8 +36,6 @@ public class TestCompleteFragment extends Fragment {
     private LinearLayout mLayoutErrorMsg;
     //错误内容
     private TextView mTvErrorMsg;
-    //查看字按键
-    private Button mBtShowChar;
     //当前题目
     private TestFillItem mNowTest;
 
@@ -69,12 +67,12 @@ public class TestCompleteFragment extends Fragment {
         mChosenAnswers[2]=(Spinner) view.findViewById(R.id.spinner_3);
         mChosenAnswers[3]=(Spinner) view.findViewById(R.id.spinner_4);
         mChosenAnswers[4]=(Spinner) view.findViewById(R.id.spinner_5);
-        mBtSubmit =(Button) view.findViewById(R.id.bt_submint);
+        mBtSubmit =(Button) view.findViewById(R.id.bt_submit);
         mBtSubmit.setEnabled(false);
         mBtNext=(Button)view.findViewById(R.id.bt_next);
         mLayoutErrorMsg=(LinearLayout)view.findViewById(R.id.layout_error_msg);
+        mLayoutErrorMsg.setVisibility(View.GONE);
         mTvErrorMsg=(TextView)view.findViewById(R.id.tv_error_msg);
-        mBtShowChar=(Button)view.findViewById(R.id.bt_show_character);
     }
 
     private void initButtons() {

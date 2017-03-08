@@ -81,22 +81,6 @@ public class ComponentListActivity extends Activity {
             }
         });
     }
-    
-    private void buildList(){
-        mComponentList=new ArrayList<ComponentItem>();
-        int thisIndex;
-        for(int i=0;i<ITEM_NUMBER;i++){
-            thisIndex=i+mListIndex;
-            RadicalItem radicalItem=null;
-            /*
-            if(mModel==0){
-                radicalItem=mDataManager.getRadicalById(thisIndex);
-                mComponentList.add(mComponentLab.getShapeComponent(String.valueOf(thisIndex)));
-            }else {
-                mComponentList.add(mComponentLab.getVoiceComponent(String.valueOf(thisIndex)));
-            }*/
-        }
-    }
 
     private void reflesh(){
 
@@ -117,6 +101,22 @@ public class ComponentListActivity extends Activity {
                 myComponentDialog.show(ft,"component_dialog");
             }
         });
+    }
+
+    private void buildList(){
+        mComponentList=new ArrayList<ComponentItem>();
+        int thisIndex;
+        for(int i=0;i<ITEM_NUMBER;i++){
+            thisIndex=i+mListIndex;
+            RadicalItem radicalItem=null;
+            /*
+            if(mModel==0){
+                radicalItem=mDataManager.getRadicalById(thisIndex);
+                mComponentList.add(mComponentLab.getShapeComponent(String.valueOf(thisIndex)));
+            }else {
+                mComponentList.add(mComponentLab.getVoiceComponent(String.valueOf(thisIndex)));
+            }*/
+        }
     }
 
     private void saveData(){
