@@ -70,7 +70,7 @@ public final class DataManager extends SQLiteOpenHelper{
                     JSONObject json = new JSONObject(response.getData());
                     String shape=json.getString("radical_shape");
                     String[] characters=json.getString("characters").split("/");
-                    String name=json.getString("name");
+                    String name=json.getString("radical_name");
                     r=new RadicalItem(characters,shape,String.format(Locale.ENGLISH,"%d",id),name);
                     putRadicalItemToLocal(r);
                 }catch (JSONException e){
