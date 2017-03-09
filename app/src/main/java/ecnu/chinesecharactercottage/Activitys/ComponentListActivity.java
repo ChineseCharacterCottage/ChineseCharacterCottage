@@ -34,14 +34,14 @@ public class ComponentListActivity extends Activity {
     //每页数量
     final int ITEM_NUMBER=20;
 
-    //数据管理器
-    DataManager mDataManager;
-    //部首列表布局
+    //部件列表布局
     private ListView mListView;
     //下一页
-    private Button mButton;
-    //部首列表
+    private Button mButtonNext;
+    //部件列表
     private List<ComponentItem> mComponentList;
+    //所有部件数组，这是临时的
+    private ComponentItem[] mComponentItems;
     //部首列表首个对象索引
     private int mListIndex;
 
@@ -58,7 +58,21 @@ public class ComponentListActivity extends Activity {
         mModel=getIntent().getIntExtra("model",0);
 
         init();
-        reflesh();
+        AsyncTask task=new AsyncTask<Object,Object,ComponentItem[]>() {
+            @Override
+            protected ComponentItem[] doInBackground(Object[] params) {
+                DataManager dataManager=DataManager.getInstance(ComponentListActivity.this);
+                ComponentItem[] componentItems=dataManager.getAllComponents(mModel==1);
+                return componentItems;
+            }
+
+            @Override
+            protected void onPostExecute(ComponentItem[] componentItems) {
+                mComponentItems=componentItems;
+                buildList();
+            }
+        };
+        task.execute();
 
     }
 
@@ -66,27 +80,23 @@ public class ComponentListActivity extends Activity {
         mListView=(ListView)findViewById(R.id.component_list);
         mListIndex=1;
 
-        mDataManager=DataManager.getInstance(ComponentListActivity.this);
-
-        mButton=(Button)findViewById(R.id.button_next);
-        mButton.setOnClickListener(new View.OnClickListener() {
+        mButtonNext=(Button)findViewById(R.id.button_next);
+        mButtonNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mListIndex+=ITEM_NUMBER;
                 if(mListIndex>ITEM_NUMBER){
-                    saveData();
+                    mListIndex-=ITEM_NUMBER;
+                    buildLastList();
                 }
                 else{
-                    reflesh();
+                    buildList();
                 }
             }
         });
     }
 
-    private void reflesh(){
-
-
-        buildList();
+    private void refresh(){
         mListView.setAdapter(new ComponentAdapter(ComponentListActivity.this,R.layout.component_list_item,mComponentList));
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -105,38 +115,23 @@ public class ComponentListActivity extends Activity {
     }
 
     private void buildList(){
-        mComponentList=new ArrayList<ComponentItem>();
         int thisIndex;
-        for(int i=0;i<ITEM_NUMBER;i++){
-            thisIndex=i+mListIndex;
-            RadicalItem radicalItem=null;
-
-            AsyncTask task=new AsyncTask() {
-                @Override
-                protected Object doInBackground(Object[] params) {
-                    DataManager dataManager=DataManager.getInstance(ComponentListActivity.this);
-                    return dataManager.getAllComponents(mModel==1);
-                }
-
-                @Override
-                protected void onPostExecute(Object o) {
-                    ComponentItem[] componentItems=(ComponentItem[])o;
-                    mComponentList=new ArrayList<ComponentItem>();
-                    int thisIndex;
-                    for(int i=0;i<ITEM_NUMBER;i++){
-                        thisIndex=i+mListIndex;
-                        RadicalItem radicalItem;
-                }
-            }
-
-
-            if(mModel==0){
-                radicalItem=mDataManager.getRadicalById(thisIndex);
-                mComponentList.add(mComponentLab.getShapeComponent(String.valueOf(thisIndex)));
-            }else {
-                mComponentList.add(mComponentLab.getVoiceComponent(String.valueOf(thisIndex)));
-            }
+        mComponentList=new ArrayList<>();
+        for(int i=0;i<ITEM_NUMBER;i++) {
+            thisIndex = i + mListIndex;
+            mComponentList.add(mComponentItems[thisIndex]);
         }
+        refresh();
+    }
+
+    private void buildLastList(){
+        int len=mComponentItems.length;
+        mComponentList=new ArrayList<>();
+        for(;mListIndex<len;mListIndex++) {
+            mComponentList.add(mComponentItems[mListIndex]);
+        }
+        refresh();
+        saveData();
     }
 
     private void saveData(){

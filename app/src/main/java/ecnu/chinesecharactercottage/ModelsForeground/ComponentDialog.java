@@ -2,6 +2,7 @@ package ecnu.chinesecharactercottage.ModelsForeground;
 
 import android.app.DialogFragment;
 import android.media.MediaPlayer;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import ecnu.chinesecharactercottage.Activitys.ExampleActivity;
 import ecnu.chinesecharactercottage.ModelsBackground.ComponentItem;
 import ecnu.chinesecharactercottage.ModelsBackground.CharItem;
+import ecnu.chinesecharactercottage.ModelsBackground.DataManager;
 import ecnu.chinesecharactercottage.R;
 
 /**
@@ -83,41 +85,41 @@ public class ComponentDialog extends DialogFragment {
             aExample.setText(examples[i]);
             aExample.setTextColor(getResources().getColor(R.color.colorBlack));
 
-            final CharItem exampleItem;
+            //final CharItem exampleItem;
             //获取对应例字
             //接口未完成，这里先这样
             //exampleItem = charItemLab.findCharItemsByShape(examples[i])[0];
-            exampleItem=null;
-            if(sModel==0)
-                aExample.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        ExampleActivity.startActivity(getActivity(), exampleItem);
-                    }
-                });
-            else{
-                final MediaPlayer mediaPlayer=exampleItem.getMediaPlayer(getActivity());
-                try{
-                    mediaPlayer.prepare();
-                }
-                catch (Exception e){
-                    Log.d("PronunciationMedia:",e.toString());
-                    e.printStackTrace();
-                }
-                aExample.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        try{
-                            mediaPlayer.start();
+            View.OnClickListener exampleListener=new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    AsyncTask task=new AsyncTask<String,Object,CharItem>() {
+                        @Override
+                        protected CharItem doInBackground(String[] params) {
+                            DataManager dataManager=DataManager.getInstance(getActivity());
+                            return dataManager.getCharItemByShape(params[0]);
                         }
-                        catch (Exception e)
-                        {
-                            Log.d("PronunciationMedia:",e.toString());
-                            e.printStackTrace();
+
+                        @Override
+                        protected void onPostExecute(CharItem exampleItem) {
+                            if(sModel==0)
+                                ExampleActivity.startActivity(getActivity(), exampleItem);
+                            else {
+                                MediaPlayer mediaPlayer=exampleItem.getMediaPlayer(getActivity());
+                                try{
+                                    mediaPlayer.prepare();
+                                }
+                                catch (Exception e){
+                                    Log.d("PronunciationMedia:",e.toString());
+                                    e.printStackTrace();
+                                }
+                                mediaPlayer.start();
+                            }
                         }
-                    }
-                });
-            }
+                    };
+                    task.execute(((TextView)view).getText().toString());
+                }
+            };
+            aExample.setOnClickListener(exampleListener);
             linearLayout.addView(aExample);
         }
     }
