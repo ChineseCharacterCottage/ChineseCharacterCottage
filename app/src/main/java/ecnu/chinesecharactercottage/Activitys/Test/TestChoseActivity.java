@@ -5,7 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 import ecnu.chinesecharactercottage.R;
 
@@ -14,6 +16,8 @@ import ecnu.chinesecharactercottage.R;
  */
 
 public class TestChoseActivity extends Activity {
+    //用于设置按键到屏幕中心
+    private LinearLayout mButtons;
     //听力选择
     private Button mListenMatch;
     //听力判断
@@ -33,6 +37,8 @@ public class TestChoseActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_chose);
         init();
+        setButtons();
+
         mTOF.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,5 +74,19 @@ public class TestChoseActivity extends Activity {
         mListenTOF=(Button)findViewById(R.id.bt_hear_tof);
         mComplete=(Button)findViewById(R.id.bt_complete);
         mTOF=(Button)findViewById(R.id.bt_tof);
+        mButtons=(LinearLayout)findViewById(R.id.homepageButtons);
+    }
+
+    private void setButtons(){
+        WindowManager wm = (WindowManager) this.getSystemService(Context.WINDOW_SERVICE);
+        int screenWidth=wm.getDefaultDisplay().getWidth();
+        int screenHeight=wm.getDefaultDisplay().getHeight();
+        LinearLayout.LayoutParams linearParams =(LinearLayout.LayoutParams) mButtons.getLayoutParams();
+        int left=(int)(screenWidth/4.9);
+        int top=(int)(screenHeight/3.05);
+        linearParams.setMargins(left,top,0,0);
+        linearParams.height=(int)(screenHeight/2.15);
+        linearParams.width=(int)(screenWidth/1.648);
+        mButtons.setLayoutParams(linearParams);
     }
 }
