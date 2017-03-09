@@ -128,6 +128,15 @@ public class TestTOFFragment extends Fragment {
         mBtNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //显示提交按钮
+                mLayoutSubmit.setVisibility(View.VISIBLE);
+                //隐藏错误信息
+                mLayoutErrorMsg.setVisibility(View.GONE);
+                //隐藏下一个按键
+                mBtNext.setVisibility(View.GONE);
+                //隐藏查看字按键
+                mBtShowChar.setVisibility(View.GONE);
+                //调用回答正确函数
                 mNext.next();
             }
         });

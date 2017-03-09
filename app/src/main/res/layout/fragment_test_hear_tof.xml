@@ -104,8 +104,7 @@
 
     <Button
         android:text="@string/test_show_char"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/NextButton"
         android:id="@+id/bt_show_character"/>
 
 </LinearLayout>

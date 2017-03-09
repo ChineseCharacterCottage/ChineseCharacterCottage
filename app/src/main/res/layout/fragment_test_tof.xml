@@ -29,7 +29,7 @@
 
             <TextView
                 android:id="@+id/tv_character"
-                android:textSize="100sp"
+                android:textSize="80sp"
                 android:textColor="#000"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
@@ -89,8 +89,7 @@
 
         <Button
             android:text="@string/next_test"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/NextButton"
             android:id="@+id/bt_next"/>
     </FrameLayout>
 
@@ -110,8 +109,7 @@
 
     <Button
         android:text="@string/test_show_char"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/NextButton"
         android:id="@+id/bt_show_character"/>
 
 </LinearLayout>
