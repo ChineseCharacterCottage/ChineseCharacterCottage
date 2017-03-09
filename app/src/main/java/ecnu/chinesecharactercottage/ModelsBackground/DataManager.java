@@ -279,7 +279,7 @@ public final class DataManager extends SQLiteOpenHelper{
         ArrayList<ComponentItem> items=new ArrayList<>();
         PhalApiClientResponse response = PhalApiClient.create()
                 .withHost(HOST)
-                .withService("Component.GetComponentInfo")
+                .withService("Component.SelectComponent")
                 .withTimeout(500)
                 .withParams("valueName","voice_or_shape")
                 .withParams("valueIs",t)
