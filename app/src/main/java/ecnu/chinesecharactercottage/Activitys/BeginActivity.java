@@ -15,7 +15,7 @@ import static java.lang.Thread.sleep;
 
 public class BeginActivity extends Activity {
     //显示时间
-    private long mShowTime=100;
+    private long mShowTime=1500;
 
     @Override
     protected void onCreate(Bundle savadInstanceState){

@@ -16,6 +16,13 @@
         android:layout_height="wrap_content"
         android:weightSum="100"
         android:orientation="vertical">
+        <TextView
+            android:text="Listen Test"
+            android:gravity="center"
+            android:background="@color/colorCharBG"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
         <LinearLayout
             android:weightSum="2"
             android:layout_width="match_parent"
@@ -37,6 +44,13 @@
                 android:background="@drawable/selector_homepage_button_yellow"
                 style="@style/homepageButton"/>
         </LinearLayout>
+
+        <TextView
+            android:text="Read Test"
+            android:background="@color/colorCharBG"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
         <LinearLayout
             android:weightSum="2"

@@ -90,10 +90,11 @@ public class CCCMainActivity extends Activity {
     }
 
     private void setReview(){
+        mReview.setEnabled(false);
     }
 
     private void setKnowledge(){
-        mKnowledge.setClickable(false);
+        mKnowledge.setEnabled(false);
     }
 }
 

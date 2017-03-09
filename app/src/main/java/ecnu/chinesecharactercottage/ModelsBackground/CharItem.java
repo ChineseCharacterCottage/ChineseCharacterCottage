@@ -30,7 +30,7 @@ import ecnu.chinesecharactercottage.R;
 
 public class CharItem implements Readable,Serializable {
     private static final String ID="ID";
-    public static final String CHARACTER="character";
+    public static final String CHARACTER="character_shape";
     public static final String PINYIN="pinyin";
     private static final String WORDS="words";
     public static final String SENTENCE="sentence";

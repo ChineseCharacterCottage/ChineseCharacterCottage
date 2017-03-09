@@ -81,6 +81,7 @@ public class CharacterFragment extends Fragment {
     
     public void setCharacter(CharItem thisChar){
         mNowChar=thisChar;
+        String s=thisChar.get(CharItem.CHARACTER);
         mFigure.setText(thisChar.get(CharItem.CHARACTER));
         mPinyin.setText(thisChar.get(CharItem.PINYIN));
         mMeaning.setText(thisChar.get(CharItem.EXPLANATION));
@@ -176,7 +177,6 @@ public class CharacterFragment extends Fragment {
                 myRadicalDialog.show(ft,"component_dialog");
             }
         });
-
     }
 
     private void setWords(){
