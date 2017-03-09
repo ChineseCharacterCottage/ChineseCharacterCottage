@@ -185,8 +185,10 @@ public final class DataManager extends SQLiteOpenHelper{
                 try {
                     JSONObject json = new JSONObject(response.getData());
                     if(json.getString("status").equals("success")){
+                        String rid=json.getString("radical_id");
                         CharItem c=new CharItem(json);
                         putCharItemToLocal(c);
+                        c.setRadical(getRadicalById(Integer.parseInt(rid)));
                         return c;
                     }
                 }catch (JSONException e){
@@ -195,10 +197,6 @@ public final class DataManager extends SQLiteOpenHelper{
             }else{
                 Log.e("DataManager","ErrorCode: "+response.getRet());
             }
-        }
-        if(getC!=null){
-            String rid=getC.getRadicalId();
-            getC.setRadical(getRadicalById(Integer.parseInt(rid)));
         }
         return getC;
     }
