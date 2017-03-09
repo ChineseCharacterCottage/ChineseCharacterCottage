@@ -1,21 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
+              android:background="@color/colorCharBG"
+              android:paddingStart="25dp"
+              android:paddingEnd="25dp"
+              android:paddingTop="25dp"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-    <TextView
-        android:layout_gravity="center"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/tv_character"/>
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="Hear True or False"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <FrameLayout
+            android:layout_gravity="end"
+            android:layout_marginEnd="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp">
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/matt"/>
+
+            <TextView
+                android:id="@+id/tv_character"
+                android:textSize="100sp"
+                android:textColor="#000"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:gravity="center"/>
+        </FrameLayout>
+    </FrameLayout>
+
 
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        style="@style/TestTOfImg"
         android:src="@drawable/imagenotfound"
         android:id="@+id/iv_picture"/>
 
+    <!--
     <RadioGroup
         android:id="@+id/answer_chose"
         android:layout_width="wrap_content"
@@ -34,15 +63,29 @@
             android:layout_height="wrap_content"
             android:id="@+id/radio_f"/>
     </RadioGroup>
+    -->
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <Button
-            android:text="@string/button_test_submit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/bt_submit"/>
+
+        <LinearLayout
+            android:id="@+id/layout_submit"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/bt_true"
+                android:text="@string/test_true"
+                style="@style/TestTOFButton"/>
+
+            <Button
+                android:id="@+id/bt_false"
+                android:text="@string/test_false"
+                style="@style/TestTOFButton"/>
+
+        </LinearLayout>
 
         <Button
             android:text="@string/next_test"
@@ -62,8 +105,7 @@
             android:text="@string/test_err_msg"/>
         <TextView
             android:id="@+id/tv_error_msg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            style="@style/TestErrorMsgText"/>
     </LinearLayout>
 
     <Button

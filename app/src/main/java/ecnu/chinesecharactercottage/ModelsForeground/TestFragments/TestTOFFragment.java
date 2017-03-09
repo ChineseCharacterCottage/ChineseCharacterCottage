@@ -34,10 +34,11 @@ public class TestTOFFragment extends Fragment {
     TextView mCharacter;
     //图片
     ImageView mPicture;
-    //选择的答案
-    RadioGroup mChosenAnswer;
-    //确定按键
-    Button mBtSubmit;
+    //选择答案布局
+    LinearLayout mLayoutSubmit;
+    //选择答案按键
+    Button mBtTrue;
+    Button mBtFalse;
     //下一个按键
     Button mBtNext;
     //下一个(函数方法)
@@ -63,9 +64,12 @@ public class TestTOFFragment extends Fragment {
     private void init(View view){
         mCharacter=(TextView)view.findViewById(R.id.tv_character);
         mPicture=(ImageView) view.findViewById(R.id.iv_picture);
-        mChosenAnswer=(RadioGroup) view.findViewById(R.id.answer_chose);
-        mBtSubmit =(Button) view.findViewById(R.id.bt_submit);
-        mBtSubmit.setEnabled(false);
+        mLayoutSubmit =(LinearLayout) view.findViewById(R.id.layout_submit);
+        mBtTrue=(Button)view.findViewById(R.id.bt_true);
+        mBtFalse=(Button)view.findViewById(R.id.bt_false);
+        mBtTrue.setEnabled(false);
+        mBtFalse.setEnabled(false);
+
         mBtNext=(Button)view.findViewById(R.id.bt_next);
         mLayoutErrorMsg=(LinearLayout)view.findViewById(R.id.layout_error_msg);
         mTvErrorMsg=(TextView)view.findViewById(R.id.tv_error_msg);
@@ -74,25 +78,26 @@ public class TestTOFFragment extends Fragment {
     }
 
     private void initButtons() {
-        mBtSubmit.setOnClickListener(new View.OnClickListener() {
+        View.OnClickListener listener= new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int correctAnswer=mNowTest.getCorrectAnswer()?1:0;//获取正确答案
                 int chosenAnswer=-1;
-                switch (mChosenAnswer.getCheckedRadioButtonId()){
-                    case R.id.radio_t:
+                switch (v.getId()){
+                    case R.id.bt_true:
                         chosenAnswer=1;
                         break;
-                    case R.id.radio_f:
+                    case R.id.bt_false:
                         chosenAnswer=0;
                         break;
                 }
-                mBtSubmit.setEnabled(false);
+                mBtTrue.setEnabled(false);
+                mBtFalse.setEnabled(false);
 
                 if(chosenAnswer==correctAnswer){
                     //正确回答时
                     //显示提交按钮
-                    mBtSubmit.setVisibility(View.VISIBLE);
+                    mLayoutSubmit.setVisibility(View.VISIBLE);
                     //隐藏错误信息
                     mLayoutErrorMsg.setVisibility(View.GONE);
                     //隐藏下一个按键
@@ -105,7 +110,7 @@ public class TestTOFFragment extends Fragment {
                 }else{
                     //回答错误时
                     //隐藏提交按钮
-                    mBtSubmit.setVisibility(View.GONE);
+                    mLayoutSubmit.setVisibility(View.GONE);
                     //显示错误信息
                     mLayoutErrorMsg.setVisibility(View.VISIBLE);
                     //显示下一个按键
@@ -113,10 +118,12 @@ public class TestTOFFragment extends Fragment {
                     //显示查看字按键
                     mBtShowChar.setVisibility(View.VISIBLE);
                     //设置错误信息
-                    mTvErrorMsg.setText(correctAnswer==1?"true":"false");
+                    mTvErrorMsg.setText(correctAnswer==1?"True":"False");
                 }
             }
-        });
+        };
+        mBtTrue.setOnClickListener(listener);
+        mBtFalse.setOnClickListener(listener);
 
         mBtNext.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -156,7 +163,8 @@ public class TestTOFFragment extends Fragment {
         if(testTOFItem==null){
             return;
         }
-        mBtSubmit.setEnabled(true);
+        mBtTrue.setEnabled(true);
+        mBtFalse.setEnabled(true);
         mNowTest=testTOFItem;
         mCharacter.setText(mNowTest.getCharacterShape());
 

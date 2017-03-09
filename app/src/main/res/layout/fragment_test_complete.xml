@@ -91,7 +91,7 @@
 
     <!-- 题目、选择下拉框部分 -->
     <LinearLayout
-        android:paddingTop="50dp"
+        android:layout_marginTop="50dp"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -221,8 +221,7 @@
             android:text="@string/test_err_msg"/>
         <TextView
             android:id="@+id/tv_error_msg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            style="@style/TestErrorMsgText"/>
     </LinearLayout>
 
 </LinearLayout>

@@ -41,10 +41,11 @@ public class TestHearTOFFragment extends Fragment {
     private MediaPlayer mMPPronunciation;
     //图片
     private ImageView mPicture;
-    //选择的答案
-    private RadioGroup mChosenAnswer;
-    //确定按键
-    private Button mBtSubmit;
+    //选择答案布局
+    LinearLayout mLayoutSubmit;
+    //选择答案按键
+    Button mBtTrue;
+    Button mBtFalse;
     //下一个按键
     private  Button mBtNext;
     //下一个(函数方法)
@@ -71,9 +72,11 @@ public class TestHearTOFFragment extends Fragment {
         mBtPronunciation=(Button) view.findViewById(R.id.pronounce);
         mBtPronunciation.setEnabled(false);
         mPicture=(ImageView) view.findViewById(R.id.iv_picture);
-        mChosenAnswer=(RadioGroup) view.findViewById(R.id.answer_chose);
-        mBtSubmit =(Button) view.findViewById(R.id.bt_submit);
-        mBtSubmit.setEnabled(false);
+        mLayoutSubmit =(LinearLayout) view.findViewById(R.id.layout_submit);
+        mBtTrue=(Button)view.findViewById(R.id.bt_true);
+        mBtFalse=(Button)view.findViewById(R.id.bt_false);
+        mBtTrue.setEnabled(false);
+        mBtFalse.setEnabled(false);
         mBtNext=(Button)view.findViewById(R.id.bt_next);
         mLayoutErrorMsg=(LinearLayout)view.findViewById(R.id.layout_error_msg);
         mLayoutErrorMsg.setVisibility(View.GONE);
@@ -89,16 +92,16 @@ public class TestHearTOFFragment extends Fragment {
             }
         });
 
-        mBtSubmit.setOnClickListener(new View.OnClickListener() {
+        View.OnClickListener listener=new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int correctAnswer=mNowTest.getCorrectAnswer()?1:0;//获取正确答案
                 int chosenAnswer=-1;
-                switch (mChosenAnswer.getCheckedRadioButtonId()){
-                    case R.id.radio_t:
+                switch (v.getId()){
+                    case R.id.bt_true:
                         chosenAnswer=1;
                         break;
-                    case R.id.radio_f:
+                    case R.id.bt_false:
                         chosenAnswer=0;
                         break;
                 }
@@ -106,7 +109,7 @@ public class TestHearTOFFragment extends Fragment {
                 if(chosenAnswer==correctAnswer){
                     //正确回答时
                     //显示提交按钮
-                    mBtSubmit.setVisibility(View.VISIBLE);
+                    mLayoutSubmit.setVisibility(View.VISIBLE);
                     //隐藏错误信息
                     mLayoutErrorMsg.setVisibility(View.GONE);
                     //隐藏下一个按键
@@ -119,7 +122,7 @@ public class TestHearTOFFragment extends Fragment {
                 }else{
                     //回答错误时
                     //隐藏提交按钮
-                    mBtSubmit.setVisibility(View.GONE);
+                    mLayoutSubmit.setVisibility(View.GONE);
                     //显示错误信息
                     mLayoutErrorMsg.setVisibility(View.VISIBLE);
                     //显示下一个按键
@@ -130,7 +133,9 @@ public class TestHearTOFFragment extends Fragment {
                     mTvErrorMsg.setText(correctAnswer==1?"true":"false");
                 }
             }
-        });
+        };
+        mBtTrue.setOnClickListener(listener);
+        mBtFalse.setOnClickListener(listener);
 
         mBtNext.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -168,10 +173,10 @@ public class TestHearTOFFragment extends Fragment {
 
     public void setTest(TestHearTOFItem testHearTOFItem){
         if(testHearTOFItem==null) {
-            mNext.next();
             return;
         }
-        mBtSubmit.setEnabled(true);
+        mBtTrue.setEnabled(true);
+        mBtFalse.setEnabled(true);
         mNowTest=testHearTOFItem;
 
         //设置播放读音按键
