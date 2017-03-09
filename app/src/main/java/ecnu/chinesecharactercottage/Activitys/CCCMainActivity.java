@@ -64,7 +64,7 @@ public class CCCMainActivity extends Activity {
         int screenHeight=wm.getDefaultDisplay().getHeight();
         LinearLayout.LayoutParams linearParams =(LinearLayout.LayoutParams) mButtons.getLayoutParams();
         int left=(int)(screenWidth/4.9);
-        int top=(int)(screenHeight/5.2);
+        int top=(int)(screenHeight/3.05);
         linearParams.setMargins(left,top,0,0);
         linearParams.height=(int)(screenHeight/2.15);
         linearParams.width=(int)(screenWidth/1.648);
