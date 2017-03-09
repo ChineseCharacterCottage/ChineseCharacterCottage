@@ -2,6 +2,8 @@ package ecnu.chinesecharactercottage.ModelsForeground;
 
 import android.app.DialogFragment;
 import android.media.MediaPlayer;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,10 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import ecnu.chinesecharactercottage.Activitys.ExampleActivity;
 import ecnu.chinesecharactercottage.ModelsBackground.ComponentItem;
 import ecnu.chinesecharactercottage.ModelsBackground.CharItem;
+import ecnu.chinesecharactercottage.ModelsBackground.DataManager;
 import ecnu.chinesecharactercottage.R;
 
 /**
@@ -83,41 +87,47 @@ public class ComponentDialog extends DialogFragment {
             aExample.setText(examples[i]);
             aExample.setTextColor(getResources().getColor(R.color.colorBlack));
 
-            final CharItem exampleItem;
+            //final CharItem exampleItem;
             //获取对应例字
             //接口未完成，这里先这样
             //exampleItem = charItemLab.findCharItemsByShape(examples[i])[0];
-            exampleItem=null;
-            if(sModel==0)
-                aExample.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        ExampleActivity.startActivity(getActivity(), exampleItem);
-                    }
-                });
-            else{
-                final MediaPlayer mediaPlayer=exampleItem.getMediaPlayer(getActivity());
-                try{
-                    mediaPlayer.prepare();
-                }
-                catch (Exception e){
-                    Log.d("PronunciationMedia:",e.toString());
-                    e.printStackTrace();
-                }
-                aExample.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        try{
-                            mediaPlayer.start();
+            View.OnClickListener exampleListener=new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    AsyncTask task=new AsyncTask<Object,Object,CharItem>() {
+                        @Override
+                        protected CharItem doInBackground(Object[] params) {
+                            DataManager dataManager=DataManager.getInstance(getActivity());
+                            CharItem exampleItem=dataManager.getCharItemByShape(Uri.encode((String)params[0]));
+                            return exampleItem;
                         }
-                        catch (Exception e)
-                        {
-                            Log.d("PronunciationMedia:",e.toString());
-                            e.printStackTrace();
+
+                        @Override
+                        protected void onPostExecute(CharItem exampleItem) {
+                            if(exampleItem==null){
+                                Toast.makeText(getActivity(),"This character hasn't been added",Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+
+                            if(sModel==0)
+                                ExampleActivity.startActivity(getActivity(), exampleItem);
+                            else {
+                                MediaPlayer mediaPlayer=exampleItem.getMediaPlayer(getActivity());
+                                try{
+                                    mediaPlayer.prepare();
+                                }
+                                catch (Exception e){
+                                    Log.d("PronunciationMedia:",e.toString());
+                                    e.printStackTrace();
+                                }
+                                mediaPlayer.start();
+                            }
                         }
-                    }
-                });
-            }
+                    };
+                    task.execute(((TextView)view).getText().toString());
+                }
+            };
+            aExample.setOnClickListener(exampleListener);
             linearLayout.addView(aExample);
         }
     }

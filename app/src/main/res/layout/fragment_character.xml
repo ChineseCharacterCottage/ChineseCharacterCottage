@@ -85,14 +85,14 @@
 
         <TableRow>
             <TextView
-                style="@style/TestText"
+                style="@style/MyText"
                 android:gravity="center"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:text="Pinyin:"/>
 
             <TextView
-                style="@style/TestText"
+                style="@style/MyText"
                 android:id="@+id/pinyin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -103,14 +103,14 @@
 
         <TableRow>
             <TextView
-                style="@style/TestText"
+                style="@style/MyText"
                 android:gravity="center"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:text="Radical:"/>
 
             <TextView
-                style="@style/TestText"
+                style="@style/MyText"
                 android:id="@+id/radical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -123,13 +123,13 @@
         <TableRow>
 
             <TextView
-                style="@style/TestText"
+                style="@style/MyText"
                 android:layout_height="wrap_content"
                 android:text="Component:"/>
 
             <TextView
                 android:id="@+id/component"
-                style="@style/TestText"
+                style="@style/MyText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"/>
@@ -140,13 +140,13 @@
         <TableRow>
 
             <TextView
-                style="@style/TestText"
+                style="@style/MyText"
                 android:layout_height="wrap_content"
                 android:text="Meaning:"/>
 
             <TextView
                 android:id="@+id/meaning"
-                style="@style/TestText"
+                style="@style/MyText"
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -158,7 +158,7 @@
         <TableRow>
 
             <TextView
-                style="@style/TestText"
+                style="@style/MyText"
                 android:gravity="center"
                 android:layout_height="wrap_content"
                 android:text="Words:"/>
@@ -177,7 +177,7 @@
         <TableRow>
             <!--
             <TextView
-                style="@style/TestText"
+                style="@style/MyText"
                 android:layout_height="wrap_content"
                 android:text="Sentence:"/>
             -->
@@ -193,7 +193,7 @@
 
             <TextView
                 android:id="@+id/char_sentence"
-                style="@style/TestText"
+                style="@style/MyText"
                 android:textSize="16sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
