@@ -2,6 +2,7 @@ package ecnu.chinesecharactercottage.ModelsForeground;
 
 import android.app.DialogFragment;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import ecnu.chinesecharactercottage.Activitys.ExampleActivity;
 import ecnu.chinesecharactercottage.ModelsBackground.ComponentItem;
@@ -92,15 +94,21 @@ public class ComponentDialog extends DialogFragment {
             View.OnClickListener exampleListener=new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    AsyncTask task=new AsyncTask<String,Object,CharItem>() {
+                    AsyncTask task=new AsyncTask<Object,Object,CharItem>() {
                         @Override
-                        protected CharItem doInBackground(String[] params) {
+                        protected CharItem doInBackground(Object[] params) {
                             DataManager dataManager=DataManager.getInstance(getActivity());
-                            return dataManager.getCharItemByShape(params[0]);
+                            CharItem exampleItem=dataManager.getCharItemByShape(Uri.encode((String)params[0]));
+                            return exampleItem;
                         }
 
                         @Override
                         protected void onPostExecute(CharItem exampleItem) {
+                            if(exampleItem==null){
+                                Toast.makeText(getActivity(),"This character hasn't been added",Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+
                             if(sModel==0)
                                 ExampleActivity.startActivity(getActivity(), exampleItem);
                             else {

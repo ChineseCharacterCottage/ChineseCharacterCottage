@@ -21,11 +21,9 @@
     </ListView>
 
     <Button
-        style="@style/TestButton"
+        style="@style/NextButton"
         android:id="@+id/button_next"
-        android:background="@drawable/selector_item"
-        android:text="@string/button_next_page"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"/>
+        android:layout_alignParentBottom="true"
+        android:text="@string/button_next_page"/>
 
 </RelativeLayout>

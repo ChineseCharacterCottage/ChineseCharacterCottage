@@ -131,6 +131,14 @@ public class TestCompleteFragment extends Fragment {
         return "0";
     }
 
+    //返回错误信息，即正确答案匹配
+    private String getCorrectAnswerString(){
+        String corectAnswer="";
+        for(int i=0;i<5;i++){
+            
+        }
+    }
+
 
     public void setNext(NextRunnable next){
         mNext=next;

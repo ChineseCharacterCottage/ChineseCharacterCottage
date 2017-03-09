@@ -38,13 +38,9 @@
     </LinearLayout>
 
     <Button
-        android:background="@drawable/selector_button"
+        style="@style/NextButton"
         android:id="@+id/button_next"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:textAllCaps="false"
         android:text="@string/button_next_character"
-        android:textSize="15sp"
         android:layout_alignParentBottom="true"/>
 
 </RelativeLayout>

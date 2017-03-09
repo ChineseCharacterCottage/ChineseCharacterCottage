@@ -84,14 +84,10 @@ public class ComponentListActivity extends Activity {
         mButtonNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mListIndex+=ITEM_NUMBER;
-                if(mListIndex>ITEM_NUMBER){
-                    mListIndex-=ITEM_NUMBER;
-                    buildLastList();
-                }
-                else{
+                if(mListIndex>mComponentItems.length)
+                    saveData();
+                else
                     buildList();
-                }
             }
         });
     }
@@ -115,23 +111,23 @@ public class ComponentListActivity extends Activity {
     }
 
     private void buildList(){
-        int thisIndex;
-        mComponentList=new ArrayList<>();
-        for(int i=0;i<ITEM_NUMBER;i++) {
-            thisIndex = i + mListIndex;
-            mComponentList.add(mComponentItems[thisIndex]);
+        if(mListIndex+ITEM_NUMBER>=mComponentItems.length){
+            //由于不包括结束位置，所以要到length这里
+            buildList(mListIndex,mComponentItems.length);
         }
-        refresh();
+        else{
+            buildList(mListIndex,mListIndex+ITEM_NUMBER);
+        }
+        mListIndex+=ITEM_NUMBER;
     }
 
-    private void buildLastList(){
-        int len=mComponentItems.length;
+    //构建列表中从start到end的部分，不包括end
+    private void buildList(int start,int end){
         mComponentList=new ArrayList<>();
-        for(;mListIndex<len;mListIndex++) {
-            mComponentList.add(mComponentItems[mListIndex]);
+        for(int i=start;i<end;i++) {
+            mComponentList.add(mComponentItems[i]);
         }
         refresh();
-        saveData();
     }
 
     private void saveData(){
