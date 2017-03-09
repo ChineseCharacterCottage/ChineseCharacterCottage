@@ -26,6 +26,6 @@
     <string name="test_true">True</string>
     <string name="test_false">False</string>
     <string name="next_test">Next Test</string>
-    <string name="test_err_msg">The correct answer is:</string>
+    <string name="test_err_msg">Answer:</string>
     <string name="test_show_char">To learn this character</string>
 </resources>

@@ -106,7 +106,7 @@ public class TestCompleteFragment extends Fragment {
                     //显示下一个按键
                     mBtNext.setVisibility(View.VISIBLE);
                     //设置错误信息
-                    mTvErrorMsg.setText(correctAnswer);
+                    mTvErrorMsg.setText(getCorrectAnswerMsg(correctAnswer));
                 }
             }
         });
@@ -132,11 +132,13 @@ public class TestCompleteFragment extends Fragment {
     }
 
     //返回错误信息，即正确答案匹配
-    private String getCorrectAnswerString(){
-        String corectAnswer="";
+    private String getCorrectAnswerMsg(String correctAnswer){
+        String correctAnswerMsg="";
+        String[] index={"A、","B、","C、","D、","E、"};
         for(int i=0;i<5;i++){
-            
+            correctAnswerMsg=correctAnswerMsg+index[i]+correctAnswer.charAt(i)+"   ";
         }
+        return correctAnswerMsg;
     }
 
 
