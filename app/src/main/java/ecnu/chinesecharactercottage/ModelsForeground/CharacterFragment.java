@@ -162,7 +162,7 @@ public class CharacterFragment extends Fragment {
     private void setRadical(){
 
         RadicalItem radicalItem=mNowChar.getRadical();
-        //mRadical.setText(radicalItem.getRadical());
+        mRadical.setText(radicalItem.getRadical());
         mRadical.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
