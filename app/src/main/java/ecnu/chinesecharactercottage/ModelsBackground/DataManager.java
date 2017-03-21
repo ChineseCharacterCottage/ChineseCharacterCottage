@@ -251,9 +251,9 @@ public final class DataManager extends SQLiteOpenHelper{
                     String rid=json.getString("radical_id");
                     CharItem c=new CharItem(json);
                     putCharItemToLocal(c);
-                    c.setRadical(getRadicalById(Integer.parseInt(rid)));
                     ShapeCharItem sc=new ShapeCharItem(c);
                     sc.mVideo=json.getString("video");
+                    sc.setRadical(getRadicalById(Integer.parseInt(rid)));
                     return sc;
                 }
             }catch (JSONException e){
