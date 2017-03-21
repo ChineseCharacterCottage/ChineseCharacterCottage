@@ -44,7 +44,8 @@ public class CharacterLearningActivity extends Activity {
             @Override
             public void onClick(View v) {
                 //暂时提示正在开发中
-                Toast.makeText(CharacterLearningActivity.this,"Pictogram Learning Model is being desiged",Toast.LENGTH_SHORT).show();
+                //Toast.makeText(CharacterLearningActivity.this,"Pictogram Learning Model is being desiged",Toast.LENGTH_SHORT).show();
+                PictogramActivity.startActivity(CharacterLearningActivity.this);
             }
         });
 

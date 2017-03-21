@@ -28,6 +28,7 @@
         <activity android:name=".Activitys.Test.TestCompleteActivity"/>
         <activity android:name=".Activitys.Test.TestHearMatchActivity"/>
         <activity android:name=".Activitys.Test.TestHearTOFActivity"/>
+        <activity android:name=".Activitys.PictogramActivity"/>
 
     </application>
 
