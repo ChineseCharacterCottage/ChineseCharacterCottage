@@ -237,6 +237,33 @@ public final class DataManager extends SQLiteOpenHelper{
         cursor.close();
         return testItem;
     }
+    public ShapeCharItem getShapeCharItem(String id){
+        PhalApiClientResponse response=PhalApiClient.create()
+                .withHost(HOST)
+                .withService("Character.GetShapeCharInfo")
+                .withTimeout(300)
+                .withParams("id",id)
+                .request();
+        if(response.getRet()==200){
+            try {
+                JSONObject json = new JSONObject(response.getData());
+                if(json.getString("status").equals("success")){
+                    String rid=json.getString("radical_id");
+                    CharItem c=new CharItem(json);
+                    putCharItemToLocal(c);
+                    c.setRadical(getRadicalById(Integer.parseInt(rid)));
+                    ShapeCharItem sc=new ShapeCharItem(c);
+                    sc.mVideo=json.getString("video");
+                    return sc;
+                }
+            }catch (JSONException e){
+                e.printStackTrace();
+            }
+        }else{
+            Log.e("DataManager","ErrorCode: "+response.getRet());
+        }
+        return null;
+    }
     public CharItem getCharItemByShape(String shape){
         PhalApiClientResponse response=PhalApiClient.create()
                 .withHost(HOST)
