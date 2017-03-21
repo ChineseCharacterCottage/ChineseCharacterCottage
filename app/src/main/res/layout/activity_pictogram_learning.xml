@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <fragment
+            android:id="@+id/character_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:name="ecnu.chinesecharactercottage.ModelsForeground.CharacterFragment"/>
+
+        <VideoView
+            android:id="@+id/video"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <Button
+        android:layout_alignParentBottom="true"
+        style="@style/NextButton"
+        android:text="@string/button_next_character"
+        android:id="@+id/bt_next"/>
+
+</RelativeLayout>

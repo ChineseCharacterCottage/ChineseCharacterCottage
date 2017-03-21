@@ -40,16 +40,16 @@ public class CharacterLearningActivity extends Activity {
         setButtons();
 
         //进入象形字学习
-        mPhonogram.setOnClickListener(new View.OnClickListener() {
+        mPictogram.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //暂时提示正在开发中
-                Toast.makeText(CharacterLearningActivity.this,"Phonogram Learning Model is being desiged",Toast.LENGTH_SHORT).show();
+                Toast.makeText(CharacterLearningActivity.this,"Pictogram Learning Model is being desiged",Toast.LENGTH_SHORT).show();
             }
         });
 
         //进入形声字学习
-        mPictogram.setOnClickListener(new View.OnClickListener() {
+        mPhonogram.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
