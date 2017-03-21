@@ -170,6 +170,7 @@ public class TestTOFFragment extends Fragment {
 
     public void setTest(TestTOFItem testTOFItem){
         if(testTOFItem==null){
+            mNext.next();
             return;
         }
         mBtTrue.setEnabled(true);

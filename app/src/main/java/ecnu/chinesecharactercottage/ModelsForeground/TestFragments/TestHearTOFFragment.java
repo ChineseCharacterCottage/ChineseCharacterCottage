@@ -182,6 +182,7 @@ public class TestHearTOFFragment extends Fragment {
 
     public void setTest(TestHearTOFItem testHearTOFItem){
         if(testHearTOFItem==null) {
+            mNext.next();
             return;
         }
         mBtTrue.setEnabled(true);

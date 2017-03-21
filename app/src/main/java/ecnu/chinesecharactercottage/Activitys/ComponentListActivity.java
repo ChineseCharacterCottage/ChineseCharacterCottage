@@ -68,8 +68,11 @@ public class ComponentListActivity extends Activity {
 
             @Override
             protected void onPostExecute(ComponentItem[] componentItems) {
-                mComponentItems=componentItems;
-                buildList();
+                if(componentItems!=null) {
+                    mComponentItems = componentItems;
+                    buildList();
+                }else
+                    saveData();
             }
         };
         task.execute();
