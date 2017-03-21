@@ -30,9 +30,11 @@ public class PictogramActivity extends Activity {
     //汉字详情
     private CharacterFragment mCharacterFragment;
     //视频
-    private VideoView mVideoView;
+    //private VideoView mVideoView;
     //等待进度条
-    private Dialog mDialog;
+    //private Dialog mDialog;
+    //播放按键
+    private Button mBtPlay;
     //下一个按键
     private Button mBtNext;
     //当前象形字
@@ -63,8 +65,9 @@ public class PictogramActivity extends Activity {
 
     private void init(){
         mCharacterFragment=(CharacterFragment)getFragmentManager().findFragmentById(R.id.character_fragment);
-        mVideoView=(VideoView)findViewById(R.id.video);
-        mVideoView.setMediaController(new MediaController(this));
+        //mVideoView=(VideoView)findViewById(R.id.video);
+        //mVideoView.setMediaController(new MediaController(this));
+        mBtPlay=(Button)findViewById(R.id.button_play);
         mBtNext=(Button)findViewById(R.id.button_next);
         mItemId=1;
     }
@@ -82,8 +85,20 @@ public class PictogramActivity extends Activity {
             @Override
             protected void onPostExecute(Object o) {
                 if(mNowItem!=null){
-                    mBtNext.setEnabled(true);
                     mCharacterFragment.setCharacter(mNowItem);
+                    mBtPlay.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Uri uri = Uri.parse(VIDEO_PATH+mNowItem.getVideo());
+                            Intent intent = new Intent(Intent.ACTION_VIEW,uri);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            intent.setType("video/*");
+                            intent.setDataAndType(uri , "video/*");
+                            startActivity(intent);
+                        }
+                    });
+                    mBtNext.setEnabled(true);
+                    /*
                     mDialog= ProgressDialog.show(PictogramActivity.this,"loading...","wait please");
                     mVideoView.setVideoURI(Uri.parse(VIDEO_PATH+mNowItem.getVideo()));
                     mVideoView.requestFocus();
@@ -94,7 +109,7 @@ public class PictogramActivity extends Activity {
                             mDialog.dismiss();
                         }
                     });
-                    //mVideoView.start();
+                    mVideoView.start();*/
                 }else
                     saveData();
             }

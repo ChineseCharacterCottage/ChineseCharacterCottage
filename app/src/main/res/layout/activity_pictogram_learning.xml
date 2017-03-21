@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:background="@color/colorCharBG">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -12,6 +13,14 @@
             android:layout_height="wrap_content"
             android:name="ecnu.chinesecharactercottage.ModelsForeground.CharacterFragment"/>
 
+        <Button
+            android:id="@+id/button_play"
+            style="@style/NextButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/button_play_video"/>
+
+        <!--
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -19,7 +28,7 @@
                 android:id="@+id/video"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
-        </FrameLayout>
+        </FrameLayout>-->
     </LinearLayout>
 
     <Button
