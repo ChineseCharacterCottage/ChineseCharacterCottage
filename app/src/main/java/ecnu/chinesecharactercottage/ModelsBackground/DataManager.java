@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import net.phalapi.sdk.PhalApiClient;
@@ -25,7 +26,7 @@ import java.util.Locale;
 
 public final class DataManager extends SQLiteOpenHelper{
     private static final String LOCAL_DATABASE="local_character.db";
-    private static final int VERSION=1;//数据库的版本，如果数据要更新，改成更大的数字
+    private static final int VERSION=2;//数据库的版本，如果数据要更新，改成更大的数字
     private static final String HOST="http://115.159.147.198/hzw/PhalApi/public/hzw/";
     private static DataManager sManager=null;
 
@@ -336,6 +337,63 @@ public final class DataManager extends SQLiteOpenHelper{
         }
         return null;
     }
+    public boolean isInCollection(TestItem t){
+        String type;
+        switch (t.getClass().getSimpleName()){
+            case "TestFillItem":
+                type = FILL;
+                break;
+            case "TestHearChoiceItem":
+                type = HEAR_CHOICE;
+                break;
+            case "TestTOFItem":
+                type = TOF;
+                break;
+            case "TestHearTOFItem":
+                type = HEAR_TOF;
+                break;
+            default:
+                type = null;
+        }
+        Cursor cursor = getReadableDatabase().query("collection_test",null,"ID = "+t.getTestId()+" and testtype = " + type,null,null,null,null);
+        boolean ret = cursor.moveToFirst();
+        cursor.close();
+        return ret;
+    }
+    //参数为null返回所有
+    public TestItem[] getTestItemsCollection(@Nullable String type){
+        if(type == null){
+            ArrayList<TestItem> items = new ArrayList<>();
+            Cursor cursor = getReadableDatabase().query("collection_test",null,"1 = 1",null,null,null,null);
+            if(!cursor.moveToFirst()){
+                cursor.close();
+                return new TestItem[]{};
+            }
+            do{
+                items.add(getTestItemById(
+                        cursor.getString(cursor.getColumnIndex("ID")),
+                        cursor.getString(cursor.getColumnIndex("testtype"))
+                ));
+            }while (cursor.moveToNext());
+            cursor.close();
+            return items.toArray(new TestItem[items.size()]);
+        }else{
+            ArrayList<TestItem> items = new ArrayList<>();
+            Cursor cursor = getReadableDatabase().query("collection_test",null,"testtype = "+type,null,null,null,null);
+            if(!cursor.moveToFirst()){
+                cursor.close();
+                return new TestItem[]{};
+            }
+            do{
+                items.add(getTestItemById(
+                        cursor.getString(cursor.getColumnIndex("ID")),
+                        type
+                ));
+            }while (cursor.moveToNext());
+            cursor.close();
+            return items.toArray(new TestItem[items.size()]);
+        }
+    }
     public TestItem getTestItemById(String id,String type){
         TestItem testItem=getTestItemFromLocal(id,type);
         if(testItem!=null){
@@ -373,9 +431,105 @@ public final class DataManager extends SQLiteOpenHelper{
         }
         return testItem;
     }
+    public void putIntoCollection(TestItem testItem){
+        String type;
+        switch (testItem.getClass().getSimpleName()){
+            case "TestFillItem":
+                type = FILL;
+                break;
+            case "TestHearChoiceItem":
+                type = HEAR_CHOICE;
+                break;
+            case "TestTOFItem":
+                type = TOF;
+                break;
+            case "TestHearTOFItem":
+                type = HEAR_TOF;
+                break;
+            default:
+                type = null;
+        }
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put("ID",testItem.getTestId());
+        cv.put("testtype",type);
+        db.insert("collection_test",null,cv);
+        db.close();
+    }
+    public void putIntoCollection(CharItem charItem){
+        if(charItem.getClass().equals(CharItem.class)){
+            SQLiteDatabase db = getWritableDatabase();
+            ContentValues cv = new ContentValues();
+            cv.put("ID",charItem.getId());
+            db.insert("collection_char",null,cv);
+            db.close();
+        }else{
+            SQLiteDatabase db = getWritableDatabase();
+            ContentValues cv = new ContentValues();
+            cv.put("ID",charItem.getId());
+            db.insert("collection_shape_char",null,cv);
+            db.close();
+        }
+    }
+    public boolean isInCollection(CharItem charItem){
+        SQLiteDatabase db = getWritableDatabase();
+        if(charItem.getClass().equals(ShapeCharItem.class)){
+            Cursor cursor = db.query("collection_shape_char",null,"ID = "+charItem.getId(),null,null,null,null);
+            boolean exist = cursor.moveToFirst();
+            cursor.close();
+            return exist;
+        }else {
+            Cursor cursor = db.query("collection_char",null,"ID = "+charItem.getId(),null,null,null,null);
+            boolean exist = cursor.moveToFirst();
+            cursor.close();
+            return exist;
+        }
+    }
+    public String[] getCollectionCharsId(boolean isShape){
+        SQLiteDatabase db = getReadableDatabase();
+        if(isShape){
+            Cursor cursor = db.query("collection_char",null,"1 = 1",null,null,null,null);
+            if(!cursor.moveToFirst()){
+                cursor.close();
+                return new String[]{};
+            }
+            ArrayList<String> ids=new ArrayList<>();
+            do {
+                String id = cursor.getString(cursor.getColumnIndex("ID"));
+                ids.add(id);
+            }while (cursor.moveToNext());
+            cursor.close();
+            return ids.toArray(new String[ids.size()]);
+        }else{
+            Cursor cursor = db.query("collection_shape_char",null,"1 = 1",null,null,null,null);
+            if(!cursor.moveToFirst()){
+                cursor.close();
+                return new String[]{};
+            }
+            ArrayList<String> ids=new ArrayList<>();
+            do {
+                String id = cursor.getString(cursor.getColumnIndex("ID"));
+                ids.add(id);
+            }while (cursor.moveToNext());
+            cursor.close();
+            return ids.toArray(new String[ids.size()]);
+        }
+    }
     //数据库建表操作
     @Override
     public void onCreate(SQLiteDatabase db) {
+        final String CREATE_COLLECTION_CHAR="create table collection_char (" +
+                "ID integer primary key" +
+                ")";
+        final String CREATE_COLLECTION_SHAPE_CHAR =
+                "create table collection_shape_char (" +
+                        "ID integer primary key" +
+                        ")";
+        final String CREATE_COLLECTION_TEST =
+                "create table collection_test (" +
+                        "ID integer," +
+                        "testtype text" +
+                        ")";
         final String CREATE_CHAR_ITEM="create table char_item ("
                 +"ID integer primary key, "
                 +"words text, "
@@ -436,6 +590,9 @@ public final class DataManager extends SQLiteOpenHelper{
         db.execSQL(CREATE_TEST_TOF);
         db.execSQL(CREATE_TEST_FILL_ITEM);
         db.execSQL(CREATE_TEST_HEAR_CHOICE);
+        db.execSQL(CREATE_COLLECTION_CHAR);
+        db.execSQL(CREATE_COLLECTION_SHAPE_CHAR);
+        db.execSQL(CREATE_COLLECTION_TEST);
     }
 
     @Override

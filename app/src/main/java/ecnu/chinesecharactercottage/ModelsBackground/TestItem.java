@@ -9,4 +9,5 @@ import android.content.ContentValues;
 public abstract class TestItem {
     abstract public Object getCorrectAnswer();
     abstract public ContentValues toContentValue();
+    abstract public String getTestId();
 }
