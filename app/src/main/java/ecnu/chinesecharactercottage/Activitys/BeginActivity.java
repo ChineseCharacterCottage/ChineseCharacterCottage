@@ -15,26 +15,25 @@ import static java.lang.Thread.sleep;
 
 public class BeginActivity extends Activity {
     //显示时间
-    private long mShowTime=1500;
+    final private static long SHOWTIME=1500;
 
     @Override
-    protected void onCreate(Bundle savadInstanceState){
-        super.onCreate(savadInstanceState);
+    protected void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_begin);
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 try{
-                    sleep(mShowTime);
+                    sleep(SHOWTIME);
                 }catch (InterruptedException e){
                     e.printStackTrace();
                 }
-                Intent intent=new Intent(BeginActivity.this,CCCMainActivity.class);
-                startActivity(intent);
+                CharacterLearningActivity.startActivity(BeginActivity.this);
                 finish();
             }
-        },mShowTime);
+        },SHOWTIME);
 
 
     }
