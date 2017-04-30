@@ -66,11 +66,12 @@ public class TestHearTOFActivity extends Activity {
             @Override
             protected Object doInBackground(Object... params){
                 DataManager dataManager=DataManager.getInstance(TestHearTOFActivity.this);
-                mTestHearTOFItems=new TestHearTOFItem[mIds.length];
-                if(sModel==LEARNING)
-                    for(int i=0;i<mIds.length;i++){
-                        mTestHearTOFItems[i]=(TestHearTOFItem)dataManager.getTestItemById(mIds[i],DataManager.HEAR_TOF);
+                if(sModel==LEARNING) {
+                    mTestHearTOFItems=new TestHearTOFItem[mIds.length];
+                    for (int i = 0; i < mIds.length; i++) {
+                        mTestHearTOFItems[i] = (TestHearTOFItem) dataManager.getTestItemById(mIds[i], DataManager.HEAR_TOF);
                     }
+                }
                 else if(sModel==COLLECTION)
                     mTestHearTOFItems=(TestHearTOFItem[])dataManager.getTestItemsCollection(DataManager.HEAR_TOF);
                 return null;

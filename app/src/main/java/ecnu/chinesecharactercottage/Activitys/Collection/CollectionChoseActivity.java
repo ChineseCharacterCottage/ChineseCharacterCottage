@@ -88,7 +88,7 @@ public class CollectionChoseActivity extends Activity{
                     @Override
                     protected Object doInBackground(Object[] params) {
                         DataManager dataManager=DataManager.getInstance(CollectionChoseActivity.this);
-                        String[] ids=dataManager.getCollectionCharsId(true);
+                        String[] ids=dataManager.getCollectionCharsId(false);
                         int[] ids2=new int[ids.length];
                         for (int i=0;i<ids.length;i++)
                             ids2[i]=Integer.parseInt(ids[i]);
@@ -113,7 +113,7 @@ public class CollectionChoseActivity extends Activity{
                     @Override
                     protected Object doInBackground(Object[] params) {
                         DataManager dataManager=DataManager.getInstance(CollectionChoseActivity.this);
-                        String[] ids=dataManager.getCollectionCharsId(false);
+                        String[] ids=dataManager.getCollectionCharsId(true);
                         return ids;
                     }
 

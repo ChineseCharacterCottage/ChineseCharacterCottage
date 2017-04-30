@@ -67,11 +67,12 @@ public class TestCompleteActivity extends Activity {
             @Override
             protected Object doInBackground(Object... params){
                 DataManager dataManager=DataManager.getInstance(TestCompleteActivity.this);
-                mTestFillItems=new TestFillItem[mIds.length];
-                if(sModel==LEARNING)
-                    for(int i=0;i<mIds.length;i++){
-                        mTestFillItems[i]=(TestFillItem)dataManager.getTestItemById(mIds[i],DataManager.FILL);
+                if(sModel==LEARNING) {
+                    mTestFillItems=new TestFillItem[mIds.length];
+                    for (int i = 0; i < mIds.length; i++) {
+                        mTestFillItems[i] = (TestFillItem) dataManager.getTestItemById(mIds[i], DataManager.FILL);
                     }
+                }
                 else if(sModel==COLLECTION)
                     mTestFillItems=(TestFillItem[])dataManager.getTestItemsCollection(DataManager.FILL);
                 return null;

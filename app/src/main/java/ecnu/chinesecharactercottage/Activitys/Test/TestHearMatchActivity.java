@@ -68,11 +68,12 @@ public class TestHearMatchActivity extends Activity {
             @Override
             protected Object doInBackground(Object... params){
                 DataManager dataManager=DataManager.getInstance(TestHearMatchActivity.this);
-                mTestHearChoiceItems=new TestHearChoiceItem[mIds.length];
-                if(sModel==LEARNING)
-                    for(int i=0;i<mIds.length;i++){
-                        mTestHearChoiceItems[i]=(TestHearChoiceItem)dataManager.getTestItemById(mIds[i],DataManager.HEAR_CHOICE);
+                if(sModel==LEARNING) {
+                    mTestHearChoiceItems=new TestHearChoiceItem[mIds.length];
+                    for (int i = 0; i < mIds.length; i++) {
+                        mTestHearChoiceItems[i] = (TestHearChoiceItem) dataManager.getTestItemById(mIds[i], DataManager.HEAR_CHOICE);
                     }
+                }
                 else if(sModel==COLLECTION)
                     mTestHearChoiceItems=(TestHearChoiceItem[])dataManager.getTestItemsCollection(DataManager.HEAR_CHOICE);
                 return null;

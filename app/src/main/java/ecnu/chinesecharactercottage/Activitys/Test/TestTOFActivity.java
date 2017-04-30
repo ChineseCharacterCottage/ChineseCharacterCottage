@@ -66,11 +66,12 @@ public class TestTOFActivity extends Activity {
             @Override
             protected Object doInBackground(Object... params){
                 DataManager dataManager=DataManager.getInstance(TestTOFActivity.this);
-                mTestTOFItems=new TestTOFItem[mIds.length];
-                if(sModel==LEARNING)
+                if(sModel==LEARNING){
+                    mTestTOFItems=new TestTOFItem[mIds.length];
                     for(int i=0;i<mIds.length;i++){
                         mTestTOFItems[i]=(TestTOFItem)dataManager.getTestItemById(mIds[i],DataManager.TOF);
                     }
+                }
                 else if(sModel==COLLECTION)
                     mTestTOFItems=(TestTOFItem[])dataManager.getTestItemsCollection(DataManager.TOF);
                 return null;
