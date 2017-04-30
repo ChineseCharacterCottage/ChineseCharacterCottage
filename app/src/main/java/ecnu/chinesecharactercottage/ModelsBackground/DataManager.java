@@ -487,7 +487,7 @@ public final class DataManager extends SQLiteOpenHelper{
     }
     public String[] getCollectionCharsId(boolean isShape){
         SQLiteDatabase db = getReadableDatabase();
-        if(isShape){
+        if(!isShape){
             Cursor cursor = db.query("collection_char",null,"1 = 1",null,null,null,null);
             if(!cursor.moveToFirst()){
                 cursor.close();
