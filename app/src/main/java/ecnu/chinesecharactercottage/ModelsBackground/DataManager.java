@@ -355,7 +355,7 @@ public final class DataManager extends SQLiteOpenHelper{
             default:
                 type = null;
         }
-        Cursor cursor = getReadableDatabase().query("collection_test",null,"ID = "+t.getTestId()+" and testtype = " + type,null,null,null,null);
+        Cursor cursor = getReadableDatabase().query("collection_test",null,"ID = "+t.getTestId()+" and testtype = '" + type+"'",null,null,null,null);
         boolean ret = cursor.moveToFirst();
         cursor.close();
         return ret;
@@ -379,7 +379,7 @@ public final class DataManager extends SQLiteOpenHelper{
             return items.toArray(new TestItem[items.size()]);
         }else{
             ArrayList<TestItem> items = new ArrayList<>();
-            Cursor cursor = getReadableDatabase().query("collection_test",null,"testtype = "+type,null,null,null,null);
+            Cursor cursor = getReadableDatabase().query("collection_test",null,"testtype = '"+type+"'",null,null,null,null);
             if(!cursor.moveToFirst()){
                 cursor.close();
                 return new TestItem[]{};
