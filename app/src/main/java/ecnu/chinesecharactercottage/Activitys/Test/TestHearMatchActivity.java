@@ -8,6 +8,7 @@ import android.os.Bundle;
 
 import ecnu.chinesecharactercottage.ModelsBackground.DataManager;
 import ecnu.chinesecharactercottage.ModelsBackground.TestHearChoiceItem;
+import ecnu.chinesecharactercottage.ModelsBackground.TestItem;
 import ecnu.chinesecharactercottage.ModelsForeground.NextRunnable;
 import ecnu.chinesecharactercottage.ModelsForeground.TestFragments.TestHearMatchFragment;
 import ecnu.chinesecharactercottage.R;
@@ -74,30 +75,38 @@ public class TestHearMatchActivity extends Activity {
                         mTestHearChoiceItems[i] = (TestHearChoiceItem) dataManager.getTestItemById(mIds[i], DataManager.HEAR_CHOICE);
                     }
                 }
-                else if(sModel==COLLECTION)
-                    mTestHearChoiceItems=(TestHearChoiceItem[])dataManager.getTestItemsCollection(DataManager.HEAR_CHOICE);
+                else if(sModel==COLLECTION){
+                    TestItem[] testItems=dataManager.getTestItemsCollection(DataManager.HEAR_CHOICE);
+                    mTestHearChoiceItems=new TestHearChoiceItem[testItems.length];
+                    for(int i=0;i<testItems.length;i++){
+                        mTestHearChoiceItems[i]=(TestHearChoiceItem)testItems[i];
+                    }
+                }
                 return null;
             }
 
             @Override
             protected void onPostExecute(Object o) {
-                mTestFragment.setNext(new NextRunnable() {
-                    @Override
-                    public void next() {
-                        if(mNowIndex<mTestHearChoiceItems.length) {
-                            if(mTestHearChoiceItems[mNowIndex]!=null) {
-                                mTestFragment.setTest(mTestHearChoiceItems[mNowIndex]);
-                                mNowIndex++;
-                            }else{
-                                mNowIndex++;
-                                next();
-                            }
-                        }else
-                            finishTest();
-                    }
-                });
-                mTestFragment.setTest(mTestHearChoiceItems[mNowIndex]);
-                mNowIndex++;
+                if(mTestHearChoiceItems.length>0) {
+                    mTestFragment.setNext(new NextRunnable() {
+                        @Override
+                        public void next() {
+                            if (mNowIndex < mTestHearChoiceItems.length) {
+                                if (mTestHearChoiceItems[mNowIndex] != null) {
+                                    mTestFragment.setTest(mTestHearChoiceItems[mNowIndex]);
+                                    mNowIndex++;
+                                } else {
+                                    mNowIndex++;
+                                    next();
+                                }
+                            } else
+                                finishTest();
+                        }
+                    });
+                    mTestFragment.setTest(mTestHearChoiceItems[mNowIndex]);
+                    mNowIndex++;
+                }else
+                    finishTest();
             }
         };
         task.execute();

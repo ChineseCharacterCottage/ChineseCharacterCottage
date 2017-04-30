@@ -8,6 +8,7 @@ import android.os.Bundle;
 
 import ecnu.chinesecharactercottage.ModelsBackground.DataManager;
 import ecnu.chinesecharactercottage.ModelsBackground.TestFillItem;
+import ecnu.chinesecharactercottage.ModelsBackground.TestItem;
 import ecnu.chinesecharactercottage.ModelsForeground.NextRunnable;
 import ecnu.chinesecharactercottage.ModelsForeground.TestFragments.TestCompleteFragment;
 import ecnu.chinesecharactercottage.R;
@@ -73,30 +74,38 @@ public class TestCompleteActivity extends Activity {
                         mTestFillItems[i] = (TestFillItem) dataManager.getTestItemById(mIds[i], DataManager.FILL);
                     }
                 }
-                else if(sModel==COLLECTION)
-                    mTestFillItems=(TestFillItem[])dataManager.getTestItemsCollection(DataManager.FILL);
+                else if(sModel==COLLECTION) {
+                    TestItem[] testItems=dataManager.getTestItemsCollection(DataManager.FILL);
+                    mTestFillItems=new TestFillItem[testItems.length];
+                    for(int i=0;i<testItems.length;i++){
+                        mTestFillItems[i]=(TestFillItem)testItems[i];
+                    }
+                }
                 return null;
             }
 
             @Override
             protected void onPostExecute(Object o) {
-                mTestFragment.setNext(new NextRunnable() {
-                    @Override
-                    public void next() {
-                        if(mNowIndex<mTestFillItems.length) {
-                            if(mTestFillItems[mNowIndex]!=null) {
-                                mTestFragment.setTest(mTestFillItems[mNowIndex]);
-                                mNowIndex++;
-                            }else{
-                                mNowIndex++;
-                                next();
-                            }
-                        }else
-                            finishTest();
-                    }
-                });
-                mTestFragment.setTest(mTestFillItems[mNowIndex]);
-                mNowIndex++;
+                if (mTestFillItems.length > 0) {
+                    mTestFragment.setNext(new NextRunnable() {
+                        @Override
+                        public void next() {
+                            if (mNowIndex < mTestFillItems.length) {
+                                if (mTestFillItems[mNowIndex] != null) {
+                                    mTestFragment.setTest(mTestFillItems[mNowIndex]);
+                                    mNowIndex++;
+                                } else {
+                                    mNowIndex++;
+                                    next();
+                                }
+                            } else
+                                finishTest();
+                        }
+                    });
+                    mTestFragment.setTest(mTestFillItems[mNowIndex]);
+                    mNowIndex++;
+                }else
+                    finishTest();
             }
         };
         task.execute();

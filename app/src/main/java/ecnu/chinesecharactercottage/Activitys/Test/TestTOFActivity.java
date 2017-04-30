@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 
 import ecnu.chinesecharactercottage.ModelsBackground.DataManager;
+import ecnu.chinesecharactercottage.ModelsBackground.TestItem;
 import ecnu.chinesecharactercottage.ModelsBackground.TestTOFItem;
 import ecnu.chinesecharactercottage.ModelsForeground.NextRunnable;
 import ecnu.chinesecharactercottage.ModelsForeground.TestFragments.TestTOFFragment;
@@ -72,30 +73,38 @@ public class TestTOFActivity extends Activity {
                         mTestTOFItems[i]=(TestTOFItem)dataManager.getTestItemById(mIds[i],DataManager.TOF);
                     }
                 }
-                else if(sModel==COLLECTION)
-                    mTestTOFItems=(TestTOFItem[])dataManager.getTestItemsCollection(DataManager.TOF);
+                else if(sModel==COLLECTION) {
+                    TestItem[] testItems=dataManager.getTestItemsCollection(DataManager.TOF);
+                    mTestTOFItems=new TestTOFItem[testItems.length];
+                    for(int i=0;i<testItems.length;i++){
+                        mTestTOFItems[i]=(TestTOFItem)testItems[i];
+                    }
+                }
                 return null;
             }
 
             @Override
             protected void onPostExecute(Object o) {
-                mTestFragment.setNext(new NextRunnable() {
-                    @Override
-                    public void next() {
-                        if(mNowIndex<mTestTOFItems.length) {
-                            if(mTestTOFItems[mNowIndex]!=null) {
-                                mTestFragment.setTest(mTestTOFItems[mNowIndex]);
-                                mNowIndex++;
-                            }else{
-                                mNowIndex++;
-                                next();
-                            }
-                        }else
-                            finishTest();
-                    }
-                });
-                mTestFragment.setTest(mTestTOFItems[mNowIndex]);
-                mNowIndex++;
+                if (mTestTOFItems.length > 0) {
+                    mTestFragment.setNext(new NextRunnable() {
+                        @Override
+                        public void next() {
+                            if (mNowIndex < mTestTOFItems.length) {
+                                if (mTestTOFItems[mNowIndex] != null) {
+                                    mTestFragment.setTest(mTestTOFItems[mNowIndex]);
+                                    mNowIndex++;
+                                } else {
+                                    mNowIndex++;
+                                    next();
+                                }
+                            } else
+                                finishTest();
+                        }
+                    });
+                    mTestFragment.setTest(mTestTOFItems[mNowIndex]);
+                    mNowIndex++;
+                }else
+                    finishTest();
             }
         };
         task.execute();

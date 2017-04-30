@@ -8,6 +8,7 @@ import android.os.Bundle;
 
 import ecnu.chinesecharactercottage.ModelsBackground.DataManager;
 import ecnu.chinesecharactercottage.ModelsBackground.TestHearTOFItem;
+import ecnu.chinesecharactercottage.ModelsBackground.TestItem;
 import ecnu.chinesecharactercottage.ModelsForeground.NextRunnable;
 import ecnu.chinesecharactercottage.ModelsForeground.TestFragments.TestHearTOFFragment;
 import ecnu.chinesecharactercottage.R;
@@ -72,30 +73,38 @@ public class TestHearTOFActivity extends Activity {
                         mTestHearTOFItems[i] = (TestHearTOFItem) dataManager.getTestItemById(mIds[i], DataManager.HEAR_TOF);
                     }
                 }
-                else if(sModel==COLLECTION)
-                    mTestHearTOFItems=(TestHearTOFItem[])dataManager.getTestItemsCollection(DataManager.HEAR_TOF);
+                else if(sModel==COLLECTION) {
+                    TestItem[] testItems=dataManager.getTestItemsCollection(DataManager.HEAR_TOF);
+                    mTestHearTOFItems=new TestHearTOFItem[testItems.length];
+                    for(int i=0;i<testItems.length;i++){
+                        mTestHearTOFItems[i]=(TestHearTOFItem)testItems[i];
+                    }
+                }
                 return null;
             }
 
             @Override
             protected void onPostExecute(Object o) {
-                mTestFragment.setNext(new NextRunnable() {
-                    @Override
-                    public void next() {
-                        if(mNowIndex<mTestHearTOFItems.length) {
-                            if(mTestHearTOFItems[mNowIndex]!=null) {
-                                mTestFragment.setTest(mTestHearTOFItems[mNowIndex]);
-                                mNowIndex++;
-                            }else{
-                                mNowIndex++;
-                                next();
-                            }
-                        }else
-                            finishTest();
-                    }
-                });
-                mTestFragment.setTest(mTestHearTOFItems[mNowIndex]);
-                mNowIndex++;
+                if (mTestHearTOFItems.length > 0) {
+                    mTestFragment.setNext(new NextRunnable() {
+                        @Override
+                        public void next() {
+                            if (mNowIndex < mTestHearTOFItems.length) {
+                                if (mTestHearTOFItems[mNowIndex] != null) {
+                                    mTestFragment.setTest(mTestHearTOFItems[mNowIndex]);
+                                    mNowIndex++;
+                                } else {
+                                    mNowIndex++;
+                                    next();
+                                }
+                            } else
+                                finishTest();
+                        }
+                    });
+                    mTestFragment.setTest(mTestHearTOFItems[mNowIndex]);
+                    mNowIndex++;
+                }else
+                    finishTest();
             }
         };
         task.execute();
