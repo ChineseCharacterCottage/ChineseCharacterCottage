@@ -26,7 +26,7 @@ import java.util.Locale;
 
 public final class DataManager extends SQLiteOpenHelper{
     private static final String LOCAL_DATABASE="local_character.db";
-    private static final int VERSION=2;//数据库的版本，如果数据要更新，改成更大的数字
+    private static final int VERSION=3;//数据库的版本，如果数据要更新，改成更大的数字
     private static final String HOST="http://115.159.147.198/hzw/PhalApi/public/hzw/";
     private static DataManager sManager=null;
 
@@ -254,6 +254,7 @@ public final class DataManager extends SQLiteOpenHelper{
                     putCharItemToLocal(c);
                     ShapeCharItem sc=new ShapeCharItem(c);
                     sc.mVideo=json.getString("video");
+                    sc.mShapeId=json.getString("SID");
                     sc.setRadical(getRadicalById(Integer.parseInt(rid)));
                     return sc;
                 }
@@ -466,7 +467,7 @@ public final class DataManager extends SQLiteOpenHelper{
         }else{
             SQLiteDatabase db = getWritableDatabase();
             ContentValues cv = new ContentValues();
-            cv.put("ID",charItem.getId());
+            cv.put("ID",((ShapeCharItem)charItem).getShapeId());
             db.insert("collection_shape_char",null,cv);
             db.close();
         }
@@ -474,7 +475,7 @@ public final class DataManager extends SQLiteOpenHelper{
     public boolean isInCollection(CharItem charItem){
         SQLiteDatabase db = getWritableDatabase();
         if(charItem.getClass().equals(ShapeCharItem.class)){
-            Cursor cursor = db.query("collection_shape_char",null,"ID = "+charItem.getId(),null,null,null,null);
+            Cursor cursor = db.query("collection_shape_char",null,"ID = "+((ShapeCharItem)charItem).getShapeId(),null,null,null,null);
             boolean exist = cursor.moveToFirst();
             cursor.close();
             return exist;

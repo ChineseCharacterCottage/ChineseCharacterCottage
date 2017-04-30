@@ -6,6 +6,10 @@ package ecnu.chinesecharactercottage.ModelsBackground;
 
 public class ShapeCharItem extends CharItem {
     String mVideo;
+    String mShapeId;
+    public String getShapeId(){
+        return mShapeId;
+    }
     public ShapeCharItem(CharItem charItem){
         super(charItem.toJSON());
     }
