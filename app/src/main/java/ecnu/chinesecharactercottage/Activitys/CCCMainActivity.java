@@ -9,6 +9,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import ecnu.chinesecharactercottage.Activitys.Collection.CollectionChoseActivity;
 import ecnu.chinesecharactercottage.Activitys.Test.TestChoseActivity;
 import ecnu.chinesecharactercottage.ModelsBackground.DataManager;
 import ecnu.chinesecharactercottage.R;
@@ -96,7 +97,12 @@ public class CCCMainActivity extends Activity {
     }
 
     private void setReview(){
-        mReview.setEnabled(false);
+        mReview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CollectionChoseActivity.startActivity(CCCMainActivity.this);
+            }
+        });
     }
 
     private void setKnowledge(){

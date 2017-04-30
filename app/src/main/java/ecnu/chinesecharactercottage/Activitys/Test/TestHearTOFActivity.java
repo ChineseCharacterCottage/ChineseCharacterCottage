@@ -18,6 +18,10 @@ import ecnu.chinesecharactercottage.R;
 
 public class TestHearTOFActivity extends Activity {
 
+    //运行模式
+    final static public int LEARNING=0;
+    final static public int COLLECTION=1;
+    static private int sModel;
     //题目页面
     private TestHearTOFFragment mTestFragment;
     //id列表
@@ -28,6 +32,7 @@ public class TestHearTOFActivity extends Activity {
     private TestHearTOFItem[] mTestHearTOFItems;
 
     static public void startActivity(Context context, int startId, int len){
+        sModel=LEARNING;
         if(len<=0)
             return;
         String[] ids=new String[len];
@@ -39,6 +44,17 @@ public class TestHearTOFActivity extends Activity {
         context.startActivity(intent);
     }
 
+    static public void startActivity(Context context,int model){
+        sModel=model;
+
+
+        if(sModel==LEARNING){
+            startActivity(context,1,10);
+        }else if(sModel==COLLECTION){
+            Intent intent=new Intent(context,TestHearTOFActivity.class);
+            context.startActivity(intent);
+        }
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,9 +67,12 @@ public class TestHearTOFActivity extends Activity {
             protected Object doInBackground(Object... params){
                 DataManager dataManager=DataManager.getInstance(TestHearTOFActivity.this);
                 mTestHearTOFItems=new TestHearTOFItem[mIds.length];
-                for(int i=0;i<mIds.length;i++){
-                    mTestHearTOFItems[i]=(TestHearTOFItem)dataManager.getTestItemById(mIds[i],DataManager.HEAR_TOF);
-                }
+                if(sModel==LEARNING)
+                    for(int i=0;i<mIds.length;i++){
+                        mTestHearTOFItems[i]=(TestHearTOFItem)dataManager.getTestItemById(mIds[i],DataManager.HEAR_TOF);
+                    }
+                else if(sModel==COLLECTION)
+                    mTestHearTOFItems=(TestHearTOFItem[])dataManager.getTestItemsCollection(DataManager.HEAR_TOF);
                 return null;
             }
 

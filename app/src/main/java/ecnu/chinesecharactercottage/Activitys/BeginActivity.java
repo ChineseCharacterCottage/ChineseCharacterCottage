@@ -30,7 +30,7 @@ public class BeginActivity extends Activity {
                 }catch (InterruptedException e){
                     e.printStackTrace();
                 }
-                CharacterLearningActivity.startActivity(BeginActivity.this);
+                CCCMainActivity.startActivity(BeginActivity.this);
                 finish();
             }
         },SHOWTIME);

@@ -1,9 +1,8 @@
-package ecnu.chinesecharactercottage.Activitys;
+package ecnu.chinesecharactercottage.Activitys.Collection;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -11,45 +10,43 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import ecnu.chinesecharactercottage.ModelsBackground.CharItem;
 import ecnu.chinesecharactercottage.ModelsBackground.DataManager;
-import ecnu.chinesecharactercottage.ModelsBackground.ShapeCharItem;
 import ecnu.chinesecharactercottage.ModelsForeground.CharacterFragment;
 import ecnu.chinesecharactercottage.R;
 
 /**
- * Created by 10040 on 2017/3/21.
+ * Created by 10040 on 2017/4/30.
  */
 
-public class PictogramActivity extends Activity {
-    //视频地址
-    private static String VIDEO_PATH="http://115.159.147.198/HZW_web/video/";
+public class CharacterActivity extends Activity {
     //进度条
     private ProgressBar mProgressBar;
     //汉字详情
     private CharacterFragment mCharacterFragment;
-    //播放按键
-    private Button mBtPlay;
     //下一个按键
     private Button mBtNext;
-    //当前象形字
-    private ShapeCharItem mNowItem;
-    //当前象形字编号
+    //当前字
+    private CharItem mNowItem;
+    //当前字编号
     private int mPosition;
-    //象形字总数
+    //字总数
     private int mTotalNum;
-    //象形字列表
-    private String[] mIds;
+    //字列表
+    private int[] mIds;
 
-    static public void startActivity(Context context, String[] ids){
-        Intent intent=new Intent(context,PictogramActivity.class);
+    static public void startActivity(Context context, int[] ids){
+        Intent intent=new Intent(context,CharacterActivity.class);
         intent.putExtra("ids",ids);
         context.startActivity(intent);
+
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pictogram);
+        setContentView(R.layout.activity_character);
+
         init();
 
         mBtNext.setOnClickListener(new View.OnClickListener() {
@@ -65,10 +62,9 @@ public class PictogramActivity extends Activity {
     private void init(){
         mProgressBar=(ProgressBar)findViewById(R.id.progress_bar);
         mCharacterFragment=(CharacterFragment)getFragmentManager().findFragmentById(R.id.character_fragment);
-        mBtPlay=(Button)findViewById(R.id.button_play);
         mBtNext=(Button)findViewById(R.id.button_next);
         mPosition =0;
-        mIds=getIntent().getStringArrayExtra("ids");
+        mIds=getIntent().getIntArrayExtra("ids");
         mTotalNum=mIds.length;
         mProgressBar.setMax(mTotalNum);
     }
@@ -78,8 +74,8 @@ public class PictogramActivity extends Activity {
             AsyncTask task = new AsyncTask() {
                 @Override
                 protected Object doInBackground(Object[] params) {
-                    DataManager dataManager = DataManager.getInstance(PictogramActivity.this);
-                    mNowItem = dataManager.getShapeCharItem(mIds[mPosition]);
+                    DataManager dataManager = DataManager.getInstance(CharacterActivity.this);
+                    mNowItem = dataManager.getCharItemById(mIds[mPosition]);
                     mPosition++;
                     return null;
                 }
@@ -88,17 +84,6 @@ public class PictogramActivity extends Activity {
                 protected void onPostExecute(Object o) {
                     if (mNowItem != null) {
                         mCharacterFragment.setCharacter(mNowItem);
-                        mBtPlay.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Uri uri = Uri.parse(VIDEO_PATH + mNowItem.getVideo());
-                                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                intent.setType("video/*");
-                                intent.setDataAndType(uri, "video/*");
-                                startActivity(intent);
-                            }
-                        });
                         mBtNext.setEnabled(true);
                         mProgressBar.setProgress(mPosition);
                     } else if (mPosition < mTotalNum) {
@@ -109,12 +94,13 @@ public class PictogramActivity extends Activity {
                 }
             };
             task.execute();
-        }else
+        }
+        else
             saveData();
     }
 
     private void saveData(){
-        Toast.makeText(PictogramActivity.this, "Collection finish", Toast.LENGTH_SHORT).show();
+        Toast.makeText(CharacterActivity.this, "Collection finish", Toast.LENGTH_SHORT).show();
         finish();
     }
 }

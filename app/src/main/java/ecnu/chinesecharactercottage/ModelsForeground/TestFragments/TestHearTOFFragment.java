@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -59,6 +60,13 @@ public class TestHearTOFFragment extends Fragment {
     //当前题目
     private TestHearTOFItem mNowTest;
 
+    //收藏情况
+    private Boolean mIsMark;
+    //数据管理器
+    private DataManager mDataManager;
+    //收藏按键
+    private Button mMark;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_test_hear_tof,container,false);
@@ -82,6 +90,9 @@ public class TestHearTOFFragment extends Fragment {
         mLayoutErrorMsg.setVisibility(View.GONE);
         mTvErrorMsg=(TextView)view.findViewById(R.id.tv_error_msg);
         mBtShowChar=(Button)view.findViewById(R.id.bt_show_character);
+
+        mDataManager=DataManager.getInstance(getActivity());
+        mMark=(Button)view.findViewById(R.id.mark);
     }
 
     private void initButtons() {
@@ -215,5 +226,33 @@ public class TestHearTOFFragment extends Fragment {
             image = BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.imagenotfound);
         }
         mPicture.setImageBitmap(image);
+
+        setMark();
+    }
+
+    private void setMark(){
+        mIsMark=mDataManager.isInCollection(mNowTest);
+        if(mIsMark)
+            mMark.setBackgroundResource(R.drawable.star_marked);
+        else
+            mMark.setBackgroundResource(R.drawable.star);
+
+
+        //收藏按键
+        mMark.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(mIsMark) {
+                    Toast.makeText(getActivity(),"remove collection is developing",Toast.LENGTH_SHORT).show();
+                    mIsMark=!mIsMark;
+                    //mMark.setBackgroundResource(R.drawable.star);
+                }
+                else {
+                    mDataManager.putIntoCollection(mNowTest);
+                    mMark.setBackgroundResource(R.drawable.star_marked);
+                }
+                mIsMark=!mIsMark;
+            }
+        });
     }
 }

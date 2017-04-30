@@ -43,9 +43,10 @@ public class CharacterLearningActivity extends Activity {
         mPictogram.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //暂时提示正在开发中
-                //Toast.makeText(CharacterLearningActivity.this,"Pictogram Learning Model is being desiged",Toast.LENGTH_SHORT).show();
-                PictogramActivity.startActivity(CharacterLearningActivity.this);
+                String[] ids=new String[5];
+                for (int i=0;i<ids.length;i++)
+                    ids[i]=String.valueOf(i+1);
+                PictogramActivity.startActivity(CharacterLearningActivity.this,ids);
             }
         });
 

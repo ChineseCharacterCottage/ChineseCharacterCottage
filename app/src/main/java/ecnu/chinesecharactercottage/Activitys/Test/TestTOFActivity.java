@@ -18,6 +18,10 @@ import ecnu.chinesecharactercottage.R;
 
 public class TestTOFActivity extends Activity {
 
+    //运行模式
+    final static public int LEARNING=0;
+    final static public int COLLECTION=1;
+    static private int sModel;
     //题目页面
     private TestTOFFragment mTestFragment;
     //id列表
@@ -28,6 +32,7 @@ public class TestTOFActivity extends Activity {
     private TestTOFItem[] mTestTOFItems;
 
     static public void startActivity(Context context,int startId,int len){
+        sModel=LEARNING;
         if(len<=0)
             return;
         String[] ids=new String[len];
@@ -39,6 +44,17 @@ public class TestTOFActivity extends Activity {
         context.startActivity(intent);
     }
 
+    static public void startActivity(Context context,int model){
+        sModel=model;
+
+
+        if(sModel==LEARNING){
+            startActivity(context,1,10);
+        }else if(sModel==COLLECTION){
+            Intent intent=new Intent(context,TestTOFActivity.class);
+            context.startActivity(intent);
+        }
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,9 +67,12 @@ public class TestTOFActivity extends Activity {
             protected Object doInBackground(Object... params){
                 DataManager dataManager=DataManager.getInstance(TestTOFActivity.this);
                 mTestTOFItems=new TestTOFItem[mIds.length];
-                for(int i=0;i<mIds.length;i++){
-                    mTestTOFItems[i]=(TestTOFItem)dataManager.getTestItemById(mIds[i],DataManager.TOF);
-                }
+                if(sModel==LEARNING)
+                    for(int i=0;i<mIds.length;i++){
+                        mTestTOFItems[i]=(TestTOFItem)dataManager.getTestItemById(mIds[i],DataManager.TOF);
+                    }
+                else if(sModel==COLLECTION)
+                    mTestTOFItems=(TestTOFItem[])dataManager.getTestItemsCollection(DataManager.TOF);
                 return null;
             }
 
