@@ -230,4 +230,10 @@
             style="@style/TestErrorMsgText"/>
     </LinearLayout>
 
+    <Button
+        android:id="@+id/mark"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="end"
+        android:background="@drawable/star"/>
 </LinearLayout>

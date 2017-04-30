@@ -10,7 +10,9 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import ecnu.chinesecharactercottage.ModelsBackground.DataManager;
 import ecnu.chinesecharactercottage.ModelsBackground.TestFillItem;
 import ecnu.chinesecharactercottage.ModelsForeground.NextRunnable;
 import ecnu.chinesecharactercottage.R;
@@ -40,6 +42,13 @@ public class TestCompleteFragment extends Fragment {
     private TextView mTvErrorMsg;
     //当前题目
     private TestFillItem mNowTest;
+
+    //收藏情况
+    private Boolean mIsMark;
+    //数据管理器
+    private DataManager mDataManager;
+    //收藏按键
+    private Button mMark;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -75,6 +84,10 @@ public class TestCompleteFragment extends Fragment {
         mLayoutErrorMsg=(LinearLayout)view.findViewById(R.id.layout_error_msg);
         mLayoutErrorMsg.setVisibility(View.GONE);
         mTvErrorMsg=(TextView)view.findViewById(R.id.tv_error_msg);
+
+
+        mDataManager=DataManager.getInstance(getActivity());
+        mMark=(Button)view.findViewById(R.id.mark);
     }
 
     private void initButtons() {
@@ -169,5 +182,33 @@ public class TestCompleteFragment extends Fragment {
             mChosenAnswers[i].setAdapter(adapter);
             mSentences[i].setText(sentences[i]);
         }
+
+        setMark();
+    }
+
+    private void setMark(){
+        mIsMark=mDataManager.isInCollection(mNowTest);
+        if(mIsMark)
+            mMark.setBackgroundResource(R.drawable.star_marked);
+        else
+            mMark.setBackgroundResource(R.drawable.star);
+
+
+        //收藏按键
+        mMark.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(mIsMark) {
+                    Toast.makeText(getActivity(),"remove collection is developing",Toast.LENGTH_SHORT).show();
+                    mIsMark=!mIsMark;
+                    //mMark.setBackgroundResource(R.drawable.star);
+                }
+                else {
+                    mDataManager.putIntoCollection(mNowTest);
+                    mMark.setBackgroundResource(R.drawable.star_marked);
+                }
+                mIsMark=!mIsMark;
+            }
+        });
     }
 }

@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import ecnu.chinesecharactercottage.ModelsBackground.*;
 import ecnu.chinesecharactercottage.R;
@@ -52,6 +53,8 @@ public class CharacterFragment extends Fragment {
     //收藏情况
     private Boolean mIsMark;
 
+    //数据管理器
+    private DataManager mDataManager;
 
     //收藏按键
     private Button mMark;
@@ -61,7 +64,9 @@ public class CharacterFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View view=inflater.inflate(R.layout.fragment_character,container,false);
-        
+
+        mDataManager=DataManager.getInstance(getActivity());
+
         mFigure=(TextView) view.findViewById(R.id.figure);
         Typeface face = Typeface.createFromAsset(getActivity().getAssets(),"font/1.ttf");
         mFigure.setTypeface(face);
@@ -92,7 +97,7 @@ public class CharacterFragment extends Fragment {
         setPronunciation(thisChar.getMediaPlayer(getActivity()));
         setSentenceMP(thisChar.getSentenceReadable(getActivity()).getMediaPlayer(getActivity()));
 
-        //setMark(thisChar);
+        setMark();
         
         
     }
@@ -213,9 +218,8 @@ public class CharacterFragment extends Fragment {
         }
     }
 
-    /*暂时取消收藏模块
-    private void setMark(final CharItem charItem){
-        mIsMark =mCollectionLab.isAdded(charItem);
+    private void setMark(){
+        mIsMark=mDataManager.isInCollection(mNowChar);
         if(mIsMark)
             mMark.setBackgroundResource(R.drawable.star_marked);
         else
@@ -227,15 +231,16 @@ public class CharacterFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if(mIsMark) {
-                    mCollectionLab.removeCollection(charItem);
+                    Toast.makeText(getActivity(),"remove collection is developing",Toast.LENGTH_SHORT).show();
+                    mIsMark=!mIsMark;
                     mMark.setBackgroundResource(R.drawable.star);
                 }
                 else {
-                    mCollectionLab.addCollection(charItem);
+                    mDataManager.putIntoCollection(mNowChar);
                     mMark.setBackgroundResource(R.drawable.star_marked);
                 }
                 mIsMark=!mIsMark;
             }
         });
-    }*/
+    }
 }

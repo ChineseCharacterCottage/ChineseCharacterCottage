@@ -18,6 +18,10 @@ import ecnu.chinesecharactercottage.R;
 
 public class TestCompleteActivity extends Activity {
 
+    //运行模式
+    final static public int LEARNING=0;
+    final static public int COLLECTION=1;
+    static private int sModel;
     //题目页面
     private TestCompleteFragment mTestFragment;
     //id列表
@@ -28,6 +32,7 @@ public class TestCompleteActivity extends Activity {
     private TestFillItem[] mTestFillItems;
 
     static public void startActivity(Context context, int startId, int len){
+        sModel=LEARNING;
         if(len<=0)
             return;
         String[] ids=new String[len];
@@ -37,6 +42,18 @@ public class TestCompleteActivity extends Activity {
         Intent intent=new Intent(context,TestCompleteActivity.class);
         intent.putExtra("ids",ids);
         context.startActivity(intent);
+    }
+
+    static public void startActivity(Context context,int model){
+        sModel=model;
+
+
+        if(sModel==LEARNING){
+            startActivity(context,1,10);
+        }else if(sModel==COLLECTION){
+            Intent intent=new Intent(context,TestCompleteActivity.class);
+            context.startActivity(intent);
+        }
     }
 
     @Override
@@ -51,9 +68,12 @@ public class TestCompleteActivity extends Activity {
             protected Object doInBackground(Object... params){
                 DataManager dataManager=DataManager.getInstance(TestCompleteActivity.this);
                 mTestFillItems=new TestFillItem[mIds.length];
-                for(int i=0;i<mIds.length;i++){
-                    mTestFillItems[i]=(TestFillItem)dataManager.getTestItemById(mIds[i],DataManager.FILL);
-                }
+                if(sModel==LEARNING)
+                    for(int i=0;i<mIds.length;i++){
+                        mTestFillItems[i]=(TestFillItem)dataManager.getTestItemById(mIds[i],DataManager.FILL);
+                    }
+                else if(sModel==COLLECTION)
+                    mTestFillItems=(TestFillItem[])dataManager.getTestItemsCollection(DataManager.FILL);
                 return null;
             }
 

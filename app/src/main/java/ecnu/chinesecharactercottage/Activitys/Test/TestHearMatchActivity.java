@@ -18,6 +18,10 @@ import ecnu.chinesecharactercottage.R;
 
 public class TestHearMatchActivity extends Activity {
 
+    //运行模式
+    final static public int LEARNING=0;
+    final static public int COLLECTION=1;
+    static private int sModel;
     //题目页面
     private TestHearMatchFragment mTestFragment;
     //id列表
@@ -28,6 +32,7 @@ public class TestHearMatchActivity extends Activity {
     private TestHearChoiceItem[] mTestHearChoiceItems;
 
     static public void startActivity(Context context, int startId, int len){
+        sModel=LEARNING;
         if(len<=0)
             return;
         String[] ids=new String[len];
@@ -37,6 +42,19 @@ public class TestHearMatchActivity extends Activity {
         Intent intent=new Intent(context,TestHearMatchActivity.class);
         intent.putExtra("ids",ids);
         context.startActivity(intent);
+    }
+
+
+    static public void startActivity(Context context,int model){
+        sModel=model;
+
+
+        if(sModel==LEARNING){
+            startActivity(context,1,10);
+        }else if(sModel==COLLECTION){
+            Intent intent=new Intent(context,TestHearMatchActivity.class);
+            context.startActivity(intent);
+        }
     }
 
     @Override
@@ -51,9 +69,12 @@ public class TestHearMatchActivity extends Activity {
             protected Object doInBackground(Object... params){
                 DataManager dataManager=DataManager.getInstance(TestHearMatchActivity.this);
                 mTestHearChoiceItems=new TestHearChoiceItem[mIds.length];
-                for(int i=0;i<mIds.length;i++){
-                    mTestHearChoiceItems[i]=(TestHearChoiceItem)dataManager.getTestItemById(mIds[i],DataManager.HEAR_CHOICE);
-                }
+                if(sModel==LEARNING)
+                    for(int i=0;i<mIds.length;i++){
+                        mTestHearChoiceItems[i]=(TestHearChoiceItem)dataManager.getTestItemById(mIds[i],DataManager.HEAR_CHOICE);
+                    }
+                else if(sModel==COLLECTION)
+                    mTestHearChoiceItems=(TestHearChoiceItem[])dataManager.getTestItemsCollection(DataManager.HEAR_CHOICE);
                 return null;
             }
 

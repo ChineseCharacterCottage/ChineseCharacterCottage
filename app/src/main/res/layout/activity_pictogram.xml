@@ -7,6 +7,13 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleHorizontal"
+            android:id="@+id/progress_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
         <fragment
             android:id="@+id/character_fragment"
             android:layout_width="match_parent"
@@ -19,16 +26,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/button_play_video"/>
-
-        <!--
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <VideoView
-                android:id="@+id/video"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-        </FrameLayout>-->
     </LinearLayout>
 
     <Button

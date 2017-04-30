@@ -9,13 +9,25 @@
                 android:background="@color/colorCharBG"
                 xmlns:tools="http://schemas.android.com/tools">
 
-    <fragment
-        android:id="@+id/character_fragment"
-        android:name="ecnu.chinesecharactercottage.ModelsForeground.CharacterFragment"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:layout="@layout/fragment_character">
-    </fragment>
+        android:layout_height="wrap_content">
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="match_parent"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_height="wrap_content"/>
+
+        <fragment
+            android:id="@+id/character_fragment"
+            android:name="ecnu.chinesecharactercottage.ModelsForeground.CharacterFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout="@layout/fragment_character">
+        </fragment>
+    </LinearLayout>
 
     <Button
         android:background="@drawable/selector_button"
