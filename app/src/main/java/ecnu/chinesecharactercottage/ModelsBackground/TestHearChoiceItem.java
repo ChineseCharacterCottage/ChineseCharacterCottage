@@ -90,4 +90,9 @@ public class TestHearChoiceItem extends TestItem {
     public String getCorrectAnswer(){
         return mCorrectChoice;
     }
+
+    @Override
+    public String getType(){
+        return DataManager.HEAR_CHOICE;
+    }
 }

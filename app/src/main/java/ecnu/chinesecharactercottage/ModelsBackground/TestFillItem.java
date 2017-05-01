@@ -65,4 +65,9 @@ public class TestFillItem extends TestItem {
     public String getCorrectAnswer(){
         return mCorrectAnswer;
     }
+
+    @Override
+    public String getType(){
+        return DataManager.FILL;
+    }
 }

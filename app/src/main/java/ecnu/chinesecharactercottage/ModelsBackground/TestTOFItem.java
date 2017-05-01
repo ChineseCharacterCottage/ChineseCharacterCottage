@@ -70,4 +70,8 @@ public class TestTOFItem extends TestItem {
         return mTof;
     }
 
+    @Override
+    public String getType(){
+        return DataManager.TOF;
+    }
 }

@@ -66,4 +66,9 @@ public class TestHearTOFItem extends TestItem {
     public Boolean getCorrectAnswer(){
         return mTof;
     }
+
+    @Override
+    public String getType(){
+        return DataManager.HEAR_TOF;
+    }
 }

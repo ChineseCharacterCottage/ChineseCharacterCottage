@@ -433,6 +433,7 @@ public final class DataManager extends SQLiteOpenHelper{
         return testItem;
     }
     public void putIntoCollection(TestItem testItem){
+        if(isInCollection(testItem))return;
         String type;
         switch (testItem.getClass().getSimpleName()){
             case "TestFillItem":
@@ -458,6 +459,7 @@ public final class DataManager extends SQLiteOpenHelper{
         db.close();
     }
     public void putIntoCollection(CharItem charItem){
+        if(isInCollection(charItem))return;
         if(charItem.getClass().equals(CharItem.class)){
             SQLiteDatabase db = getWritableDatabase();
             ContentValues cv = new ContentValues();
@@ -485,6 +487,24 @@ public final class DataManager extends SQLiteOpenHelper{
             cursor.close();
             return exist;
         }
+    }
+    public void removeCollection(CharItem charItem){
+        if(!isInCollection(charItem))return;
+        SQLiteDatabase db = getWritableDatabase();
+        if(charItem.getClass().equals(ShapeCharItem.class)){
+            ShapeCharItem sc = (ShapeCharItem)charItem;
+            db.delete("collection_shape_char","ID = ?",new String[]{sc.getShapeId()});
+            db.close();
+        }else{
+            db.delete("collection_char","ID = ?",new String[]{charItem.getId()});
+            db.close();
+        }
+    }
+    public void removeCollection(TestItem testItem){
+        if(!isInCollection(testItem))return;
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete("collection_test","ID = ? AND testtype = '?' ",new String[]{testItem.getTestId(),testItem.getType()});
+        db.close();
     }
     public String[] getCollectionCharsId(boolean isShape){
         SQLiteDatabase db = getReadableDatabase();
