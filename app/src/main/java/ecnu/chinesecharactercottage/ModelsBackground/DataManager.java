@@ -506,6 +506,45 @@ public final class DataManager extends SQLiteOpenHelper{
         db.delete("collection_test","ID = ? AND testtype = '?' ",new String[]{testItem.getTestId(),testItem.getType()});
         db.close();
     }
+    public Knowledge getKnowledge(String id){
+        PhalApiClientResponse response = PhalApiClient.create()
+                .withHost(HOST)
+                .withService("Knowledge.GetKnowledge")
+                .withTimeout(500)
+                .withParams("id",id)
+                .request();
+        if(response.getRet() == 200){
+            try{
+                JSONObject json = new JSONObject(response.getData());
+                return new Knowledge(id,json.getString("title"),json.getString("video"),json.getString("text"));
+            }catch (JSONException e){
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+    public Knowledge[] getKnowledgeList(){
+        PhalApiClientResponse response = PhalApiClient.create()
+                .withHost(HOST)
+                .withService("Knowledge.GetList")
+                .withTimeout(500)
+                .request();
+        if(response.getRet() == 200){
+            try{
+                JSONArray array = new JSONArray(response.getData());
+                int l = array.length();
+                ArrayList<Knowledge> knowledgeList=new ArrayList<>();
+                for(int i=0;i<l;i++){
+                    JSONObject json = array.getJSONObject(i);
+                    knowledgeList.add(new Knowledge(json.getString("id"),json.getString("title"),null,null));
+                }
+                return knowledgeList.toArray(new Knowledge[knowledgeList.size()]);
+            }catch (JSONException e){
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
     public String[] getCollectionCharsId(boolean isShape){
         SQLiteDatabase db = getReadableDatabase();
         if(!isShape){
