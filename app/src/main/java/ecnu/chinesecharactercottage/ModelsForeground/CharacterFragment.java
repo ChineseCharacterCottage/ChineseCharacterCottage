@@ -231,8 +231,7 @@ public class CharacterFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if(mIsMark) {
-                    Toast.makeText(getActivity(),"remove collection is developing",Toast.LENGTH_SHORT).show();
-                    mIsMark=!mIsMark;
+                    mDataManager.removeCollection(mNowChar);
                     mMark.setBackgroundResource(R.drawable.star);
                 }
                 else {

@@ -503,7 +503,7 @@ public final class DataManager extends SQLiteOpenHelper{
     public void removeCollection(TestItem testItem){
         if(!isInCollection(testItem))return;
         SQLiteDatabase db = getWritableDatabase();
-        db.delete("collection_test","ID = ? AND testtype = '?' ",new String[]{testItem.getTestId(),testItem.getType()});
+        db.delete("collection_test","ID = ? AND testtype = ? ",new String[]{testItem.getTestId(),testItem.getType()});
         db.close();
     }
     public Knowledge getKnowledge(String id){
