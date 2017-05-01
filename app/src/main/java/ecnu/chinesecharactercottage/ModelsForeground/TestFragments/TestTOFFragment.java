@@ -215,9 +215,8 @@ public class TestTOFFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if(mIsMark) {
-                    Toast.makeText(getActivity(),"remove collection is developing",Toast.LENGTH_SHORT).show();
-                    mIsMark=!mIsMark;
-                    //mMark.setBackgroundResource(R.drawable.star);
+                    mDataManager.removeCollection(mNowTest);
+                    mMark.setBackgroundResource(R.drawable.star);
                 }
                 else {
                     mDataManager.putIntoCollection(mNowTest);
