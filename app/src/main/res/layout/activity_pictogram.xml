@@ -18,7 +18,7 @@
             android:id="@+id/character_fragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:name="ecnu.chinesecharactercottage.ModelsForeground.CharacterFragment"/>
+            android:name="ecnu.chinesecharactercottage.modelsForeground.CharacterFragment"/>
 
         <Button
             android:id="@+id/button_play"

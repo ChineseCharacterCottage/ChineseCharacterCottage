@@ -1,4 +1,4 @@
-package ecnu.chinesecharactercottage.Activitys.Collection;
+package ecnu.chinesecharactercottage.activitys.collection;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,11 +10,11 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
-import ecnu.chinesecharactercottage.Activitys.PictogramActivity;
-import ecnu.chinesecharactercottage.Activitys.Test.TestCompleteActivity;
-import ecnu.chinesecharactercottage.Activitys.Test.TestHearMatchActivity;
-import ecnu.chinesecharactercottage.Activitys.Test.TestHearTOFActivity;
-import ecnu.chinesecharactercottage.Activitys.Test.TestTOFActivity;
+import ecnu.chinesecharactercottage.activitys.character.PictogramActivity;
+import ecnu.chinesecharactercottage.activitys.test.TestCompleteActivity;
+import ecnu.chinesecharactercottage.activitys.test.TestHearMatchActivity;
+import ecnu.chinesecharactercottage.activitys.test.TestHearTOFActivity;
+import ecnu.chinesecharactercottage.activitys.test.TestTOFActivity;
 import ecnu.chinesecharactercottage.ModelsBackground.DataManager;
 import ecnu.chinesecharactercottage.R;
 

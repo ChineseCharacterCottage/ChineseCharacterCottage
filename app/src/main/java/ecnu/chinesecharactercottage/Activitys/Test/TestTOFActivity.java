@@ -1,4 +1,4 @@
-package ecnu.chinesecharactercottage.Activitys.Test;
+package ecnu.chinesecharactercottage.activitys.test;
 
 import android.app.Activity;
 import android.content.Context;
@@ -9,8 +9,8 @@ import android.os.Bundle;
 import ecnu.chinesecharactercottage.ModelsBackground.DataManager;
 import ecnu.chinesecharactercottage.ModelsBackground.TestItem;
 import ecnu.chinesecharactercottage.ModelsBackground.TestTOFItem;
-import ecnu.chinesecharactercottage.ModelsForeground.NextRunnable;
-import ecnu.chinesecharactercottage.ModelsForeground.TestFragments.TestTOFFragment;
+import ecnu.chinesecharactercottage.modelsForeground.NextRunnable;
+import ecnu.chinesecharactercottage.modelsForeground.testFragments.TestTOFFragment;
 import ecnu.chinesecharactercottage.R;
 
 /**

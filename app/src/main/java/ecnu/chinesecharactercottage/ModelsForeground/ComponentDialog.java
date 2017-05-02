@@ -1,4 +1,4 @@
-package ecnu.chinesecharactercottage.ModelsForeground;
+package ecnu.chinesecharactercottage.modelsForeground;
 
 import android.app.DialogFragment;
 import android.media.MediaPlayer;
@@ -13,7 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import ecnu.chinesecharactercottage.Activitys.ExampleActivity;
+import ecnu.chinesecharactercottage.activitys.character.ExampleActivity;
 import ecnu.chinesecharactercottage.ModelsBackground.ComponentItem;
 import ecnu.chinesecharactercottage.ModelsBackground.CharItem;
 import ecnu.chinesecharactercottage.ModelsBackground.DataManager;

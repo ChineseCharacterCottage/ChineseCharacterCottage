@@ -1,4 +1,4 @@
-package ecnu.chinesecharactercottage.Activitys;
+package ecnu.chinesecharactercottage.activitys.character;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -10,9 +10,8 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
-import ecnu.chinesecharactercottage.ModelsForeground.ChoseComponentDialog;
+import ecnu.chinesecharactercottage.modelsForeground.ChoseComponentDialog;
 import ecnu.chinesecharactercottage.R;
 
 /**

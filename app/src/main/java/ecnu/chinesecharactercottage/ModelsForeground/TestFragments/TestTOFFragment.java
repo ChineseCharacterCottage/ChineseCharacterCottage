@@ -1,4 +1,4 @@
-package ecnu.chinesecharactercottage.ModelsForeground.TestFragments;
+package ecnu.chinesecharactercottage.modelsForeground.testFragments;
 
 import android.app.Fragment;
 import android.content.Context;
@@ -13,17 +13,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.IOException;
 import java.io.InputStream;
 
-import ecnu.chinesecharactercottage.Activitys.ExampleActivity;
+import ecnu.chinesecharactercottage.activitys.character.ExampleActivity;
 import ecnu.chinesecharactercottage.ModelsBackground.*;
 import ecnu.chinesecharactercottage.ModelsBackground.DataManager;
-import ecnu.chinesecharactercottage.ModelsForeground.NextRunnable;
+import ecnu.chinesecharactercottage.modelsForeground.NextRunnable;
 import ecnu.chinesecharactercottage.R;
 
 /**

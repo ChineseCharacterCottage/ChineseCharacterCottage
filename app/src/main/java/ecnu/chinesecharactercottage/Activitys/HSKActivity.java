@@ -1,4 +1,4 @@
-package ecnu.chinesecharactercottage.Activitys;
+package ecnu.chinesecharactercottage.activitys;
 
 import android.app.Activity;
 import android.content.Context;
@@ -11,7 +11,7 @@ import android.widget.ProgressBar;
 
 import ecnu.chinesecharactercottage.ModelsBackground.CharItem;
 import ecnu.chinesecharactercottage.ModelsBackground.DataManager;
-import ecnu.chinesecharactercottage.ModelsForeground.CharacterFragment;
+import ecnu.chinesecharactercottage.modelsForeground.CharacterFragment;
 import ecnu.chinesecharactercottage.R;
 
 /**

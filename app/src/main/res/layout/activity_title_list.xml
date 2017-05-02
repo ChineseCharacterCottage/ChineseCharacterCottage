@@ -3,9 +3,9 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
-    <fragment
-        android:id="@+id/test_tof_fragment"
-        android:name="ecnu.chinesecharactercottage.modelsForeground.testFragments.TestTOFFragment"
+
+    <ListView
+        android:id="@+id/list_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

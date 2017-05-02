@@ -1,4 +1,4 @@
-package ecnu.chinesecharactercottage.ModelsForeground;
+package ecnu.chinesecharactercottage.modelsForeground;
 
 import android.app.DialogFragment;
 import android.os.Bundle;

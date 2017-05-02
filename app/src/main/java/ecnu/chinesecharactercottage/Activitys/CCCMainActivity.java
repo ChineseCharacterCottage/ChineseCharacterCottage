@@ -1,4 +1,4 @@
-package ecnu.chinesecharactercottage.Activitys;
+package ecnu.chinesecharactercottage.activitys;
 
 import android.app.Activity;
 import android.content.Context;
@@ -9,11 +9,13 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
-import ecnu.chinesecharactercottage.Activitys.Collection.CollectionChoseActivity;
-import ecnu.chinesecharactercottage.Activitys.Test.TestChoseActivity;
+import ecnu.chinesecharactercottage.activitys.character.CharacterLearningActivity;
+import ecnu.chinesecharactercottage.activitys.collection.CollectionChoseActivity;
+import ecnu.chinesecharactercottage.activitys.knowledge.TitleListActivity;
+import ecnu.chinesecharactercottage.activitys.test.TestChoseActivity;
 import ecnu.chinesecharactercottage.ModelsBackground.DataManager;
 import ecnu.chinesecharactercottage.R;
-import ecnu.chinesecharactercottage.ModelsForeground.SlidingLayout;
+import ecnu.chinesecharactercottage.modelsForeground.SlidingLayout;
 
 public class CCCMainActivity extends Activity {
 
@@ -106,7 +108,12 @@ public class CCCMainActivity extends Activity {
     }
 
     private void setKnowledge(){
-        mKnowledge.setEnabled(false);
+        mKnowledge.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TitleListActivity.startActivity(CCCMainActivity.this);
+            }
+        });
     }
 }
 

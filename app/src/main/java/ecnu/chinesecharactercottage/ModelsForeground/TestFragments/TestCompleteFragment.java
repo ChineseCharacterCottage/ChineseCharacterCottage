@@ -1,4 +1,4 @@
-package ecnu.chinesecharactercottage.ModelsForeground.TestFragments;
+package ecnu.chinesecharactercottage.modelsForeground.testFragments;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -10,11 +10,10 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import ecnu.chinesecharactercottage.ModelsBackground.DataManager;
 import ecnu.chinesecharactercottage.ModelsBackground.TestFillItem;
-import ecnu.chinesecharactercottage.ModelsForeground.NextRunnable;
+import ecnu.chinesecharactercottage.modelsForeground.NextRunnable;
 import ecnu.chinesecharactercottage.R;
 
 /**

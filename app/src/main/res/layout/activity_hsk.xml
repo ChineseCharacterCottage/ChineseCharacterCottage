@@ -10,7 +10,7 @@
     android:paddingRight="16dp"
     android:paddingTop="16dp"
     android:background="@color/colorCharBG"
-    tools:context="ecnu.chinesecharactercottage.Activitys.CCCMainActivity">
+    tools:context="ecnu.chinesecharactercottage.activitys.CCCMainActivity">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                   android:layout_width="match_parent"
@@ -29,7 +29,7 @@
 
         <fragment
             android:id="@+id/character_fragment"
-            android:name="ecnu.chinesecharactercottage.ModelsForeground.CharacterFragment"
+            android:name="ecnu.chinesecharactercottage.modelsForeground.CharacterFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:layout="@layout/fragment_character">

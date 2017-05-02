@@ -10,26 +10,31 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".Activitys.BeginActivity">
+        <activity android:name=".activitys.BeginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
 
-        <activity android:name=".Activitys.Collection.CharacterActivity"/>
-        <activity android:name=".Activitys.Collection.CollectionChoseActivity"/>
-        <activity android:name=".Activitys.CCCMainActivity"/>
-        <activity android:name=".Activitys.CharacterLearningActivity"/>
-        <activity android:name=".Activitys.HSKActivity"/>
-        <activity android:name=".Activitys.ComponentListActivity"/>
-        <activity android:name=".Activitys.ExampleActivity"/>
-        <activity android:name=".Activitys.Test.TestChoseActivity"/>
-        <activity android:name=".Activitys.Test.TestTOFActivity"/>
-        <activity android:name=".Activitys.Test.TestCompleteActivity"/>
-        <activity android:name=".Activitys.Test.TestHearMatchActivity"/>
-        <activity android:name=".Activitys.Test.TestHearTOFActivity"/>
-        <activity android:name=".Activitys.PictogramActivity"/>
+        <activity android:name=".activitys.CCCMainActivity"/>
+
+        <activity android:name=".activitys.knowledge.TitleListActivity"/>
+        <activity android:name=".activitys.knowledge.KnowledgeDetailsActivity"/>
+
+        <activity android:name=".activitys.collection.CharacterActivity"/>
+        <activity android:name=".activitys.collection.CollectionChoseActivity"/>
+
+        <activity android:name=".activitys.character.CharacterLearningActivity"/>
+        <activity android:name=".activitys.character.ComponentListActivity"/>
+        <activity android:name=".activitys.character.PictogramActivity"/>
+        <activity android:name=".activitys.character.ExampleActivity"/>
+
+        <activity android:name=".activitys.test.TestChoseActivity"/>
+        <activity android:name=".activitys.test.TestTOFActivity"/>
+        <activity android:name=".activitys.test.TestCompleteActivity"/>
+        <activity android:name=".activitys.test.TestHearMatchActivity"/>
+        <activity android:name=".activitys.test.TestHearTOFActivity"/>
 
     </application>
 

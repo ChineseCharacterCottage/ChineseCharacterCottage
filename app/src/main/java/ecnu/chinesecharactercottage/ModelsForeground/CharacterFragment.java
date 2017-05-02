@@ -1,10 +1,9 @@
-package ecnu.chinesecharactercottage.ModelsForeground;
+package ecnu.chinesecharactercottage.modelsForeground;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.graphics.Typeface;
 import android.media.MediaPlayer;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,7 +13,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import ecnu.chinesecharactercottage.ModelsBackground.*;
 import ecnu.chinesecharactercottage.R;

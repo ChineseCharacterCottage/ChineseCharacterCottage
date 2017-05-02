@@ -1,4 +1,4 @@
-package ecnu.chinesecharactercottage.Activitys.Test;
+package ecnu.chinesecharactercottage.activitys.test;
 
 import android.app.Activity;
 import android.content.Context;
@@ -9,8 +9,8 @@ import android.os.Bundle;
 import ecnu.chinesecharactercottage.ModelsBackground.DataManager;
 import ecnu.chinesecharactercottage.ModelsBackground.TestHearTOFItem;
 import ecnu.chinesecharactercottage.ModelsBackground.TestItem;
-import ecnu.chinesecharactercottage.ModelsForeground.NextRunnable;
-import ecnu.chinesecharactercottage.ModelsForeground.TestFragments.TestHearTOFFragment;
+import ecnu.chinesecharactercottage.modelsForeground.NextRunnable;
+import ecnu.chinesecharactercottage.modelsForeground.testFragments.TestHearTOFFragment;
 import ecnu.chinesecharactercottage.R;
 
 /**

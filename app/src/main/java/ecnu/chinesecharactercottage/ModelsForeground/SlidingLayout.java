@@ -1,4 +1,4 @@
-package ecnu.chinesecharactercottage.ModelsForeground;
+package ecnu.chinesecharactercottage.modelsForeground;
 
 import android.content.Context;
 import android.os.AsyncTask;

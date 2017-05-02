@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ecnu.chinesecharactercottage.ModelsForeground.SlidingLayout
+<ecnu.chinesecharactercottage.modelsForeground.SlidingLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/slidingLayout"
     android:layout_width="fill_parent"
@@ -212,4 +212,4 @@
         </LinearLayout>
     </LinearLayout>
 
-</ecnu.chinesecharactercottage.ModelsForeground.SlidingLayout>
+</ecnu.chinesecharactercottage.modelsForeground.SlidingLayout>

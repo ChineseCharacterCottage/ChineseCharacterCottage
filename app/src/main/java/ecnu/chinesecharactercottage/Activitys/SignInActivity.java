@@ -1,4 +1,4 @@
-package ecnu.chinesecharactercottage.Activitys;
+package ecnu.chinesecharactercottage.activitys;
 
 import android.app.Activity;
 import android.content.Intent;

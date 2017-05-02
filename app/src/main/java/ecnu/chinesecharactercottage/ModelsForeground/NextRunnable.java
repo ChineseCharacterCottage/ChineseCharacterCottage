@@ -1,4 +1,4 @@
-package ecnu.chinesecharactercottage.ModelsForeground;
+package ecnu.chinesecharactercottage.modelsForeground;
 
 /**
  * Created by 10040 on 2017/3/5.

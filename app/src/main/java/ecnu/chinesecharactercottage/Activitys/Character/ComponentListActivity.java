@@ -1,4 +1,4 @@
-package ecnu.chinesecharactercottage.Activitys;
+package ecnu.chinesecharactercottage.activitys.character;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -16,9 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ecnu.chinesecharactercottage.ModelsBackground.DataManager;
-import ecnu.chinesecharactercottage.ModelsBackground.RadicalItem;
-import ecnu.chinesecharactercottage.ModelsForeground.ComponentAdapter;
-import ecnu.chinesecharactercottage.ModelsForeground.ComponentDialog;
+import ecnu.chinesecharactercottage.modelsForeground.ListViewItemAdapter;
+import ecnu.chinesecharactercottage.modelsForeground.ComponentDialog;
 import ecnu.chinesecharactercottage.ModelsBackground.ComponentItem;
 import ecnu.chinesecharactercottage.R;
 
@@ -96,7 +95,7 @@ public class ComponentListActivity extends Activity {
     }
 
     private void refresh(){
-        mListView.setAdapter(new ComponentAdapter(ComponentListActivity.this,R.layout.component_list_item,mComponentList));
+        mListView.setAdapter(new ListViewItemAdapter<ComponentItem>(ComponentListActivity.this,R.layout.component_list_item,mComponentList,"getShape"));
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {

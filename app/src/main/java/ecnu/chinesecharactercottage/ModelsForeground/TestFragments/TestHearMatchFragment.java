@@ -1,4 +1,4 @@
-package ecnu.chinesecharactercottage.ModelsForeground.TestFragments;
+package ecnu.chinesecharactercottage.modelsForeground.testFragments;
 
 import android.app.Fragment;
 import android.content.Context;
@@ -19,15 +19,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.IOException;
 
-import ecnu.chinesecharactercottage.Activitys.ExampleActivity;
+import ecnu.chinesecharactercottage.activitys.character.ExampleActivity;
 import ecnu.chinesecharactercottage.ModelsBackground.CharItem;
 import ecnu.chinesecharactercottage.ModelsBackground.DataManager;
 import ecnu.chinesecharactercottage.ModelsBackground.TestHearChoiceItem;
-import ecnu.chinesecharactercottage.ModelsForeground.NextRunnable;
+import ecnu.chinesecharactercottage.modelsForeground.NextRunnable;
 import ecnu.chinesecharactercottage.R;
 
 /**

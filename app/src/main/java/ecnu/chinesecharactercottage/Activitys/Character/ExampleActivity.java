@@ -1,4 +1,4 @@
-package ecnu.chinesecharactercottage.Activitys;
+package ecnu.chinesecharactercottage.activitys.character;
 
 import android.app.Activity;
 import android.content.Context;
@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 import ecnu.chinesecharactercottage.ModelsBackground.CharItem;
-import ecnu.chinesecharactercottage.ModelsForeground.CharacterFragment;
+import ecnu.chinesecharactercottage.modelsForeground.CharacterFragment;
 import ecnu.chinesecharactercottage.R;
 
 /**

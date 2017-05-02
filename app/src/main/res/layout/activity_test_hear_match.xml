@@ -8,5 +8,5 @@
        android:id="@+id/test_hear_match_fragment"
        android:layout_width="match_parent"
        android:layout_height="match_parent"
-       android:name="ecnu.chinesecharactercottage.ModelsForeground.TestFragments.TestHearMatchFragment"/>
+       android:name="ecnu.chinesecharactercottage.modelsForeground.testFragments.TestHearMatchFragment"/>
 </LinearLayout>

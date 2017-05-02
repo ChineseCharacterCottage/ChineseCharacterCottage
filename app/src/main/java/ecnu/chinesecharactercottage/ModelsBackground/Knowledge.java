@@ -15,4 +15,6 @@ public class Knowledge {
     public final String video;
     public final String text;
     public final String id;
+
+    public String getTitle(){return title;}
 }

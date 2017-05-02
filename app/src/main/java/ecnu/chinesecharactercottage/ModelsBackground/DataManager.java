@@ -543,6 +543,7 @@ public final class DataManager extends SQLiteOpenHelper{
                 e.printStackTrace();
             }
         }
+        
         return null;
     }
     public String[] getCollectionCharsId(boolean isShape){
