@@ -516,7 +516,7 @@ public final class DataManager extends SQLiteOpenHelper{
         if(response.getRet() == 200){
             try{
                 JSONObject json = new JSONObject(response.getData());
-                return new Knowledge(id,json.getString("title"),json.getString("video"),json.getString("text"));
+                return new Knowledge(id,json.getString("title"),json.getString("video"),json.getString("ktext"));
             }catch (JSONException e){
                 e.printStackTrace();
             }
@@ -536,14 +536,14 @@ public final class DataManager extends SQLiteOpenHelper{
                 ArrayList<Knowledge> knowledgeList=new ArrayList<>();
                 for(int i=0;i<l;i++){
                     JSONObject json = array.getJSONObject(i);
-                    knowledgeList.add(new Knowledge(json.getString("id"),json.getString("title"),null,null));
+                    knowledgeList.add(new Knowledge(json.getString("ID"),json.getString("title"),null,null));
                 }
                 return knowledgeList.toArray(new Knowledge[knowledgeList.size()]);
             }catch (JSONException e){
                 e.printStackTrace();
             }
         }
-        
+
         return null;
     }
     public String[] getCollectionCharsId(boolean isShape){
