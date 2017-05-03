@@ -77,8 +77,5 @@ abstract public class ThreeLevelCache<K,V> {
 
     abstract protected void restoreObjectToRAM(K key,V value);
 
-    abstract public void cleanDiskCache();
-
-    abstract public long getDiskCacheSize();
 
 }
