@@ -88,6 +88,7 @@ public class CharItem implements Readable,Serializable {
     public JSONObject toJSON(){
         return mJSON;
     }
+    /*
     @Override
     public MediaPlayer getMediaPlayer(Context c) {
         MediaPlayer mp=new MediaPlayer();
@@ -106,8 +107,19 @@ public class CharItem implements Readable,Serializable {
         }
         return mp;
     }
+    */
+    @Override
+    public String getMediaKey(){
+        try{
+            return mJSON.getString(PINYIN)+".mp3";
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
     public Readable getSentenceReadable(Context c){
-        Readable readable=new Readable() {
+        return new Readable() {
+            /*
             @Override
             public MediaPlayer getMediaPlayer(Context c) {
                 MediaPlayer mp=new MediaPlayer();
@@ -123,11 +135,16 @@ public class CharItem implements Readable,Serializable {
                     return null;
                 }
                 return mp;
+            }*/
+            @Override
+            public String getMediaKey(){
+                return "s_"+get("ID")+".mp3";
             }
         };
-        return readable;
     }
-    public Bitmap getImage(Context context){
+    public String getImageId(){
+        return get("ID")+".jpg";
+        /*
         Context appContext=context.getApplicationContext();
         AssetManager manager=appContext.getAssets();
         Bitmap image;
@@ -137,7 +154,7 @@ public class CharItem implements Readable,Serializable {
         } catch (IOException e) {
             image = BitmapFactory.decodeResource(appContext.getResources(), R.drawable.imagenotfound);
         }
-        return image;
+        return image;*/
     }
     @Override
     public String toString(){

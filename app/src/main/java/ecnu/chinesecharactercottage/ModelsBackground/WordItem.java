@@ -33,6 +33,12 @@ public class WordItem implements Readable,Serializable {
     public String getChinese(){
         return mChinese;
     }
+
+    @Override
+    public String getMediaKey(){
+        return mSource;
+    }
+    /*
     @Override
     public MediaPlayer getMediaPlayer(Context c) {
         MediaPlayer mp=new MediaPlayer();
@@ -48,5 +54,5 @@ public class WordItem implements Readable,Serializable {
             return null;
         }
         return mp;
-    }
+    }*/
 }
