@@ -77,8 +77,8 @@ public class CharacterFragment extends Fragment {
         mSentence.setText(thisChar.get(CharItem.SENTENCE));
         setWords();
         setRadical();
-        new MPGetter(getActivity(),thisChar,mFigure);
-        new MPGetter(getActivity(),thisChar.getSentenceReadable(getActivity()),mSentence);
+        new MPGetter(getActivity(),thisChar,mFigure).setMP();
+        new MPGetter(getActivity(),thisChar.getSentenceReadable(getActivity()),mSentence).setMP();
 
         new Marker(getActivity()).setMark(mMark,mNowChar);
     }

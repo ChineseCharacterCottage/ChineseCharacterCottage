@@ -41,16 +41,13 @@ public class MPGetter {
             @Override
             protected void onPostExecute(Object o) {
                 mClickableView.setOnClickListener(new View.OnClickListener() {
-                        @Override
+                    @Override
                     public void onClick(View v) {
+                        /*
                         MediaManager mm=MediaManager.getInstance();
                         mm.setMediaPlayer(mMediaPlayer);
-                        try {
-                            mm.prepareMediaPlayer();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        mm.startMediaPlayer();
+                        mm.startMediaPlayer();*/
+                        mMediaPlayer.start();
                     }
                 });
                 mClickableView.setEnabled(true);
