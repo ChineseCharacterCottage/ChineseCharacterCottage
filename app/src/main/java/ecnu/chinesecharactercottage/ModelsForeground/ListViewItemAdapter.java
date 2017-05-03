@@ -46,6 +46,10 @@ public class ListViewItemAdapter<T> extends ArrayAdapter<T> {
             }
         }
         view=mViewHolder.view;
+        view=LayoutInflater.from(getContext()).inflate(resourceId, null);
+        view= View.inflate(getContext(),resourceId,null);
+        int id = view.getId();
+        boolean ise = id == R.layout.default_list_item;
         TextView figure=(TextView) view.findViewById(R.id.text_view);
         try {
             figure.setText((String)mViewHolder.method.invoke(t));

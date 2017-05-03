@@ -9,7 +9,7 @@ import org.json.JSONObject;
  * 听力判断
  */
 
-public class TestHearTOFItem extends TestItem {
+public class TestHearTOFItem extends TestItem implements Readable{
 
     private String mId;
     private boolean mTof;
@@ -23,6 +23,11 @@ public class TestHearTOFItem extends TestItem {
         mRelationCharacterId=json.getString("relation_character_id");
         mPronunciation=json.getString("pronunciation");
         mPicture=json.getString("picture");
+    }
+
+    @Override
+    public String getMediaKey() {
+        return mPronunciation;
     }
 
     public TestHearTOFItem(Cursor cursor){

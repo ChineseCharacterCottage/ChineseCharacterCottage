@@ -21,6 +21,8 @@ import java.io.InputStream;
 import ecnu.chinesecharactercottage.activitys.character.ExampleActivity;
 import ecnu.chinesecharactercottage.ModelsBackground.*;
 import ecnu.chinesecharactercottage.ModelsBackground.DataManager;
+import ecnu.chinesecharactercottage.modelsForeground.ImageGetter;
+import ecnu.chinesecharactercottage.modelsForeground.Marker;
 import ecnu.chinesecharactercottage.modelsForeground.NextRunnable;
 import ecnu.chinesecharactercottage.R;
 
@@ -187,41 +189,11 @@ public class TestTOFFragment extends Fragment {
         mNowTest=testTOFItem;
         mCharacter.setText(mNowTest.getCharacterShape());
 
-        AssetManager manager=getActivity().getAssets();
-        Bitmap image;
-        try {
-            InputStream stream = manager.open(mNowTest.getPicture());
-            image = BitmapFactory.decodeStream(stream);
-        } catch (IOException e) {
-            image = BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.imagenotfound);
-        }
-        mPicture.setImageBitmap(image);
 
-        setMark();
-    }
+        //设置题目图片
+        Context c=getActivity();
+        new ImageGetter(c,mNowTest.getPicture(),mPicture).setImage();
 
-    private void setMark(){
-        mIsMark=mDataManager.isInCollection(mNowTest);
-        if(mIsMark)
-            mMark.setBackgroundResource(R.drawable.star_marked);
-        else
-            mMark.setBackgroundResource(R.drawable.star);
-
-
-        //收藏按键
-        mMark.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(mIsMark) {
-                    mDataManager.removeCollection(mNowTest);
-                    mMark.setBackgroundResource(R.drawable.star);
-                }
-                else {
-                    mDataManager.putIntoCollection(mNowTest);
-                    mMark.setBackgroundResource(R.drawable.star_marked);
-                }
-                mIsMark=!mIsMark;
-            }
-        });
+        new Marker(getActivity()).setMark(mMark,mNowTest);
     }
 }

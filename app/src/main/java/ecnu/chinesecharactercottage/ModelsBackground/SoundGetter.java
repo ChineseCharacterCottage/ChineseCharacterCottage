@@ -1,15 +1,23 @@
 package ecnu.chinesecharactercottage.ModelsBackground;
 
 import android.content.Context;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileDescriptor;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.logging.Handler;
 
 import ktool.WeakHashMapCache;
 
@@ -31,12 +39,14 @@ public class SoundGetter extends WeakHashMapCache<String,MediaPlayer>{
 
     @Override
     protected MediaPlayer getObjectFromDisk(String key) {
-        MediaPlayer mp=new MediaPlayer();
+        MediaPlayer mp;
         File file = mContext.getFileStreamPath("cache_"+key);
         try {
-            mp.setDataSource(file.getAbsolutePath());
-            mp.prepare();
-        }catch (IOException e){
+            FileInputStream fis = mContext.openFileInput("cache_"+key);
+            byte[] bytes = transformInputStream(fis);
+            mp = createMediaPlayer(bytes);
+            fis.close();
+        }catch (Exception e){
             e.printStackTrace();
             return null;
         }
@@ -46,7 +56,25 @@ public class SoundGetter extends WeakHashMapCache<String,MediaPlayer>{
     private MediaPlayer getMediaFromDisk(String key){
         return getObjectFromDisk(key);
     }
-
+    private static MediaPlayer createMediaPlayer(byte[] mediaBytes) {
+        MediaPlayer mediaplayer = null;
+        try {
+            File temp = File.createTempFile("cache_","mp3");
+            FileOutputStream fos = new FileOutputStream(temp);
+            fos.write(mediaBytes);
+            fos.flush();
+            fos.close();
+            FileInputStream fis = new FileInputStream(temp);
+            mediaplayer = new MediaPlayer();
+            mediaplayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            FileDescriptor fd = fis.getFD();
+            mediaplayer.setDataSource(fd);
+            mediaplayer.prepare();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return mediaplayer;
+    }
     @Override
     protected MediaPlayer getObjectFromWebServer(String key) {
         try {
@@ -58,13 +86,15 @@ public class SoundGetter extends WeakHashMapCache<String,MediaPlayer>{
             if(conn.getResponseCode()!=200)return null;
             InputStream is = conn.getInputStream();
             FileOutputStream fos = mContext.openFileOutput("cache_"+key,Context.MODE_PRIVATE);
-            fos.write(transformInputStream(is));
+            byte[] bytes = transformInputStream(is);
+            fos.write(bytes);
             fos.close();
             is.close();
-            return getMediaFromDisk(key);
+            return createMediaPlayer(bytes);
         }catch (Exception e){
             e.printStackTrace();
         }
+        Log.d(this.getClass().getSimpleName(),"xxxxxxxxxxxx");
         return null;
     }
 

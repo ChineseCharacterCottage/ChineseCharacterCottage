@@ -95,7 +95,7 @@ public class ComponentListActivity extends Activity {
     }
 
     private void refresh(){
-        mListView.setAdapter(new ListViewItemAdapter<ComponentItem>(ComponentListActivity.this,R.layout.component_list_item,mComponentList,"getShape"));
+        mListView.setAdapter(new ListViewItemAdapter<>(ComponentListActivity.this,R.layout.component_list_item,mComponentList,"getShape"));
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {

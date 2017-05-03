@@ -13,6 +13,8 @@ import android.widget.LinearLayout;
 
 import ecnu.chinesecharactercottage.modelsForeground.ChoseComponentDialog;
 import ecnu.chinesecharactercottage.R;
+import ecnu.chinesecharactercottage.modelsForeground.inject.InjectView;
+import ecnu.chinesecharactercottage.modelsForeground.inject.Injecter;
 
 /**
  * Created by 10040 on 2017/2/26.
@@ -20,10 +22,13 @@ import ecnu.chinesecharactercottage.R;
 
 public class CharacterLearningActivity extends Activity {
     //用于设置按键到屏幕中心
+    @InjectView(id=R.id.homepageButtons)
     private LinearLayout mButtons;
     //象形字学习按键
+    @InjectView(id=R.id.pictogram_learning)
     private Button mPhonogram;
     //形声字学习按键
+    @InjectView(id=R.id.phonogram_learning)
     private Button mPictogram;
 
     public static void startActivity(Context context){
@@ -35,7 +40,7 @@ public class CharacterLearningActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_character_learning);
-        init();
+        Injecter.autoInjectAllField(this);
         setButtons();
 
         //进入象形字学习
@@ -76,11 +81,5 @@ public class CharacterLearningActivity extends Activity {
         linearParams.height=(int)(screenHeight/2.15);
         linearParams.width=(int)(screenWidth/1.648);
         mButtons.setLayoutParams(linearParams);
-    }
-
-    private void init(){
-        mPhonogram=(Button)findViewById(R.id.phonogram_learning);
-        mPictogram=(Button)findViewById(R.id.pictogram_learning);
-        mButtons=(LinearLayout)findViewById(R.id.homepageButtons);
     }
 }

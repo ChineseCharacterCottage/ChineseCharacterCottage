@@ -11,7 +11,7 @@ import org.json.JSONObject;
  * 听力选择
  */
 
-public class TestHearChoiceItem extends TestItem {
+public class TestHearChoiceItem extends TestItem implements Readable {
     private String mId;
     private String mCorrectChoice;
     private String mPronunciation;
@@ -29,6 +29,11 @@ public class TestHearChoiceItem extends TestItem {
         mPictureB=json.getString("picture_b");
         mPictureC=json.getString("picture_c");
         mPictureD=json.getString("picture_d");
+    }
+
+    @Override
+    public String getMediaKey() {
+        return mPronunciation;
     }
 
     public TestHearChoiceItem(Cursor cursor){

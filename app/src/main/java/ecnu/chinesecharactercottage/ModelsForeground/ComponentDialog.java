@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import ecnu.chinesecharactercottage.ModelsBackground.SoundGetter;
 import ecnu.chinesecharactercottage.activitys.character.ExampleActivity;
 import ecnu.chinesecharactercottage.ModelsBackground.ComponentItem;
 import ecnu.chinesecharactercottage.ModelsBackground.CharItem;
@@ -36,6 +37,8 @@ public class ComponentDialog extends DialogFragment {
     private TextView mMeaning;
     //部首例字
     private LinearLayout mExampleCharacter;
+    //例子发音
+    private MediaPlayer mMediaPlayer;
 
     static public ComponentDialog getDialogInstance(ComponentItem componentItem,int model){
         sComponent=componentItem;
@@ -87,18 +90,17 @@ public class ComponentDialog extends DialogFragment {
             aExample.setText(examples[i]);
             aExample.setTextColor(getResources().getColor(R.color.colorBlack));
 
-            //final CharItem exampleItem;
-            //获取对应例字
-            //接口未完成，这里先这样
-            //exampleItem = charItemLab.findCharItemsByShape(examples[i])[0];
             View.OnClickListener exampleListener=new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     AsyncTask task=new AsyncTask<Object,Object,CharItem>() {
+
                         @Override
                         protected CharItem doInBackground(Object[] params) {
                             DataManager dataManager=DataManager.getInstance(getActivity());
                             CharItem exampleItem=dataManager.getCharItemByShape(Uri.encode((String)params[0]));
+                            if(sModel==1)
+                                mMediaPlayer= new SoundGetter(getActivity()).getMediaPlayer(exampleItem);
                             return exampleItem;
                         }
 
@@ -112,22 +114,19 @@ public class ComponentDialog extends DialogFragment {
                             if(sModel==0)
                                 ExampleActivity.startActivity(getActivity(), exampleItem);
                             else {
-                                MediaPlayer mediaPlayer=exampleItem.getMediaPlayer(getActivity());
-                                try{
-                                    mediaPlayer.prepare();
-                                }
-                                catch (Exception e){
-                                    Log.d("PronunciationMedia:",e.toString());
-                                    e.printStackTrace();
-                                }
-                                mediaPlayer.start();
+                                MediaManager mm=MediaManager.getInstance();
+                                mm.setMediaPlayer(mMediaPlayer);
+                                mm.startMediaPlayer();
                             }
                         }
                     };
                     task.execute(((TextView)view).getText().toString());
                 }
             };
-            aExample.setOnClickListener(exampleListener);
+            if(sModel==0){
+                aExample.setOnClickListener(exampleListener);
+
+            }
             linearLayout.addView(aExample);
         }
     }

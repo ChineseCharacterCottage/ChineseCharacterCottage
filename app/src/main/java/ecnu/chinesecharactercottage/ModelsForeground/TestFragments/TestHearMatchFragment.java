@@ -26,6 +26,9 @@ import ecnu.chinesecharactercottage.activitys.character.ExampleActivity;
 import ecnu.chinesecharactercottage.ModelsBackground.CharItem;
 import ecnu.chinesecharactercottage.ModelsBackground.DataManager;
 import ecnu.chinesecharactercottage.ModelsBackground.TestHearChoiceItem;
+import ecnu.chinesecharactercottage.modelsForeground.ImageGetter;
+import ecnu.chinesecharactercottage.modelsForeground.MPGetter;
+import ecnu.chinesecharactercottage.modelsForeground.Marker;
 import ecnu.chinesecharactercottage.modelsForeground.NextRunnable;
 import ecnu.chinesecharactercottage.R;
 
@@ -210,76 +213,15 @@ public class TestHearMatchFragment extends Fragment {
 
         //设置播放读音按键
         Context c=getActivity();
-        mMPPronunciation=new MediaPlayer();
-        try {
-            AssetFileDescriptor fd=c.getAssets().openFd(mNowTest.getPronunciation());
-            if(Build.VERSION.SDK_INT<24) {
-                mMPPronunciation.setDataSource(fd.getFileDescriptor(), fd.getStartOffset(), fd.getLength());
-            }else {
-                mMPPronunciation.setDataSource(c.getAssets().openFd(mNowTest.getPronunciation()+".mp3"));
-            }
-            mMPPronunciation.prepare();
-            mBtPronunciation.setEnabled(true);
-        }catch (IOException e){
-            Log.d("CharItem","Media file not found :"+e.toString());
-        }
+        new MPGetter(c,mNowTest,mBtPronunciation).setMP();
 
         //设置题目图片
-        Bitmap image1=null;
-        Bitmap image2=null;
-        Bitmap image3=null;
-        Bitmap image4=null;
-        AssetManager manager=getActivity().getAssets();
-        try {
-            image1 = BitmapFactory.decodeStream(manager.open(mNowTest.getPictureA()));
-        } catch (IOException e) {
-            image1 = BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.imagenotfound);
-        }
-        try {
-            image2 = BitmapFactory.decodeStream(manager.open(mNowTest.getPictureB()));
-        } catch (IOException e) {
-            image2 = BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.imagenotfound);
-        }
-        try {
-            image3 = BitmapFactory.decodeStream(manager.open(mNowTest.getPictureC()));
-        } catch (IOException e) {
-            image3 = BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.imagenotfound);
-        }
-        try {
-            image4 = BitmapFactory.decodeStream(manager.open(mNowTest.getPictureD()));
-        } catch (IOException e) {
-            image4 = BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.imagenotfound);
-        }
-        mPicture1.setImageBitmap(image1);
-        mPicture2.setImageBitmap(image2);
-        mPicture3.setImageBitmap(image3);
-        mPicture4.setImageBitmap(image4);
+        new ImageGetter(c,mNowTest.getPictureA(),mPicture1).setImage();
+        new ImageGetter(c,mNowTest.getPictureB(),mPicture2).setImage();
+        new ImageGetter(c,mNowTest.getPictureC(),mPicture3).setImage();
+        new ImageGetter(c,mNowTest.getPictureD(),mPicture4).setImage();
 
-        setMark();
+        new Marker(getActivity()).setMark(mMark,mNowTest);
     }
 
-    private void setMark(){
-        mIsMark=mDataManager.isInCollection(mNowTest);
-        if(mIsMark)
-            mMark.setBackgroundResource(R.drawable.star_marked);
-        else
-            mMark.setBackgroundResource(R.drawable.star);
-
-
-        //收藏按键
-        mMark.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(mIsMark) {
-                    mDataManager.removeCollection(mNowTest);
-                    mMark.setBackgroundResource(R.drawable.star);
-                }
-                else {
-                    mDataManager.putIntoCollection(mNowTest);
-                    mMark.setBackgroundResource(R.drawable.star_marked);
-                }
-                mIsMark=!mIsMark;
-            }
-        });
-    }
 }

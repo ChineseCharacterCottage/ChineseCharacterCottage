@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import ecnu.chinesecharactercottage.ModelsBackground.DataManager;
 import ecnu.chinesecharactercottage.ModelsBackground.TestFillItem;
+import ecnu.chinesecharactercottage.modelsForeground.Marker;
 import ecnu.chinesecharactercottage.modelsForeground.NextRunnable;
 import ecnu.chinesecharactercottage.R;
 
@@ -182,31 +183,6 @@ public class TestCompleteFragment extends Fragment {
             mSentences[i].setText(sentences[i]);
         }
 
-        setMark();
-    }
-
-    private void setMark(){
-        mIsMark=mDataManager.isInCollection(mNowTest);
-        if(mIsMark)
-            mMark.setBackgroundResource(R.drawable.star_marked);
-        else
-            mMark.setBackgroundResource(R.drawable.star);
-
-
-        //收藏按键
-        mMark.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(mIsMark) {
-                    mDataManager.removeCollection(mNowTest);
-                    mMark.setBackgroundResource(R.drawable.star);
-                }
-                else {
-                    mDataManager.putIntoCollection(mNowTest);
-                    mMark.setBackgroundResource(R.drawable.star_marked);
-                }
-                mIsMark=!mIsMark;
-            }
-        });
+        new Marker(getActivity()).setMark(mMark,mNowTest);
     }
 }
