@@ -5,8 +5,9 @@ import android.media.MediaPlayer;
 
 /**
  * Created by Shensheng on 2016/9/30.
+ * Readable
  */
 
 public interface Readable {
-    MediaPlayer getMediaPlayer(Context c);
+    String getMediaKey();
 }
