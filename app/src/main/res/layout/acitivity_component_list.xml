@@ -5,20 +5,28 @@
     android:id="@+id/activity_hsk"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="16dp"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
-    android:paddingTop="16dp"
     tools:context="ecnu.chinesecharactercottage.activitys.CCCMainActivity"
-    android:background="@color/colorCharBG">
+    android:background="@drawable/bg2">
 
-    <ListView
-        android:layout_marginBottom="40dp"
-        android:id="@+id/component_list"
+    <FrameLayout
+        android:layout_marginTop="50dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="400dp">
 
-    </ListView>
+        <ImageView
+            android:background="@drawable/bg3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <ListView
+            android:layout_marginBottom="40dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="50dp"
+            android:id="@+id/component_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </ListView>
+    </FrameLayout>
 
     <Button
         style="@style/NextButton"

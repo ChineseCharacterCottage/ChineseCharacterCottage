@@ -45,6 +45,11 @@ public class MPGetter {
                     public void onClick(View v) {
                         MediaManager mm=MediaManager.getInstance();
                         mm.setMediaPlayer(mMediaPlayer);
+                        try {
+                            mm.prepareMediaPlayer();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                         mm.startMediaPlayer();
                     }
                 });

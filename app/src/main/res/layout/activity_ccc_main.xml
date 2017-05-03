@@ -1,215 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ecnu.chinesecharactercottage.modelsForeground.SlidingLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/slidingLayout"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="horizontal" >
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg">
 
-    <!-- 左滑框 -->
     <LinearLayout
-        android:background="#000"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:id="@+id/homepageButtons"
+        android:layout_centerInParent="true"
+        android:layout_width="200dp"
+        android:layout_height="150dp"
         android:orientation="vertical">
 
-        <FrameLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:layout_gravity="end"
-                android:src="@drawable/avator"
-                android:layout_width="70dp"
-                android:layout_height="70dp"/>
-        </FrameLayout>
+            android:layout_height="0dp"
+            android:layout_weight="35"
+            android:orientation="horizontal"
+            android:weightSum="2">
 
-        <View
-            android:background="#9dcc9c"
+            <Button
+                android:id="@+id/character_learning"
+                style="@style/homepageButton"
+                android:background="@drawable/selector_homepage_button_deep"
+                android:text="@string/button_character_learning"
+                android:textColor="@color/colorYellowGrey"/>
+
+            <Button
+                android:id="@+id/test"
+                style="@style/homepageButton"
+                android:background="@drawable/selector_homepage_button_yellow"
+                android:text="@string/button_test"
+                android:textColor="@color/colorDeepGrey"/>
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="2dp"/>
+            android:layout_height="0dp"
+            android:layout_weight="35"
+            android:orientation="horizontal"
+            android:weightSum="2">
 
-        <LinearLayout
-            android:layout_gravity="end"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <ImageView
-                android:src="@drawable/home"
-                android:layout_width="50dp"
-                android:layout_height="50dp"/>
-            <TextView
-                android:id="@+id/home"
-                android:gravity="center"
-                android:textColor="#fff"
-                android:layout_width="100dp"
-                android:layout_height="match_parent"
-                android:text="Home"/>
+            <Button
+                android:id="@+id/review"
+                style="@style/homepageButton"
+                android:background="@drawable/selector_homepage_button_yellow"
+                android:text="@string/button_review"
+                android:textColor="@color/colorDeepGrey"/>
+
+            <Button
+                android:id="@+id/knowledge"
+                style="@style/homepageButton"
+                android:background="@drawable/selector_homepage_button_deep"
+                android:text="@string/button_knowledge"
+                android:textColor="@color/colorYellowGrey"/>
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_gravity="end"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <ImageView
-                android:src="@drawable/collection"
-                android:layout_width="50dp"
-                android:layout_height="50dp"/>
-            <TextView
-                android:id="@+id/collection"
-                android:gravity="center"
-                android:textColor="#fff"
-                android:layout_width="100dp"
-                android:layout_height="match_parent"
-                android:text="Collection"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_gravity="end"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <ImageView
-                android:src="@drawable/feedback"
-                android:layout_width="50dp"
-                android:layout_height="50dp"/>
-            <TextView
-                android:id="@+id/feedback"
-                android:gravity="center"
-                android:textColor="#fff"
-                android:layout_width="100dp"
-                android:layout_height="match_parent"
-                android:text="Feedback"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_gravity="end"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <ImageView
-                android:src="@drawable/hsk_plan"
-                android:layout_width="50dp"
-                android:layout_height="50dp"/>
-            <TextView
-                android:id="@+id/HSKPlan"
-                android:gravity="center"
-                android:textColor="#fff"
-                android:layout_width="100dp"
-                android:layout_height="match_parent"
-                android:text="HSK plan"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_gravity="end"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <ImageView
-                android:src="@drawable/settings"
-                android:layout_width="50dp"
-                android:layout_height="50dp"/>
-            <TextView
-                android:id="@+id/settings"
-                android:gravity="center"
-                android:textColor="#fff"
-                android:layout_width="100dp"
-                android:layout_height="match_parent"
-                android:text="Settings"/>
-        </LinearLayout>
     </LinearLayout>
 
-    <!-- 主界面 -->
-    <LinearLayout
-        android:id="@+id/mainLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/bg"
-        android:orientation="vertical">
-        <LinearLayout
-            android:id="@+id/mainLayoutCenter"
-            android:background="@drawable/bg2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <LinearLayout
-                android:id="@+id/homepageButtons"
-                android:layout_marginTop="105dp"
-                android:layout_marginStart="75dp"
-                android:padding="0dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:weightSum="100"
-                android:orientation="vertical">
-
-                <!--
-                <TextView
-                    android:text="@string/slogan1"
-                    android:background="@color/colorBlueGrey"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="15"/>
-
-                <TextView
-                    android:text="@string/slogan2"
-                    android:background="@color/colorBlueGrey"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="15"/>
-                    -->
-
-                <LinearLayout
-                    android:weightSum="2"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:orientation="horizontal"
-                    android:layout_weight="35">
-
-                    <Button
-                        android:id="@+id/character_learning"
-                        android:background="@drawable/selector_homepage_button_deep"
-                        android:textColor="@color/colorYellowGrey"
-                        style="@style/homepageButton"
-                        android:text="@string/button_character_learning"/>
-
-                    <Button
-                        android:id="@+id/test"
-                        android:textColor="@color/colorDeepGrey"
-                        android:background="@drawable/selector_homepage_button_yellow"
-                        style="@style/homepageButton"
-                        android:text="@string/button_test"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:weightSum="2"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:orientation="horizontal"
-                    android:layout_weight="35">
-
-                    <Button
-                        android:id="@+id/review"
-                        android:background="@drawable/selector_homepage_button_yellow"
-                        android:textColor="@color/colorDeepGrey"
-                        style="@style/homepageButton"
-                        android:text="@string/button_review"/>
-
-                    <Button
-                        android:id="@+id/knowledge"
-                        android:textColor="@color/colorYellowGrey"
-                        android:background="@drawable/selector_homepage_button_deep"
-                        style="@style/homepageButton"
-                        android:text="@string/button_knowledge"/>
-                </LinearLayout>
-
-            </LinearLayout>
-
-
-        </LinearLayout>
-    </LinearLayout>
-
-</ecnu.chinesecharactercottage.modelsForeground.SlidingLayout>
+</RelativeLayout>

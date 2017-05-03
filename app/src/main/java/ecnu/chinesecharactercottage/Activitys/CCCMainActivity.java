@@ -15,12 +15,11 @@ import ecnu.chinesecharactercottage.activitys.knowledge.TitleListActivity;
 import ecnu.chinesecharactercottage.activitys.test.TestChoseActivity;
 import ecnu.chinesecharactercottage.ModelsBackground.DataManager;
 import ecnu.chinesecharactercottage.R;
-import ecnu.chinesecharactercottage.modelsForeground.SlidingLayout;
 
 public class CCCMainActivity extends Activity {
 
     //左滑界面
-    private SlidingLayout mSlidingLayout;
+    //private SlidingLayout mSlidingLayout;
     //主界面，用于设定左滑的监听器
     private LinearLayout mainLayout;
     //用于设置按键到屏幕中心
@@ -43,9 +42,9 @@ public class CCCMainActivity extends Activity {
 
         init();
         //调整位置
-        setButtons();
+        //setButtons();
         //设置主界面的左滑监听器
-        mSlidingLayout.setScrollEvent(mainLayout);
+        //mSlidingLayout.setScrollEvent(mainLayout);
 
         //设置四个功能按键
         setCharacterLeaning();
@@ -59,7 +58,7 @@ public class CCCMainActivity extends Activity {
 
         mainLayout=(LinearLayout)findViewById(R.id.mainLayout);
         mButtons=(LinearLayout)findViewById(R.id.homepageButtons);
-        mSlidingLayout=(SlidingLayout)findViewById(R.id.slidingLayout);
+        //mSlidingLayout=(SlidingLayout)findViewById(R.id.slidingLayout);
         mCharacterLeaning = (Button) findViewById(R.id.character_learning);
         mTest = (Button) findViewById(R.id.test);
         mReview=(Button)findViewById(R.id.review);

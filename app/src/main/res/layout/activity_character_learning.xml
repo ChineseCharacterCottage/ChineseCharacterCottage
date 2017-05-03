@@ -1,41 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/mainLayout"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mainLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg2"
+    android:orientation="vertical">
+
+    <ecnu.chinesecharactercottage.modelsForeground.TopBar
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/bg"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"/>
 
-        <LinearLayout
-            android:id="@+id/homepageButtons"
-            android:layout_marginTop="105dp"
-            android:layout_marginStart="75dp"
-            android:padding="0dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:weightSum="100"
-            android:orientation="vertical">
-            <LinearLayout
-                android:weightSum="2"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:orientation="horizontal"
-                android:layout_weight="35">
+    <ImageView
+        android:src="@drawable/bg3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
-                <Button
-                    android:id="@+id/phonogram_learning"
-                    android:background="@drawable/selector_homepage_button_deep"
-                    android:textColor="@color/colorYellowGrey"
-                    style="@style/homepageButton"
-                    android:text="@string/button_phonogram_learning"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginEnd="50dp"
+        android:layout_marginStart="50dp"
+        android:orientation="horizontal"
+        android:paddingBottom="200dp">
 
-                <Button
-                    android:id="@+id/pictogram_learning"
-                    android:textColor="@color/colorDeepGrey"
-                    android:background="@drawable/selector_homepage_button_yellow"
-                    style="@style/homepageButton"
-                    android:text="@string/button_pictogram_learning"/>
-            </LinearLayout>
-        </LinearLayout>
-</LinearLayout>
+        <ecnu.chinesecharactercottage.modelsForeground.ChoseItem
+            android:id="@+id/phonogram_learning"
+            style="@style/homepageButton"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/selector_homepage_button_deep"
+            android:text="@string/button_phonogram_learning"
+            android:textColor="@color/colorYellowGrey"/>
+
+        <ecnu.chinesecharactercottage.modelsForeground.ChoseItem
+            android:id="@+id/pictogram_learning"
+            style="@style/homepageButton"
+            android:layout_marginStart="20dp"
+            android:background="@drawable/selector_homepage_button_yellow"
+            android:text="@string/button_pictogram_learning"
+            android:textColor="@color/colorDeepGrey"/>
+    </LinearLayout>
+</RelativeLayout>

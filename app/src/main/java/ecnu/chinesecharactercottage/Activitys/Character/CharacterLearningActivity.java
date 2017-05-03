@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 
 import ecnu.chinesecharactercottage.modelsForeground.ChoseComponentDialog;
 import ecnu.chinesecharactercottage.R;
+import ecnu.chinesecharactercottage.modelsForeground.ChoseItem;
 import ecnu.chinesecharactercottage.modelsForeground.inject.InjectView;
 import ecnu.chinesecharactercottage.modelsForeground.inject.Injecter;
 
@@ -26,10 +27,10 @@ public class CharacterLearningActivity extends Activity {
     private LinearLayout mButtons;
     //象形字学习按键
     @InjectView(id=R.id.pictogram_learning)
-    private Button mPhonogram;
+    private ChoseItem mPhonogram;
     //形声字学习按键
     @InjectView(id=R.id.phonogram_learning)
-    private Button mPictogram;
+    private ChoseItem mPictogram;
 
     public static void startActivity(Context context){
         Intent intent=new Intent(context,CharacterLearningActivity.class);
@@ -41,7 +42,6 @@ public class CharacterLearningActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_character_learning);
         Injecter.autoInjectAllField(this);
-        setButtons();
 
         //进入象形字学习
         mPictogram.setOnClickListener(new View.OnClickListener() {
@@ -69,17 +69,5 @@ public class CharacterLearningActivity extends Activity {
                 myChoseComponentDialog.show(ft,"chose_dialog");
             }
         });
-    }
-    private void setButtons(){
-        WindowManager wm = (WindowManager) this.getSystemService(Context.WINDOW_SERVICE);
-        int screenWidth=wm.getDefaultDisplay().getWidth();
-        int screenHeight=wm.getDefaultDisplay().getHeight();
-        LinearLayout.LayoutParams linearParams =(LinearLayout.LayoutParams) mButtons.getLayoutParams();
-        int left=(int)(screenWidth/4.9);
-        int top=(int)(screenHeight/3.05);
-        linearParams.setMargins(left,top,0,0);
-        linearParams.height=(int)(screenHeight/2.15);
-        linearParams.width=(int)(screenWidth/1.648);
-        mButtons.setLayoutParams(linearParams);
     }
 }
