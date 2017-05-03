@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import ecnu.chinesecharactercottage.modelsForeground.ChoseComponentDialog;
 import ecnu.chinesecharactercottage.R;
 import ecnu.chinesecharactercottage.modelsForeground.ChoseItem;
+import ecnu.chinesecharactercottage.modelsForeground.TwoChoicesDialog;
 import ecnu.chinesecharactercottage.modelsForeground.inject.InjectView;
 import ecnu.chinesecharactercottage.modelsForeground.inject.Injecter;
 
@@ -58,15 +59,7 @@ public class CharacterLearningActivity extends Activity {
         mPhonogram.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                Fragment prev = getFragmentManager().findFragmentByTag("chose_dialog");
-                if (prev != null) {
-                    ft.remove(prev);
-                }
-                ft.addToBackStack(null);
-
-                ChoseComponentDialog myChoseComponentDialog= ChoseComponentDialog.getDialogInstance();
-                myChoseComponentDialog.show(ft,"chose_dialog");
+                new ChoseComponentDialog(CharacterLearningActivity.this).show();
             }
         });
     }

@@ -114,7 +114,7 @@ public class PictogramActivity extends Activity {
     }
 
     private void saveData(){
-        Toast.makeText(PictogramActivity.this, "Collection finish", Toast.LENGTH_SHORT).show();
+        Toast.makeText(PictogramActivity.this, "Learning finish", Toast.LENGTH_SHORT).show();
         finish();
     }
 }

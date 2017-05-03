@@ -5,7 +5,7 @@
               android:layout_height="100dp">
 
     <Button
-        android:id="@+id/button_shape_component"
+        android:id="@+id/button_1"
         android:background="@drawable/selector_homepage_button_deep"
         android:textColor="@color/colorYellowGrey"
         android:text="@string/button_shape_component"
@@ -13,7 +13,7 @@
         android:layout_height="100dp"/>
 
     <Button
-        android:id="@+id/button_voice_component"
+        android:id="@+id/button_2"
         android:background="@drawable/selector_homepage_button_yellow"
         android:textColor="@color/colorDeepGrey"
         android:text="@string/button_voice_component"

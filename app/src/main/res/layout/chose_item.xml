@@ -6,7 +6,6 @@
               android:weightSum="10">
 
     <TextView
-        android:text="tset"
         android:layout_gravity="center"
         android:gravity="center"
         android:id="@+id/tv_item_name"
@@ -16,6 +15,7 @@
 
     <Button
         android:id="@+id/bt_item_img"
+        android:layout_margin="20dp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="7"/>

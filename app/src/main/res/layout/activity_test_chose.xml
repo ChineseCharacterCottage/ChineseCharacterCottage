@@ -1,114 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="ecnu.chinesecharactercottage.activitys.character.CharacterLearningActivity"
     android:id="@+id/mainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg"
+    android:background="@drawable/bg3"
     android:orientation="vertical">
 
+    <ecnu.chinesecharactercottage.modelsForeground.TopBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
     <LinearLayout
-        android:id="@+id/homepageButtons"
-        android:layout_marginTop="105dp"
-        android:layout_marginStart="75dp"
-        android:padding="0dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:weightSum="100"
-        android:orientation="vertical">
-        <TextView
-            android:text="Listen Test"
-            android:gravity="center"
-            android:background="@color/colorCharBG"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+        android:layout_width="match_parent"
+        android:layout_height="185dp"
+        android:layout_centerInParent="true"
+        android:layout_marginEnd="40dp"
+        android:layout_marginStart="40dp"
+        android:orientation="horizontal">
 
-        <LinearLayout
-            android:weightSum="2"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:orientation="horizontal"
-            android:layout_weight="35">
+        <ecnu.chinesecharactercottage.modelsForeground.ChoseItem
+            style="@style/homepageButton"
+            android:id="@+id/test_listen"
+            android:layout_marginEnd="15dp"
+            app:text="@string/test_listen"
+            app:img="@drawable/listen"/>
 
-            <Button
-                android:id="@+id/bt_hear_match"
-                android:text="@string/test_chose_match"
-                android:background="@drawable/selector_homepage_button_deep"
-                android:textColor="@color/colorYellowGrey"
-                style="@style/homepageButton"/>
-
-            <Button
-                android:id="@+id/bt_hear_tof"
-                android:text="@string/test_chose_tof"
-                android:textColor="@color/colorDeepGrey"
-                android:background="@drawable/selector_homepage_button_yellow"
-                style="@style/homepageButton"/>
-        </LinearLayout>
-
-        <TextView
-            android:text="Read Test"
-            android:background="@color/colorCharBG"
-            android:gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-        <LinearLayout
-            android:weightSum="2"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:orientation="horizontal"
-            android:layout_weight="35">
-
-            <Button
-                android:id="@+id/bt_complete"
-                android:text="@string/test_chose_complete"
-                android:textColor="@color/colorDeepGrey"
-                android:background="@drawable/selector_homepage_button_yellow"
-                style="@style/homepageButton"/>
-
-            <Button
-                android:id="@+id/bt_tof"
-                android:text="@string/test_chose_tof"
-                android:background="@drawable/selector_homepage_button_deep"
-                android:textColor="@color/colorYellowGrey"
-                style="@style/homepageButton"/>
-        </LinearLayout>
+        <ecnu.chinesecharactercottage.modelsForeground.ChoseItem
+            android:id="@+id/test_read"
+            style="@style/homepageButton"
+            android:layout_marginStart="15dp"
+            app:text="@string/test_read"
+            app:img="@drawable/read"/>
     </LinearLayout>
-</LinearLayout>
-    <!--
-    <TextView
-        android:text="@string/test_chose_listen"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/tv_listen"/>
 
-    <Button
-        android:text="@string/test_chose_match"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/bt_hear_match"/>
-
-    <Button
-        android:text="@string/test_chose_tof"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/bt_hear_tof"/>
-
-    <TextView
-        android:text="@string/test_chose_read"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/tv_read"/>
-
-    <Button
-        android:text="@string/test_chose_complete"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/bt_complete"/>
-
-    <Button
-        android:text="@string/test_chose_tof"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/bt_tof"/>
-        -->
+</RelativeLayout>
