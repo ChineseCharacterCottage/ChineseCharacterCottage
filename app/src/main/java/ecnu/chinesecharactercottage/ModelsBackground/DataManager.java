@@ -426,6 +426,7 @@ public final class DataManager extends SQLiteOpenHelper{
                     default:
                         testItem=null;
                 }
+                putTestItemToLocal(testItem,type);
             }catch (JSONException e){
                 e.printStackTrace();
             }
