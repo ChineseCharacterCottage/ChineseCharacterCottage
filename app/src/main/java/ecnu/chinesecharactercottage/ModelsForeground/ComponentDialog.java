@@ -37,8 +37,6 @@ public class ComponentDialog extends DialogFragment {
     private TextView mMeaning;
     //部首例字
     private LinearLayout mExampleCharacter;
-    //例子发音
-    private MediaPlayer mMediaPlayer;
 
     static public ComponentDialog getDialogInstance(ComponentItem componentItem,int model){
         sComponent=componentItem;
@@ -94,7 +92,8 @@ public class ComponentDialog extends DialogFragment {
                 @Override
                 public void onClick(View view) {
                     AsyncTask task=new AsyncTask<Object,Object,CharItem>() {
-
+                        //例字发音
+                        private MediaPlayer mMediaPlayer;
                         @Override
                         protected CharItem doInBackground(Object[] params) {
                             DataManager dataManager=DataManager.getInstance(getActivity());
@@ -123,10 +122,8 @@ public class ComponentDialog extends DialogFragment {
                     task.execute(((TextView)view).getText().toString());
                 }
             };
-            if(sModel==0){
-                aExample.setOnClickListener(exampleListener);
+            aExample.setOnClickListener(exampleListener);
 
-            }
             linearLayout.addView(aExample);
         }
     }
