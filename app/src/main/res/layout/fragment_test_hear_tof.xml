@@ -1,116 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:background="@color/colorCharBG"
-              android:paddingStart="25dp"
-              android:paddingEnd="25dp"
-              android:paddingTop="25dp"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
-    <FrameLayout
+
+
+
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <TextView
-            android:text="Hear True or False"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
 
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+            <Button
+                android:id="@+id/mark"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="30dp"
+                android:layout_gravity="start"
+                android:background="@drawable/star"/>
+
+            <Button
+                android:layout_marginEnd="70dp"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="end"
+                android:background="@drawable/horn"
+                android:layout_width="50dp"
+                android:layout_height="30dp"
+                android:id="@+id/pronounce"/>
+            <TextView
+                android:layout_gravity="end"
+                android:layout_marginEnd="20dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:textSize="18sp"
+                android:text="Again"
+                android:gravity="center"/>
+        </FrameLayout>
+
+        <ImageView
+            android:layout_marginTop="20dp"
+            style="@style/TestTOfImg"
+            android:src="@drawable/imagenotfound"
+            android:id="@+id/iv_picture"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_alignParentBottom="true"
+        android:id="@+id/layout_submit"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
         <Button
-            android:layout_marginEnd="50dp"
-            android:layout_gravity="end"
-            android:background="@drawable/horn"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:id="@+id/pronounce"/>
-        <TextView
-            android:layout_gravity="end"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:text="Again"
-            android:gravity="center"/>
-    </FrameLayout>
-
-
-    <ImageView
-        android:layout_marginTop="20dp"
-        style="@style/TestTOfImg"
-        android:src="@drawable/imagenotfound"
-        android:id="@+id/iv_picture"/>
-
-
-    <!--
-    <RadioGroup
-        android:id="@+id/answer_chose"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="center">
-        <RadioButton
+            android:id="@+id/bt_true"
             android:text="@string/test_true"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/radio_t"/>
+            style="@style/TestTOFButton"/>
 
-        <RadioButton
+        <Button
+            android:id="@+id/bt_false"
             android:text="@string/test_false"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/radio_f"/>
-    </RadioGroup>-->
+            style="@style/TestTOFButton"/>
+    </LinearLayout>
 
-    <FrameLayout
+    <LinearLayout
+        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="100dp"
+        android:orientation="vertical">
+        <Button
+            android:id="@+id/bt_next"
+            style="@style/NextButton"
+            android:text="@string/next_test"/>
 
         <LinearLayout
-            android:id="@+id/layout_submit"
-            android:orientation="horizontal"
+            android:id="@+id/layout_error_msg"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="30dp"
+            android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/bt_true"
-                android:text="@string/test_true"
-                style="@style/TestTOFButton"/>
+            <TextView
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="@color/colorBlack"
+                android:text="@string/test_err_msg"/>
 
-            <Button
-                android:id="@+id/bt_false"
-                android:text="@string/test_false"
-                style="@style/TestTOFButton"/>
-
+            <TextView
+                android:id="@+id/tv_error_msg"
+                style="@style/TestErrorMsgText"/>
         </LinearLayout>
 
         <Button
+            android:id="@+id/bt_show_character"
             style="@style/NextButton"
-            android:text="@string/next_test"
-            android:id="@+id/bt_next"/>
-    </FrameLayout>
-
-    <LinearLayout
-        android:id="@+id/layout_error_msg"
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/test_err_msg"/>
-        <TextView
-            android:id="@+id/tv_error_msg"
-            style="@style/TestErrorMsgText"/>
+            android:text="@string/test_show_char"/>
     </LinearLayout>
 
-    <Button
-        android:text="@string/test_show_char"
-        style="@style/NextButton"
-        android:id="@+id/bt_show_character"/>
-
-    <Button
-        android:id="@+id/mark"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_gravity="end"
-        android:background="@drawable/star"/>
-
-</LinearLayout>
+</RelativeLayout>

@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:background="@drawable/bg2">
+
+    <ecnu.chinesecharactercottage.modelsForeground.TopBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
     <fragment
+        android:layout_marginTop="50dp"
         android:id="@+id/test_tof_fragment"
         android:name="ecnu.chinesecharactercottage.modelsForeground.testFragments.TestTOFFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-</LinearLayout>
+</RelativeLayout>

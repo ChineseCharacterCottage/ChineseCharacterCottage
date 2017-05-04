@@ -1,107 +1,68 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/mainLayout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/bg"
-    android:orientation="vertical">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg">
+
 
     <LinearLayout
-        android:id="@+id/homepageButtons"
-        android:layout_marginTop="105dp"
-        android:layout_marginStart="75dp"
-        android:padding="0dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:weightSum="100"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
         android:orientation="vertical">
-        <TextView
-            android:text="Character Collection"
-            android:gravity="center"
-            android:background="@color/colorCharBG"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
 
         <LinearLayout
-            android:weightSum="2"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginBottom="20dp"
             android:orientation="horizontal"
-            android:layout_weight="35">
-            <Button
+            android:layout_weight="1"
+            android:weightSum="2">
+
+            <ecnu.chinesecharactercottage.modelsForeground.ChoseItem
                 android:id="@+id/bt_character"
-                android:background="@drawable/selector_homepage_button_yellow"
-                android:textColor="@color/colorDeepGrey"
                 style="@style/homepageButton"
-                android:text="@string/button_character_learning"/>
+                android:layout_marginEnd="15dp"
+                app:text="@string/button_character_learning"
+                app:img="@drawable/character"
+                android:textColor="@color/colorYellowGrey"/>
 
-            <Button
+            <ecnu.chinesecharactercottage.modelsForeground.ChoseItem
                 android:id="@+id/bt_pictogram"
-                android:textColor="@color/colorYellowGrey"
-                android:background="@drawable/selector_homepage_button_deep"
                 style="@style/homepageButton"
-                android:text="@string/button_pictogram_learning"/>
+                android:layout_marginStart="15dp"
+                app:text="@string/button_pictogram_learning"
+                app:img="@drawable/test"
+                android:textColor="@color/colorDeepGrey"/>
         </LinearLayout>
-
-
-
-        <TextView
-            android:text="Listen Test Collection"
-            android:gravity="center"
-            android:background="@color/colorCharBG"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
 
         <LinearLayout
-            android:weightSum="2"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginTop="20dp"
             android:orientation="horizontal"
-            android:layout_weight="35">
+            android:layout_weight="1"
+            android:weightSum="2">
 
-            <Button
-                android:id="@+id/bt_hear_match"
-                android:text="@string/test_chose_match"
-                android:background="@drawable/selector_homepage_button_deep"
-                android:textColor="@color/colorYellowGrey"
-                style="@style/homepageButton"/>
+            <ecnu.chinesecharactercottage.modelsForeground.ChoseItem
+                android:id="@+id/bt_listen"
+                style="@style/homepageButton"
+                android:layout_marginEnd="15dp"
+                app:text="@string/test_listen"
+                app:img="@drawable/review"
+                android:textColor="@color/colorDeepGrey"/>
 
-            <Button
-                android:id="@+id/bt_hear_tof"
-                android:text="@string/test_chose_tof"
-                android:textColor="@color/colorDeepGrey"
-                android:background="@drawable/selector_homepage_button_yellow"
-                style="@style/homepageButton"/>
+            <ecnu.chinesecharactercottage.modelsForeground.ChoseItem
+                android:id="@+id/bt_read"
+                style="@style/homepageButton"
+                android:layout_marginStart="15dp"
+                app:text="@string/test_read"
+                app:img="@drawable/knowledge"
+                android:textColor="@color/colorYellowGrey"/>
         </LinearLayout>
 
-        <TextView
-            android:text="Read Test Collection"
-            android:background="@color/colorCharBG"
-            android:gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-        <LinearLayout
-            android:weightSum="2"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:orientation="horizontal"
-            android:layout_weight="35">
-
-            <Button
-                android:id="@+id/bt_complete"
-                android:text="@string/test_chose_complete"
-                android:textColor="@color/colorDeepGrey"
-                android:background="@drawable/selector_homepage_button_yellow"
-                style="@style/homepageButton"/>
-
-            <Button
-                android:id="@+id/bt_tof"
-                android:text="@string/test_chose_tof"
-                android:background="@drawable/selector_homepage_button_deep"
-                android:textColor="@color/colorYellowGrey"
-                style="@style/homepageButton"/>
-        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+
+</RelativeLayout>

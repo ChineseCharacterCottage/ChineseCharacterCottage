@@ -11,18 +11,32 @@ import ecnu.chinesecharactercottage.modelsForeground.TwoChoicesDialog;
  */
 
 public class TestChoseReadDialog extends TwoChoicesDialog {
+    private int mModel;
+
+    public TestChoseReadDialog(Activity activity, int model) {
+        super(activity,"test_read_dialog", "Complete", "True or False");
+        mModel=model;
+    }
 
     public TestChoseReadDialog(Activity activity) {
-        super(activity,"test_read_dialog", "Complete", "True or False");
+        this(activity,TestCompleteActivity.LEARNING);
     }
 
     @Override
     protected void clickFirst() {
-        TestCompleteActivity.startActivity(getActivity(),1,10);
+        if(mModel==TestCompleteActivity.LEARNING)
+            TestCompleteActivity.startActivity(getActivity(),1,10);
+        else
+            TestCompleteActivity.startActivity(getActivity(),mModel);
+
     }
 
     @Override
     protected void clickSecond() {
-        TestTOFActivity.startActivity(getActivity(),1,10);
+        if(mModel==TestCompleteActivity.LEARNING)
+            TestTOFActivity.startActivity(getActivity(),1,10);
+        else
+            TestTOFActivity.startActivity(getActivity(),mModel);
+
     }
 }

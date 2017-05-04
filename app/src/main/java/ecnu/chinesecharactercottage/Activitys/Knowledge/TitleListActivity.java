@@ -61,7 +61,7 @@ public class TitleListActivity extends Activity {
 
     public void setListView(){
         //设置适配器
-        mListView.setAdapter(new ListViewItemAdapter<Knowledge>(this,mKnowledges,"getTitle"));
+        mListView.setAdapter(new ListViewItemAdapter<>(this,R.layout.component_list_item,mKnowledges,"getTitle"));
         //设置点击监听器
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

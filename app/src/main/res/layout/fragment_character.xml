@@ -58,131 +58,117 @@
         android:layout_height="35dp">
     </View>
 
-    <TableLayout
-        android:background="@drawable/white_block"
-        android:layout_marginBottom="15dp"
-        android:padding="5dp"
-        android:stretchColumns="1"
-        android:shrinkColumns="1"
-        android:layout_width="match_parent"
+    <ScrollView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content">
+        <TableLayout
+            android:background="@drawable/white_block"
+            android:layout_marginBottom="15dp"
+            android:padding="5dp"
+            android:stretchColumns="1"
+            android:shrinkColumns="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <TableRow>
-            <TextView
-                style="@style/MyText"
-                android:gravity="center"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:text="Pinyin:"/>
+            <TableRow>
+                <TextView
+                    style="@style/MyText"
+                    android:gravity="center"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="Pinyin:"/>
 
-            <TextView
-                style="@style/MyText"
-                android:id="@+id/pinyin"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"/>
-        </TableRow>
+                <TextView
+                    style="@style/MyText"
+                    android:id="@+id/pinyin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"/>
+            </TableRow>
 
-        <View android:layout_height="2dp" android:background="@color/colorCharDiv"></View>
+            <View android:layout_height="2dp" android:background="@color/colorCharDiv"></View>
 
-        <TableRow>
-            <TextView
-                style="@style/MyText"
-                android:gravity="center"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:text="Radical:"/>
+            <TableRow>
+                <TextView
+                    style="@style/MyText"
+                    android:gravity="center"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="Radical:"/>
 
-            <TextView
-                style="@style/MyText"
-                android:id="@+id/radical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"/>
-        </TableRow>
+                <TextView
+                    style="@style/MyText"
+                    android:id="@+id/radical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"/>
+            </TableRow>
 
-        <View android:layout_height="2dp" android:background="@color/colorCharDiv"></View>
+            <View android:layout_height="2dp" android:background="@color/colorCharDiv"></View>
 
-        <!--
-        <TableRow>
+            <TableRow>
 
-            <TextView
-                style="@style/MyText"
-                android:layout_height="wrap_content"
-                android:text="Component:"/>
+                <TextView
+                    style="@style/MyText"
+                    android:layout_height="wrap_content"
+                    android:text="Meaning:"/>
 
-            <TextView
-                android:id="@+id/component"
-                style="@style/MyText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"/>
-        </TableRow>
-
-        <View android:layout_height="2dp" android:background="@color/colorCharDiv"></View>
-        -->
-        <TableRow>
-
-            <TextView
-                style="@style/MyText"
-                android:layout_height="wrap_content"
-                android:text="Meaning:"/>
-
-            <TextView
-                android:id="@+id/meaning"
-                style="@style/MyText"
-                android:layout_gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="测试，这是英文解释"/>
-        </TableRow>
-
-        <View android:layout_height="2dp" android:background="@color/colorCharDiv"></View>
-
-        <TableRow>
-
-            <TextView
-                style="@style/MyText"
-                android:gravity="center"
-                android:layout_height="wrap_content"
-                android:text="Words:"/>
-
-            <LinearLayout
-                android:id="@+id/words"
-                android:layout_gravity="center"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-            </LinearLayout>
-
-        </TableRow>
-
-        <View android:layout_height="2dp" android:background="@color/colorCharDiv"></View>
-
-        <TableRow>
-            <!--
-            <TextView
-                style="@style/MyText"
-                android:layout_height="wrap_content"
-                android:text="Sentence:"/>
-            -->
-            <FrameLayout>
-                <Button
-                    android:id="@+id/sentence_pronunciation"
+                <TextView
+                    android:id="@+id/meaning"
+                    style="@style/MyText"
                     android:layout_gravity="center"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:background="@drawable/horn"/>
-            </FrameLayout>
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="测试，这是英文解释"/>
+            </TableRow>
+
+            <View android:layout_height="2dp" android:background="@color/colorCharDiv"></View>
+
+            <TableRow>
+
+                <TextView
+                    style="@style/MyText"
+                    android:gravity="center"
+                    android:layout_height="wrap_content"
+                    android:text="Words:"/>
+
+                <LinearLayout
+                    android:id="@+id/words"
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                </LinearLayout>
+
+            </TableRow>
+
+            <View android:layout_height="2dp" android:background="@color/colorCharDiv"></View>
+
+            <TableRow>
+                <!--
+                <TextView
+                    style="@style/MyText"
+                    android:layout_height="wrap_content"
+                    android:text="Sentence:"/>
+                -->
+                <FrameLayout>
+                    <Button
+                        android:id="@+id/sentence_pronunciation"
+                        android:layout_gravity="center"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/horn"/>
+                </FrameLayout>
 
 
-            <TextView
-                android:id="@+id/char_sentence"
-                style="@style/MyText"
-                android:textSize="16sp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="测试，这是例句"/>
-        </TableRow>
-    </TableLayout>
+                <TextView
+                    android:id="@+id/char_sentence"
+                    style="@style/MyText"
+                    android:textSize="16sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="测试，这是例句"/>
+            </TableRow>
+        </TableLayout>
+    </ScrollView>
 
 </LinearLayout>
