@@ -66,10 +66,6 @@ public class TestHearMatchFragment extends Fragment {
     //当前题目
     private TestHearChoiceItem mNowTest;
 
-    //收藏情况
-    private Boolean mIsMark;
-    //数据管理器
-    private DataManager mDataManager;
     //收藏按键
     private Button mMark;
 
@@ -98,7 +94,6 @@ public class TestHearMatchFragment extends Fragment {
         mTvErrorMsg=(TextView)view.findViewById(R.id.tv_error_msg);
         mBtShowChar=(Button)view.findViewById(R.id.bt_show_character);
 
-        mDataManager=DataManager.getInstance(getActivity());
         mMark=(Button)view.findViewById(R.id.mark);
     }
 
@@ -204,6 +199,11 @@ public class TestHearMatchFragment extends Fragment {
     }
 
     public void setTest(TestHearChoiceItem testHearChoiceItem){
+        mPicture1.setImageResource(R.drawable.imagenotfound);
+        mPicture2.setImageResource(R.drawable.imagenotfound);
+        mPicture3.setImageResource(R.drawable.imagenotfound);
+        mPicture4.setImageResource(R.drawable.imagenotfound);
+
         if(testHearChoiceItem==null) {
             mNext.next();
             return;

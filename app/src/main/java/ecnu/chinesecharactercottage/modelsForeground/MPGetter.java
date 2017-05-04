@@ -43,11 +43,9 @@ public class MPGetter {
                 mClickableView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        /*
                         MediaManager mm=MediaManager.getInstance();
                         mm.setMediaPlayer(mMediaPlayer);
-                        mm.startMediaPlayer();*/
-                        mMediaPlayer.start();
+                        mm.startMediaPlayer();
                     }
                 });
                 mClickableView.setEnabled(true);

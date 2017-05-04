@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import ecnu.chinesecharactercottage.ModelsBackground.CharItem;
 import ecnu.chinesecharactercottage.ModelsBackground.DataManager;
@@ -16,10 +17,12 @@ import ecnu.chinesecharactercottage.R;
 
 public class Marker {
 
+    private Context mContext;
     private DataManager mDataManager;
     private boolean mIsMark;
 
     public Marker(Context context){
+        mContext=context;
         mDataManager=DataManager.getInstance(context);
     }
 
@@ -59,10 +62,12 @@ public class Marker {
                 if(mIsMark) {
                     mDataManager.removeCollection(testItem);
                     mark.setBackgroundResource(R.drawable.star);
+                    Toast.makeText(mContext,"Add to Collection!",Toast.LENGTH_SHORT).show();
                 }
                 else {
                     mDataManager.putIntoCollection(testItem);
                     mark.setBackgroundResource(R.drawable.star_marked);
+                    Toast.makeText(mContext,"Remove from Collection!",Toast.LENGTH_SHORT).show();
                 }
                 mIsMark=!mIsMark;
             }

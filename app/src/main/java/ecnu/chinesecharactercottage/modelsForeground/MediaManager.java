@@ -28,10 +28,11 @@ public class MediaManager {
 
     public void setMediaPlayer(MediaPlayer newMP){
         if(newMP!=null) {
-            if(mNowMP!=null&&mNowMP.isPlaying())
+            if(mNowMP!=null&&mNowMP.isPlaying()) {
                 mNowMP.pause();
+                mNowMP.seekTo(0);
+            }
             mNowMP = newMP;
-            //mNowMP.reset();
         }
     }
 
