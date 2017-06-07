@@ -23,9 +23,6 @@ import ecnu.chinesecharactercottage.modelsForeground.inject.Injecter;
  */
 
 public class CharacterLearningActivity extends Activity {
-    //用于设置按键到屏幕中心
-    @InjectView(id=R.id.homepageButtons)
-    private LinearLayout mButtons;
     //象形字学习按键
     @InjectView(id=R.id.pictogram_learning)
     private ChoseItem mPhonogram;
@@ -48,7 +45,7 @@ public class CharacterLearningActivity extends Activity {
         mPictogram.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String[] ids=new String[5];
+                String[] ids=new String[20];
                 for (int i=0;i<ids.length;i++)
                     ids[i]=String.valueOf(i+1);
                 PictogramActivity.startActivity(CharacterLearningActivity.this,ids);

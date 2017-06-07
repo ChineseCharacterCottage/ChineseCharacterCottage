@@ -20,8 +20,7 @@
             android:layout_height="0dp"
             android:layout_marginBottom="20dp"
             android:orientation="horizontal"
-            android:layout_weight="1"
-            android:weightSum="2">
+            android:layout_weight="1">
 
             <ecnu.chinesecharactercottage.modelsForeground.ChoseItem
                 android:id="@+id/character_learning"
@@ -45,8 +44,7 @@
             android:layout_height="0dp"
             android:layout_marginTop="20dp"
             android:orientation="horizontal"
-            android:layout_weight="1"
-            android:weightSum="2">
+            android:layout_weight="1">
 
             <ecnu.chinesecharactercottage.modelsForeground.ChoseItem
                 android:id="@+id/review"

@@ -110,14 +110,14 @@ public class CollectionChoseActivity extends Activity{
         mListen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new TestChoseListenDialog(CollectionChoseActivity.this).show();
+                new TestChoseListenDialog(CollectionChoseActivity.this,1).show();
             }
         });
 
         mRead.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new TestChoseReadDialog(CollectionChoseActivity.this).show();
+                new TestChoseReadDialog(CollectionChoseActivity.this,1).show();
 
             }
         });

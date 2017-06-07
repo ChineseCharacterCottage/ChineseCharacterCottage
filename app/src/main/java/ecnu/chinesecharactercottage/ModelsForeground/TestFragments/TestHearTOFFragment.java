@@ -31,6 +31,8 @@ import ecnu.chinesecharactercottage.modelsForeground.MPGetter;
 import ecnu.chinesecharactercottage.modelsForeground.Marker;
 import ecnu.chinesecharactercottage.modelsForeground.NextRunnable;
 import ecnu.chinesecharactercottage.R;
+import ecnu.chinesecharactercottage.modelsForeground.inject.InjectView;
+import ecnu.chinesecharactercottage.modelsForeground.inject.Injecter;
 
 /**
  * Created by 10040 on 2017/3/7.
@@ -38,71 +40,57 @@ import ecnu.chinesecharactercottage.R;
 
 public class TestHearTOFFragment extends Fragment {
     //发音按键
+    @InjectView(id=R.id.pronounce)
     private Button mBtPronunciation;
-    //读音播放器
-    private MediaPlayer mMPPronunciation;
     //图片
+    @InjectView(id=R.id.iv_picture)
     private ImageView mPicture;
     //选择答案布局
+    @InjectView(id=R.id.layout_submit)
     LinearLayout mLayoutSubmit;
     //选择答案按键
+    @InjectView(id=R.id.bt_true)
     Button mBtTrue;
+    @InjectView(id=R.id.bt_false)
     Button mBtFalse;
     //下一个按键
+    @InjectView(id=R.id.bt_next)
     private  Button mBtNext;
     //下一个(函数方法)
     private NextRunnable mNext;
     //错误信息
+    @InjectView(id=R.id.layout_error_msg)
     private  LinearLayout mLayoutErrorMsg;
     //错误内容
+    @InjectView(id=R.id.tv_error_msg)
     private   TextView mTvErrorMsg;
     //查看字按键
+    @InjectView(id=R.id.bt_show_character)
     private   Button mBtShowChar;
     //当前题目
     private TestHearTOFItem mNowTest;
-
-    //收藏情况
-    private Boolean mIsMark;
-    //数据管理器
-    private DataManager mDataManager;
     //收藏按键
+    @InjectView(id=R.id.mark)
     private Button mMark;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_test_hear_tof,container,false);
-        init(view);
+        Injecter.autoInjectAllField(this,view);
+        init();
         //设置按钮的监听器
         initButtons();
         return view;
     }
 
-    private void init(View view){
-        mBtPronunciation=(Button) view.findViewById(R.id.pronounce);
+    private void init(){
         mBtPronunciation.setEnabled(false);
-        mPicture=(ImageView) view.findViewById(R.id.iv_picture);
-        mLayoutSubmit =(LinearLayout) view.findViewById(R.id.layout_submit);
-        mBtTrue=(Button)view.findViewById(R.id.bt_true);
-        mBtFalse=(Button)view.findViewById(R.id.bt_false);
         mBtTrue.setEnabled(false);
         mBtFalse.setEnabled(false);
-        mBtNext=(Button)view.findViewById(R.id.bt_next);
-        mLayoutErrorMsg=(LinearLayout)view.findViewById(R.id.layout_error_msg);
         mLayoutErrorMsg.setVisibility(View.GONE);
-        mTvErrorMsg=(TextView)view.findViewById(R.id.tv_error_msg);
-        mBtShowChar=(Button)view.findViewById(R.id.bt_show_character);
-
-        mDataManager=DataManager.getInstance(getActivity());
-        mMark=(Button)view.findViewById(R.id.mark);
     }
 
     private void initButtons() {
-        mBtPronunciation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mMPPronunciation.start();
-            }
-        });
 
         View.OnClickListener listener=new View.OnClickListener() {
             @Override

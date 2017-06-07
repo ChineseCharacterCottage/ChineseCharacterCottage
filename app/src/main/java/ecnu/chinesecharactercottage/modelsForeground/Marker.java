@@ -39,10 +39,12 @@ public class Marker {
                 if(mIsMark) {
                     mDataManager.removeCollection(charItem);
                     mark.setBackgroundResource(R.drawable.star);
+                    Toast.makeText(mContext,"Remove from Collection!",Toast.LENGTH_SHORT).show();
                 }
                 else {
                     mDataManager.putIntoCollection(charItem);
                     mark.setBackgroundResource(R.drawable.star_marked);
+                    Toast.makeText(mContext,"Add to Collection!",Toast.LENGTH_SHORT).show();
                 }
                 mIsMark=!mIsMark;
             }
@@ -62,12 +64,12 @@ public class Marker {
                 if(mIsMark) {
                     mDataManager.removeCollection(testItem);
                     mark.setBackgroundResource(R.drawable.star);
-                    Toast.makeText(mContext,"Add to Collection!",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext,"Remove from Collection!",Toast.LENGTH_SHORT).show();
                 }
                 else {
                     mDataManager.putIntoCollection(testItem);
                     mark.setBackgroundResource(R.drawable.star_marked);
-                    Toast.makeText(mContext,"Remove from Collection!",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext,"Add to Collection!",Toast.LENGTH_SHORT).show();
                 }
                 mIsMark=!mIsMark;
             }

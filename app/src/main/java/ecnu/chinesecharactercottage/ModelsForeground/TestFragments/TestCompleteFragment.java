@@ -16,6 +16,8 @@ import ecnu.chinesecharactercottage.ModelsBackground.TestFillItem;
 import ecnu.chinesecharactercottage.modelsForeground.Marker;
 import ecnu.chinesecharactercottage.modelsForeground.NextRunnable;
 import ecnu.chinesecharactercottage.R;
+import ecnu.chinesecharactercottage.modelsForeground.inject.InjectView;
+import ecnu.chinesecharactercottage.modelsForeground.inject.Injecter;
 
 /**
  * Created by 10040 on 2017/3/7.
@@ -31,28 +33,29 @@ public class TestCompleteFragment extends Fragment {
     //选择的答案
     private Spinner[] mChosenAnswers;
     //确定按键
+    @InjectView(id=R.id.bt_submit)
     private Button mBtSubmit;
     //下一个按键
+    @InjectView(id=R.id.bt_next)
     private Button mBtNext;
     //下一个(函数方法)
     private NextRunnable mNext;
     //错误信息
+    @InjectView(id=R.id.layout_error_msg)
     private LinearLayout mLayoutErrorMsg;
     //错误内容
+    @InjectView(id=R.id.tv_error_msg)
     private TextView mTvErrorMsg;
     //当前题目
     private TestFillItem mNowTest;
-
-    //收藏情况
-    private Boolean mIsMark;
-    //数据管理器
-    private DataManager mDataManager;
     //收藏按键
+    @InjectView(id=R.id.mark)
     private Button mMark;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_test_complete,container,false);
+        Injecter.autoInjectAllField(this,view);
         init(view);
         //设置按钮的监听器
         initButtons();
@@ -78,16 +81,9 @@ public class TestCompleteFragment extends Fragment {
         mChosenAnswers[2]=(Spinner) view.findViewById(R.id.spinner_3);
         mChosenAnswers[3]=(Spinner) view.findViewById(R.id.spinner_4);
         mChosenAnswers[4]=(Spinner) view.findViewById(R.id.spinner_5);
-        mBtSubmit =(Button) view.findViewById(R.id.bt_submit);
         mBtSubmit.setEnabled(false);
-        mBtNext=(Button)view.findViewById(R.id.bt_next);
-        mLayoutErrorMsg=(LinearLayout)view.findViewById(R.id.layout_error_msg);
         mLayoutErrorMsg.setVisibility(View.GONE);
-        mTvErrorMsg=(TextView)view.findViewById(R.id.tv_error_msg);
 
-
-        mDataManager=DataManager.getInstance(getActivity());
-        mMark=(Button)view.findViewById(R.id.mark);
     }
 
     private void initButtons() {

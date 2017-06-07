@@ -31,6 +31,8 @@ import ecnu.chinesecharactercottage.modelsForeground.MPGetter;
 import ecnu.chinesecharactercottage.modelsForeground.Marker;
 import ecnu.chinesecharactercottage.modelsForeground.NextRunnable;
 import ecnu.chinesecharactercottage.R;
+import ecnu.chinesecharactercottage.modelsForeground.inject.InjectView;
+import ecnu.chinesecharactercottage.modelsForeground.inject.Injecter;
 
 /**
  * Created by 10040 on 2017/3/7.
@@ -38,72 +40,63 @@ import ecnu.chinesecharactercottage.R;
 
 public class TestHearMatchFragment extends Fragment {
     //发音按键
+    @InjectView(id=R.id.pronounce)
     private Button mBtPronunciation;
-    //读音播放器
-    private MediaPlayer mMPPronunciation;
     //图片1
+    @InjectView(id=R.id.iv_picture_1)
     private ImageView mPicture1;
     //图片2
+    @InjectView(id=R.id.iv_picture_2)
     private ImageView mPicture2;
     //图片3
+    @InjectView(id=R.id.iv_picture_3)
     private ImageView mPicture3;
     //图片4
+    @InjectView(id=R.id.iv_picture_4)
     private ImageView mPicture4;
     //选择的答案
+    @InjectView(id=R.id.answer_chose)
     private RadioGroup mChosenAnswer;
     //确定按键
+    @InjectView(id=R.id.bt_submit)
     private Button mBtSubmit;
     //下一个按键
+    @InjectView(id=R.id.bt_next)
     private  Button mBtNext;
     //下一个(函数方法)
     private NextRunnable mNext;
     //错误信息
+    @InjectView(id=R.id.layout_error_msg)
     private LinearLayout mLayoutErrorMsg;
     //错误内容
+    @InjectView(id=R.id.tv_error_msg)
     private TextView mTvErrorMsg;
     //查看字按键
+    @InjectView(id=R.id.bt_show_character)
     private   Button mBtShowChar;
     //当前题目
     private TestHearChoiceItem mNowTest;
-
     //收藏按键
+    @InjectView(id=R.id.mark)
     private Button mMark;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_test_hear_match,container,false);
-        init(view);
+        Injecter.autoInjectAllField(this,view);
+        init();
         //设置按钮的监听器
         initButtons();
         return view;
     }
 
-    private void init(View view){
-        mBtPronunciation=(Button) view.findViewById(R.id.pronounce);
+    private void init(){
         mBtPronunciation.setEnabled(false);
-        mPicture1=(ImageView) view.findViewById(R.id.iv_picture_1);
-        mPicture2=(ImageView) view.findViewById(R.id.iv_picture_2);
-        mPicture3=(ImageView) view.findViewById(R.id.iv_picture_3);
-        mPicture4=(ImageView) view.findViewById(R.id.iv_picture_4);
-        mChosenAnswer=(RadioGroup) view.findViewById(R.id.answer_chose);
-        mBtSubmit =(Button) view.findViewById(R.id.bt_submit);
         mBtSubmit.setEnabled(false);
-        mBtNext=(Button)view.findViewById(R.id.bt_next);
-        mLayoutErrorMsg=(LinearLayout)view.findViewById(R.id.layout_error_msg);
         mLayoutErrorMsg.setVisibility(View.GONE);
-        mTvErrorMsg=(TextView)view.findViewById(R.id.tv_error_msg);
-        mBtShowChar=(Button)view.findViewById(R.id.bt_show_character);
-
-        mMark=(Button)view.findViewById(R.id.mark);
     }
 
     private void initButtons() {
-        mBtPronunciation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mMPPronunciation.start();
-            }
-        });
 
         mBtSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -137,6 +130,8 @@ public class TestHearMatchFragment extends Fragment {
                     mBtShowChar.setVisibility(View.GONE);
                     //调用回答正确函数
                     mNext.next();
+                    //清空选项
+                    mChosenAnswer.clearCheck();
 
                 }else{
                     //回答错误时
@@ -167,6 +162,8 @@ public class TestHearMatchFragment extends Fragment {
                 mBtShowChar.setVisibility(View.GONE);
                 //调用回答正确函数
                 mNext.next();
+                //清空选项
+                mChosenAnswer.clearCheck();
             }
         });
         mBtNext.setVisibility(View.GONE);

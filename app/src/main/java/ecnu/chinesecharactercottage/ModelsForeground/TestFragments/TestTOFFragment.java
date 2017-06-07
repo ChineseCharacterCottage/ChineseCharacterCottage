@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -25,6 +26,8 @@ import ecnu.chinesecharactercottage.modelsForeground.ImageGetter;
 import ecnu.chinesecharactercottage.modelsForeground.Marker;
 import ecnu.chinesecharactercottage.modelsForeground.NextRunnable;
 import ecnu.chinesecharactercottage.R;
+import ecnu.chinesecharactercottage.modelsForeground.inject.InjectView;
+import ecnu.chinesecharactercottage.modelsForeground.inject.Injecter;
 
 /**
  * Created by 10040 on 2017/3/4.
@@ -32,60 +35,57 @@ import ecnu.chinesecharactercottage.R;
 
 public class TestTOFFragment extends Fragment {
     //字形
+    @InjectView(id=R.id.tv_character)
     TextView mCharacter;
     //图片
+    @InjectView(id=R.id.iv_picture)
     ImageView mPicture;
     //选择答案布局
+    @InjectView(id=R.id.layout_submit)
     LinearLayout mLayoutSubmit;
     //选择答案按键
+    @InjectView(id=R.id.bt_true)
     Button mBtTrue;
+    @InjectView(id=R.id.bt_false)
     Button mBtFalse;
     //下一个按键
+    @InjectView(id=R.id.bt_next)
     Button mBtNext;
     //下一个(函数方法)
     NextRunnable mNext;
     //错误信息
+    @InjectView(id=R.id.layout_error_msg)
     LinearLayout mLayoutErrorMsg;
     //错误内容
+    @InjectView(id=R.id.tv_error_msg)
     TextView mTvErrorMsg;
     //查看字按键
+    @InjectView(id=R.id.bt_show_character)
     Button mBtShowChar;
     //当前题目
     TestTOFItem mNowTest;
 
-    //收藏情况
-    private Boolean mIsMark;
-    //数据管理器
-    private DataManager mDataManager;
     //收藏按键
+    @InjectView(id=R.id.mark)
     private Button mMark;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_test_tof,container,false);
-        init(view);
+        Injecter.autoInjectAllField(this,view);
+        init();
+
         //设置按钮的监听器
         initButtons();
         return view;
     }
 
-    private void init(View view){
-        mCharacter=(TextView)view.findViewById(R.id.tv_character);
-        mPicture=(ImageView) view.findViewById(R.id.iv_picture);
-        mLayoutSubmit =(LinearLayout) view.findViewById(R.id.layout_submit);
-        mBtTrue=(Button)view.findViewById(R.id.bt_true);
-        mBtFalse=(Button)view.findViewById(R.id.bt_false);
+    private void init(){
         mBtTrue.setEnabled(false);
         mBtFalse.setEnabled(false);
-
-        mBtNext=(Button)view.findViewById(R.id.bt_next);
-        mLayoutErrorMsg=(LinearLayout)view.findViewById(R.id.layout_error_msg);
-        mTvErrorMsg=(TextView)view.findViewById(R.id.tv_error_msg);
         mLayoutErrorMsg.setVisibility(View.GONE);
-        mBtShowChar=(Button)view.findViewById(R.id.bt_show_character);
-
-        mDataManager=DataManager.getInstance(getActivity());
-        mMark=(Button)view.findViewById(R.id.mark);
+        Typeface face = Typeface.createFromAsset(getActivity().getAssets(),"font/1.ttf");
+        mCharacter.setTypeface(face);
     }
 
     private void initButtons() {
