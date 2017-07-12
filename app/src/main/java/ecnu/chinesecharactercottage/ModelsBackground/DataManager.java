@@ -287,6 +287,28 @@ public final class DataManager extends SQLiteOpenHelper{
         db.insert("test_"+type,null,values);
         db.close();
     }
+    public ComponentItem getComponentByOrder(int order){
+        PhalApiClientResponse response = PhalApiClient.create()
+                .withHost(HOST)
+                .withService("Component.GetComponentInfoByOrder")
+                .withTimeout(500)
+                .withParams("order",String.valueOf(order))
+                .request();
+        if(response.getRet()==200){
+            try{
+                JSONObject json=new JSONObject(response.getData());
+                ComponentItem item=new ComponentItem(json.getString("shape"),
+                        json.getString("characters").split("/"),
+                        json.getString("explanation"),
+                        json.getString("voice_or_shape"),
+                        json.getString("ID"));
+                return item;
+            }catch (JSONException e){
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
     public ComponentItem getComponentById(String id){
         PhalApiClientResponse response = PhalApiClient.create()
                 .withHost(HOST)
