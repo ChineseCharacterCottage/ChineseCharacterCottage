@@ -3,12 +3,11 @@ package ecnu.chinesecharactercottage.modelsForeground;
 import android.content.Context;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.Toast;
 
-import ecnu.chinesecharactercottage.ModelsBackground.CharItem;
-import ecnu.chinesecharactercottage.ModelsBackground.DataManager;
-import ecnu.chinesecharactercottage.ModelsBackground.TestItem;
+import ecnu.chinesecharactercottage.modelsBackground.CharItem;
+import ecnu.chinesecharactercottage.modelsBackground.DataManager;
+import ecnu.chinesecharactercottage.modelsBackground.TestItem;
 import ecnu.chinesecharactercottage.R;
 
 /**

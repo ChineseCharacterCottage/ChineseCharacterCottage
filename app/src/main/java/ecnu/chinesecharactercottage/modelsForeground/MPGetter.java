@@ -5,10 +5,8 @@ import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.view.View;
 
-import java.io.IOException;
-
-import ecnu.chinesecharactercottage.ModelsBackground.Readable;
-import ecnu.chinesecharactercottage.ModelsBackground.SoundGetter;
+import ecnu.chinesecharactercottage.modelsBackground.Readable;
+import ecnu.chinesecharactercottage.modelsBackground.SoundGetter;
 
 /**
  * Created by 10040 on 2017/5/3.

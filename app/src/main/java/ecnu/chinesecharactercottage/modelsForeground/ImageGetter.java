@@ -5,8 +5,7 @@ import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.widget.ImageView;
 
-import ecnu.chinesecharactercottage.ModelsBackground.PictureGetter;
-import ecnu.chinesecharactercottage.ModelsBackground.Readable;
+import ecnu.chinesecharactercottage.modelsBackground.PictureGetter;
 
 /**
  * Created by 10040 on 2017/5/3.
