@@ -93,6 +93,14 @@ public class CharsTestFragment extends BaseFragment {
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if(savedInstanceState!=null){
+            mCharacters=savedInstanceState.getStringArray(CHARACTERS);
+        }
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_ml_chars_test,container,false);
         Injecter.autoInjectAllField(this,view);
@@ -115,6 +123,9 @@ public class CharsTestFragment extends BaseFragment {
                 DataManager dataManager=DataManager.getInstance(getActivity());
                 //这里需要一个根据字形获取选择题的接口
                 mTestCharItems=new TestHearChoiceItem[mCharacters.length];
+                for(int i=0;i<mCharacters.length;i++){
+                    mTestCharItems[i]=dataManager.getTestByCharShape(mCharacters[i]);
+                }
                 return null;
             }
 

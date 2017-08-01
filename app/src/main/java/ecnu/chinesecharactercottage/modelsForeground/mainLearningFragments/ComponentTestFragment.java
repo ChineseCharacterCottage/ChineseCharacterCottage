@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import ecnu.chinesecharactercottage.activitys.character.ExampleActivity;
 import ecnu.chinesecharactercottage.modelsBackground.CharItem;
 import ecnu.chinesecharactercottage.modelsBackground.ComponentItem;
 import ecnu.chinesecharactercottage.modelsBackground.DataManager;
+import ecnu.chinesecharactercottage.modelsBackground.TestComponentItem;
 import ecnu.chinesecharactercottage.modelsBackground.TestHearChoiceItem;
 import ecnu.chinesecharactercottage.modelsBackground.TestItem;
 import ecnu.chinesecharactercottage.modelsForeground.ComponentDialog;
@@ -72,6 +74,14 @@ public class ComponentTestFragment extends BaseFragment {
     @InjectView(id=R.id.mark)
     private Button mMark;
 
+    //相关数据：
+    //部件id：
+    private String mId;
+    //当前测试部件题目
+    private TestComponentItem mNowTest;
+    //测试题对应部件
+    private ComponentItem mComponentItem;
+
     static public ComponentTestFragment getFragment(BaseFragment.FinishRunnable finishRunnable,String id){
         Bundle bundle=new Bundle();
         bundle.putString(ID,id);
@@ -80,6 +90,14 @@ public class ComponentTestFragment extends BaseFragment {
         fragment.setFinishRunnable(finishRunnable);
 
         return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if(savedInstanceState!=null){
+            mId=savedInstanceState.getString(ID);
+        }
     }
 
     @Override
@@ -103,20 +121,24 @@ public class ComponentTestFragment extends BaseFragment {
             protected Object doInBackground(Object... params){
                 DataManager dataManager=DataManager.getInstance(getActivity());
                 //这里需要一个根据id获取部件选择题的接口,获取数据后直接返回
+                mNowTest=dataManager.getTestComponentItemByCompId(mId);
+                if(mNowTest!=null){
+                    mComponentItem=dataManager.getComponentById();
+                }
                 return null;
             }
 
             @Override
             protected void onPostExecute(Object o) {
-                if(o!=null){
+                if(mNowTest!=null){
                     //这里设置题目
-                    mTvFigure.setText();
-                    mExplanation1.setText();
-                    mExplanation2.setText();
-                    mExplanation3.setText();
-                    mExplanation4.setText();
+                    mTvFigure.setText(mNowTest.);
+                    mExplanation1.setText(mNowTest);
+                    mExplanation2.setText(mNowTest);
+                    mExplanation3.setText(mNowTest);
+                    mExplanation4.setText(mNowTest);
                     mBtSubmit.setEnabled(true);
-                    new Marker(getActivity()).setMark(mMark,(TestItem)o);//类型转换要在前面做好
+                    //new Marker(getActivity()).setMark(mMark,mNowTest);//类型转换要在前面做好
                 }else
                     finish();
             }
@@ -192,7 +214,7 @@ public class ComponentTestFragment extends BaseFragment {
                         ComponentDialog.startDialog(getActivity(),componentItem,componentItem.getModel());
                     }
                 };
-                task.execute(getActivity(),mNowTest.getRelationCharacterId());
+                task.execute(getActivity(),mNowTest.);
             }
         });
         mBtShowComponent.setVisibility(View.GONE);
