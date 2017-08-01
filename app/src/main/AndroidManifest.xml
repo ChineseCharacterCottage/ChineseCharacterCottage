@@ -30,6 +30,8 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".testactivity.TestActivity"/>
+
         <activity android:name=".activitys.CCCMainActivity"/>
 
         <activity android:name=".activitys.knowledge.TitleListActivity"/>
