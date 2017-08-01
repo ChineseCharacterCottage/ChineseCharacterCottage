@@ -111,7 +111,7 @@ public class ComponentDialog extends DialogFragment {
                         @Override
                         protected CharItem doInBackground(Object[] params) {
                             DataManager dataManager=DataManager.getInstance(getActivity());
-                            CharItem exampleItem=dataManager.getCharItemByShape(Uri.encode((String)params[0]));
+                            CharItem exampleItem=dataManager.getCharItemByShape((String)params[0]);
                             if(sModel==ComponentItem.VOICE && exampleItem!=null)
                                 mMediaPlayer= new SoundGetter(getActivity()).getMediaPlayer(exampleItem);
                             return exampleItem;

@@ -20,14 +20,6 @@ import ecnu.chinesecharactercottage.modelsForeground.inject.Injecter;
  */
 
 public class BeginLearningFragment extends BaseFragment {
-    //数据存取键值
-    static final private String COMPONENT_FIGURE="component_figure";
-    static final private String COMPONENT_MEANING="component_meaning";
-    //部件数据:
-    //部件字形
-    private String mComponentFigure;
-    //部件意思
-    private String mComponentMeaning;
 
     //显示控件：
     //部件字形
@@ -40,27 +32,6 @@ public class BeginLearningFragment extends BaseFragment {
     @InjectView(id=R.id.bt_begin)
     private Button mBtBegin;
 
-    static public BeginLearningFragment getFragment(BaseFragment.FinishRunnable finishRunnable,ComponentItem componentItem){
-        Bundle bundle=new Bundle();
-        bundle.putString(COMPONENT_FIGURE,componentItem.getShape());
-        bundle.putString(COMPONENT_MEANING,componentItem.getExplanation());
-        BeginLearningFragment fragment=new BeginLearningFragment();
-        fragment.setArguments(bundle);
-        fragment.setFinishRunnable(finishRunnable);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if(savedInstanceState!=null){
-            mComponentFigure=savedInstanceState.getString(COMPONENT_FIGURE);
-            mComponentMeaning=savedInstanceState.getString(COMPONENT_MEANING);
-        }
-
-    }
-
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -69,16 +40,18 @@ public class BeginLearningFragment extends BaseFragment {
 
         Typeface face = Typeface.createFromAsset(getActivity().getAssets(),"font/1.ttf");
         mTvComponentFigure.setTypeface(face);
-        mTvComponentFigure.setText(mComponentFigure);
-        mTvComponentMeaning.setText(mComponentMeaning);
         mBtBegin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
-
         return view;
+    }
+
+    public void setComponent(ComponentItem componentItem){
+        mTvComponentFigure.setText(componentItem.getShape());
+        mTvComponentMeaning.setText(componentItem.getExplanation());
     }
 
 }

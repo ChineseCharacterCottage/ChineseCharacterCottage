@@ -75,53 +75,34 @@ public class ComponentTestFragment extends BaseFragment {
     private Button mMark;
 
     //相关数据：
-    //部件id：
-    private String mId;
     //当前测试部件题目
     private TestComponentItem mNowTest;
     //测试题对应部件
     private ComponentItem mComponentItem;
 
-    static public ComponentTestFragment getFragment(BaseFragment.FinishRunnable finishRunnable,String id){
-        Bundle bundle=new Bundle();
-        bundle.putString(ID,id);
-        ComponentTestFragment fragment=new ComponentTestFragment();
-        fragment.setArguments(bundle);
-        fragment.setFinishRunnable(finishRunnable);
-
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if(savedInstanceState!=null){
-            mId=savedInstanceState.getString(ID);
-        }
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.fragment_ml_chars_test,container,false);
+        View view=inflater.inflate(R.layout.fragment_ml_component_test,container,false);
         Injecter.autoInjectAllField(this,view);
-        init();
+        mTvFigure.setTypeface(Typeface.createFromAsset(getActivity().getAssets(),"font/1.ttf"));
         //设置按钮的监听器
         initButtons();
         return view;
     }
 
-    private void init(){
-        mTvFigure.setTypeface(Typeface.createFromAsset(getActivity().getAssets(),"font/1.ttf"));
+    public void setTest(final String id){
         mBtSubmit.setEnabled(false);
         mLayoutErrorMsg.setVisibility(View.GONE);
+        mBtNext.setVisibility(View.GONE);
+        mBtShowComponent.setVisibility(View.GONE);
+        mBtSubmit.setVisibility(View.VISIBLE);
 
         //获取数据
         AsyncTask task=new AsyncTask() {
             @Override
             protected Object doInBackground(Object... params){
                 DataManager dataManager=DataManager.getInstance(getActivity());
-                //这里需要一个根据id获取部件选择题的接口,获取数据后直接返回
-                mNowTest=dataManager.getTestComponentItemByCompId(mId);
+                mNowTest=dataManager.getTestComponentItemByCompId(id);
                 if(mNowTest!=null){
                     mComponentItem=dataManager.getComponentById(mNowTest.getCompId());
                 }
@@ -196,7 +177,12 @@ public class ComponentTestFragment extends BaseFragment {
             }
         });
 
-        mBtNext.setVisibility(View.GONE);
+        mBtNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         mBtShowComponent.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -204,6 +190,5 @@ public class ComponentTestFragment extends BaseFragment {
                 ComponentDialog.startDialog(getActivity(),mComponentItem,mComponentItem.getModel());
             }
         });
-        mBtShowComponent.setVisibility(View.GONE);
     }
 }

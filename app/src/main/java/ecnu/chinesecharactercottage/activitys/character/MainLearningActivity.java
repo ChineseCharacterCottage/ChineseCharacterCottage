@@ -1,6 +1,7 @@
 package ecnu.chinesecharactercottage.activitys.character;
 
 import android.app.Activity;
+import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
@@ -27,6 +28,11 @@ public class MainLearningActivity extends Activity {
     LearningOrderManager mLearningOrderManager;
     //数据管理器
     DataManager mDataManager;
+    //4个fragment
+    BeginLearningFragment mBeginLearningFragment;
+    CharsLearningFragment mCharsLearningFragment;
+    ComponentTestFragment mComponentTestFragment;
+    CharsTestFragment mCharsTestFragment;
 
     //当前学习编号
     int mOrder;
@@ -46,6 +52,43 @@ public class MainLearningActivity extends Activity {
 
         mLearningOrderManager=LearningOrderManager.getManager(this);
         mDataManager=DataManager.getInstance(this);
+        FragmentManager fm=getFragmentManager();
+        mBeginLearningFragment=(BeginLearningFragment)fm.findFragmentById(R.id.ml_begin_fragment);
+        mCharsLearningFragment=(CharsLearningFragment) fm.findFragmentById(R.id.ml_char_learning_fragment);
+        mComponentTestFragment=(ComponentTestFragment) fm.findFragmentById(R.id.ml_component_test_fragment);
+        mCharsTestFragment=(CharsTestFragment) fm.findFragmentById(R.id.ml_char_test_fragment);
+        mBeginLearningFragment.setFinishRunnable(new BaseFragment.FinishRunnable() {
+            @Override
+            public void onFinish() {
+                charsLearning();
+            }
+        });
+        mCharsLearningFragment.setFinishRunnable(new BaseFragment.FinishRunnable() {
+            @Override
+            public void onFinish() {
+                componentTest();
+            }
+        });
+        mComponentTestFragment.setFinishRunnable(new BaseFragment.FinishRunnable() {
+            @Override
+            public void onFinish() {
+                charsTest();
+            }
+        });
+        mCharsTestFragment.setFinishRunnable(new BaseFragment.FinishRunnable() {
+            @Override
+            public void onFinish() {
+                mOrder++;
+                mLearningOrderManager.saveOrder(ORDER_KEY,mOrder);
+                beginLearning();
+            }
+        });
+        FragmentTransaction ft=fm.beginTransaction();
+        ft.hide(mBeginLearningFragment);
+        ft.hide(mCharsLearningFragment);
+        ft.hide(mComponentTestFragment);
+        ft.hide(mCharsTestFragment);
+        ft.commit();
 
 
         //获取上次的学习顺序
@@ -65,19 +108,16 @@ public class MainLearningActivity extends Activity {
             @Override
             protected void onPostExecute(Object o) {
                 if(mComponentItem!=null){
-                    BeginLearningFragment beginLearningFragment=BeginLearningFragment.getFragment(new BaseFragment.FinishRunnable() {
-                        @Override
-                        public void onFinish() {
-                            charsLearning();
-                        }
-                    }, mComponentItem);
+                    mBeginLearningFragment.setComponent(mComponentItem);
                     FragmentTransaction ft=getFragmentManager().beginTransaction();
-                    ft.replace(R.id.learning_fragment,beginLearningFragment);
+                    ft.hide(mCharsTestFragment);
+                    ft.show(mBeginLearningFragment);
                     ft.commit();
                 }else {
                     mOrder=1;
+                    mLearningOrderManager.saveOrder(ORDER_KEY,mOrder);
+                    finish();
                 }
-                mLearningOrderManager.saveOrder(ORDER_KEY,mOrder);
             }
         };
         task.execute();
@@ -86,54 +126,33 @@ public class MainLearningActivity extends Activity {
     private void charsLearning(){
         String[] characters=mComponentItem.getCharacters();
         if(characters!=null){
-            CharsLearningFragment charsLearningFragment=CharsLearningFragment.getFragment(new BaseFragment.FinishRunnable() {
-                @Override
-                public void onFinish() {
-                    componentTest();
-                }
-            },characters);
             FragmentTransaction ft=getFragmentManager().beginTransaction();
-            ft.replace(R.id.learning_fragment,charsLearningFragment);
+            ft.hide(mBeginLearningFragment);
+            ft.show(mCharsLearningFragment);
             ft.commit();
+            mCharsLearningFragment.setCharacters(characters);
         }
     }
 
     private void componentTest(){
-        Toast.makeText(this,"部件测试",Toast.LENGTH_SHORT).show();
-
         String id=mComponentItem.getGlobalId();
         if(!"".equals(id)){
-            ComponentTestFragment componentTestFragment=ComponentTestFragment.getFragment(new BaseFragment.FinishRunnable() {
-                @Override
-                public void onFinish() {
-                    mOrder++;
-                    charsTest();
-                }
-            },id);
             FragmentTransaction ft=getFragmentManager().beginTransaction();
-            ft.replace(R.id.learning_fragment,componentTestFragment);
+            ft.hide(mCharsLearningFragment);
+            ft.show(mComponentTestFragment);
             ft.commit();
+            mComponentTestFragment.setTest(id);
         }
     }
 
     private void charsTest(){
-        Toast.makeText(this,"例字测试",Toast.LENGTH_SHORT).show();
-
         String[] characters=mComponentItem.getCharacters();
         if(characters!=null){
-            CharsTestFragment charsTestFragment=CharsTestFragment.getFragment(new BaseFragment.FinishRunnable() {
-                @Override
-                public void onFinish() {
-                    mOrder++;
-                    beginLearning();
-                }
-            },characters);
             FragmentTransaction ft=getFragmentManager().beginTransaction();
-            ft.replace(R.id.learning_fragment,charsTestFragment);
+            ft.hide(mComponentTestFragment);
+            ft.show(mCharsTestFragment);
             ft.commit();
+            mCharsTestFragment.setTests(mComponentItem.getCharacters());
         }
-
     }
-
-
 }

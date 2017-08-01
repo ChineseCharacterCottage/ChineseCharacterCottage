@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
@@ -275,7 +276,7 @@ public final class DataManager extends SQLiteOpenHelper{
                 .withHost(HOST)
                 .withService("Character.GetShapeId")
                 .withTimeout(500)
-                .withParams("shape",shape)
+                .withParams("shape", Uri.encode(shape))
                 .request();
         if(response.getRet()==200){
             return getCharItemById(Integer.parseInt(response.getData()));
@@ -428,7 +429,7 @@ public final class DataManager extends SQLiteOpenHelper{
         PhalApiClientResponse response=PhalApiClient.create()
                 .withHost(HOST)
                 .withService("TestItem.GetTestByCharShape")
-                .withParams("shape",shape)
+                .withParams("shape",Uri.encode(shape))
                 .withTimeout(500)
                 .request();
         try {
