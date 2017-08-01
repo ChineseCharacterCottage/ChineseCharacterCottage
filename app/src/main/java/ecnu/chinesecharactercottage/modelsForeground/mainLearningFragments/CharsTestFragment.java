@@ -77,41 +77,21 @@ public class CharsTestFragment extends BaseFragment {
     private TestHearChoiceItem mNowTest;
     //当前题目索引
     int mNowIndex;
-    //测试例字字形列表
-    String[] mCharacters;
     //测试例字题目列表
     TestHearChoiceItem[] mTestCharItems;
-
-    static public CharsTestFragment getFragment(BaseFragment.FinishRunnable finishRunnable,String[] characters){
-        Bundle bundle=new Bundle();
-        bundle.putStringArray(CHARACTERS,characters);
-        CharsTestFragment fragment=new CharsTestFragment();
-        fragment.setArguments(bundle);
-        fragment.setFinishRunnable(finishRunnable);
-
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if(savedInstanceState!=null){
-            mCharacters=savedInstanceState.getStringArray(CHARACTERS);
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_ml_chars_test,container,false);
         Injecter.autoInjectAllField(this,view);
-        init();
+
+        mTvFigure.setTypeface(Typeface.createFromAsset(getActivity().getAssets(),"font/1.ttf"));
         //设置按钮的监听器
         initButtons();
         return view;
     }
 
-    private void init(){
-        mTvFigure.setTypeface(Typeface.createFromAsset(getActivity().getAssets(),"font/1.ttf"));
+    public void setTests(final String[] characters){
         mBtSubmit.setEnabled(false);
         mLayoutErrorMsg.setVisibility(View.GONE);
         mNowIndex=0;
@@ -122,9 +102,9 @@ public class CharsTestFragment extends BaseFragment {
             protected Object doInBackground(Object... params){
                 DataManager dataManager=DataManager.getInstance(getActivity());
                 //这里需要一个根据字形获取选择题的接口
-                mTestCharItems=new TestHearChoiceItem[mCharacters.length];
-                for(int i=0;i<mCharacters.length;i++){
-                    mTestCharItems[i]=dataManager.getTestByCharShape(mCharacters[i]);
+                mTestCharItems=new TestHearChoiceItem[characters.length];
+                for(int i=0;i<characters.length;i++){
+                    mTestCharItems[i]=dataManager.getTestByCharShape(characters[i]);
                 }
                 return null;
             }
@@ -246,7 +226,7 @@ public class CharsTestFragment extends BaseFragment {
         mBtShowChar.setVisibility(View.GONE);
     }
 
-    public void setTest(TestHearChoiceItem testHearChoiceItem){
+    private void setTest(TestHearChoiceItem testHearChoiceItem){
         //设置字形
         //这里看看能不能弄一个接口，不然需要开线程
         CharItem charItem=DataManager.getInstance(getActivity()).getCharItemById(Integer.parseInt(mNowTest.getRelationCharacterId()));

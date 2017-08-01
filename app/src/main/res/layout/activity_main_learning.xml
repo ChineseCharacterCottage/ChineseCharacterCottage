@@ -4,9 +4,26 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
     <fragment
-        android:name="ecnu.chinesecharactercottage.modelsForeground.mainLearningFragments.DefaultFragment"
-        android:id="@+id/learning_fragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:id="@+id/ml_begin_fragment"
+        android:name="ecnu.chinesecharactercottage.modelsForeground.mainLearningFragments.BeginLearningFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
+    <fragment
+        android:id="@+id/ml_char_learning_fragment"
+        android:name="ecnu.chinesecharactercottage.modelsForeground.mainLearningFragments.CharsLearningFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <fragment
+        android:id="@+id/ml_component_test_fragment"
+        android:name="ecnu.chinesecharactercottage.modelsForeground.mainLearningFragments.ComponentTestFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <fragment
+        android:id="@+id/ml_char_test_fragment"
+        android:name="ecnu.chinesecharactercottage.modelsForeground.mainLearningFragments.CharsTestFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 </LinearLayout>

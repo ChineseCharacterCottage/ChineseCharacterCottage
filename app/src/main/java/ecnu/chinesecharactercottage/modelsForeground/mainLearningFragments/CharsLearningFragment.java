@@ -50,33 +50,12 @@ public class CharsLearningFragment extends BaseFragment {
     //字列表
     private String[] mCharacters;
 
-    static public CharsLearningFragment getFragment(BaseFragment.FinishRunnable finishRunnable,String[] characters){
-        Bundle bundle=new Bundle();
-        bundle.putStringArray(CHARACTERS,characters);
-        CharsLearningFragment fragment=new CharsLearningFragment();
-        fragment.setArguments(bundle);
-        fragment.setFinishRunnable(finishRunnable);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if(savedInstanceState!=null){
-            mCharacters=savedInstanceState.getStringArray(CHARACTERS);
-        }
-    }
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_ml_chars_learning,container,false);
-        mCharacterFragment=(CharacterFragment)getFragmentManager().findFragmentById(R.id.character_fragment);
+        mCharacterFragment=(CharacterFragment)getChildFragmentManager().findFragmentById(R.id.character_fragment);
         Injecter.autoInjectAllField(this,view);
-
-        mPosition =0;
-        mTotalNum=mCharacters.length;
-        mProgressBar.setMax(mTotalNum);
 
         mBtNext.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,8 +64,15 @@ public class CharsLearningFragment extends BaseFragment {
                 next();
             }
         });
-        next();
         return view;
+    }
+
+    public void setCharacters(String[] characters){
+        mCharacters=characters;
+        mPosition =0;
+        mTotalNum=mCharacters.length;
+        mProgressBar.setMax(mTotalNum);
+        next();
     }
 
     private void next(){
@@ -109,18 +95,13 @@ public class CharsLearningFragment extends BaseFragment {
                     } else if (mPosition < mTotalNum) {
                         next();
                     } else {
-                        saveData();
+                        finish();
                     }
                 }
             };
             task.execute();
         }else
-            saveData();
-    }
-
-    private void saveData(){
-        Toast.makeText(getActivity(), "Characters learning finish", Toast.LENGTH_SHORT).show();
-        finish();
+            finish();
     }
 
 }

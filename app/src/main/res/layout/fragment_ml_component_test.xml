@@ -12,14 +12,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <Button
-                android:id="@+id/mark"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginStart="30dp"
-                android:layout_gravity="start"
-                android:background="@drawable/star"/>
-
             <FrameLayout
                 android:layout_marginEnd="10dp"
                 android:layout_gravity="end"
