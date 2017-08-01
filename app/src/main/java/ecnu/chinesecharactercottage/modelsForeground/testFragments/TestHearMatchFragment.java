@@ -88,7 +88,6 @@ public class TestHearMatchFragment extends Fragment {
     }
 
     private void initButtons() {
-
         mBtSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

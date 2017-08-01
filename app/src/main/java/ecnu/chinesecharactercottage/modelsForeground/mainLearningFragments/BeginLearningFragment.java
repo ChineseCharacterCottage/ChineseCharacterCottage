@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import ecnu.chinesecharactercottage.ModelsBackground.ComponentItem;
+import ecnu.chinesecharactercottage.modelsBackground.ComponentItem;
 import ecnu.chinesecharactercottage.R;
 import ecnu.chinesecharactercottage.modelsForeground.inject.InjectView;
 import ecnu.chinesecharactercottage.modelsForeground.inject.Injecter;
@@ -20,28 +20,46 @@ import ecnu.chinesecharactercottage.modelsForeground.inject.Injecter;
  */
 
 public class BeginLearningFragment extends BaseFragment {
-    //部件数据
-    private ComponentItem mComponentItem;
+    //数据存取键值
+    static final private String COMPONENT_FIGURE="component_figure";
+    static final private String COMPONENT_MEANING="component_meaning";
+    //部件数据:
+    //部件字形
+    private String mComponentFigure;
+    //部件意思
+    private String mComponentMeaning;
 
     //显示控件：
     //部件字形
     @InjectView(id=R.id.component_figure)
-    private TextView mComponentFigure;
+    private TextView mTvComponentFigure;
     //部件意思
     @InjectView(id=R.id.component_meaning)
-    private TextView mComponentMeaning;
+    private TextView mTvComponentMeaning;
     //开始学习按键
     @InjectView(id=R.id.bt_begin)
     private Button mBtBegin;
 
     static public BeginLearningFragment getFragment(BaseFragment.FinishRunnable finishRunnable,ComponentItem componentItem){
-        return new BeginLearningFragment(finishRunnable,componentItem);
+        Bundle bundle=new Bundle();
+        bundle.putString(COMPONENT_FIGURE,componentItem.getShape());
+        bundle.putString(COMPONENT_MEANING,componentItem.getExplanation());
+        BeginLearningFragment fragment=new BeginLearningFragment();
+        fragment.setArguments(bundle);
+        fragment.setFinishRunnable(finishRunnable);
+        return fragment;
     }
 
-    public BeginLearningFragment(BaseFragment.FinishRunnable finishRunnable,ComponentItem componentItem){
-        super(finishRunnable);
-        mComponentItem=componentItem;
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if(savedInstanceState!=null){
+            mComponentFigure=savedInstanceState.getString(COMPONENT_FIGURE);
+            mComponentMeaning=savedInstanceState.getString(COMPONENT_MEANING);
+        }
+
     }
+
 
     @Nullable
     @Override
@@ -50,14 +68,17 @@ public class BeginLearningFragment extends BaseFragment {
         Injecter.autoInjectAllField(this,view);
 
         Typeface face = Typeface.createFromAsset(getActivity().getAssets(),"font/1.ttf");
-        mComponentFigure.setTypeface(face);
-        mComponentFigure.setText(mComponentItem.getShape());
-        mComponentMeaning.setText(mComponentItem.getExplanation());
+        mTvComponentFigure.setTypeface(face);
+        mTvComponentFigure.setText(mComponentFigure);
+        mTvComponentMeaning.setText(mComponentMeaning);
         mBtBegin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
+
+        return view;
     }
+
 }

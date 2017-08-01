@@ -14,18 +14,12 @@ public class BaseFragment extends Fragment {
     //模块结束动作
     FinishRunnable mFinishRunnable;
 
-    public BaseFragment(){
-        this(new FinishRunnable() {
-            @Override
-            public void onFinish() {}
-        });
-    }
-
-    public BaseFragment(FinishRunnable finishRunnable){
+    public void setFinishRunnable(FinishRunnable finishRunnable){
         mFinishRunnable=finishRunnable;
     }
 
     protected void finish(){
-        mFinishRunnable.onFinish();
+        if(mFinishRunnable!=null)
+            mFinishRunnable.onFinish();
     }
 }

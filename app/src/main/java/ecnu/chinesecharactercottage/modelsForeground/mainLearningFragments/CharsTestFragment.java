@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,13 +18,12 @@ import android.widget.TextView;
 import ecnu.chinesecharactercottage.R;
 import ecnu.chinesecharactercottage.activitys.character.ExampleActivity;
 import ecnu.chinesecharactercottage.modelsBackground.CharItem;
-import ecnu.chinesecharactercottage.modelsBackground.ComponentItem;
 import ecnu.chinesecharactercottage.modelsBackground.DataManager;
 import ecnu.chinesecharactercottage.modelsBackground.TestHearChoiceItem;
-import ecnu.chinesecharactercottage.modelsBackground.TestItem;
-import ecnu.chinesecharactercottage.modelsForeground.ComponentDialog;
 import ecnu.chinesecharactercottage.modelsForeground.ImageGetter;
+import ecnu.chinesecharactercottage.modelsForeground.MPGetter;
 import ecnu.chinesecharactercottage.modelsForeground.Marker;
+import ecnu.chinesecharactercottage.modelsForeground.NextRunnable;
 import ecnu.chinesecharactercottage.modelsForeground.inject.InjectView;
 import ecnu.chinesecharactercottage.modelsForeground.inject.Injecter;
 
@@ -31,25 +31,25 @@ import ecnu.chinesecharactercottage.modelsForeground.inject.Injecter;
  * Created by 10040 on 2017/7/26.
  */
 
-public class ComponentTestFragment extends BaseFragment {
+public class CharsTestFragment extends BaseFragment {
     //数据存取键值
-    static final private String ID ="id";
+    static final private String CHARACTERS="characters";
     //视图控件：
     //字形
     @InjectView(id= R.id.figure)
     private TextView mTvFigure;
-    //选项1
+    //图片1
     @InjectView(id=R.id.iv_picture_1)
-    private TextView mExplanation1;
-    //选项2
+    private ImageView mPicture1;
+    //图片2
     @InjectView(id=R.id.iv_picture_2)
-    private TextView mExplanation2;
-    //选项3
+    private ImageView mPicture2;
+    //图片3
     @InjectView(id=R.id.iv_picture_3)
-    private TextView mExplanation3;
-    //选项4
+    private ImageView mPicture3;
+    //图片4
     @InjectView(id=R.id.iv_picture_4)
-    private TextView mExplanation4;
+    private ImageView mPicture4;
     //选择的答案
     @InjectView(id=R.id.answer_chose)
     private RadioGroup mChosenAnswer;
@@ -65,17 +65,27 @@ public class ComponentTestFragment extends BaseFragment {
     //错误内容
     @InjectView(id=R.id.tv_error_msg)
     private TextView mTvErrorMsg;
-    //查看部件按键
+    //查看字按键
     @InjectView(id=R.id.bt_show_character)
-    private   Button mBtShowComponent;
+    private   Button mBtShowChar;
     //收藏按键
     @InjectView(id=R.id.mark)
     private Button mMark;
 
-    static public ComponentTestFragment getFragment(BaseFragment.FinishRunnable finishRunnable,String id){
+    //数据内容：
+    //当前题目
+    private TestHearChoiceItem mNowTest;
+    //当前题目索引
+    int mNowIndex;
+    //测试例字字形列表
+    String[] mCharacters;
+    //测试例字题目列表
+    TestHearChoiceItem[] mTestCharItems;
+
+    static public CharsTestFragment getFragment(BaseFragment.FinishRunnable finishRunnable,String[] characters){
         Bundle bundle=new Bundle();
-        bundle.putString(ID,id);
-        ComponentTestFragment fragment=new ComponentTestFragment();
+        bundle.putStringArray(CHARACTERS,characters);
+        CharsTestFragment fragment=new CharsTestFragment();
         fragment.setArguments(bundle);
         fragment.setFinishRunnable(finishRunnable);
 
@@ -96,23 +106,22 @@ public class ComponentTestFragment extends BaseFragment {
         mTvFigure.setTypeface(Typeface.createFromAsset(getActivity().getAssets(),"font/1.ttf"));
         mBtSubmit.setEnabled(false);
         mLayoutErrorMsg.setVisibility(View.GONE);
+        mNowIndex=0;
 
         //获取数据
         AsyncTask task=new AsyncTask() {
             @Override
             protected Object doInBackground(Object... params){
                 DataManager dataManager=DataManager.getInstance(getActivity());
-                //这里需要一个根据id获取部件选择题的接口,获取数据后直接返回
+                //这里需要一个根据字形获取选择题的接口
+                mTestCharItems=new TestHearChoiceItem[mCharacters.length];
                 return null;
             }
 
             @Override
             protected void onPostExecute(Object o) {
-                if(o!=null){
-                    //这里设置题目
-
-                    mBtSubmit.setEnabled(true);
-                    new Marker(getActivity()).setMark(mMark,(TestItem)o);//类型转换要在前面做好
+                if(mTestCharItems.length>0) {
+                    next();
                 }else
                     finish();
             }
@@ -120,6 +129,18 @@ public class ComponentTestFragment extends BaseFragment {
         task.execute();
     }
 
+    private void next(){
+        if (mNowIndex < mTestCharItems.length) {
+            if (mTestCharItems[mNowIndex] != null) {
+                setTest(mTestCharItems[mNowIndex]);
+                mNowIndex++;
+            } else {
+                mNowIndex++;
+                next();
+            }
+        } else
+            finish();
+    }
     private void initButtons() {
         mBtSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -149,10 +170,12 @@ public class ComponentTestFragment extends BaseFragment {
                     mLayoutErrorMsg.setVisibility(View.GONE);
                     //隐藏下一个按键
                     mBtNext.setVisibility(View.GONE);
-                    //隐藏查看部件按键
-                    mBtShowComponent.setVisibility(View.GONE);
-                    //回答正确
-                    finish();
+                    //隐藏查看字按键
+                    mBtShowChar.setVisibility(View.GONE);
+                    //调用回答正确函数
+                    next();
+                    //清空选项
+                    mChosenAnswer.clearCheck();
 
                 }else{
                     //回答错误时
@@ -163,34 +186,80 @@ public class ComponentTestFragment extends BaseFragment {
                     //显示下一个按键
                     mBtNext.setVisibility(View.VISIBLE);
                     //显示查看字按键
-                    mBtShowComponent.setVisibility(View.VISIBLE);
+                    mBtShowChar.setVisibility(View.VISIBLE);
                     //设置错误信息
                     mTvErrorMsg.setText(correctAnswer.toUpperCase());
                 }
             }
         });
 
-        mBtNext.setVisibility(View.GONE);
-
-        mBtShowComponent.setOnClickListener(new View.OnClickListener() {
+        mBtNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //要在这里获取对应componentItem
-                AsyncTask task=new AsyncTask<Object,Object,ComponentItem>() {
+                //显示提交按钮
+                mBtSubmit.setVisibility(View.VISIBLE);
+                //隐藏错误信息
+                mLayoutErrorMsg.setVisibility(View.GONE);
+                //隐藏下一个按键
+                mBtNext.setVisibility(View.GONE);
+                //隐藏查看字按键
+                mBtShowChar.setVisibility(View.GONE);
+                //调用回答正确函数
+                next();
+                //清空选项
+                mChosenAnswer.clearCheck();
+            }
+        });
+        mBtNext.setVisibility(View.GONE);
+
+        mBtShowChar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //要在这里获取对应charItem
+                AsyncTask task=new AsyncTask<Object,Object,CharItem>() {
                     @Override
-                    protected ComponentItem doInBackground(Object[] params) {
+                    protected CharItem doInBackground(Object[] params) {
                         DataManager myDM=DataManager.getInstance((Context) params[0]);
-                        return myDM.getComponentById((String)params[1]);
+                        CharItem charItem=myDM.getCharItemById(Integer.valueOf((String)params[1]));
+                        return charItem;
                     }
 
                     @Override
-                    protected void onPostExecute(ComponentItem componentItem) {
-                        ComponentDialog.startDialog(getActivity(),componentItem,componentItem.getModel());
+                    protected void onPostExecute(CharItem charItem) {
+                        ExampleActivity.startActivity(getActivity(),charItem);
                     }
                 };
                 task.execute(getActivity(),mNowTest.getRelationCharacterId());
             }
         });
-        mBtShowComponent.setVisibility(View.GONE);
+        mBtShowChar.setVisibility(View.GONE);
+    }
+
+    public void setTest(TestHearChoiceItem testHearChoiceItem){
+        //设置字形
+        //这里看看能不能弄一个接口，不然需要开线程
+        CharItem charItem=DataManager.getInstance(getActivity()).getCharItemById(Integer.parseInt(mNowTest.getRelationCharacterId()));
+        mTvFigure.setText(charItem.get(CharItem.CHARACTER));
+        mPicture1.setImageResource(R.drawable.imagenotfound);
+        mPicture2.setImageResource(R.drawable.imagenotfound);
+        mPicture3.setImageResource(R.drawable.imagenotfound);
+        mPicture4.setImageResource(R.drawable.imagenotfound);
+
+        if(testHearChoiceItem==null) {
+            next();
+            return;
+        }
+        mBtSubmit.setEnabled(true);
+        mNowTest=testHearChoiceItem;
+
+
+        //设置题目图片
+        Context c=getActivity();
+        new ImageGetter(c,mNowTest.getPictureA(),mPicture1).setImage();
+        new ImageGetter(c,mNowTest.getPictureB(),mPicture2).setImage();
+        new ImageGetter(c,mNowTest.getPictureC(),mPicture3).setImage();
+        new ImageGetter(c,mNowTest.getPictureD(),mPicture4).setImage();
+
+        new Marker(getActivity()).setMark(mMark,mNowTest);
     }
 }
