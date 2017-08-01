@@ -20,6 +20,7 @@ public class TestHearChoiceItem extends TestItem implements Readable {
     private String mPictureB;
     private String mPictureC;
     private String mPictureD;
+    private String mRelationCharacterShape;
     public TestHearChoiceItem(JSONObject json)throws JSONException{
         mId=json.getString("ID");
         mCorrectChoice=json.getString("correct_choice");
@@ -29,11 +30,16 @@ public class TestHearChoiceItem extends TestItem implements Readable {
         mPictureB=json.getString("picture_b");
         mPictureC=json.getString("picture_c");
         mPictureD=json.getString("picture_d");
+        mRelationCharacterShape=json.getString("character_shape");
     }
 
     @Override
     public String getMediaKey() {
         return mPronunciation;
+    }
+
+    public String getRelationCharacterShape() {
+        return mRelationCharacterShape;
     }
 
     public TestHearChoiceItem(Cursor cursor){
@@ -45,6 +51,7 @@ public class TestHearChoiceItem extends TestItem implements Readable {
         mPictureB=cursor.getString(cursor.getColumnIndex("picture_b"));
         mPictureC=cursor.getString(cursor.getColumnIndex("picture_c"));
         mPictureD=cursor.getString(cursor.getColumnIndex("picture_d"));
+        mRelationCharacterShape = cursor.getString(cursor.getColumnIndex("character_shape"));
     }
     @Override
     public ContentValues toContentValue(){
@@ -57,6 +64,7 @@ public class TestHearChoiceItem extends TestItem implements Readable {
         values.put("picture_b",mPictureB);
         values.put("picture_c",mPictureC);
         values.put("picture_d",mPictureD);
+        values.put("character_shape",mRelationCharacterShape);
         return values;
     }
     public String getCorrectChoice() {

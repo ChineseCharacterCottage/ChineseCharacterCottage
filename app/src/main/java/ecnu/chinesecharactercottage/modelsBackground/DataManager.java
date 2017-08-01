@@ -26,7 +26,7 @@ import java.util.Locale;
 
 public final class DataManager extends SQLiteOpenHelper{
     private static final String LOCAL_DATABASE="local_character.db";
-    private static final int VERSION=3;//数据库的版本，如果数据要更新，改成更大的数字
+    private static final int VERSION=4;//数据库的版本，如果数据要更新，改成更大的数字
     private static final String HOST="http://115.159.147.198/hzw/PhalApi/public/hzw/";
     private static DataManager sManager=null;
 
@@ -213,6 +213,7 @@ public final class DataManager extends SQLiteOpenHelper{
     public static final String HEAR_TOF="hear_tof";
     public static final String FILL="fill";
     public static final String HEAR_CHOICE="hear_choice";
+    public static final String COMPONENT="component";
     private TestItem getTestItemFromLocal(String id,String type){
         SQLiteDatabase db=this.getReadableDatabase();
         Cursor cursor=db.query("test_"+type,null,"ID = "+id,null,null,null,null);
@@ -230,6 +231,9 @@ public final class DataManager extends SQLiteOpenHelper{
                     break;
                 case HEAR_CHOICE:
                     testItem=new TestHearChoiceItem(cursor);
+                    break;
+                case COMPONENT:
+                    testItem=new TestComponentItem(cursor);
                     break;
                 default:
                     testItem=null;
@@ -375,6 +379,9 @@ public final class DataManager extends SQLiteOpenHelper{
             case "TestHearTOFItem":
                 type = HEAR_TOF;
                 break;
+            case "TestComponentItem":
+                type = COMPONENT;
+                break;
             default:
                 type = null;
         }
@@ -417,6 +424,42 @@ public final class DataManager extends SQLiteOpenHelper{
             return items.toArray(new TestItem[items.size()]);
         }
     }
+    public TestHearChoiceItem getTestByCharShape(String shape){
+        PhalApiClientResponse response=PhalApiClient.create()
+                .withHost(HOST)
+                .withService("TestItem.GetTestByCharShape")
+                .withParams("shape",shape)
+                .withTimeout(500)
+                .request();
+        try {
+            if(response.getRet()==200){
+                JSONObject json = new JSONObject(response.getData());
+                return new TestHearChoiceItem(json);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+        return null;
+    }
+    public TestComponentItem getTestComponentItemByCompId(String compId){
+        PhalApiClientResponse response=PhalApiClient.create()
+                .withHost(HOST)
+                .withService("TestItem.GetComponentTestByCompId")
+                .withParams("compid",compId)
+                .withTimeout(500)
+                .request();
+        try {
+            if(response.getRet()==200){
+                JSONObject json = new JSONObject(response.getData());
+                return new TestComponentItem(json);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+        return null;
+    }
     public TestItem getTestItemById(String id,String type){
         TestItem testItem=getTestItemFromLocal(id,type);
         if(testItem!=null){
@@ -445,6 +488,9 @@ public final class DataManager extends SQLiteOpenHelper{
                     case FILL:
                         testItem=new TestFillItem(json);
                         break;
+                    case COMPONENT:
+                        testItem=new TestComponentItem(json);
+                        break;
                     default:
                         testItem=null;
                 }
@@ -470,6 +516,9 @@ public final class DataManager extends SQLiteOpenHelper{
                 break;
             case "TestHearTOFItem":
                 type = HEAR_TOF;
+                break;
+            case "TestComponentItem":
+                type = COMPONENT;
                 break;
             default:
                 type = null;
@@ -663,11 +712,20 @@ public final class DataManager extends SQLiteOpenHelper{
                 "correct_choice text," +
                 "pronunciation text," +
                 "relation_character_id text," +
+                "character_shape text," +
                 "picture_a text," +
                 "picture_b text," +
                 "picture_c text," +
                 "picture_d text," +
                 "date text)";
+        final String CREATE_TEST_COMPONENT="create table test_component (" +
+                "ID integer primary key, " +
+                "comp_id text," +
+                "choice_a text," +
+                "choice_b text," +
+                "choice_c text," +
+                "choice_d text," +
+                "correct_ans text)";
         db.execSQL(CREATE_CHAR_ITEM);
         db.execSQL(CREATE_RADICAL);
         db.execSQL(CREATE_TEST_HEAR_TOF);
@@ -677,6 +735,7 @@ public final class DataManager extends SQLiteOpenHelper{
         db.execSQL(CREATE_COLLECTION_CHAR);
         db.execSQL(CREATE_COLLECTION_SHAPE_CHAR);
         db.execSQL(CREATE_COLLECTION_TEST);
+        db.execSQL(CREATE_TEST_COMPONENT);
     }
 
     @Override
@@ -687,6 +746,7 @@ public final class DataManager extends SQLiteOpenHelper{
         db.execSQL("drop table if exists test_tof");
         db.execSQL("drop table if exists test_hear_tof");
         db.execSQL("drop table if exists test_hear_choice");
+        db.execSQL("drop table if exists test_component");
         onCreate(db);
     }
 }
