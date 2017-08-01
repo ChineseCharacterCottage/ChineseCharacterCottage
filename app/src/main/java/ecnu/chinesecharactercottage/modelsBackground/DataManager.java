@@ -27,7 +27,7 @@ import java.util.Locale;
 
 public final class DataManager extends SQLiteOpenHelper{
     private static final String LOCAL_DATABASE="local_character.db";
-    private static final int VERSION=6;//数据库的版本，如果数据要更新，改成更大的数字
+    private static final int VERSION=7;//数据库的版本，如果数据要更新，改成更大的数字
     private static final String HOST="http://115.159.147.198/hzw/PhalApi/public/hzw/";
     private static DataManager sManager=null;
 
@@ -650,6 +650,16 @@ public final class DataManager extends SQLiteOpenHelper{
         }
     }
     //数据库建表操作
+    private static final String[] tableList ={"collection_char",
+            "collection_shape_char",
+            "collection_test",
+            "char_item",
+            "radical",
+            "test_fill",
+            "test_tof",
+            "test_hear_tof",
+            "test_hear_choice",
+            "test_component"};
     @Override
     public void onCreate(SQLiteDatabase db) {
         final String CREATE_COLLECTION_CHAR="create table collection_char (" +
@@ -741,13 +751,9 @@ public final class DataManager extends SQLiteOpenHelper{
 
     @Override
     public void onUpgrade(SQLiteDatabase db,int oldVersion,int newVersion) {
-        db.execSQL("drop table if exists char_item");
-        db.execSQL("drop table if exists radical");
-        db.execSQL("drop table if exists test_fill");
-        db.execSQL("drop table if exists test_tof");
-        db.execSQL("drop table if exists test_hear_tof");
-        db.execSQL("drop table if exists test_hear_choice");
-        db.execSQL("drop table if exists test_component");
+        for(String tableName:tableList){
+            db.execSQL("drop table if exists "+tableName);
+        }
         onCreate(db);
     }
 }
