@@ -16,6 +16,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
@@ -276,7 +277,7 @@ public final class DataManager extends SQLiteOpenHelper{
                 .withHost(HOST)
                 .withService("Character.GetShapeId")
                 .withTimeout(500)
-                .withParams("shape", Uri.encode(shape))
+                .withParams("shape", URLEncode(shape))
                 .request();
         if(response.getRet()==200){
             return getCharItemById(Integer.parseInt(response.getData()));
@@ -429,7 +430,7 @@ public final class DataManager extends SQLiteOpenHelper{
         PhalApiClientResponse response=PhalApiClient.create()
                 .withHost(HOST)
                 .withService("TestItem.GetTestByCharShape")
-                .withParams("shape",Uri.encode(shape))
+                .withParams("shape",URLEncode(shape))
                 .withTimeout(500)
                 .request();
         try {
@@ -755,5 +756,14 @@ public final class DataManager extends SQLiteOpenHelper{
             db.execSQL("drop table if exists "+tableName);
         }
         onCreate(db);
+    }
+
+    private static String URLEncode(String source){
+        try{
+            return URLEncoder.encode(source,"UTF-8");
+        }catch (Exception e){
+            e.printStackTrace();
+            return "";
+        }
     }
 }
