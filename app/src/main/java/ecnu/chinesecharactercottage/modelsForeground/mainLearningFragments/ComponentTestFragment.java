@@ -39,16 +39,16 @@ public class ComponentTestFragment extends BaseFragment {
     @InjectView(id= R.id.figure)
     private TextView mTvFigure;
     //选项1
-    @InjectView(id=R.id.iv_picture_1)
+    @InjectView(id=R.id.tv_chose_a)
     private TextView mExplanation1;
     //选项2
-    @InjectView(id=R.id.iv_picture_2)
+    @InjectView(id=R.id.tv_chose_b)
     private TextView mExplanation2;
     //选项3
-    @InjectView(id=R.id.iv_picture_3)
+    @InjectView(id=R.id.tv_chose_c)
     private TextView mExplanation3;
     //选项4
-    @InjectView(id=R.id.iv_picture_4)
+    @InjectView(id=R.id.tv_chose_d)
     private TextView mExplanation4;
     //选择的答案
     @InjectView(id=R.id.answer_chose)
@@ -110,7 +110,11 @@ public class ComponentTestFragment extends BaseFragment {
             protected void onPostExecute(Object o) {
                 if(o!=null){
                     //这里设置题目
-
+                    mTvFigure.setText();
+                    mExplanation1.setText();
+                    mExplanation2.setText();
+                    mExplanation3.setText();
+                    mExplanation4.setText();
                     mBtSubmit.setEnabled(true);
                     new Marker(getActivity()).setMark(mMark,(TestItem)o);//类型转换要在前面做好
                 }else
