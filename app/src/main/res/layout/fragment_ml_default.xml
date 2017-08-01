@@ -3,10 +3,12 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
-    <fragment
-        android:name="ecnu.chinesecharactercottage.modelsForeground.mainLearningFragments.DefaultFragment"
-        android:id="@+id/learning_fragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
 
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="wait please"/>
 </LinearLayout>

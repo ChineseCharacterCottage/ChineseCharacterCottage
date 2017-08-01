@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import ecnu.chinesecharactercottage.R;
+import ecnu.chinesecharactercottage.testactivity.TestActivity;
 
 import static java.lang.Thread.sleep;
 
@@ -29,7 +30,7 @@ public class BeginActivity extends Activity {
                 }catch (InterruptedException e){
                     e.printStackTrace();
                 }
-                CCCMainActivity.startActivity(BeginActivity.this);
+                TestActivity.startActivity(BeginActivity.this);
                 finish();
             }
         },SHOWTIME);

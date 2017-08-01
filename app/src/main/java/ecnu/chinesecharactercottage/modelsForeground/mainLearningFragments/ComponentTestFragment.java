@@ -123,7 +123,7 @@ public class ComponentTestFragment extends BaseFragment {
                 //这里需要一个根据id获取部件选择题的接口,获取数据后直接返回
                 mNowTest=dataManager.getTestComponentItemByCompId(mId);
                 if(mNowTest!=null){
-                    mComponentItem=dataManager.getComponentById();
+                    mComponentItem=dataManager.getComponentById(mNowTest.getCompId());
                 }
                 return null;
             }
@@ -132,11 +132,11 @@ public class ComponentTestFragment extends BaseFragment {
             protected void onPostExecute(Object o) {
                 if(mNowTest!=null){
                     //这里设置题目
-                    mTvFigure.setText(mNowTest.);
-                    mExplanation1.setText(mNowTest);
-                    mExplanation2.setText(mNowTest);
-                    mExplanation3.setText(mNowTest);
-                    mExplanation4.setText(mNowTest);
+                    mTvFigure.setText(mComponentItem.getShape());
+                    mExplanation1.setText(mNowTest.getChoiceA());
+                    mExplanation2.setText(mNowTest.getChoiceB());
+                    mExplanation3.setText(mNowTest.getChoiceC());
+                    mExplanation4.setText(mNowTest.getChoiceD());
                     mBtSubmit.setEnabled(true);
                     //new Marker(getActivity()).setMark(mMark,mNowTest);//类型转换要在前面做好
                 }else
@@ -201,20 +201,7 @@ public class ComponentTestFragment extends BaseFragment {
         mBtShowComponent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //要在这里获取对应componentItem
-                AsyncTask task=new AsyncTask<Object,Object,ComponentItem>() {
-                    @Override
-                    protected ComponentItem doInBackground(Object[] params) {
-                        DataManager myDM=DataManager.getInstance((Context) params[0]);
-                        return myDM.getComponentById((String)params[1]);
-                    }
-
-                    @Override
-                    protected void onPostExecute(ComponentItem componentItem) {
-                        ComponentDialog.startDialog(getActivity(),componentItem,componentItem.getModel());
-                    }
-                };
-                task.execute(getActivity(),mNowTest.);
+                ComponentDialog.startDialog(getActivity(),mComponentItem,mComponentItem.getModel());
             }
         });
         mBtShowComponent.setVisibility(View.GONE);

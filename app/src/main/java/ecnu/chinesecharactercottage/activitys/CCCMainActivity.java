@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import ecnu.chinesecharactercottage.activitys.character.CharacterLearningActivity;
+import ecnu.chinesecharactercottage.activitys.character.MainLearningActivity;
 import ecnu.chinesecharactercottage.activitys.collection.CollectionChoseActivity;
 import ecnu.chinesecharactercottage.activitys.knowledge.TitleListActivity;
 import ecnu.chinesecharactercottage.activitys.test.TestChoseActivity;
@@ -25,6 +26,8 @@ public class CCCMainActivity extends Activity {
     private ChoseItem mReview;
     @InjectView(id=R.id.knowledge)
     private ChoseItem mKnowledge;
+    @InjectView(id=R.id.main_learning)
+    private ChoseItem mMainLearning;
 
     public static void startActivity(Context context){
         Intent intent=new Intent(context,CCCMainActivity.class);
@@ -42,6 +45,7 @@ public class CCCMainActivity extends Activity {
         setTest();
         setReview();
         setKnowledge();
+        setMainLearning();
     }
 
     private void setCharacterLeaning(){
@@ -76,6 +80,15 @@ public class CCCMainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 TitleListActivity.startActivity(CCCMainActivity.this);
+            }
+        });
+    }
+
+    private void setMainLearning(){
+        mMainLearning.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MainLearningActivity.startActivity(CCCMainActivity.this);
             }
         });
     }

@@ -1,11 +1,9 @@
 package ecnu.chinesecharactercottage.activitys.character;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,9 +12,7 @@ import android.widget.Toast;
 import ecnu.chinesecharactercottage.R;
 import ecnu.chinesecharactercottage.modelsBackground.ComponentItem;
 import ecnu.chinesecharactercottage.modelsBackground.DataManager;
-import ecnu.chinesecharactercottage.modelsBackground.TestHearChoiceItem;
 import ecnu.chinesecharactercottage.modelsForeground.LearningOrderManager;
-import ecnu.chinesecharactercottage.modelsForeground.NextRunnable;
 import ecnu.chinesecharactercottage.modelsForeground.mainLearningFragments.*;
 
 /**
@@ -36,8 +32,6 @@ public class MainLearningActivity extends Activity {
     int mOrder;
     //当前学习部件
     ComponentItem mComponentItem;
-    //测试部件题目
-    TestHearChoiceItem mTestComponentItem;
 
 
     static public void startActivity(Context context){

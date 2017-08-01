@@ -63,6 +63,19 @@
                 android:textColor="@color/colorYellowGrey"/>
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            android:layout_weight="1">
+            <ecnu.chinesecharactercottage.modelsForeground.ChoseItem
+                android:id="@+id/main_learning"
+                style="@style/homepageButton"
+                app:text="@string/button_main_learning"
+                app:img="@drawable/knowledge"
+                android:textColor="@color/colorYellowGrey"/>
+        </LinearLayout>
     </LinearLayout>
 
 </RelativeLayout>
