@@ -26,7 +26,7 @@ import java.util.Locale;
 
 public final class DataManager extends SQLiteOpenHelper{
     private static final String LOCAL_DATABASE="local_character.db";
-    private static final int VERSION=4;//数据库的版本，如果数据要更新，改成更大的数字
+    private static final int VERSION=6;//数据库的版本，如果数据要更新，改成更大的数字
     private static final String HOST="http://115.159.147.198/hzw/PhalApi/public/hzw/";
     private static DataManager sManager=null;
 
@@ -682,11 +682,11 @@ public final class DataManager extends SQLiteOpenHelper{
         final String CREATE_TEST_FILL_ITEM="create table test_fill ("
                 +"ID integer primary key, "
                 +"correct_order text, "
-                +"choice_1 text, "
-                +"choice_2 text,"
-                +"choice_3 text,"
-                +"choice_4 text,"
-                +"choice_5 text,"
+                +"choice1 text, "
+                +"choice2 text,"
+                +"choice3 text,"
+                +"choice4 text,"
+                +"choice5 text,"
                 +"sentence1 text,"
                 +"sentence2 text,"
                 +"sentence3 text,"
