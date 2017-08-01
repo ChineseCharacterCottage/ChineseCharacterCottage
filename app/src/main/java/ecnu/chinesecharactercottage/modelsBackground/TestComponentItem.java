@@ -52,6 +52,30 @@ public class TestComponentItem extends TestItem {
         return cv;
     }
 
+    public String getId() {
+        return mId;
+    }
+
+    public String getCompId() {
+        return mCompId;
+    }
+
+    public String getChoiceA() {
+        return mChoiceA;
+    }
+
+    public String getChoiceB() {
+        return mChoiceB;
+    }
+
+    public String getChoiceC() {
+        return mChoiceC;
+    }
+
+    public String getChoiceD() {
+        return mChoiceD;
+    }
+
     @Override
     public String getTestId() {
         return mId;
