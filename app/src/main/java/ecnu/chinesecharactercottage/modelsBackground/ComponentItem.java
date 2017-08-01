@@ -7,6 +7,8 @@ import java.io.Serializable;
  */
 
 public class ComponentItem implements Serializable {
+    public static final int SHAPE=0;
+    public static final int VOICE=1;
     private String mGId;
     private String mShape;
     private String[] mChars;
@@ -40,5 +42,14 @@ public class ComponentItem implements Serializable {
 
     public String getVoiceOrShape(){
         return mVoS;
+    }
+
+    public int getModel(){
+        int model=-1;
+        if("s".equals(mVoS))
+            model=SHAPE;
+        else if("v".equals(mVoS))
+            model=VOICE;
+        return model;
     }
 }

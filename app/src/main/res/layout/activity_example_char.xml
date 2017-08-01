@@ -5,7 +5,7 @@
     android:id="@+id/activity_hsk"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg3">
+    android:background="@drawable/bg2">
 
     <ecnu.chinesecharactercottage.modelsForeground.TopBar
         android:layout_width="match_parent"

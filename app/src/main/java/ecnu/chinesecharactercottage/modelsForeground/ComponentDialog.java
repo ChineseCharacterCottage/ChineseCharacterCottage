@@ -1,6 +1,11 @@
 package ecnu.chinesecharactercottage.modelsForeground;
 
+import android.app.Activity;
 import android.app.DialogFragment;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.content.Context;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -25,7 +30,7 @@ import ecnu.chinesecharactercottage.R;
 
 public class ComponentDialog extends DialogFragment {
 
-    //模式
+    //模式,0:shape.1:voice
     private static int sModel;
     //部首
     private static ComponentItem sComponent;
@@ -37,11 +42,20 @@ public class ComponentDialog extends DialogFragment {
     //部首例字
     private LinearLayout mExampleCharacter;
 
-    static public ComponentDialog getDialogInstance(ComponentItem componentItem,int model){
+    static public void startDialog(Activity activity, ComponentItem componentItem, int model){
         sComponent=componentItem;
         sModel=model;
         ComponentDialog myComponentDialog=new ComponentDialog();
-        return myComponentDialog;
+
+        FragmentManager fm=activity.getFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        Fragment prev = fm.findFragmentByTag("component_dialog");
+        if (prev != null) {
+            ft.remove(prev);
+        }
+        ft.addToBackStack(null);
+
+        myComponentDialog.show(ft,"component_dialog");
     }
 
     @Override
@@ -63,6 +77,7 @@ public class ComponentDialog extends DialogFragment {
         
         return v;
     }
+
 
     private void setRadical() {
         mFigure.setText(sComponent.getShape());
@@ -97,7 +112,7 @@ public class ComponentDialog extends DialogFragment {
                         protected CharItem doInBackground(Object[] params) {
                             DataManager dataManager=DataManager.getInstance(getActivity());
                             CharItem exampleItem=dataManager.getCharItemByShape(Uri.encode((String)params[0]));
-                            if(sModel==1 && exampleItem!=null)
+                            if(sModel==ComponentItem.VOICE && exampleItem!=null)
                                 mMediaPlayer= new SoundGetter(getActivity()).getMediaPlayer(exampleItem);
                             return exampleItem;
                         }
@@ -109,7 +124,7 @@ public class ComponentDialog extends DialogFragment {
                                 return;
                             }
 
-                            if(sModel==0)
+                            if(sModel==ComponentItem.SHAPE)
                                 ExampleActivity.startActivity(getActivity(), exampleItem);
                             else {
                                 MediaManager mm=MediaManager.getInstance();

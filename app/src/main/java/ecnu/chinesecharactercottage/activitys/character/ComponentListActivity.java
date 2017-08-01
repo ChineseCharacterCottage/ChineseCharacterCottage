@@ -27,11 +27,11 @@ import ecnu.chinesecharactercottage.R;
 
 public class ComponentListActivity extends Activity {
 
-    //模式,0:shape.1:voice
-    int mModel;
-
     //每页数量
-    final int ITEM_NUMBER=20;
+    private static final int ITEM_NUMBER=20;
+    //模式,0:shape.1:voice
+    private int mModel;
+
 
     //部件列表布局
     private ListView mListView;
@@ -54,14 +54,14 @@ public class ComponentListActivity extends Activity {
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.acitivity_component_list);
-        mModel=getIntent().getIntExtra("model",0);
+        mModel=getIntent().getIntExtra("model",ComponentItem.SHAPE);
 
         init();
         AsyncTask task=new AsyncTask<Object,Object,ComponentItem[]>() {
             @Override
             protected ComponentItem[] doInBackground(Object[] params) {
                 DataManager dataManager=DataManager.getInstance(ComponentListActivity.this);
-                ComponentItem[] componentItems=dataManager.getAllComponents(mModel==1);
+                ComponentItem[] componentItems=dataManager.getAllComponents(mModel==ComponentItem.VOICE);
                 return componentItems;
             }
 
@@ -99,15 +99,8 @@ public class ComponentListActivity extends Activity {
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                Fragment prev = getFragmentManager().findFragmentByTag("component_dialog");
-                if (prev != null) {
-                    ft.remove(prev);
-                }
-                ft.addToBackStack(null);
 
-                ComponentDialog myComponentDialog= ComponentDialog.getDialogInstance(mComponentList.get(position),mModel);
-                myComponentDialog.show(ft,"component_dialog");
+                ComponentDialog.startDialog(ComponentListActivity.this,mComponentList.get(position),mModel);
             }
         });
     }

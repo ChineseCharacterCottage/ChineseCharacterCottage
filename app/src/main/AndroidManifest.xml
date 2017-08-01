@@ -38,6 +38,7 @@
         <activity android:name=".activitys.collection.CharacterActivity"/>
         <activity android:name=".activitys.collection.CollectionChoseActivity"/>
 
+        <activity android:name=".activitys.character.MainLearningActivity"/>
         <activity android:name=".activitys.character.CharacterLearningActivity"/>
         <activity android:name=".activitys.character.ComponentListActivity"/>
         <activity android:name=".activitys.character.PictogramActivity"/>

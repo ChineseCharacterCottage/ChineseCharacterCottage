@@ -1,7 +1,8 @@
-package ecnu.chinesecharactercottage.modelsForeground.testFragments;
+package ecnu.chinesecharactercottage.modelsForeground.mainLearningFragments;
 
-import android.app.Fragment;
+
 import android.content.Context;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,38 +14,42 @@ import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import ecnu.chinesecharactercottage.R;
 import ecnu.chinesecharactercottage.activitys.character.ExampleActivity;
 import ecnu.chinesecharactercottage.modelsBackground.CharItem;
+import ecnu.chinesecharactercottage.modelsBackground.ComponentItem;
 import ecnu.chinesecharactercottage.modelsBackground.DataManager;
 import ecnu.chinesecharactercottage.modelsBackground.TestHearChoiceItem;
+import ecnu.chinesecharactercottage.modelsBackground.TestItem;
+import ecnu.chinesecharactercottage.modelsForeground.ComponentDialog;
 import ecnu.chinesecharactercottage.modelsForeground.ImageGetter;
-import ecnu.chinesecharactercottage.modelsForeground.MPGetter;
 import ecnu.chinesecharactercottage.modelsForeground.Marker;
-import ecnu.chinesecharactercottage.modelsForeground.NextRunnable;
-import ecnu.chinesecharactercottage.R;
 import ecnu.chinesecharactercottage.modelsForeground.inject.InjectView;
 import ecnu.chinesecharactercottage.modelsForeground.inject.Injecter;
 
 /**
- * Created by 10040 on 2017/3/7.
+ * Created by 10040 on 2017/7/26.
  */
 
-public class TestHearMatchFragment extends Fragment {
-    //发音按键
-    @InjectView(id=R.id.pronounce)
-    private Button mBtPronunciation;
-    //图片1
+public class ComponentTestFragment extends BaseFragment {
+    //数据存取键值
+    static final private String ID ="id";
+    //视图控件：
+    //字形
+    @InjectView(id= R.id.figure)
+    private TextView mTvFigure;
+    //选项1
     @InjectView(id=R.id.iv_picture_1)
-    private ImageView mPicture1;
-    //图片2
+    private TextView mExplanation1;
+    //选项2
     @InjectView(id=R.id.iv_picture_2)
-    private ImageView mPicture2;
-    //图片3
+    private TextView mExplanation2;
+    //选项3
     @InjectView(id=R.id.iv_picture_3)
-    private ImageView mPicture3;
-    //图片4
+    private TextView mExplanation3;
+    //选项4
     @InjectView(id=R.id.iv_picture_4)
-    private ImageView mPicture4;
+    private TextView mExplanation4;
     //选择的答案
     @InjectView(id=R.id.answer_chose)
     private RadioGroup mChosenAnswer;
@@ -54,26 +59,32 @@ public class TestHearMatchFragment extends Fragment {
     //下一个按键
     @InjectView(id=R.id.bt_next)
     private  Button mBtNext;
-    //下一个(函数方法)
-    private NextRunnable mNext;
     //错误信息
     @InjectView(id=R.id.layout_error_msg)
     private LinearLayout mLayoutErrorMsg;
     //错误内容
     @InjectView(id=R.id.tv_error_msg)
     private TextView mTvErrorMsg;
-    //查看字按键
+    //查看部件按键
     @InjectView(id=R.id.bt_show_character)
-    private   Button mBtShowChar;
-    //当前题目
-    private TestHearChoiceItem mNowTest;
+    private   Button mBtShowComponent;
     //收藏按键
     @InjectView(id=R.id.mark)
     private Button mMark;
 
+    static public ComponentTestFragment getFragment(BaseFragment.FinishRunnable finishRunnable,String id){
+        Bundle bundle=new Bundle();
+        bundle.putString(ID,id);
+        ComponentTestFragment fragment=new ComponentTestFragment();
+        fragment.setArguments(bundle);
+        fragment.setFinishRunnable(finishRunnable);
+
+        return fragment;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.fragment_test_hear_match,container,false);
+        View view=inflater.inflate(R.layout.fragment_ml_chars_test,container,false);
         Injecter.autoInjectAllField(this,view);
         init();
         //设置按钮的监听器
@@ -82,9 +93,31 @@ public class TestHearMatchFragment extends Fragment {
     }
 
     private void init(){
-        mBtPronunciation.setEnabled(false);
+        mTvFigure.setTypeface(Typeface.createFromAsset(getActivity().getAssets(),"font/1.ttf"));
         mBtSubmit.setEnabled(false);
         mLayoutErrorMsg.setVisibility(View.GONE);
+
+        //获取数据
+        AsyncTask task=new AsyncTask() {
+            @Override
+            protected Object doInBackground(Object... params){
+                DataManager dataManager=DataManager.getInstance(getActivity());
+                //这里需要一个根据id获取部件选择题的接口,获取数据后直接返回
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Object o) {
+                if(o!=null){
+                    //这里设置题目
+
+                    mBtSubmit.setEnabled(true);
+                    new Marker(getActivity()).setMark(mMark,(TestItem)o);//类型转换要在前面做好
+                }else
+                    finish();
+            }
+        };
+        task.execute();
     }
 
     private void initButtons() {
@@ -116,12 +149,10 @@ public class TestHearMatchFragment extends Fragment {
                     mLayoutErrorMsg.setVisibility(View.GONE);
                     //隐藏下一个按键
                     mBtNext.setVisibility(View.GONE);
-                    //隐藏查看字按键
-                    mBtShowChar.setVisibility(View.GONE);
-                    //调用回答正确函数
-                    mNext.next();
-                    //清空选项
-                    mChosenAnswer.clearCheck();
+                    //隐藏查看部件按键
+                    mBtShowComponent.setVisibility(View.GONE);
+                    //回答正确
+                    finish();
 
                 }else{
                     //回答错误时
@@ -132,83 +163,34 @@ public class TestHearMatchFragment extends Fragment {
                     //显示下一个按键
                     mBtNext.setVisibility(View.VISIBLE);
                     //显示查看字按键
-                    mBtShowChar.setVisibility(View.VISIBLE);
+                    mBtShowComponent.setVisibility(View.VISIBLE);
                     //设置错误信息
                     mTvErrorMsg.setText(correctAnswer.toUpperCase());
                 }
             }
         });
 
-        mBtNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //显示提交按钮
-                mBtSubmit.setVisibility(View.VISIBLE);
-                //隐藏错误信息
-                mLayoutErrorMsg.setVisibility(View.GONE);
-                //隐藏下一个按键
-                mBtNext.setVisibility(View.GONE);
-                //隐藏查看字按键
-                mBtShowChar.setVisibility(View.GONE);
-                //调用回答正确函数
-                mNext.next();
-                //清空选项
-                mChosenAnswer.clearCheck();
-            }
-        });
         mBtNext.setVisibility(View.GONE);
 
-        mBtShowChar.setOnClickListener(new View.OnClickListener() {
+        mBtShowComponent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //要在这里获取对应charItem
-                AsyncTask task=new AsyncTask<Object,Object,CharItem>() {
+                //要在这里获取对应componentItem
+                AsyncTask task=new AsyncTask<Object,Object,ComponentItem>() {
                     @Override
-                    protected CharItem doInBackground(Object[] params) {
+                    protected ComponentItem doInBackground(Object[] params) {
                         DataManager myDM=DataManager.getInstance((Context) params[0]);
-                        CharItem charItem=myDM.getCharItemById(Integer.valueOf((String)params[1]));
-                        return charItem;
+                        return myDM.getComponentById((String)params[1]);
                     }
 
                     @Override
-                    protected void onPostExecute(CharItem charItem) {
-                        ExampleActivity.startActivity(getActivity(),charItem);
+                    protected void onPostExecute(ComponentItem componentItem) {
+                        ComponentDialog.startDialog(getActivity(),componentItem,componentItem.getModel());
                     }
                 };
                 task.execute(getActivity(),mNowTest.getRelationCharacterId());
             }
         });
-        mBtShowChar.setVisibility(View.GONE);
+        mBtShowComponent.setVisibility(View.GONE);
     }
-
-    public void setNext(NextRunnable next){
-        mNext=next;
-    }
-
-    public void setTest(TestHearChoiceItem testHearChoiceItem){
-        mPicture1.setImageResource(R.drawable.imagenotfound);
-        mPicture2.setImageResource(R.drawable.imagenotfound);
-        mPicture3.setImageResource(R.drawable.imagenotfound);
-        mPicture4.setImageResource(R.drawable.imagenotfound);
-
-        if(testHearChoiceItem==null) {
-            mNext.next();
-            return;
-        }
-        mBtSubmit.setEnabled(true);
-        mNowTest=testHearChoiceItem;
-
-        //设置播放读音按键
-        Context c=getActivity();
-        new MPGetter(c,mNowTest,mBtPronunciation).setMP();
-
-        //设置题目图片
-        new ImageGetter(c,mNowTest.getPictureA(),mPicture1).setImage();
-        new ImageGetter(c,mNowTest.getPictureB(),mPicture2).setImage();
-        new ImageGetter(c,mNowTest.getPictureC(),mPicture3).setImage();
-        new ImageGetter(c,mNowTest.getPictureD(),mPicture4).setImage();
-
-        new Marker(getActivity()).setMark(mMark,mNowTest);
-    }
-
 }
