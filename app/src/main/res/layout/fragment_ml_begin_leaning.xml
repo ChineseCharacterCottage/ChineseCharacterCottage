@@ -1,36 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:background="@drawable/bg2">
 
-    <FrameLayout
-        android:layout_width="150dp"
-        android:layout_height="150dp">
-        <ImageView
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <FrameLayout
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:src="@drawable/matt"/>
+            android:layout_gravity="center">
+            <ImageView
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:src="@drawable/matt"/>
+
+            <TextView
+                android:id="@+id/component_figure"
+                android:textSize="100sp"
+                android:textColor="#000"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:gravity="center"/>
+        </FrameLayout>
 
         <TextView
-            android:id="@+id/component_figure"
-            android:textSize="100sp"
-            android:textColor="#000"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:gravity="center"/>
-    </FrameLayout>
+            android:text="Meaning"
+            android:layout_marginTop="50dp"
+            style="@style/MyText"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
-    <TextView
-        android:id="@+id/component_meaning"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/component_meaning"
+            style="@style/MyText"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
 
     <Button
         android:id="@+id/bt_begin"
         style="@style/NextButton"
-        android:text="开始学习"
+        android:textAllCaps="false"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="@string/begin_studying"/>
 
-</LinearLayout>
+</RelativeLayout>
