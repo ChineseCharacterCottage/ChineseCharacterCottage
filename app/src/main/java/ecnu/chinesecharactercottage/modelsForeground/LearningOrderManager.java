@@ -8,6 +8,13 @@ import android.content.SharedPreferences;
  */
 
 public class LearningOrderManager {
+    //数据键值
+    static public final String MAIN_LEARNING="main_learning";
+    static public final String TEST_HEAR_MATCH="test_hear_match";
+    static public final String TEST_HEAR_TOF="test_hear_tof";
+    static public final String TEST_COMPLETE="test_complete";
+    static public final String TEST_TOF="test_tof";
+
     private static LearningOrderManager sLearningOrderManager;
 
     private SharedPreferences mSharedPreferences;

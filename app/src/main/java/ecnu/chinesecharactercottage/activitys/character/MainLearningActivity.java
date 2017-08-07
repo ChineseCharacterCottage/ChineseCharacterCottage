@@ -21,8 +21,6 @@ import ecnu.chinesecharactercottage.modelsForeground.mainLearningFragments.*;
  */
 
 public class MainLearningActivity extends Activity {
-    //临时数据键值
-    static final String ORDER_KEY="main_learning";
 
     //顺序存储管理器
     LearningOrderManager mLearningOrderManager;
@@ -79,7 +77,7 @@ public class MainLearningActivity extends Activity {
             @Override
             public void onFinish() {
                 mOrder++;
-                mLearningOrderManager.saveOrder(ORDER_KEY,mOrder);
+                mLearningOrderManager.saveOrder(LearningOrderManager.MAIN_LEARNING,mOrder);
                 beginLearning();
             }
         });
@@ -92,7 +90,7 @@ public class MainLearningActivity extends Activity {
 
 
         //获取上次的学习顺序
-        mOrder=mLearningOrderManager.getOrder(ORDER_KEY);
+        mOrder=mLearningOrderManager.getOrder(LearningOrderManager.MAIN_LEARNING);
         //开始学习
         beginLearning();
     }
@@ -115,7 +113,7 @@ public class MainLearningActivity extends Activity {
                     ft.commit();
                 }else {
                     mOrder=1;
-                    mLearningOrderManager.saveOrder(ORDER_KEY,mOrder);
+                    mLearningOrderManager.saveOrder(LearningOrderManager.MAIN_LEARNING,mOrder);
                     finish();
                 }
             }
