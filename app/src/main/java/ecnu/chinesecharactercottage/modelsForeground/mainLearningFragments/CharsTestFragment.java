@@ -227,10 +227,9 @@ public class CharsTestFragment extends BaseFragment {
     }
 
     private void setTest(TestHearChoiceItem testHearChoiceItem){
+        mNowTest=mTestCharItems[mNowIndex];
         //设置字形
-        //这里看看能不能弄一个接口，不然需要开线程
-        CharItem charItem=DataManager.getInstance(getActivity()).getCharItemById(Integer.parseInt(mNowTest.getRelationCharacterId()));
-        mTvFigure.setText(charItem.get(CharItem.CHARACTER));
+        mTvFigure.setText(mNowTest.getRelationCharacterShape());
         mPicture1.setImageResource(R.drawable.imagenotfound);
         mPicture2.setImageResource(R.drawable.imagenotfound);
         mPicture3.setImageResource(R.drawable.imagenotfound);

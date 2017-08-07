@@ -1,38 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:background="@drawable/bg2">
 
     <LinearLayout
         android:layout_marginBottom="100dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <FrameLayout
-                android:layout_marginEnd="10dp"
-                android:layout_gravity="end"
+            android:layout_marginEnd="10dp"
+            android:layout_gravity="center"
+            android:layout_width="150dp"
+            android:layout_height="150dp">
+            <ImageView
                 android:layout_width="150dp"
-                android:layout_height="150dp">
-                <ImageView
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:src="@drawable/matt"/>
+                android:layout_height="150dp"
+                android:src="@drawable/matt"/>
 
-                <TextView
-                    android:id="@+id/figure"
-                    android:textSize="100sp"
-                    android:textColor="#000"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:gravity="center"/>
-            </FrameLayout>
-
+            <TextView
+                android:id="@+id/figure"
+                android:textSize="100sp"
+                android:textColor="#000"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:gravity="center"/>
         </FrameLayout>
 
+        <TextView
+            style="@style/MyText"
+            android:layout_marginTop="50dp"
+            android:gravity="center"
+            android:text="Meaning of this component:"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
