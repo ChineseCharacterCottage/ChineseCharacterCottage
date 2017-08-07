@@ -650,6 +650,11 @@ public final class DataManager extends SQLiteOpenHelper{
             return ids.toArray(new String[ids.size()]);
         }
     }
+    public static final String TABLE_CHARACTER="character";
+    public static final String TABLE_COMPONENT="component";
+    public static final String TABLE_COMP_SORT="comp_sort";
+    public static final String TABLE_KNOWLEDGE="knowledge";
+    //TODO::待补全
     public int countTableItem(String tableName){
         PhalApiClientResponse response = PhalApiClient.create()
                 .withHost(HOST)
