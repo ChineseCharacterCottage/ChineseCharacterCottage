@@ -650,6 +650,19 @@ public final class DataManager extends SQLiteOpenHelper{
             return ids.toArray(new String[ids.size()]);
         }
     }
+    public int countTableItem(String tableName){
+        PhalApiClientResponse response = PhalApiClient.create()
+                .withHost(HOST)
+                .withTimeout(500)
+                .withParams("tablename",tableName)
+                .withService("Alltable.GetCount")
+                .request();
+        if(response.getRet() == 200 && (!response.getData().equals("null"))){
+            return Integer.valueOf(response.getData());
+        }else{
+            return -1;
+        }
+    }
     //数据库建表操作
     private static final String[] tableList ={"collection_char",
             "collection_shape_char",
