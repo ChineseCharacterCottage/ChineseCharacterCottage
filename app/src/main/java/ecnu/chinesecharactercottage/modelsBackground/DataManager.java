@@ -174,7 +174,14 @@ public final class DataManager extends SQLiteOpenHelper{
         }
         return charItems.toArray(new CharItem[charItems.size()]);
     }
-
+    /*
+    * if to == -1
+    * return charitems where id >= from
+    * else
+    * return charitems where id >= from and <= to*/
+    public CharItem[] getCharItemsWhereIdBetween(int from, int to){
+        return getCharItemByIds(getIdsInTable(from,to,TABLE_CHARACTER));
+    }
     public CharItem getCharItemById(int id){
         CharItem getC=getCharItemFromLocal(id);
         if(getC==null){
@@ -666,6 +673,32 @@ public final class DataManager extends SQLiteOpenHelper{
             return Integer.valueOf(response.getData());
         }else{
             return -1;
+        }
+    }
+    private int[] getIdsInTable(int from, int to,String tableName){
+        PhalApiClientResponse response = PhalApiClient.create()
+                .withHost(HOST)
+                .withTimeout(500)
+                .withParams("tablename",tableName)
+                .withParams("from",String.valueOf(from))
+                .withParams("to",String.valueOf(to))
+                .withService("Alltable.GetIds")
+                .request();
+        if(response.getRet() == 200){
+            try {
+                JSONArray ja = new JSONArray(response.getData());
+                int[] integers = new int[ja.length()];
+                for(int i=0;i<ja.length();i++){
+                    JSONObject jo = ja.getJSONObject(i);
+                    integers[i] = Integer.parseInt( jo.getString("ID") );
+                }
+                return integers;
+            }catch (Exception e){
+                e.printStackTrace();
+                return new int[]{};
+            }
+        }else{
+            return new int[]{};
         }
     }
     //数据库建表操作
