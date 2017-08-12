@@ -175,12 +175,13 @@ public final class DataManager extends SQLiteOpenHelper{
         return charItems.toArray(new CharItem[charItems.size()]);
     }
     /*
-    * if to == -1
-    * return charitems where id >= from
+    * if number == -1
+    * return all charitems where id >= from
     * else
-    * return charitems where id >= from and <= to*/
-    public CharItem[] getCharItemsWhereIdBetween(int from, int to){
-        return getCharItemByIds(getIdsInTable(from,to,TABLE_CHARACTER));
+    * return charitems where id >= from limit number
+    * */
+    public CharItem[] getCharItemsByFrom(int from, int number){
+        return getCharItemByIds(getIdsInTable(from,number,TABLE_CHARACTER));
     }
     public CharItem getCharItemById(int id){
         CharItem getC=getCharItemFromLocal(id);
@@ -675,13 +676,13 @@ public final class DataManager extends SQLiteOpenHelper{
             return -1;
         }
     }
-    private int[] getIdsInTable(int from, int to,String tableName){
+    private int[] getIdsInTable(int from, int number,String tableName){
         PhalApiClientResponse response = PhalApiClient.create()
                 .withHost(HOST)
                 .withTimeout(500)
                 .withParams("tablename",tableName)
                 .withParams("from",String.valueOf(from))
-                .withParams("to",String.valueOf(to))
+                .withParams("lmt",String.valueOf(number))
                 .withService("Alltable.GetIds")
                 .request();
         if(response.getRet() == 200){
