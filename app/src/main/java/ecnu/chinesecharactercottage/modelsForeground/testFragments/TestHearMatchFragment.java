@@ -200,7 +200,7 @@ public class TestHearMatchFragment extends Fragment {
 
         //设置播放读音按键
         Context c=getActivity();
-        new MPGetter(c,mNowTest,mBtPronunciation).setMP();
+        new MPGetter(c,mNowTest,mBtPronunciation).setMP(true);
 
         //设置题目图片
         new ImageGetter(c,mNowTest.getPictureA(),mPicture1).setImage();

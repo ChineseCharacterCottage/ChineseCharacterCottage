@@ -30,7 +30,7 @@ public class MediaManager {
         if(newMP!=null) {
             if(mNowMP!=null&&mNowMP.isPlaying()) {
                 mNowMP.pause();
-                mNowMP.seekTo(0);
+                mNowMP.pause();
             }
             mNowMP = newMP;
         }
@@ -42,8 +42,10 @@ public class MediaManager {
     }
 
     public void startMediaPlayer(){
-        if(mNowMP!=null)
+        if(mNowMP!=null) {
+            mNowMP.seekTo(0);
             mNowMP.start();
+        }
     }
 
     public void pauseMediaPlayer(){

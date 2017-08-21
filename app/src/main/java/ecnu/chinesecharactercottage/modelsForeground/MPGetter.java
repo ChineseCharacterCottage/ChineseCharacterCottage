@@ -27,7 +27,7 @@ public class MPGetter {
         mClickableView.setEnabled(false);
     }
 
-    public void setMP() {
+    public void setMP(final boolean isplay) {
         AsyncTask task=new AsyncTask() {
             MediaPlayer mMediaPlayer;
             @Override
@@ -46,9 +46,18 @@ public class MPGetter {
                         mm.startMediaPlayer();
                     }
                 });
+                if(isplay){
+                    MediaManager mm=MediaManager.getInstance();
+                    mm.setMediaPlayer(mMediaPlayer);
+                    mm.startMediaPlayer();
+                }
                 mClickableView.setEnabled(true);
             }
         };
         task.execute();
+    }
+
+    public void setMP() {
+        setMP(false);
     }
 }

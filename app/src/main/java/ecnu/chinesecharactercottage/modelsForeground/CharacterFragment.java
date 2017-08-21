@@ -75,14 +75,13 @@ public class CharacterFragment extends Fragment {
         mSentence.setText(thisChar.get(CharItem.SENTENCE));
         setWords();
         setRadical();
-        new MPGetter(getActivity(),thisChar,mFigure).setMP();
+        new MPGetter(getActivity(),thisChar,mFigure).setMP(true);
         new MPGetter(getActivity(),thisChar.getSentenceReadable(getActivity()),mSentence).setMP();
 
         new Marker(getActivity()).setMark(mMark,mNowChar);
     }
 
     private void setRadical(){
-
         RadicalItem radicalItem=mNowChar.getRadical();
         mRadical.setText(radicalItem.getRadical());
         mRadical.setOnClickListener(new View.OnClickListener() {

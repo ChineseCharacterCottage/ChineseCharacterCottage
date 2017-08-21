@@ -5,12 +5,14 @@ import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import ecnu.chinesecharactercottage.modelsBackground.DataManager;
 import ecnu.chinesecharactercottage.modelsForeground.ChoseComponentDialog;
 import ecnu.chinesecharactercottage.R;
 import ecnu.chinesecharactercottage.modelsForeground.ChoseItem;
@@ -48,7 +50,7 @@ public class CharacterLearningActivity extends Activity {
                 String[] ids=new String[20];
                 for (int i=0;i<ids.length;i++)
                     ids[i]=String.valueOf(i+1);
-                PictogramActivity.startActivity(CharacterLearningActivity.this,ids);
+                PictogramActivity.startActivity(CharacterLearningActivity.this,ids,PictogramActivity.LEARNING);
             }
         });
 

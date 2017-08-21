@@ -33,7 +33,7 @@
             android:id="@+id/pictogram_learning"
             style="@style/homepageButton"
             android:layout_marginStart="15dp"
-            app:text="@string/button_pictogram_learning"
+            app:text="@string/button_phonogram_learning"
             app:img="@drawable/pictogram"/>
     </LinearLayout>
 

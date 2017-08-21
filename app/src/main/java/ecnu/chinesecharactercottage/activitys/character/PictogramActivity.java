@@ -15,14 +15,22 @@ import ecnu.chinesecharactercottage.modelsBackground.DataManager;
 import ecnu.chinesecharactercottage.modelsBackground.ShapeCharItem;
 import ecnu.chinesecharactercottage.modelsForeground.CharacterFragment;
 import ecnu.chinesecharactercottage.R;
+import ecnu.chinesecharactercottage.modelsForeground.LearningOrderManager;
 
 /**
  * Created by 10040 on 2017/3/21.
  */
 
 public class PictogramActivity extends Activity {
+    //数据键值
+    private static String KEY_IDS="ids";
+    private static String KEY_MODEL="model";
     //视频地址
     private static String VIDEO_PATH="http://115.159.147.198/HZW_web/video/";
+    //模式
+    private int mModel;
+    public static int LEARNING=1;
+    public static int COLLECTION=2;
     //进度条
     private ProgressBar mProgressBar;
     //汉字详情
@@ -40,9 +48,10 @@ public class PictogramActivity extends Activity {
     //象形字列表
     private String[] mIds;
 
-    static public void startActivity(Context context, String[] ids){
+    static public void startActivity(Context context, String[] ids,int model){
         Intent intent=new Intent(context,PictogramActivity.class);
-        intent.putExtra("ids",ids);
+        intent.putExtra(KEY_IDS,ids);
+        intent.putExtra(KEY_MODEL,model);
         context.startActivity(intent);
     }
 
@@ -68,7 +77,8 @@ public class PictogramActivity extends Activity {
         mBtPlay=(Button)findViewById(R.id.button_play);
         mBtNext=(Button)findViewById(R.id.button_next);
         mPosition =0;
-        mIds=getIntent().getStringArrayExtra("ids");
+        mIds=getIntent().getStringArrayExtra(KEY_IDS);
+        mModel=getIntent().getIntExtra(KEY_MODEL,LEARNING);
         mTotalNum=mIds.length;
         mProgressBar.setMax(mTotalNum);
     }
@@ -87,6 +97,10 @@ public class PictogramActivity extends Activity {
                 @Override
                 protected void onPostExecute(Object o) {
                     if (mNowItem != null) {
+                        if(mModel==LEARNING){
+                            LearningOrderManager orderManager=LearningOrderManager.getManager(PictogramActivity.this);
+                            orderManager.saveOrder(LearningOrderManager.PICTOGRAM_LEARNING,mPosition-1);
+                        }
                         mCharacterFragment.setCharacter(mNowItem);
                         mBtPlay.setOnClickListener(new View.OnClickListener() {
                             @Override

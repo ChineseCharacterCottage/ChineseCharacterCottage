@@ -91,7 +91,7 @@ public class CollectionChoseActivity extends Activity{
                     @Override
                     protected void onPostExecute(Object o) {
                         String[] ids=(String[])o;
-                        PictogramActivity.startActivity(CollectionChoseActivity.this,ids);
+                        PictogramActivity.startActivity(CollectionChoseActivity.this,ids,PictogramActivity.COLLECTION);
 
                     }
                 };

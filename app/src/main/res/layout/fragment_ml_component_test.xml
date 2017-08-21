@@ -36,110 +36,120 @@
             android:text="Meaning of this component:"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
-        <TableLayout
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <TableRow>
-                <TextView
-                    android:text="A:"
-                    style="@style/MyText"
-                    android:gravity="center"
-                    android:layout_width="50dp"
-                    android:layout_height="wrap_content"/>
 
-                <TextView
-                    android:id="@+id/tv_chose_a"
-                    style="@style/MyText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-            </TableRow>
-
-            <TableRow>
-                <TextView
-                    android:text="B:"
-                    style="@style/MyText"
-                    android:gravity="center"
-                    android:layout_width="50dp"
-                    android:layout_height="wrap_content"/>
-
-                <TextView
-                    android:id="@+id/tv_chose_b"
-                    style="@style/MyText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-            </TableRow>
-
-            <TableRow>
-                <TextView
-                    android:text="C:"
-                    style="@style/MyText"
-                    android:gravity="center"
-                    android:layout_width="50dp"
-                    android:layout_height="wrap_content"/>
-
-                <TextView
-                    android:id="@+id/tv_chose_c"
-                    style="@style/MyText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-            </TableRow>
-
-            <TableRow>
-                <TextView
-                    android:text="D:"
-                    style="@style/MyText"
-                    android:gravity="center"
-                    android:layout_width="50dp"
-                    android:layout_height="wrap_content"/>
-
-                <TextView
-                    android:id="@+id/tv_chose_d"
-                    style="@style/MyText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-            </TableRow>
-        </TableLayout>
-
-        <RadioGroup
-            android:id="@+id/answer_chose"
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <RadioButton
-                android:id="@+id/radio_1"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:checked="false"
-                android:text="A"/>
+                android:orientation="vertical">
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TableRow>
+                        <TextView
+                            android:text="A:"
+                            style="@style/MyText"
+                            android:gravity="center"
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"/>
 
-            <RadioButton
-                android:id="@+id/radio_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:text="B"/>
+                        <TextView
+                            android:id="@+id/tv_chose_a"
+                            style="@style/MyText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+                    </TableRow>
 
-            <RadioButton
-                android:id="@+id/radio_3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:text="C"/>
+                    <TableRow>
+                        <TextView
+                            android:text="B:"
+                            style="@style/MyText"
+                            android:gravity="center"
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"/>
 
-            <RadioButton
-                android:id="@+id/radio_4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:text="D"/>
-        </RadioGroup>
+                        <TextView
+                            android:id="@+id/tv_chose_b"
+                            style="@style/MyText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+                    </TableRow>
+
+                    <TableRow>
+                        <TextView
+                            android:text="C:"
+                            style="@style/MyText"
+                            android:gravity="center"
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:id="@+id/tv_chose_c"
+                            style="@style/MyText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+                    </TableRow>
+
+                    <TableRow>
+                        <TextView
+                            android:text="D:"
+                            style="@style/MyText"
+                            android:gravity="center"
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:id="@+id/tv_chose_d"
+                            style="@style/MyText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+                    </TableRow>
+                </TableLayout>
+
+                <RadioGroup
+                    android:id="@+id/answer_chose"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/radio_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:checked="false"
+                        android:text="A"/>
+
+                    <RadioButton
+                        android:id="@+id/radio_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="B"/>
+
+                    <RadioButton
+                        android:id="@+id/radio_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="C"/>
+
+                    <RadioButton
+                        android:id="@+id/radio_4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="D"/>
+                </RadioGroup>
+            </LinearLayout>
+        </ScrollView>
 
     </LinearLayout>
 
