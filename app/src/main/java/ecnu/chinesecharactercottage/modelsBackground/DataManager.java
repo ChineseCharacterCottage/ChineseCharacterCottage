@@ -22,17 +22,27 @@ import java.util.Date;
 import java.util.Locale;
 
 /**
- * Created by Shensheng on 2017/2/13.
- * 数据管理器
+ * @author 匡申升
+ * <p>数据管理器，用于从服务器上获取汉字实例、测试题目等数据，使用SQLite数据库作为本地缓存。</p>
+ * <p>关于缓存：在调用者试图获取数据实例时，这里会检测该数据是否存在本地缓存，如果存在，直接返回缓存的数据，否则从服务器
+ * 上获取数据，然后缓存到本地。</p>
+ * <p>该类中，涉及到网络访问的方法只能在非主线程中进行。</p>
+ * @see android.database.sqlite
  */
 
 public final class DataManager extends SQLiteOpenHelper{
-    private static final String LOCAL_DATABASE="local_character.db";
+
+    private static final String LOCAL_DATABASE="local_character.db";//本地缓存数据库的文件名。
     private static final int VERSION=7;//数据库的版本，如果数据要更新，改成更大的数字
-    private static final String HOST="http://115.159.147.198/hzw/PhalApi/public/hzw/";
-    private static DataManager sManager=null;
+    private static final String HOST="http://115.159.147.198/hzw/PhalApi/public/hzw/";//服务器的host
+    private static DataManager sManager=null;//静态实例对象，符合单例模式。请参考http://blog.csdn.net/jason0539/article/details/23297037/
 
-
+    /**
+     * getInstance()用于获取一个DataManager实例。
+     * 该实例在此方法第一次被调用时生成，为全局唯一。为防止出现并发错误，
+     * 请尽量在主线程中调用这个方法，除非你确信之前已经调用过该方法生成过实例。
+     * @return DataManager 数据管理器实例
+     * @param context App的上下文*/
     public static DataManager getInstance(Context context){
         if(sManager==null){
             sManager=new DataManager(context,LOCAL_DATABASE,null,VERSION);
@@ -40,9 +50,15 @@ public final class DataManager extends SQLiteOpenHelper{
         return sManager;
     }
 
+    /**
+     * 私有的构造器，用于构造一个数据管理器。参数已经在getInstance()内写死，此处不再赘述。*/
     private DataManager(Context context, String name , SQLiteDatabase.CursorFactory factory , int version){
         super(context,name,factory,version);
     }
+    /**
+     * 私有的一个工具方法，可以将游标处的数据转换为JSON对象。
+     * 关于JSON可以参考 http://www.w3school.com.cn/json/
+     * @throws JSONException 当JSON解析错误时抛出。*/
     private JSONObject cursorToJSON(Cursor c) throws JSONException{
         JSONObject json = new JSONObject();
         for (int i = 0; i < c.getColumnCount(); i++) {
@@ -51,7 +67,10 @@ public final class DataManager extends SQLiteOpenHelper{
         return json;
     }
 
-
+    /**
+     * 通过部首的ID序列获取对应的部首。
+     * @param id 要获取的所有部首的ID
+     * @return RadicalItem[] 部首数组，id不正确数组的该位置为null*/
     public RadicalItem[] getRadicalByIds(int[] id){
         ArrayList<RadicalItem> array=new ArrayList<>();
         for(int i:id){
@@ -59,6 +78,10 @@ public final class DataManager extends SQLiteOpenHelper{
         }
         return array.toArray(new RadicalItem[array.size()]);
     }
+    /**
+     * 通过ID获取单一部首，有缓存机制。
+     * @param id 部首的id
+     * @return RadicalItem 部首实例，ID不正确则返回null*/
     public RadicalItem getRadicalById(int id){
         RadicalItem r=getRadicalItemFromLocal(id);
         if(r==null){
@@ -85,6 +108,10 @@ public final class DataManager extends SQLiteOpenHelper{
         }
         return r;
     }
+    /**
+     * 私有方法，从数据库缓存中获取部首实例。
+     * @param id 部首的ID
+     * @return RadicalItem 部首实例，当缓存中不存在时，返回null*/
     private RadicalItem getRadicalItemFromLocal(int id){
         SQLiteDatabase db=this.getReadableDatabase();
         Cursor cursor=db.query("radical", null, "ID=" + id, null, null, null, null);
@@ -102,6 +129,9 @@ public final class DataManager extends SQLiteOpenHelper{
         cursor.close();
         return new RadicalItem(chars,shape,String.valueOf(id),name);
     }
+    /**
+     * 私有方法，将部首实例缓存到本地数据库。
+     * @param radical 部首实例*/
     private void putRadicalItemToLocal(RadicalItem radical){
         SQLiteDatabase db=this.getWritableDatabase();
         ContentValues values=new ContentValues();
@@ -126,7 +156,10 @@ public final class DataManager extends SQLiteOpenHelper{
         }
     }
 
-
+    /**
+     * 从本地缓存获取汉字实例。
+     * @param id 汉字的ID
+     * @return CharItem 汉字实例，本地没有缓存时返回null*/
     private CharItem getCharItemFromLocal(int id){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor=db.query("char_item", null, "ID =" + id, null, null, null, null);
@@ -145,6 +178,10 @@ public final class DataManager extends SQLiteOpenHelper{
             return null;
         }
     }
+    /**
+     * 将汉字缓存到本地。
+     * @param c 要缓存的汉字
+     * @return boolean 失败时为false。一般不会失败，返回值可以丢弃。*/
     private boolean putCharItemToLocal(CharItem c){
         SQLiteDatabase db=this.getWritableDatabase();
         JSONObject json=c.toJSON();
@@ -167,6 +204,10 @@ public final class DataManager extends SQLiteOpenHelper{
             return false;
         }
     }
+    /**
+     * 根据ID序列来获取对应的所有汉字实例。
+     * @param ids 汉字的ID序列
+     * @return CharItem[] 汉字的实例数组，当某个ID不存在时，该位置为null*/
     public CharItem[] getCharItemByIds(int[] ids){
         ArrayList<CharItem> charItems=new ArrayList<>();
         for(int id :ids){
@@ -174,15 +215,19 @@ public final class DataManager extends SQLiteOpenHelper{
         }
         return charItems.toArray(new CharItem[charItems.size()]);
     }
-    /*
-    * if number == -1
-    * return all charitems where id >= from
-    * else
-    * return charitems where id >= from limit number
+    /**
+    * 从某个ID开始，获取固定数量的汉字实例。
+    * @param from 开始的汉字ID，注意该汉字也会被包括在返回的数组里。
+    * @param number 要获取的汉字数量。
+    * @return CharItem[] 返回的所有汉字
     * */
     public CharItem[] getCharItemsByFrom(int from, int number){
         return getCharItemByIds(getIdsInTable(from,number,TABLE_CHARACTER));
     }
+    /**
+     * 根据ID获取汉字实例。有缓存机制。
+     * @param id 汉字ID
+     * @return CharItem 汉字实例，ID不正确时返回null*/
     public CharItem getCharItemById(int id){
         CharItem getC=getCharItemFromLocal(id);
         if(getC==null){
@@ -219,11 +264,19 @@ public final class DataManager extends SQLiteOpenHelper{
         }
         return getC;
     }
+    /*
+    这五个静态常量是表名。和远程数据库里的表名相同。*/
     public static final String TOF="tof";
     public static final String HEAR_TOF="hear_tof";
     public static final String FILL="fill";
     public static final String HEAR_CHOICE="hear_choice";
     public static final String COMPONENT="component";
+
+    /**
+     * 私有方法，从本地缓存获取测验题实例。
+     * @param id 测验题的ID
+     * @param type 测验题的类型，需要填写一个已经定义的常量，下面有说明。
+     * @return TestItem 测验题的实例。需要向下转型为你需要的测验题类型。*/
     private TestItem getTestItemFromLocal(String id,String type){
         SQLiteDatabase db=this.getReadableDatabase();
         Cursor cursor=db.query("test_"+type,null,"ID = "+id,null,null,null,null);
@@ -252,6 +305,10 @@ public final class DataManager extends SQLiteOpenHelper{
         cursor.close();
         return testItem;
     }
+    /**
+     * 获取一个有视频的汉字实例，没有缓存机制。
+     * @param id 汉字ID
+     * @return ShapeCharItem 有视频的汉字实例*/
     public ShapeCharItem getShapeCharItem(String id){
         PhalApiClientResponse response=PhalApiClient.create()
                 .withHost(HOST)
@@ -280,6 +337,10 @@ public final class DataManager extends SQLiteOpenHelper{
         }
         return null;
     }
+    /**
+     * 通过字形来获取汉字。
+     * @param shape 汉字的字形，如“广”、“床”等。
+     * @return CharItem 汉字的实例。*/
     public CharItem getCharItemByShape(String shape){
         PhalApiClientResponse response=PhalApiClient.create()
                 .withHost(HOST)
@@ -287,6 +348,7 @@ public final class DataManager extends SQLiteOpenHelper{
                 .withTimeout(500)
                 .withParams("shape", URLEncode(shape))
                 .request();
+        //说明：这里先从服务器获取了字形的ID，然后再通过getCharItemById()获取汉字实例。因为可以利用这个方法的缓存机制。
         if(response.getRet()==200){
             return getCharItemById(Integer.parseInt(response.getData()));
         }else{
@@ -294,6 +356,10 @@ public final class DataManager extends SQLiteOpenHelper{
             return null;
         }
     }
+    /**
+     * 私有方法，将测试题目的数据放在本地。\
+     * @param testItem 测试题实例。
+     * @param type 测试题类型。注：以后可以改成直接通过反射来知道测试题的类型。*/
     private void putTestItemToLocal(TestItem testItem,String type){
         ContentValues values=testItem.toContentValue();
         values.put("date",System.currentTimeMillis());
@@ -301,6 +367,10 @@ public final class DataManager extends SQLiteOpenHelper{
         db.insert("test_"+type,null,values);
         db.close();
     }
+    /**
+     * 根据部件的排列顺序获取一个部件。
+     * @param order 这个部件的序列号
+     * @return ComponentItem 部件实例*/
     public ComponentItem getComponentByOrder(int order){
         PhalApiClientResponse response = PhalApiClient.create()
                 .withHost(HOST)
@@ -323,6 +393,10 @@ public final class DataManager extends SQLiteOpenHelper{
         }
         return null;
     }
+    /**
+     * 通过ID来获取部件。
+     * @param id 部件的ID
+     * @return ComponentItem 部件实例*/
     public ComponentItem getComponentById(String id){
         PhalApiClientResponse response = PhalApiClient.create()
                 .withHost(HOST)
@@ -345,6 +419,11 @@ public final class DataManager extends SQLiteOpenHelper{
         }
         return null;
     }
+    /**
+     * 获取所有表声（形）的部件。
+     * @param  isVoice 为true时，返回所有声部，否则返回形部。
+     * @return ComponentItem[] 返回的部件
+     * */
     public ComponentItem[] getAllComponents(boolean isVoice){
         String t=isVoice?"v":"s";
         ArrayList<ComponentItem> items=new ArrayList<>();
@@ -374,6 +453,10 @@ public final class DataManager extends SQLiteOpenHelper{
         }
         return null;
     }
+    /**
+     * 判断某个测试题是否在收藏里。
+     * @param t 测验题实例
+     * @return boolean 在收藏里则返回true*/
     public boolean isInCollection(TestItem t){
         String type;
         switch (t.getClass().getSimpleName()){
@@ -400,7 +483,11 @@ public final class DataManager extends SQLiteOpenHelper{
         cursor.close();
         return ret;
     }
-    //参数为null返回所有
+    /**
+     * 一次性获取所有固定类型的测验题实例。
+     * @param type 测验题类型，如果为null，则返回所有测验题。
+     * @return TestItem[] 测验题实例
+     * */
     public TestItem[] getTestItemsCollection(@Nullable String type){
         if(type == null){
             ArrayList<TestItem> items = new ArrayList<>();
@@ -434,6 +521,11 @@ public final class DataManager extends SQLiteOpenHelper{
             return items.toArray(new TestItem[items.size()]);
         }
     }
+    /**
+     * 获取和某个汉字有关的听力测试题。
+     * @param shape 汉字字形，如“广”等。
+     * @return TestHearChoiceItem 听力选择测验题实例。
+     * */
     public TestHearChoiceItem getTestByCharShape(String shape){
         PhalApiClientResponse response=PhalApiClient.create()
                 .withHost(HOST)
@@ -452,6 +544,10 @@ public final class DataManager extends SQLiteOpenHelper{
         }
         return null;
     }
+    /**
+     * 根据部件ID，获取部件相关的测验题实例。
+     * @param compId 部件ID
+     * @return 测验题实例*/
     public TestComponentItem getTestComponentItemByCompId(String compId){
         PhalApiClientResponse response=PhalApiClient.create()
                 .withHost(HOST)
@@ -470,6 +566,11 @@ public final class DataManager extends SQLiteOpenHelper{
         }
         return null;
     }
+    /**
+     * 根据ID和类型获取测验题实例，有缓存机制。
+     * @param id 测验题ID
+     * @param type 类型
+     * @return 测验题实例*/
     public TestItem getTestItemById(String id,String type){
         TestItem testItem=getTestItemFromLocal(id,type);
         if(testItem!=null){
@@ -511,6 +612,9 @@ public final class DataManager extends SQLiteOpenHelper{
         }
         return testItem;
     }
+    /**
+     * 收藏一个测验题。
+     * @param testItem 测验题*/
     public void putIntoCollection(TestItem testItem){
         if(isInCollection(testItem))return;
         String type;
@@ -540,6 +644,9 @@ public final class DataManager extends SQLiteOpenHelper{
         db.insert("collection_test",null,cv);
         db.close();
     }
+    /**
+     * 收藏一个汉字。
+     * @param charItem 汉字实例*/
     public void putIntoCollection(CharItem charItem){
         if(isInCollection(charItem))return;
         if(charItem.getClass().equals(CharItem.class)){
@@ -556,6 +663,10 @@ public final class DataManager extends SQLiteOpenHelper{
             db.close();
         }
     }
+    /**
+     * 判断汉字是否在收藏中。
+     * @param charItem 要判断的汉字。
+     * @return 在则返回true*/
     public boolean isInCollection(CharItem charItem){
         SQLiteDatabase db = getWritableDatabase();
         if(charItem.getClass().equals(ShapeCharItem.class)){
@@ -570,6 +681,9 @@ public final class DataManager extends SQLiteOpenHelper{
             return exist;
         }
     }
+    /**
+     * 移除收藏的汉字。
+     * @param charItem 汉字*/
     public void removeCollection(CharItem charItem){
         if(!isInCollection(charItem))return;
         SQLiteDatabase db = getWritableDatabase();
@@ -582,12 +696,19 @@ public final class DataManager extends SQLiteOpenHelper{
             db.close();
         }
     }
+    /**
+     * 移除收藏的题目。
+     * @param testItem 题目*/
     public void removeCollection(TestItem testItem){
         if(!isInCollection(testItem))return;
         SQLiteDatabase db = getWritableDatabase();
         db.delete("collection_test","ID = ? AND testtype = ? ",new String[]{testItem.getTestId(),testItem.getType()});
         db.close();
     }
+    /**
+     * 获取一个小知识。
+     * @param id 小知识的ID
+     * @return 小知识的实例*/
     public Knowledge getKnowledge(String id){
         PhalApiClientResponse response = PhalApiClient.create()
                 .withHost(HOST)
@@ -605,6 +726,8 @@ public final class DataManager extends SQLiteOpenHelper{
         }
         return null;
     }
+    /**
+     * @return 获取所有小知识。*/
     public Knowledge[] getKnowledgeList(){
         PhalApiClientResponse response = PhalApiClient.create()
                 .withHost(HOST)
@@ -628,6 +751,10 @@ public final class DataManager extends SQLiteOpenHelper{
 
         return null;
     }
+    /**
+     * 获取收藏的所有汉字的ID。
+     * @param isShape 为true时，返回所有带视频的汉字ID。
+     * @return ID*/
     public String[] getCollectionCharsId(boolean isShape){
         SQLiteDatabase db = getReadableDatabase();
         if(!isShape){
@@ -658,11 +785,13 @@ public final class DataManager extends SQLiteOpenHelper{
             return ids.toArray(new String[ids.size()]);
         }
     }
+    /*表名。*/
     public static final String TABLE_CHARACTER="character";
     public static final String TABLE_COMPONENT="component";
     public static final String TABLE_COMP_SORT="comp_sort";
     public static final String TABLE_KNOWLEDGE="knowledge";
-    //TODO::待补全
+    /**
+     * 获取服务器上某个表的条目数量。*/
     public int countTableItem(String tableName){
         PhalApiClientResponse response = PhalApiClient.create()
                 .withHost(HOST)
@@ -676,6 +805,12 @@ public final class DataManager extends SQLiteOpenHelper{
             return -1;
         }
     }
+    /**
+     * 获取服务器上从某个ID开始的规定数量的实例ID。
+     * @param from 开始的ID
+     * @param number 获取的数量
+     * @param tableName 表名
+     * @return id 数组*/
     private int[] getIdsInTable(int from, int number,String tableName){
         PhalApiClientResponse response = PhalApiClient.create()
                 .withHost(HOST)
@@ -713,6 +848,9 @@ public final class DataManager extends SQLiteOpenHelper{
             "test_hear_tof",
             "test_hear_choice",
             "test_component"};
+    /**
+     * 用于创建一个SQL数据库实例。
+     * @see android.database.sqlite*/
     @Override
     public void onCreate(SQLiteDatabase db) {
         final String CREATE_COLLECTION_CHAR="create table collection_char (" +
@@ -802,6 +940,8 @@ public final class DataManager extends SQLiteOpenHelper{
         db.execSQL(CREATE_TEST_COMPONENT);
     }
 
+    /**
+     * 当本地缓存数据库结构更新时，自动调用。*/
     @Override
     public void onUpgrade(SQLiteDatabase db,int oldVersion,int newVersion) {
         for(String tableName:tableList){
@@ -809,7 +949,9 @@ public final class DataManager extends SQLiteOpenHelper{
         }
         onCreate(db);
     }
-
+    /**
+     * URLEncode处理。注意，发往服务器的所有汉字必须做这个处理，否则无法被服务器接受。
+     * 关于URLEncode，可参考：http://baike.sogou.com/v7995214.htm?fromTitle=urlencode*/
     private static String URLEncode(String source){
         try{
             return URLEncoder.encode(source,"UTF-8");
