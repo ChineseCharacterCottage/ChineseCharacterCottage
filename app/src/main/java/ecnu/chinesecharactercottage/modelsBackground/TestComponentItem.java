@@ -7,7 +7,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * Created by Shensheng on 2017/8/1.
+ * @author 匡申升
+ * @see TestItem
+ * 部件测试题。
  */
 
 public class TestComponentItem extends TestItem {
@@ -19,6 +21,8 @@ public class TestComponentItem extends TestItem {
     private String mChoiceC;
     private String mChoiceD;
     private String mCorrectAnswer;
+    /**
+     * 从一个JSON对象构造一个实例。*/
     public TestComponentItem(JSONObject json) throws JSONException{
         mId = json.getString("ID");
         mCompId = json.getString("comp_id");
@@ -28,6 +32,9 @@ public class TestComponentItem extends TestItem {
         mChoiceD = json.getString("choice_d");
         mCorrectAnswer = json.getString("correct_ans");
     }
+    /**
+     * 从数据库游标构造实例。
+     * @see DataManager,Cursor,android.database.sqlite.SQLiteOpenHelper*/
     public TestComponentItem(Cursor cursor){
         mId = cursor.getString(cursor.getColumnIndex("ID"));
         mCompId = cursor.getString(cursor.getColumnIndex("comp_id"));
@@ -37,9 +44,15 @@ public class TestComponentItem extends TestItem {
         mChoiceB = cursor.getString(cursor.getColumnIndex("choice_b"));
         mCorrectAnswer = cursor.getString(cursor.getColumnIndex("correct_ans"));
     }
+    /**
+     * @see TestItem*/
+    @Override
     public String getCorrectAnswer(){
         return mCorrectAnswer;
     }
+    /**
+     * @see TestItem*/
+    @Override
     public ContentValues toContentValue(){
         ContentValues cv = new ContentValues();
         cv.put("ID",mId);
@@ -51,7 +64,9 @@ public class TestComponentItem extends TestItem {
         cv.put("correct_ans",mCorrectAnswer);
         return cv;
     }
-
+    /**
+     * @deprecated
+     * 用getTestId代替。*/
     public String getId() {
         return mId;
     }
@@ -75,12 +90,14 @@ public class TestComponentItem extends TestItem {
     public String getChoiceD() {
         return mChoiceD;
     }
-
+    /**
+     * @see TestItem*/
     @Override
     public String getTestId() {
         return mId;
     }
-
+    /**
+     * @see TestItem*/
     @Override
     public String getType() {
         return DataManager.COMPONENT;

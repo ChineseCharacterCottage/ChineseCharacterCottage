@@ -13,23 +13,25 @@ import java.net.URL;
 import ktool.*;
 
 /**
- * Created by Shensheng on 2017/5/2.
- * 图片获取器
+ * @author 匡申升
+ * 图片获取器。用于从本地缓存或者远程服务器获取一个图片实例。
+ * @see ThreeLevelCache
  */
 
 public class PictureGetter extends WeakHashMapCache<String,Bitmap>{
-
+    //服务器的HOST
     private static final String HOST = "http://115.159.147.198/files/";
+    //应用的上下文
     private Context mContext;
-
+    //根据应用上下文，创建一个图片获取器实例。
     public PictureGetter(Context context){
         mContext = context.getApplicationContext();
     }
-
+    //根据ID获取图片。
     public Bitmap getPicture(String id){
         return getObject(id);
     }
-
+    //从磁盘上获取图片。
     @Override
     protected Bitmap getObjectFromDisk(String key) {
         try{
@@ -42,7 +44,7 @@ public class PictureGetter extends WeakHashMapCache<String,Bitmap>{
         }
         return null;
     }
-
+    //从远程服务器获取图片
     @Override
     protected Bitmap getObjectFromWebServer(String key) {
         try {
@@ -61,7 +63,7 @@ public class PictureGetter extends WeakHashMapCache<String,Bitmap>{
         }
         return null;
     }
-
+    //在磁盘上获取图片
     @Override
     protected void restoreObjectToDisk(String key, Bitmap value) {
         try {

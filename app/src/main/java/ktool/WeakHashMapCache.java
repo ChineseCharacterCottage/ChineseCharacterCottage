@@ -3,8 +3,9 @@ package ktool;
 import java.util.WeakHashMap;
 
 /**
- * Created by Kuangthree on 2017/4/24.
+ * @author 匡申升
  * RAM部分采用弱哈希表的三级缓存
+ * @see ThreeLevelCache
  */
 
 public abstract class WeakHashMapCache<K,V> extends ThreeLevelCache<K,V> {

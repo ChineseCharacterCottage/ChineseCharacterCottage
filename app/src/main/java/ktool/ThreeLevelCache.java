@@ -3,16 +3,19 @@ package ktool;
 import android.support.annotation.Nullable;
 
 /**
- * Created by Kuangthree on 2017/4/24.
+ * @author 匡申升
  * 简单的三级缓存实现
  */
 
 abstract public class ThreeLevelCache<K,V> {
 
+    /**
+     * 访问完成调用的接口。*/
     public interface onAccessCompleteListener<V>{
         void onAccessComplete(boolean isSuccess,V object);
     }
-
+    /**
+     * 访问远程服务器的线程。*/
     private class AccessThread extends Thread{
 
         onAccessCompleteListener<V> mListener;
@@ -37,7 +40,8 @@ abstract public class ThreeLevelCache<K,V> {
             }
         }
     }
-
+    /**
+     * 当缓存有内容时，直接返回该对象，否则，启动一个线程从远程服务器获取资源，该线程结束后会调用回调函数，返回null。*/
     protected V getObjectWithListener(K key,@Nullable onAccessCompleteListener<V> listener){
         V object = this.getObjectFromRAM(key);
         if(object != null) return object;
@@ -49,7 +53,8 @@ abstract public class ThreeLevelCache<K,V> {
         new AccessThread(listener,key).start();
         return null;
     }
-
+    /**
+     * 获取一个对象。如果在缓存中，则直接返回，否则从更高一级的存储中获取。*/
     protected V getObject(K key){
         V object = this.getObjectFromRAM(key);
         if(object != null) return object;
@@ -66,15 +71,20 @@ abstract public class ThreeLevelCache<K,V> {
         }
         return null;
     }
-
+    /**
+     * 从内存中获取对象。*/
     abstract protected V getObjectFromRAM(K key);
-
+    /**
+     * 从磁盘获取对象。*/
     abstract protected V getObjectFromDisk(K key);
-
+    /**
+     * 从服务器获取对象。*/
     abstract protected V getObjectFromWebServer(K key);
-
+    /**
+     * 将远程获取的对象存在磁盘上。*/
     abstract protected void restoreObjectToDisk(K key,V value);
-
+    /**
+     * 将远程获取的对象存在内存里。*/
     abstract protected void restoreObjectToRAM(K key,V value);
 
 

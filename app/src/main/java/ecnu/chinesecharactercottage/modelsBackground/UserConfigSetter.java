@@ -16,7 +16,9 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
 /**
- * Created by Shensheng on 2016/12/11.
+ * @author 匡申升
+ * 获取用户的一些全局的设置。这个类已经废弃了，建议删除。本文件不作具体注释。
+ * @deprecated
  */
 
 public class UserConfigSetter {

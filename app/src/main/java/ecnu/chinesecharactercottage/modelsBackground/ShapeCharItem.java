@@ -1,7 +1,9 @@
 package ecnu.chinesecharactercottage.modelsBackground;
 
 /**
- * Created by Shensheng on 2017/3/21.
+ * @author 匡申升
+ * @see CharItem
+ * 一个带有视频的CharItem。
  */
 
 public class ShapeCharItem extends CharItem {
@@ -13,6 +15,8 @@ public class ShapeCharItem extends CharItem {
     public ShapeCharItem(CharItem charItem){
         super(charItem.toJSON());
     }
+    /**
+     * 获取视频源地址。*/
     public String getVideo(){
         return mVideo;
     }

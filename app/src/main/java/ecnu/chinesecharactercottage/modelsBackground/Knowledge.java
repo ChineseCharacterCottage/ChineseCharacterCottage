@@ -1,7 +1,8 @@
 package ecnu.chinesecharactercottage.modelsBackground;
 
 /**
- * Created by Shensheng on 2017/5/1.
+ * @author 匡申升
+ * 汉字小知识实例。简单的数据模型类。
  */
 
 public class Knowledge {
@@ -11,10 +12,14 @@ public class Knowledge {
         video=pVideo;
         text=pText;
     }
+    /**
+     * 四个公有属性。分别是：标题、视频、文本、ID*/
     public final String title;
     public final String video;
     public final String text;
     public final String id;
 
+    /**
+     * 返回这个小知识的标题。*/
     public String getTitle(){return title;}
 }

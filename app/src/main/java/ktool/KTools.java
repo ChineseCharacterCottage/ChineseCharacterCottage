@@ -4,8 +4,8 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 /**
- * Created by Shensheng on 2017/4/25.
- * 简单的工具
+ * @author 匡申升
+ *  简单的工具
  */
 
 public class KTools {

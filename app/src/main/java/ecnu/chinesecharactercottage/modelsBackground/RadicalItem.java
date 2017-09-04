@@ -3,7 +3,9 @@ package ecnu.chinesecharactercottage.modelsBackground;
 import java.io.Serializable;
 
 /**
- * Created by Shensheng on 2016/12/1.
+ * @author 匡申升
+ * @see CharItem
+ * 汉字的部首实例。
  */
 
 public class RadicalItem implements Serializable {
@@ -17,18 +19,28 @@ public class RadicalItem implements Serializable {
         mShape=shape;
         mName=name;
     }
+    /**
+     * 获取这个部首的名字。*/
     public String getName(){
         return mName;
     }
+    /**
+     * 获取这个部首的形状。*/
     public String getRadical(){
         return mShape;
     }
+    /**
+     * 获取这个部首的ID。*/
     public String getId(){
         return mId;
     }
+    /**
+     * 获取这个部首的例字。*/
     public String[] getExamples(){
         return mExamples;
     }
+    /**
+     * 方便调试。*/
     @Override
     public String toString(){
         return mShape+" "+mName;
