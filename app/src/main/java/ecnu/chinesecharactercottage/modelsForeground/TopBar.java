@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 import ecnu.chinesecharactercottage.R;
 
 /**
- * Created by 10040 on 2017/5/3.
+ * 顶部工具栏，现在只有左上角的返回
  */
 
 public class TopBar extends LinearLayout {
@@ -23,11 +23,11 @@ public class TopBar extends LinearLayout {
         super(context,attr);
         LayoutInflater.from(context).inflate(R.layout.top_bar,this);
 
-        mBtBack=(Button)findViewById(R.id.bt_back);
+        mBtBack=(Button)findViewById(R.id.bt_back);//绑定控件
         mBtBack.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((Activity)getContext()).finish();
+                ((Activity)getContext()).finish();//设置返回键监听器
             }
         });
     }

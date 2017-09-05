@@ -19,7 +19,8 @@ import ecnu.chinesecharactercottage.modelsForeground.inject.InjectView;
 import ecnu.chinesecharactercottage.modelsForeground.inject.Injecter;
 
 /**
- * Created by 10040 on 2017/3/7.
+ * @author 胡家斌
+ * 阅读匹配题部分
  */
 
 public class TestCompleteFragment extends Fragment {
@@ -62,9 +63,11 @@ public class TestCompleteFragment extends Fragment {
     }
 
     private void init(View view){
+        //初始化控件
         mWords=new TextView[5];
         mSentences=new TextView[5];
         mChosenAnswers=new Spinner[5];
+        //绑定控件
         mWords[0]=(TextView)view.findViewById(R.id.tv_word_1);
         mWords[1]=(TextView)view.findViewById(R.id.tv_word_2);
         mWords[2]=(TextView)view.findViewById(R.id.tv_word_3);
@@ -80,8 +83,8 @@ public class TestCompleteFragment extends Fragment {
         mChosenAnswers[2]=(Spinner) view.findViewById(R.id.spinner_3);
         mChosenAnswers[3]=(Spinner) view.findViewById(R.id.spinner_4);
         mChosenAnswers[4]=(Spinner) view.findViewById(R.id.spinner_5);
-        mBtSubmit.setEnabled(false);
-        mLayoutErrorMsg.setVisibility(View.GONE);
+        mBtSubmit.setEnabled(false);//初始化提交为不可点击
+        mLayoutErrorMsg.setVisibility(View.GONE);//隐藏错误消息显示部分
 
     }
 
@@ -91,6 +94,7 @@ public class TestCompleteFragment extends Fragment {
             public void onClick(View v) {
                 String correctAnswer=mNowTest.getCorrectAnswer();//获取正确答案
                 String chosenAnswer="";
+                //获取用户选择的顺序
                 for(int i=0;i<5;i++){
                     chosenAnswer+=getAnswerNumber(mChosenAnswers[i]);
                 }
@@ -132,7 +136,7 @@ public class TestCompleteFragment extends Fragment {
                 mNext.next();
             }
         });
-        mBtNext.setVisibility(View.GONE);
+        mBtNext.setVisibility(View.GONE);//隐藏下一个按键
 
     }
 

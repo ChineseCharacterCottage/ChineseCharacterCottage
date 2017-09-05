@@ -8,7 +8,9 @@ import ecnu.chinesecharactercottage.activitys.test.TestHearTOFActivity;
 import ecnu.chinesecharactercottage.modelsForeground.TwoChoicesDialog;
 
 /**
- * Created by 10040 on 2017/5/4.
+ * @author 胡家斌
+ * 继承自TwoChoicesDialog的测试题类型选择对话框，左右选项分别进入听力选择和听力判断题两种类型
+ * @see TwoChoicesDialog
  */
 
 public class TestChoseListenDialog extends TwoChoicesDialog {
@@ -25,6 +27,8 @@ public class TestChoseListenDialog extends TwoChoicesDialog {
 
     @Override
     protected void clickFirst() {
+        //这个方法跳转到听力选择题
+        //根据模式跳转到不同的学习模式
         if(mModel== TestCompleteActivity.LEARNING)
             TestHearMatchActivity.startActivity(getActivity(),1,10);
         else
@@ -33,6 +37,8 @@ public class TestChoseListenDialog extends TwoChoicesDialog {
 
     @Override
     protected void clickSecond() {
+        //这个方法跳转到听力选择题
+        //根据模式跳转到不同的学习模式
         if(mModel== TestCompleteActivity.LEARNING)
             TestHearTOFActivity.startActivity(getActivity(),1,10);
         else

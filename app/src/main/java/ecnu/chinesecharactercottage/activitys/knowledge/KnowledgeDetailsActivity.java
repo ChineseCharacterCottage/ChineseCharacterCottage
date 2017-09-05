@@ -16,11 +16,14 @@ import ecnu.chinesecharactercottage.modelsForeground.inject.Injecter;
 import ecnu.chinesecharactercottage.R;
 
 /**
- * Created by 10040 on 2017/5/2.
+ * @author 胡家斌
+ * 这个活动负责显示小知识的详情
  */
 
 public class KnowledgeDetailsActivity extends Activity {
 
+    //数据键值
+    private static String ID="id";
     //视频地址
     private static String VIDEO_PATH="http://115.159.147.198/HZW_web/video/";
     //文字标题view
@@ -37,40 +40,45 @@ public class KnowledgeDetailsActivity extends Activity {
     //文章实体
     private Knowledge mKnowledge;
 
-
+    /**
+     * 活动静态跳转方法
+     * @param context 上下文
+     * @param id 需要显示的小知识的id
+     */
     public static void startActivity(Context context, String id){
         Intent intent=new Intent(context,KnowledgeDetailsActivity.class);
-        intent.putExtra("id",id);
+        intent.putExtra(ID,id);//传递数据
         context.startActivity(intent);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView( R.layout.activity_knowledge_details);
-        Injecter.autoInjectAllField(this);
+        setContentView( R.layout.activity_knowledge_details);//设置布局
+        Injecter.autoInjectAllField(this);//绑定控件
 
-        mId=getIntent().getStringExtra("id");
+        mId=getIntent().getStringExtra(ID);//获取id
+        //创建异步对象，从服务器获取数据并更新界面内容
         AsyncTask task=new AsyncTask() {
             @Override
             protected Object doInBackground(Object[] params) {
-                DataManager dataManager=DataManager.getInstance(KnowledgeDetailsActivity.this);
-                mKnowledge=dataManager.getKnowledge(mId);
+                DataManager dataManager=DataManager.getInstance(KnowledgeDetailsActivity.this);//获取DataManager实例
+                mKnowledge=dataManager.getKnowledge(mId);//利用DataManager实例获取小知识的数据
                 return null;
             }
 
             @Override
             protected void onPostExecute(Object o) {
-                setKnowledge();
+                setKnowledge();//设置页面的内容
             }
         };
         task.execute();
     }
 
     private void setKnowledge(){
-        mTitleView.setText(mKnowledge.title);
-        mTextView.setText(mKnowledge.text);
-        mVideoView.setVideoURI(Uri.parse(VIDEO_PATH+mKnowledge.video));
-        mVideoView.setMediaController(new MediaController(this));
+        mTitleView.setText(mKnowledge.title);//更新标题
+        mTextView.setText(mKnowledge.text);//更新说明
+        mVideoView.setVideoURI(Uri.parse(VIDEO_PATH+mKnowledge.video));//设置视频地址
+        mVideoView.setMediaController(new MediaController(this));//添加视频控制器（现在还是非常丑的直接从手机底端弹出的样子-_-）
     }
 }

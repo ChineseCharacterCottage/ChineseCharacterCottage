@@ -28,7 +28,8 @@ import ecnu.chinesecharactercottage.modelsForeground.inject.InjectView;
 import ecnu.chinesecharactercottage.modelsForeground.inject.Injecter;
 
 /**
- * Created by 10040 on 2017/7/26.
+ * @author 胡家斌
+ * 这个fragment是主学习板块的第四部分（例字测试）的主要逻辑部分。
  */
 
 public class CharsTestFragment extends BaseFragment {
@@ -101,10 +102,10 @@ public class CharsTestFragment extends BaseFragment {
             @Override
             protected Object doInBackground(Object... params){
                 DataManager dataManager=DataManager.getInstance(getActivity());
-                //这里需要一个根据字形获取选择题的接口
-                mTestCharItems=new TestHearChoiceItem[characters.length];
+                mTestCharItems=new TestHearChoiceItem[characters.length];//测试题数组
+                //构造测试题数组
                 for(int i=0;i<characters.length;i++){
-                    mTestCharItems[i]=dataManager.getTestByCharShape(characters[i]);
+                    mTestCharItems[i]=dataManager.getTestByCharShape(characters[i]);//根据字形获取测试题
                 }
                 return null;
             }
@@ -137,7 +138,8 @@ public class CharsTestFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 String correctAnswer=mNowTest.getCorrectAnswer();//获取正确答案
-                String chosenAnswer="";
+                String chosenAnswer="";//用户选择的答案
+                //判断用户选择的答案
                 switch (mChosenAnswer.getCheckedRadioButtonId()){
                     case R.id.radio_1:
                         chosenAnswer="a";
@@ -211,7 +213,7 @@ public class CharsTestFragment extends BaseFragment {
                     @Override
                     protected CharItem doInBackground(Object[] params) {
                         DataManager myDM=DataManager.getInstance((Context) params[0]);
-                        CharItem charItem=myDM.getCharItemById(Integer.valueOf((String)params[1]));
+                        CharItem charItem=myDM.getCharItemById(Integer.valueOf((String)params[1]));//获取字数据
                         return charItem;
                     }
 
@@ -250,6 +252,7 @@ public class CharsTestFragment extends BaseFragment {
         new ImageGetter(c,mNowTest.getPictureC(),mPicture3).setImage();
         new ImageGetter(c,mNowTest.getPictureD(),mPicture4).setImage();
 
+        //设置收藏控件
         new Marker(getActivity()).setMark(mMark,mNowTest);
     }
 }

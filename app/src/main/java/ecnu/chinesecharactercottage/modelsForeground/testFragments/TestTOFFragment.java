@@ -23,8 +23,10 @@ import ecnu.chinesecharactercottage.R;
 import ecnu.chinesecharactercottage.modelsForeground.inject.InjectView;
 import ecnu.chinesecharactercottage.modelsForeground.inject.Injecter;
 
+
 /**
- * Created by 10040 on 2017/3/4.
+ * @author 胡家斌
+ * 阅读判断题部分
  */
 
 public class TestTOFFragment extends Fragment {

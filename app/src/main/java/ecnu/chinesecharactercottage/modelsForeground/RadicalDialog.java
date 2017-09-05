@@ -1,6 +1,8 @@
 package ecnu.chinesecharactercottage.modelsForeground;
 
 import android.app.DialogFragment;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +19,8 @@ import ecnu.chinesecharactercottage.modelsBackground.RadicalItem;
 
 public class RadicalDialog extends DialogFragment {
 
+    //对话框tag
+    private static final String TAG="component_dialog";
     //部首
     private static RadicalItem sRadical;
 
@@ -29,8 +33,7 @@ public class RadicalDialog extends DialogFragment {
 
     static public RadicalDialog getDialogInstance(RadicalItem radicalItem){
         sRadical=radicalItem;
-        RadicalDialog myRadicalDialog=new RadicalDialog();
-        return myRadicalDialog;
+        return new RadicalDialog();
     }
 
     @Override
@@ -51,6 +54,16 @@ public class RadicalDialog extends DialogFragment {
         setRadical();
 
         return v;
+    }
+
+    public void show(){
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        Fragment prev = getFragmentManager().findFragmentByTag(TAG);
+        if (prev != null) {
+            ft.remove(prev);
+        }
+        ft.addToBackStack(null);
+        super.show(ft,TAG);
     }
 
     private void setRadical() {

@@ -7,7 +7,9 @@ import ecnu.chinesecharactercottage.activitys.test.TestTOFActivity;
 import ecnu.chinesecharactercottage.modelsForeground.TwoChoicesDialog;
 
 /**
- * Created by 10040 on 2017/5/4.
+ * @author 胡家斌
+ * 继承自TwoChoicesDialog的测试题类型选择对话框，左右选项分别进入阅读匹配题和阅读判断题两种类型
+ * @see TwoChoicesDialog
  */
 
 public class TestChoseReadDialog extends TwoChoicesDialog {
@@ -24,6 +26,8 @@ public class TestChoseReadDialog extends TwoChoicesDialog {
 
     @Override
     protected void clickFirst() {
+        //这个方法跳转到阅读匹配题
+        //根据模式跳转到不同的学习模式
         if(mModel==TestCompleteActivity.LEARNING)
             TestCompleteActivity.startActivity(getActivity(),1,10);
         else
@@ -33,6 +37,8 @@ public class TestChoseReadDialog extends TwoChoicesDialog {
 
     @Override
     protected void clickSecond() {
+        //这个方法跳转到阅读选择题
+        //根据模式跳转到不同的学习模式
         if(mModel==TestCompleteActivity.LEARNING)
             TestTOFActivity.startActivity(getActivity(),1,10);
         else

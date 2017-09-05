@@ -1,41 +1,31 @@
 package ecnu.chinesecharactercottage.modelsForeground.mainLearningFragments;
 
 
-import android.content.Context;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import ecnu.chinesecharactercottage.R;
-import ecnu.chinesecharactercottage.activitys.character.ExampleActivity;
-import ecnu.chinesecharactercottage.modelsBackground.CharItem;
 import ecnu.chinesecharactercottage.modelsBackground.ComponentItem;
 import ecnu.chinesecharactercottage.modelsBackground.DataManager;
 import ecnu.chinesecharactercottage.modelsBackground.TestComponentItem;
-import ecnu.chinesecharactercottage.modelsBackground.TestHearChoiceItem;
-import ecnu.chinesecharactercottage.modelsBackground.TestItem;
 import ecnu.chinesecharactercottage.modelsForeground.ComponentDialog;
-import ecnu.chinesecharactercottage.modelsForeground.ImageGetter;
-import ecnu.chinesecharactercottage.modelsForeground.Marker;
 import ecnu.chinesecharactercottage.modelsForeground.inject.InjectView;
 import ecnu.chinesecharactercottage.modelsForeground.inject.Injecter;
 
 /**
- * Created by 10040 on 2017/7/26.
+ * @author 胡家斌
+ * 这个fragment是主学习板块的第三部分（部件意思测试）的主要逻辑部分。
  */
 
 public class ComponentTestFragment extends BaseFragment {
-    //数据存取键值
-    static final private String ID ="id";
     //视图控件：
     //字形
     @InjectView(id= R.id.figure)
@@ -70,9 +60,9 @@ public class ComponentTestFragment extends BaseFragment {
     //查看部件按键
     @InjectView(id=R.id.bt_show_character)
     private   Button mBtShowComponent;
-    //收藏按键
-    @InjectView(id=R.id.mark)
-    private Button mMark;
+    //收藏按键，收藏未实现
+    //@InjectView(id=R.id.mark)
+    //private Button mMark;
 
     //相关数据：
     //当前测试部件题目
@@ -82,46 +72,50 @@ public class ComponentTestFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.fragment_ml_component_test,container,false);
-        Injecter.autoInjectAllField(this,view);
-        mTvFigure.setTypeface(Typeface.createFromAsset(getActivity().getAssets(),"font/1.ttf"));
-        //设置按钮的监听器
-        initButtons();
+        View view=inflater.inflate(R.layout.fragment_ml_component_test,container,false);//渲染视图
+        Injecter.autoInjectAllField(this,view);//绑定控件
+        mTvFigure.setTypeface(Typeface.createFromAsset(getActivity().getAssets(),"font/1.ttf"));//设置部件字形的字体
+
+        initButtons();//设置按钮的监听器
+
         return view;
     }
 
-    public void setTest(final String id){
-        mBtSubmit.setEnabled(false);
-        mLayoutErrorMsg.setVisibility(View.GONE);
-        mBtNext.setVisibility(View.GONE);
-        mBtShowComponent.setVisibility(View.GONE);
-        mBtSubmit.setVisibility(View.VISIBLE);
+    /**
+     * 根据传入的部件id，获取相应部件的测试题，并更新到界面上
+     * @param componentItem 要测试的部件数据
+     */
+    public void setTest(ComponentItem componentItem){
+        mComponentItem=componentItem;//保存部件数据到成员变量
+        mBtSubmit.setEnabled(false);//在数据获取完全前设置提交为不可点击
+        mLayoutErrorMsg.setVisibility(View.GONE);//隐藏错误信息
+        mBtNext.setVisibility(View.GONE);//隐藏下一个按键
+        mBtShowComponent.setVisibility(View.GONE);//隐藏显示显示部件详情按键
+        mBtSubmit.setVisibility(View.VISIBLE);//显示提交按键
 
-        //获取数据
+        //异步获取数据
         AsyncTask task=new AsyncTask() {
             @Override
             protected Object doInBackground(Object... params){
                 DataManager dataManager=DataManager.getInstance(getActivity());
-                mNowTest=dataManager.getTestComponentItemByCompId(id);
-                if(mNowTest!=null){
-                    mComponentItem=dataManager.getComponentById(mNowTest.getCompId());
-                }
+                mNowTest=dataManager.getTestComponentItemByCompId(mComponentItem.getGlobalId());//获取部件测试题
                 return null;
             }
 
             @Override
             protected void onPostExecute(Object o) {
                 if(mNowTest!=null){
-                    //这里设置题目
-                    mTvFigure.setText(mComponentItem.getShape());
+                    //设置题目
+                    mTvFigure.setText(mComponentItem.getShape());//设置字形
+                    //设置4个选项
                     mExplanation1.setText(mNowTest.getChoiceA());
                     mExplanation2.setText(mNowTest.getChoiceB());
                     mExplanation3.setText(mNowTest.getChoiceC());
                     mExplanation4.setText(mNowTest.getChoiceD());
-                    mBtSubmit.setEnabled(true);
-                    //new Marker(getActivity()).setMark(mMark,mNowTest);//类型转换要在前面做好
+                    mBtSubmit.setEnabled(true);//设置提交按键为可点击
+                    //new Marker(getActivity()).setMark(mMark,mNowTest);//还未实现收藏
                 }else
-                    finish();
+                    finish();//调用基类提供的finish()
             }
         };
         task.execute();
@@ -132,7 +126,8 @@ public class ComponentTestFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 String correctAnswer=mNowTest.getCorrectAnswer();//获取正确答案
-                String chosenAnswer="";
+                String chosenAnswer="";//用户选择的答案
+                //判断用户选择的答案是什么
                 switch (mChosenAnswer.getCheckedRadioButtonId()){
                     case R.id.radio_1:
                         chosenAnswer="a";
@@ -148,6 +143,7 @@ public class ComponentTestFragment extends BaseFragment {
                         break;
                 }
 
+                //判断用户答案是否正确
                 if(chosenAnswer.equals(correctAnswer)){
                     //正确回答时
                     //显示提交按钮
@@ -159,7 +155,7 @@ public class ComponentTestFragment extends BaseFragment {
                     //隐藏查看部件按键
                     mBtShowComponent.setVisibility(View.GONE);
                     //回答正确
-                    finish();
+                    finish();//调用基类提供的finish()
 
                 }else{
                     //回答错误时
@@ -177,17 +173,20 @@ public class ComponentTestFragment extends BaseFragment {
             }
         });
 
+        //点击next进入下一个阶段，所以直接结束当前阶段即可
         mBtNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                finish();//调用基类提供的finish()
             }
         });
 
+        //点击显示部件详情对话框
         mBtShowComponent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ComponentDialog.startDialog(getActivity(),mComponentItem,mComponentItem.getModel());
+                //启动一个对话框
+                ComponentDialog.startDialog(getActivity(),mComponentItem);
             }
         });
     }

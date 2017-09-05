@@ -13,7 +13,9 @@ import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 
 /**
- * Created by 10040 on 2016/12/11.
+ * @author 胡家斌
+ * 这个类是左滑框类，但只是放在这里，由于版本更新已经不再使用了
+ * 详情请看http://blog.csdn.net/swust_chenpeng/article/details/38583751
  */
 
 public class SlidingLayout extends LinearLayout implements View.OnTouchListener {

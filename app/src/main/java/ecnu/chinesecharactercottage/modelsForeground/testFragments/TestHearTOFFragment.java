@@ -25,7 +25,8 @@ import ecnu.chinesecharactercottage.modelsForeground.inject.InjectView;
 import ecnu.chinesecharactercottage.modelsForeground.inject.Injecter;
 
 /**
- * Created by 10040 on 2017/3/7.
+ * @author 胡家斌
+ * 听力判断题部分
  */
 
 public class TestHearTOFFragment extends Fragment {
