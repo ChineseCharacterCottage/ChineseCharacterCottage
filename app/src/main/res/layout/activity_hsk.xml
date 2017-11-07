@@ -10,7 +10,7 @@
     android:paddingRight="16dp"
     android:paddingTop="16dp"
     android:background="@color/colorCharBG"
-    tools:context="ecnu.chinesecharactercottage.activitys.CCCMainActivity">
+    tools:context="ecnu.chinesecharactercottage.activitys.HZWMainActivity">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                   android:layout_width="match_parent"

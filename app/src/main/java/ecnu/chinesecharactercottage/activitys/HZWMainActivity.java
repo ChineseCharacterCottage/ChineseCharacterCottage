@@ -22,7 +22,7 @@ import ecnu.chinesecharactercottage.modelsForeground.inject.Injecter;
  * 按键使用的自定义部件ChoseItem
  * @see ChoseItem
  */
-public class CCCMainActivity extends Activity {
+public class HZWMainActivity extends Activity {
     //核心功能按键
     //这里用到了相关的注释类，详细请查看modesForeground.inject包中的两个类
     //汉字学习按键
@@ -46,7 +46,7 @@ public class CCCMainActivity extends Activity {
      * @param context 需要跳转的活动上下文
      */
     public static void startActivity(Context context){
-        Intent intent=new Intent(context,CCCMainActivity.class);
+        Intent intent=new Intent(context,HZWMainActivity.class);
         context.startActivity(intent);
     }
 
@@ -69,7 +69,7 @@ public class CCCMainActivity extends Activity {
         mCharacterLeaning.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CharacterLearningActivity.startActivity(CCCMainActivity.this);
+                CharacterLearningActivity.startActivity(HZWMainActivity.this);
             }
         });
     }
@@ -79,7 +79,7 @@ public class CCCMainActivity extends Activity {
         mTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TestChoseActivity.startActivity(CCCMainActivity.this);
+                TestChoseActivity.startActivity(HZWMainActivity.this);
             }
         });
     }
@@ -89,7 +89,7 @@ public class CCCMainActivity extends Activity {
         mReview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CollectionChoseActivity.startActivity(CCCMainActivity.this);
+                CollectionChoseActivity.startActivity(HZWMainActivity.this);
             }
         });
     }
@@ -99,7 +99,7 @@ public class CCCMainActivity extends Activity {
         mKnowledge.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TitleListActivity.startActivity(CCCMainActivity.this);
+                TitleListActivity.startActivity(HZWMainActivity.this);
             }
         });
     }
@@ -109,7 +109,7 @@ public class CCCMainActivity extends Activity {
         mMainLearning.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MainLearningActivity.startActivity(CCCMainActivity.this);
+                MainLearningActivity.startActivity(HZWMainActivity.this);
             }
         });
     }
