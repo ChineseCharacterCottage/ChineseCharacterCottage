@@ -27,8 +27,6 @@ public class ListViewItemAdapter<T> extends ArrayAdapter<T> {
     private int mResourceId;
     //获取数据的方法名称
     private String mMethodName;
-    //数据存储器，保存一些数值避免重复加载，提高加载速度
-    private ViewHolder mViewHolder=null;
 
     /**
      * 构造函数，需要自定义的视图
@@ -57,20 +55,25 @@ public class ListViewItemAdapter<T> extends ArrayAdapter<T> {
     @NonNull
     public View getView(int position, View converView, @NonNull ViewGroup parent){
         T t=getItem(position);//从列表中获取对应项
-        View view;//需要渲染的视图
-        if(mViewHolder==null) {//如果数据存储器
+        ViewHolder viewHolder = null;//视图资源
+        View view = null;//需要渲染的视图
+        if(converView==null) {//如果数据存储器
             try {
                 //创建一个新的数据存储器，把项视图和方法名保存起来
-                mViewHolder=new ViewHolder(LayoutInflater.from(getContext()).inflate(mResourceId, null),
+                view = LayoutInflater.from(getContext()).inflate(mResourceId, null);
+                viewHolder=new ViewHolder(view.findViewById(R.id.text_view),
                         t.getClass().getDeclaredMethod(mMethodName));
-            } catch (NoSuchMethodException e) {
+                view.setTag(viewHolder);
+            } catch (NoSuchMethodException | NullPointerException e) {
                 e.printStackTrace();
             }
+        }else {
+            view = converView;
+            viewHolder = (ViewHolder)converView.getTag();
         }
-        view=mViewHolder.view;//从数据存储器获取视图
-        TextView figure=(TextView) view.findViewById(R.id.text_view);//绑定控件
+        TextView figure=(TextView)viewHolder.view ;//绑定控件
         try {
-            figure.setText((String)mViewHolder.method.invoke(t));//设置TextView内容
+            figure.setText((String)viewHolder.method.invoke(t));//设置TextView内容
         } catch (IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }
@@ -78,6 +81,7 @@ public class ListViewItemAdapter<T> extends ArrayAdapter<T> {
         return view;
     }
 
+    //数据存储器，保存一些数值避免重复加载，提高加载速度
     private class ViewHolder{
         //保存的视图
         public View view;
